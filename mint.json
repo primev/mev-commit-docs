@@ -55,15 +55,31 @@
     },
     {
       "group": "Quickstarts",
-      "pages": ["quickstart-bidder", "quickstart-provider", "quickstart-eth-user"]
+      "pages": [
+        "quickstart-bidder",
+        "quickstart-provider",
+        "quickstart-eth-user"
+      ]
     },
     {
       "group": "Concepts",
-      "pages": ["essentials/markdown", "essentials/code", "essentials/images", "essentials/settings", "essentials/navigation"]
+      "pages": [
+        "essentials/markdown",
+        "essentials/code",
+        "essentials/images",
+        "essentials/settings",
+        "essentials/navigation"
+      ]
     },
     {
       "group": "Reference",
-      "pages": ["essentials/markdown", "essentials/code", "essentials/images", "essentials/settings", "essentials/navigation"]
+      "pages": [
+        "essentials/markdown",
+        "essentials/code",
+        "essentials/images",
+        "essentials/settings",
+        "essentials/navigation"
+      ]
     },
     {
       "group": "API Documentation",

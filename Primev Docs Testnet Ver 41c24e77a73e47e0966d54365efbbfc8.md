@@ -42,7 +42,7 @@ Aligned with the ethos of the crypto community and Ethereum's foundational visio
 
 ### mev-commit
 
-Our first product, **mev-commit**, a key component of Primev, is a peer-to-peer networking software designed for real-time interaction between various mev actors. It enables the exchange of execution bids and commitments, offering a more granular and dynamic transaction execution experience. 
+Our first product, **mev-commit**, a key component of Primev, is a peer-to-peer networking software designed for real-time interaction between various mev actors. It enables the exchange of execution bids and commitments, offering a more granular and dynamic transaction execution experience.
 
 ### Contribute
 
@@ -95,49 +95,45 @@ The diagram below illustrates how **bids, commitments, and funds** flow with m
 The system architecture of mev-commit is composed of three primary components:
 
 - **API**:
-    - Features a gRPC/HTTP interface for main API interactions.
-    - Includes debug endpoints to access metrics, pprof, and other relevant information.
+  - Features a gRPC/HTTP interface for main API interactions.
+  - Includes debug endpoints to access metrics, pprof, and other relevant information.
 - **P2P Node**:
-    - Operates as a libp2p node, utilizing custom protocols for network communication.
+  - Operates as a libp2p node, utilizing custom protocols for network communication.
 - **Settlement Client**:
-    - Functions as a wrapped Ethereum client, responsible for issuing and managing transactions.
+  - Functions as a wrapped Ethereum client, responsible for issuing and managing transactions.
 
 ### mev-commit P2P Node
 
 The mev-commit P2P network comprises three distinct types of nodes:
 
 - Bootnode
-Bootnodes are nodes managed by the Primev team that provides service discovery. Bootnodes only run a subset of the p2p protocols that are responsible for creating connections and gossiping peer information across the network to achieve full connectivity between the different nodes.
+  Bootnodes are nodes managed by the Primev team that provides service discovery. Bootnodes only run a subset of the p2p protocols that are responsible for creating connections and gossiping peer information across the network to achieve full connectivity between the different nodes.
 - Bidder node
-Bidder nodes create signed bids and broadcast them to all the provider nodes on the mev-commit network and receive the signed commitments from the providers. Providers can accept/reject bids. The bidders will get commitments only for the accepted bids.
+  Bidder nodes create signed bids and broadcast them to all the provider nodes on the mev-commit network and receive the signed commitments from the providers. Providers can accept/reject bids. The bidders will get commitments only for the accepted bids.
 - Provider node
-Provider nodes will receive the signed bids from the bidders. They will communicate with the provider block-building infrastructure and decide whether they will accept the bid or not. Providers will accept bids if they have decided to include the transaction in the block that they are planning to propose. The commitments are also sent to the mev-commit settlement chain where they will be settled once the block is built on the L1 chain.
+  Provider nodes will receive the signed bids from the bidders. They will communicate with the provider block-building infrastructure and decide whether they will accept the bid or not. Providers will accept bids if they have decided to include the transaction in the block that they are planning to propose. The commitments are also sent to the mev-commit settlement chain where they will be settled once the block is built on the L1 chain.
 
 **Core Protocols in P2P Node**
 
 The P2P node implements key protocols to facilitate interaction among different actors. Currently, there are 3 main protocols:
 
 - **Handshake**
-When the nodes initially connect, they exchange signed messages with each other to authenticate themselves. They are allowed to participate in the other protocols only after the successful conclusion of the handshake.
-    - Provider nodes need to be **staked** in the provider registry before they can connect to other nodes.
+  When the nodes initially connect, they exchange signed messages with each other to authenticate themselves. They are allowed to participate in the other protocols only after the successful conclusion of the handshake. - Provider nodes need to be **staked** in the provider registry before they can connect to other nodes.
 
 ![Handshake.png](Primev%20Docs%20Testnet%20Ver%2041c24e77a73e47e0966d54365efbbfc8/Handshake.png)
 
 - **Discovery**
-To establish connections with other actors, the nodes need to gossip underlay information. The discovery protocol is used to achieve this. Currently, the network tries to establish a mesh topology; where all the nodes are connected.
-    
-    ![bootnode.png](Primev%20Docs%20Testnet%20Ver%2041c24e77a73e47e0966d54365efbbfc8/bootnode.png)
-    
+  To establish connections with other actors, the nodes need to gossip underlay information. The discovery protocol is used to achieve this. Currently, the network tries to establish a mesh topology; where all the nodes are connected.
+
+      ![bootnode.png](Primev%20Docs%20Testnet%20Ver%2041c24e77a73e47e0966d54365efbbfc8/bootnode.png)
 
 - Preconfirmations
-Once the nodes establish connectivity, they will start interacting with other actors on the preconfirmations protocol to exchange signed bids and commitments.
-    
-    ![mev p2p.png](Primev%20Docs%20Testnet%20Ver%2041c24e77a73e47e0966d54365efbbfc8/mev_p2p.png)
-    
+  Once the nodes establish connectivity, they will start interacting with other actors on the preconfirmations protocol to exchange signed bids and commitments.
+      ![mev p2p.png](Primev%20Docs%20Testnet%20Ver%2041c24e77a73e47e0966d54365efbbfc8/mev_p2p.png)
 
 ## Actors
 
-Network actors' roles are defined based on their interactions with other ecosystem actors. A diagram below depicts a given mev actor's relative placement compared to others. 
+Network actors' roles are defined based on their interactions with other ecosystem actors. A diagram below depicts a given mev actor's relative placement compared to others.
 
 ![mev-supply-chain.png](Primev%20Docs%20Testnet%20Ver%2041c24e77a73e47e0966d54365efbbfc8/mev-supply-chain.png)
 
@@ -194,7 +190,7 @@ Commitments represent promises made by providers in a cryptographically verifiab
       "commitmentDigest":"08a98d4c9d45f8431b46d99a23e6e8f82601ccf0773499d4e47bcd857cad92a6",
       "commitmentSignature":"cfc1e4e2ea9cc417027ed5846fa073c8e6031f70f91ffa9b92051b5b7738c0500d8fefb0fc189bce16004b3c0e1c4cfa41260968161adf8b55446ed5c40d1ac51b"
    }
-} 
+}
 ```
 
 The commitment consists of the details associated with the bid along with signatures made by the provider.
@@ -221,21 +217,21 @@ You can read more about how mev-commit enables execution commitment privacy [her
 
 ### **Services links**
 
-| Service | Link |
-| --- | --- |
+| Service           | Link                        |
+| ----------------- | --------------------------- |
 | Bootnode endpoint | http://34.215.163.180:8545/ |
-| Bridge frontend | http://34.215.163.180/ |
-| Block explorer | http://34.209.10.199/blocks |
+| Bridge frontend   | http://34.215.163.180/      |
+| Block explorer    | http://34.209.10.199/blocks |
 
 ### **Contract addresses**
 
-| Contract | Address |
-| --- | --- |
-| UserRegistry | 0x390066a15e1048445F1B1b69Ba98AC4cb5e91c52 |
-| ProviderRegistry | 0xeA73E67c2E34C4E02A2f3c5D416F59B76e7617fC |
+| Contract               | Address                                    |
+| ---------------------- | ------------------------------------------ |
+| UserRegistry           | 0x390066a15e1048445F1B1b69Ba98AC4cb5e91c52 |
+| ProviderRegistry       | 0xeA73E67c2E34C4E02A2f3c5D416F59B76e7617fC |
 | PreConfCommitmentStore | 0xBB632720f817792578060F176694D8f7230229d9 |
-| Oracle | 0x51dcB14bcb0B4eE747BE445550A4Fb53ecd31617 |
-| Whitelist | 0xc5bB85F941fb8dbbed6416A8aC84A06226E0f138 |
+| Oracle                 | 0x51dcB14bcb0B4eE747BE445550A4Fb53ecd31617 |
+| Whitelist              | 0xc5bB85F941fb8dbbed6416A8aC84A06226E0f138 |
 
 ### **Current design**
 
@@ -274,7 +270,7 @@ Although this oracle is currently centralized and operated by Primev, it can eve
 
 # Oracle
 
-***The primary role of the oracle is to ensure that the provider carries through on their commitments.***
+**_The primary role of the oracle is to ensure that the provider carries through on their commitments._**
 
 The oracle consists of two parts:
 
@@ -283,7 +279,7 @@ The oracle consists of two parts:
 
 ![oracle-detailed-overview.png](Primev%20Docs%20Testnet%20Ver%2041c24e77a73e47e0966d54365efbbfc8/oracle-detailed-overview.png)
 
-The oracle mechanism in this protocol automates the verification of provider commitments to include specific transactions in L1 blocks. The Oracle Microservice queries the L1 Data Source for transaction hashes and extra data, cross-references these with commitments logged in the Commitments Contract, and then the Oracle Contract verifies adherence. If a commitment is met, the Oracle Contract triggers a reward to the provider via the Bidder Contract; if not, it slashes the provider by interacting with the Provider Contract. 
+The oracle mechanism in this protocol automates the verification of provider commitments to include specific transactions in L1 blocks. The Oracle Microservice queries the L1 Data Source for transaction hashes and extra data, cross-references these with commitments logged in the Commitments Contract, and then the Oracle Contract verifies adherence. If a commitment is met, the Oracle Contract triggers a reward to the provider via the Bidder Contract; if not, it slashes the provider by interacting with the Provider Contract.
 
 ## Prior to Oracle Engagement
 
@@ -394,38 +390,32 @@ GLOBAL OPTIONS:
 ### If you're not using Docker:
 
 1. **Install `[buf](https://buf.build/docs/installation)`**:
-    - Follow the installation instructions for **`buf`** specific to your operating system.
+   - Follow the installation instructions for **`buf`** specific to your operating system.
 2. **Generate Required Files**:
-    - Open your command line and run:
-        
-        ```
-        Copy code
-        buf generate
-        
-        ```
-        
+   - Open your command line and run:
+     ```
+     Copy code
+     buf generate
+
+     ```
 3. **Compile mev-commit**:
-    - In the command line, execute:
-        
-        ```go
-        goCopy code
-        go build -o mev-commit ./cmd/main.go
-        
-        ```
-        
+   - In the command line, execute:
+     ```go
+     goCopy code
+     go build -o mev-commit ./cmd/main.go
+
+     ```
 
 ### If you're using Docker:
 
 1. **Build Docker Image**:
-    - Open your terminal and navigate to where your Dockerfile is located.
-    - Run:
-        
-        ```sql
-        sqlCopy code
-        docker build -t mev-commit:latest .
-        
-        ```
-        
+   - Open your terminal and navigate to where your Dockerfile is located.
+   - Run:
+     ```sql
+     sqlCopy code
+     docker build -t mev-commit:latest .
+
+     ```
 
 ## Cryptographic Stack
 
@@ -440,25 +430,17 @@ Our system employs keccak256 (SHA-3) for hashing, aligning with EVM standards fo
 ## FAQ
 
 - What is a Prepay amount?
-    
-    The prepay amount, or allowance, is a deposit bidders make to enable bidding. For instance, to place 10 bids of 100 gwei each, a bidder would deposit 1000 gwei as a prepay. This helps the provider monitor preconfirmed bids and ensures bidders don't exceed their specified allowance.
-    
+  The prepay amount, or allowance, is a deposit bidders make to enable bidding. For instance, to place 10 bids of 100 gwei each, a bidder would deposit 1000 gwei as a prepay. This helps the provider monitor preconfirmed bids and ensures bidders don't exceed their specified allowance.
 - I’m getting the following error: “failed to read msg: stream reset”
-    
-    If you’re a provider node, this is likely due to a lack of staking and registration on the provider contract. Follow the instructions under *Step 7. Stake Funds and Register,* to resolve this issue.
-    
+  If you’re a provider node, this is likely due to a lack of staking and registration on the provider contract. Follow the instructions under _Step 7. Stake Funds and Register,_ to resolve this issue.
 - Why does cast need to be used?
-    
-    Cast is used in various situations to allow users to interact with the mev-commit chain. However, you can feel free to use any EVM-compatible tooling and set the RPC URL accordingly.
-    
-- What is Foundry? 
-Foundry is a suite of tools that allows for both smart contract development and interactions. It’s used extensively for the deployment, testing, and interactions with mev-commit contracts.
+  Cast is used in various situations to allow users to interact with the mev-commit chain. However, you can feel free to use any EVM-compatible tooling and set the RPC URL accordingly.
+- What is Foundry?
+  Foundry is a suite of tools that allows for both smart contract development and interactions. It’s used extensively for the deployment, testing, and interactions with mev-commit contracts.
 - Do I need to install Cast?
-No, however, it can make doing things like transferring funds for interacting with smart contracts easier.
+  No, however, it can make doing things like transferring funds for interacting with smart contracts easier.
 - Why do I get the same commitment back when I resend a bid?
-    
-    This is because the commitments work based on hashes and ECDSA signature schemes. These schemes are deterministic, such that as long as the bid payload and bidder private key remains the same, and the provider private key remains the same, the output commitment will be the same, even if the bid is sent more than once.
-    
+  This is because the commitments work based on hashes and ECDSA signature schemes. These schemes are deterministic, such that as long as the bid payload and bidder private key remains the same, and the provider private key remains the same, the output commitment will be the same, even if the bid is sent more than once.
 
 # mev-commit Testnet
 
@@ -494,119 +476,116 @@ Primev will maintain a testnet consisting of the mev-commit chain, oracle servic
 
 Please refer to System Requirements section [here.](Primev%20Docs%20Testnet%20Ver%2041c24e77a73e47e0966d54365efbbfc8.md)
 
-## ****Configuration****
+## \***\*Configuration\*\***
 
 1. Run mev-commit using the instructions [here.](Primev%20Docs%20Testnet%20Ver%2041c24e77a73e47e0966d54365efbbfc8.md)
 2. **Generate ECDSA Private Key**:
-    - An ECDSA private key is required to create an Ethereum address for the node as well as to use for the P2P network. Bidders can add an existing key or create a new key using the `create-key` command.
-    
-    ```sql
-    NAME:
-       mev-commit create-key - Create a new ECDSA private key and save it to a file
-    
-    USAGE:
-       mev-commit create-key [command options] <output_file>
-    
-    OPTIONS:
-       --help, -h  show help
-    ```
-    
+
+   - An ECDSA private key is required to create an Ethereum address for the node as well as to use for the P2P network. Bidders can add an existing key or create a new key using the `create-key` command.
+
+   ```sql
+   NAME:
+      mev-commit create-key - Create a new ECDSA private key and save it to a file
+
+   USAGE:
+      mev-commit create-key [command options] <output_file>
+
+   OPTIONS:
+      --help, -h  show help
+   ```
+
 3. **Create a YAML Configuration File**:
-    - Use the examples in the **`config`** folder of the project as a reference.
-    - Once the key is available, create a yaml config file. Example config files are available in the [config](https://github.com/primevprotocol/mev-commit/tree/main/config) folder. The important options are defined below:
-    
-    ```sql
-    # Path to private key file.
-    priv_key_file: ~/.mev-commit/keys/nodekey
-    
-    # Type of peer. Options are provider and bidder.
-    peer_type: provider
-    
-    # Port used for P2P traffic. If not configured, 13522 is the default.
-    p2p_port: 13522
-    
-    # Port used for HTTP traffic. If not configured, 13523 is the default.
-    http_port: 13523
-    
-    # Port used for RPC traffic. If not configured, 13524 is the default.
-    rpc_port: 13524
-    
-    # Secret for the node. This is used to authorize the nodes. The value doesnt matter as long as it is sufficiently unique. It is signed using the private key.
-    secret: hello
-    
-    # Format used for the logs. Options are "text" or "json".
-    log_fmt: text
-    
-    # Log level. Options are "debug", "info", "warn" or "error".
-    log_level: debug
-    
-    # Bootnodes used for bootstrapping the network.
-    bootnodes:
-      - /ip4/35.91.118.20/tcp/13522/p2p/16Uiu2HAmAG5z3E8p7o19tEcLdGvYrJYdD1NabRDc6jmizDva5BL3
-    
-    # The default is set to false for development reasons. Change it to true if you wish to accept bids on your provider instance
-    expose_provider_api: false
-    ```
-    
+
+   - Use the examples in the **`config`** folder of the project as a reference.
+   - Once the key is available, create a yaml config file. Example config files are available in the [config](https://github.com/primevprotocol/mev-commit/tree/main/config) folder. The important options are defined below:
+
+   ```sql
+   # Path to private key file.
+   priv_key_file: ~/.mev-commit/keys/nodekey
+
+   # Type of peer. Options are provider and bidder.
+   peer_type: provider
+
+   # Port used for P2P traffic. If not configured, 13522 is the default.
+   p2p_port: 13522
+
+   # Port used for HTTP traffic. If not configured, 13523 is the default.
+   http_port: 13523
+
+   # Port used for RPC traffic. If not configured, 13524 is the default.
+   rpc_port: 13524
+
+   # Secret for the node. This is used to authorize the nodes. The value doesnt matter as long as it is sufficiently unique. It is signed using the private key.
+   secret: hello
+
+   # Format used for the logs. Options are "text" or "json".
+   log_fmt: text
+
+   # Log level. Options are "debug", "info", "warn" or "error".
+   log_level: debug
+
+   # Bootnodes used for bootstrapping the network.
+   bootnodes:
+     - /ip4/35.91.118.20/tcp/13522/p2p/16Uiu2HAmAG5z3E8p7o19tEcLdGvYrJYdD1NabRDc6jmizDva5BL3
+
+   # The default is set to false for development reasons. Change it to true if you wish to accept bids on your provider instance
+   expose_provider_api: false
+   ```
+
 4. **Start the mev-commit Node**:
-    - Place your config file in a **`.mev-commit`** folder in your home directory.
-    - Once this is done, users can start the node using the `start` command.
-        
-        ```sql
-        NAME:
-           mev-commit start - Start the mev-commit node
-        
-        USAGE:
-           mev-commit start [command options] [arguments...]
-        
-        OPTIONS:
-           --config value  path to config file [$MEV_COMMIT_CONFIG]
-           --help, -h      show help
-        ```
-        
+   - Place your config file in a **`.mev-commit`** folder in your home directory.
+   - Once this is done, users can start the node using the `start` command.
+     ```sql
+     NAME:
+        mev-commit start - Start the mev-commit node
+
+     USAGE:
+        mev-commit start [command options] [arguments...]
+
+     OPTIONS:
+        --config value  path to config file [$MEV_COMMIT_CONFIG]
+        --help, -h      show help
+     ```
 5. **Optional: Monitor Node Status**:
-    - Use **`/topology`** endpoint on the HTTP port to check peer connections.
-    
-    ```
-    {
-       "self": {
-          "Addresses": [
-             "/ip4/127.0.0.1/tcp/13526",
-             "/ip4/192.168.1.103/tcp/13526",
-             "/ip4/192.168.100.5/tcp/18625"
-          ],
-          "Ethereum Address": "0x55B3B672DEB14178615F648911e76b7FE1B23e5D",
-          "Peer Type": "provider",
-          "Underlay": "16Uiu2HAmBykfyf9A5DnRguHNS1mvSaprzYEkjRf6uafLU4javG4L"
-       },
-       "connected_peers": {
-          "providers": [
-             "0xca61596ccef983eb7cae42340ec553dd89881403"
-          ]
-       }
-    }
-    ```
-    
+
+   - Use **`/topology`** endpoint on the HTTP port to check peer connections.
+
+   ```
+   {
+      "self": {
+         "Addresses": [
+            "/ip4/127.0.0.1/tcp/13526",
+            "/ip4/192.168.1.103/tcp/13526",
+            "/ip4/192.168.100.5/tcp/18625"
+         ],
+         "Ethereum Address": "0x55B3B672DEB14178615F648911e76b7FE1B23e5D",
+         "Peer Type": "provider",
+         "Underlay": "16Uiu2HAmBykfyf9A5DnRguHNS1mvSaprzYEkjRf6uafLU4javG4L"
+      },
+      "connected_peers": {
+         "providers": [
+            "0xca61596ccef983eb7cae42340ec553dd89881403"
+         ]
+      }
+   }
+   ```
+
 6. **Docker Compose Users**:
-    - To start the nodes, run:
-        
-        ```css
-        docker-compose up --build
-        
-        ```
-        
-    - To stop the service:
-        
-        ```
-        
-        docker-compose down
-        
-        ```
-        
+   - To start the nodes, run:
+     ```css
+     docker-compose up --build
+
+     ```
+   - To stop the service:
+     ```
+
+     docker-compose down
+
+     ```
 
 ## API Integration
 
-### ****For Providers****
+### \***\*For Providers\*\***
 
 Execution providers can use the `provider` role to run their nodes. This allows them to receive signed bids and issue commitments for execution. They will use the **Provider RPC API** to receive signed bids that are being propagated in the network. Once they get a bid, they'll need to communicate with the mev-commit node to **Accept**. Accepted bids result in the mev-commit node sending a signed commitment to the p2p network.
 
@@ -637,7 +616,7 @@ The same API is also available on the HTTP port configured on the node. Please r
 
 An [example client(opens in a new tab)](https://github.com/primevprotocol/mev-commit/tree/main/examples/provideremulator) is implemented in the repository. This example showcases how to integrate a client into the provider's operational framework. While the sample client automatically accepts every incoming bid, providers should incorporate their own decision-making logic to evaluate and respond to these bids.
 
-### F****or Bidders****
+### F\***\*or Bidders\*\***
 
 Bidders will use the `bidder` role to run their nodes. The node provides the **Bidder API** to submit bids to the network and will sign the bid before sending it out. In response, bidders will receive commitments from providers if their bid is accepted. This is a streaming response, and bidders are expected to keep their connection alive until their node receives all relevant commitments.
 
@@ -694,7 +673,7 @@ For advanced users, pprof endpoints are available at `/debug/pprof` for perfor
 
 # Contracts
 
-The purpose of smart contracts is to verify and manage the movement of funds as a response to bid and commitment activities that occur on our p2p network. 
+The purpose of smart contracts is to verify and manage the movement of funds as a response to bid and commitment activities that occur on our p2p network.
 
 ![Contract Architecture.png](Primev%20Docs%20Testnet%20Ver%2041c24e77a73e47e0966d54365efbbfc8/Contract_Architecture.png)
 
@@ -703,16 +682,16 @@ The purpose of smart contracts is to verify and manage the movement of funds as 
 The Core Protocol has 4 Key Contracts:
 
 - PreConfirmations Contract
-    - This will persist details about the commitments that have been made into contract storage
+  - This will persist details about the commitments that have been made into contract storage
 - Bidder Registry Contract
-    - This will be where the bulk of monetary transfer occurs
-    - Bidders prepay for bids into this contract
-    - The payment gets processed into a provider-allocated section that a provider can later retrieve
+  - This will be where the bulk of monetary transfer occurs
+  - Bidders prepay for bids into this contract
+  - The payment gets processed into a provider-allocated section that a provider can later retrieve
 - Provider Registry Contract
-    - This contract stores the stake a provider bounds to ensure it doesn’t break its promises under pre-confirmations
+  - This contract stores the stake a provider bounds to ensure it doesn’t break its promises under pre-confirmations
 - Oracle Contract
-    - This simply retrieves details on which commitments to process for rewarding or slashing.
-    - Access to the functions on this contract is restricted to the owner of the Oracle key
+  - This simply retrieves details on which commitments to process for rewarding or slashing.
+  - Access to the functions on this contract is restricted to the owner of the Oracle key
 
 ## Whitelist Contract
 
@@ -722,11 +701,11 @@ We envision mev-commit to eventually integrate a multitude of bridges to other c
 
 A whitelist contract is responsible for managing a whitelist of addresses that can mint/burn native ether as a part of bridging. Note this contract can be easily integrated with any bridging implementation. Most of the time, integration is simple - replace a line of code that mints wrapped ERC20 tokens on the destination chain with a call to the whitelist contract’s mint function.
 
-To demonstrate how this contract can be integrated with a bridge, we use hyperlane as an example. First, the address where the whitelist contract will be deployed is precomputed with the CREATE2 opcode as a function of the deployer address, salt, and contract bytecode. This precomputed address is hardcoded or set into both the custom geth clients’ precompiles, and the hyperlane contracts. 
+To demonstrate how this contract can be integrated with a bridge, we use hyperlane as an example. First, the address where the whitelist contract will be deployed is precomputed with the CREATE2 opcode as a function of the deployer address, salt, and contract bytecode. This precomputed address is hardcoded or set into both the custom geth clients’ precompiles, and the hyperlane contracts.
 
-Next, the mev-commit chain is started from genesis, and the hyperlane bridging contracts are deployed. The predetermined admin account then deploys the whitelist contract, and finally submits a permissioned transaction that adds the `HypERC20.sol` contract address to the whitelist. Note only the admin account is able to mutate the on-chain whitelist, and will mutate this list for existing bridge upgrades, or new bridge deployments. 
+Next, the mev-commit chain is started from genesis, and the hyperlane bridging contracts are deployed. The predetermined admin account then deploys the whitelist contract, and finally submits a permissioned transaction that adds the `HypERC20.sol` contract address to the whitelist. Note only the admin account is able to mutate the on-chain whitelist, and will mutate this list for existing bridge upgrades, or new bridge deployments.
 
-Note the `HypERC20.sol` contract inherits ERC20Upgradeable, but the hyperlane stack doesn’t seem to implement a proxy contract. Luckily the whitelist contract naturally makes `HypERC20.sol` upgradable in that the whitelist is mutable. 
+Note the `HypERC20.sol` contract inherits ERC20Upgradeable, but the hyperlane stack doesn’t seem to implement a proxy contract. Luckily the whitelist contract naturally makes `HypERC20.sol` upgradable in that the whitelist is mutable.
 
 ## Fee Vault Contract
 
@@ -766,11 +745,11 @@ Largely addressed in [mev-commit chain bridge design and failsafes (WIP)](https:
 
 Let’s consider the relationship between mev-commit native ether, and aggregate mainnet L1 ether that is locked in bridging contracts. The mev-commit chain fee mechanism must be non-inflationary. Otherwise, overtime there’d be more ether on our sidechain than could be withdrawn from the L1 bridge contract.
 
-On mainnet ethereum with EIP-1559, proposers receive a block reward created by the network, along with any accumulated priority fees for transactions in the block. Base fees are burned. Depending on network load, this fee mechanism can be inflationary or deflationary. 
+On mainnet ethereum with EIP-1559, proposers receive a block reward created by the network, along with any accumulated priority fees for transactions in the block. Base fees are burned. Depending on network load, this fee mechanism can be inflationary or deflationary.
 
-The mev-commit chain will implement a fee model that maintains a 1:1 peg between sidechain ether and L1 escrowed ether, meaning **any transaction executed on the mev-commit does not change the total supply of native ether**. This property circumvents the need for accounting logic related to bridging. 
+The mev-commit chain will implement a fee model that maintains a 1:1 peg between sidechain ether and L1 escrowed ether, meaning **any transaction executed on the mev-commit does not change the total supply of native ether**. This property circumvents the need for accounting logic related to bridging.
 
-Specifically, the mev-commit chain implements a variation of EIP-1559. The clique POA protocol does [not have block rewards](https://github.com/primevprotocol/go-ethereum/blob/7d52a7068edd08650dc267d26cb8059ece55bc84/consensus/clique/clique.go#L587). Base fees accumulate to a Primev treasury address, and priority fee sent to the signer of a block. See [this PR](https://github.com/primevprotocol/go-ethereum/pull/9). Separate application level fees can be defined as necessary. 
+Specifically, the mev-commit chain implements a variation of EIP-1559. The clique POA protocol does [not have block rewards](https://github.com/primevprotocol/go-ethereum/blob/7d52a7068edd08650dc267d26cb8059ece55bc84/consensus/clique/clique.go#L587). Base fees accumulate to a Primev treasury address, and priority fee sent to the signer of a block. See [this PR](https://github.com/primevprotocol/go-ethereum/pull/9). Separate application level fees can be defined as necessary.
 
 # Security Best Practices
 
@@ -778,37 +757,37 @@ Specifically, the mev-commit chain implements a variation of EIP-1559. The cliqu
 
 Even with great op-sec and the protocols described above, it’ll be desirable to have worst case scenario fail safe mechanisms set in place for the bridge. L1 Ethereum is naturally the “canonical chain”, and failsafes should revolve around the idea that correct L1 state is most important.
 
-Note some of these mechanisms may already exist “off the shelf” for competitors to hyperlane. Hyperlane provides a lot of flexibility, at the cost of having to build these security mechanisms ourselves. It’s not feasible to implement everything described here before testnet release. However, this section can at least serve as a useful wishlist for any bridging protocol we decide to integrate in the medium/long term. 
+Note some of these mechanisms may already exist “off the shelf” for competitors to hyperlane. Hyperlane provides a lot of flexibility, at the cost of having to build these security mechanisms ourselves. It’s not feasible to implement everything described here before testnet release. However, this section can at least serve as a useful wishlist for any bridging protocol we decide to integrate in the medium/long term.
 
 ### mev-commit chain halt
 
 Implementation Status: N/A ✅
 
-In the scenario that mev-commit chain state is compromised, the easiest failsafe is to halt the mev-commit chain and/or bridge validators before any auxiliary damage can be done. For example, the validator set monitoring L1 state could be compromised, or the deployer admin multisig mentioned above could be compromised. 
+In the scenario that mev-commit chain state is compromised, the easiest failsafe is to halt the mev-commit chain and/or bridge validators before any auxiliary damage can be done. For example, the validator set monitoring L1 state could be compromised, or the deployer admin multisig mentioned above could be compromised.
 
 ### L1 Unlock Rate Limiting
 
 Implementation Status: In progress (externally) ⚒️
 
-Since anyone can unlock and receive funds from the L1 hyperlane contract with proper message delivery and validation, rate limiting is extremely important. If mev-commit chain state and/or the bridge validator set (monitoring mev-commit chain state) are compromised, an attacker could only steal a rate limited amount of ether on L1 over time. This allows time for developers to take action during an attack scenario, before the L1 contract is drained of funds. This rate limiting mechanism would be implemented within the hyperlane ISM that’ll exist on L1.   
+Since anyone can unlock and receive funds from the L1 hyperlane contract with proper message delivery and validation, rate limiting is extremely important. If mev-commit chain state and/or the bridge validator set (monitoring mev-commit chain state) are compromised, an attacker could only steal a rate limited amount of ether on L1 over time. This allows time for developers to take action during an attack scenario, before the L1 contract is drained of funds. This rate limiting mechanism would be implemented within the hyperlane ISM that’ll exist on L1.
 
-Solidity has support for accessing the current block’s `block.number` or `block.timestamp` allowing us to define custom logic as to how much ether can be unlocked to users per time period. A simple protocol could specify that `X` ether can be unlocked from L1 every `Y` seconds, where we tune the `X` and `Y` parameters as desired. If the unlock limit is reached, an event is emitted which can alert a monitoring service that a potential attack has ensued. At that time the core team can either leave the system alone if the unlock is legit, or freeze the bridge. 
+Solidity has support for accessing the current block’s `block.number` or `block.timestamp` allowing us to define custom logic as to how much ether can be unlocked to users per time period. A simple protocol could specify that `X` ether can be unlocked from L1 every `Y` seconds, where we tune the `X` and `Y` parameters as desired. If the unlock limit is reached, an event is emitted which can alert a monitoring service that a potential attack has ensued. At that time the core team can either leave the system alone if the unlock is legit, or freeze the bridge.
 
-This protocol seems simple, but would require a “meter” variable tracking ether unlocked during the current time period. As well as logic around resetting said meter variable once the current time period has elapsed. Since EVM does not permit automatic contract execution, we’d also have to integrate retry logic for bridge users. See [a similar protocol](https://cosmos.github.io/interchain-security/adrs/adr-002-throttle) designed for the cosmos hub. 
+This protocol seems simple, but would require a “meter” variable tracking ether unlocked during the current time period. As well as logic around resetting said meter variable once the current time period has elapsed. Since EVM does not permit automatic contract execution, we’d also have to integrate retry logic for bridge users. See [a similar protocol](https://cosmos.github.io/interchain-security/adrs/adr-002-throttle) designed for the cosmos hub.
 
-It’s likely that some of the available bridging projects have rate limiting mechanisms that we can use. Hyperlane has an [open issue for it](https://github.com/hyperlane-xyz/hyperlane-monorepo/issues/2697). 
+It’s likely that some of the available bridging projects have rate limiting mechanisms that we can use. Hyperlane has an [open issue for it](https://github.com/hyperlane-xyz/hyperlane-monorepo/issues/2697).
 
-In the future it’ll be desirable to rate limit minting/burning of native ether on a per-bridge basis. This could depend on the particular bridge implementation in question, or we could build our own generalizable rate limiter. 
+In the future it’ll be desirable to rate limit minting/burning of native ether on a per-bridge basis. This could depend on the particular bridge implementation in question, or we could build our own generalizable rate limiter.
 
 ### Bridge Recovery Mode Ideas
 
 Implementation Status: Not started ❌
 
-Hyperlane allows for customization around security failsafes. We can leverage a [Routing ISM](https://v2.hyperlane.xyz/docs/protocol/sovereign-consensus/routing-ism) to toggle between one of two security models on L1. In the normal scenario, a hyperlane validator multisig is used for message validation. 
+Hyperlane allows for customization around security failsafes. We can leverage a [Routing ISM](https://v2.hyperlane.xyz/docs/protocol/sovereign-consensus/routing-ism) to toggle between one of two security models on L1. In the normal scenario, a hyperlane validator multisig is used for message validation.
 
 In an emergency scenario, a more secure multisig (likely the same as Primev treasury multisig) sends a permissioned tx to the Routing ISM, which freezes normal bridge unlocks. The normal hyperlane validator multisig is no longer valid, and bridge control is delegated to the more secure treasury multisig.
 
-From here, we have some options: 
+From here, we have some options:
 
 - Interchain messages could be validated manually by the more secure multisig
 - Time locks could be used to restore normal functionality to the bridge after a week or two
@@ -884,76 +863,51 @@ We provide advanced instructions for those of you who want to customize the star
 - `curl`
 - `terminal`
 - `cast` Install using `curl -L [https://foundry.paradigm.xyz](https://foundry.paradigm.xyz/) | bash`
-    - run foundryup
+  - run foundryup
 
 ## Running the Bidder Node
 
 - Step 1. Check your CPU architecture
-    
-    ```bash
-    uname # This will give you the OS type
-    uname -m # This will give you the chip architecture
-    ```
-    
+  ```bash
+  uname # This will give you the OS type
+  uname -m # This will give you the chip architecture
+  ```
 - Step 2. Pull The Required Binary of mev-commit based on your CPU architecture
-    
-    Download the binaries from the following 
-    
-    [https://github.com/primevprotocol/mev-commit/releases/tag/v0.1.0](https://github.com/primevprotocol/mev-commit/releases/tag/v0.1.0)
-    
-    Unzip the binary and store in a root directory of your choice
-    
+  Download the binaries from the following
+  [https://github.com/primevprotocol/mev-commit/releases/tag/v0.1.0](https://github.com/primevprotocol/mev-commit/releases/tag/v0.1.0)
+  Unzip the binary and store in a root directory of your choice
 - Step 3. Place the binary, named mev-commit, into a folder of your choice
-    
-    Note this will be considered the root folder of your mev-commit
-    
+  Note this will be considered the root folder of your mev-commit
 - Step 4. Run the initialization
-    
-    cd into the folder that contains the mev-commit binary and run the following command
-    
-    ```bash
-    ./mev-commit init --dir . --rpc-endpoint http://69.67.151.95:8545  --peer-type bidder
-    ```
-    
-    This will create both a private key file and a config.yaml file and store it in your current directory.
-    
-    While in the directory, run the following command to export relevant data about your address and private key:
-    
-    ```bash
-    export KEY=$(cat key)
-    export ADDRESS=$(cast wallet address --private-key 0x$(cat key))
-    ```
-    
+  cd into the folder that contains the mev-commit binary and run the following command
+  ```bash
+  ./mev-commit init --dir . --rpc-endpoint http://69.67.151.95:8545  --peer-type bidder
+  ```
+  This will create both a private key file and a config.yaml file and store it in your current directory.
+  While in the directory, run the following command to export relevant data about your address and private key:
+  ```bash
+  export KEY=$(cat key)
+  export ADDRESS=$(cast wallet address --private-key 0x$(cat key))
+  ```
 - Step 5. Fund the account
-    
-    In the same shell run the following command to transfer a 100 ether into your wallet from a faucet account:
-    
-    ```bash
-    cast send --rpc-url [http://69.67.151.95:8545](http://69.67.151.95:8545/) --private-key 0x7c9bf0f015874594d321c1c01ada3166c3509bbd91f76f9e4d7380c2df269c55 $ADDRESS --value 100ether
-    ```
-    
+  In the same shell run the following command to transfer a 100 ether into your wallet from a faucet account:
+  ```bash
+  cast send --rpc-url [http://69.67.151.95:8545](http://69.67.151.95:8545/) --private-key 0x7c9bf0f015874594d321c1c01ada3166c3509bbd91f76f9e4d7380c2df269c55 $ADDRESS --value 100ether
+  ```
 - Step 6. Run the node
-    1. cd into the folder with your mev-commit binary
-    2. Run the Node:
-    
-    ```bash
-    ./mev-commit start --config=~/config.yaml
-    ```
-    
+  1. cd into the folder with your mev-commit binary
+  2. Run the Node:
+  ```bash
+  ./mev-commit start --config=~/config.yaml
+  ```
 - Step 7. Prepay for bids
-    
-    ### Prepaying for Bids
-    
-    The bidder needs to prepay a certain amount onto the primev contracts to allow them to send bids and receive commitments. This is to ensure that providers can pull funds once the bids have been completed.
-    
-    To prepay, first **********************************************open a new terminal********************************************** and run the following command:
-    
-    ```bash
-    curl -X POST http://localhost:13523/v1/bidder/prepay/1000000000000000000
-    ```
-    
-    This will prepay `1000000000000000000 wei` into your account.
-    
+  ### Prepaying for Bids
+  The bidder needs to prepay a certain amount onto the primev contracts to allow them to send bids and receive commitments. This is to ensure that providers can pull funds once the bids have been completed.
+  To prepay, first **********************\*\***********************open a new terminal**********************\*\*********************** and run the following command:
+  ```bash
+  curl -X POST http://localhost:13523/v1/bidder/prepay/1000000000000000000
+  ```
+  This will prepay `1000000000000000000 wei` into your account.
 
 ## Interacting with the Bidder Node
 
@@ -999,10 +953,8 @@ This will prepay `1000000000000000000 wei` into your account.
 
 </aside>
 
-- **********************************************************************Optional - Use Postman to send bids**********************************************************************
-    
-    If you’ve got a Postman account and postman agent installed, you can use [the following link](https://primev.postman.co/workspace/Team-Workspace~18870d84-94f0-4d1e-8163-db558f83d7e8/request/27192304-fab87a71-9722-46f8-825f-d9791ead6178?ctx=documentation&tab=body) to send bids Via Postman 
-    
+- **********************************\*\***********************************Optional - Use Postman to send bids**********************************\*\***********************************
+  If you’ve got a Postman account and postman agent installed, you can use [the following link](https://primev.postman.co/workspace/Team-Workspace~18870d84-94f0-4d1e-8163-db558f83d7e8/request/27192304-fab87a71-9722-46f8-825f-d9791ead6178?ctx=documentation&tab=body) to send bids Via Postman
 
 ### Checking Prepayed Balance
 
@@ -1074,47 +1026,31 @@ We provide advanced instructions for those of you who want to customize the star
 - `curl`
 - `terminal`
 - `cast` Install using `curl -L [https://foundry.paradigm.xyz](https://foundry.paradigm.xyz/) | bash`
-    - run foundryup
+  - run foundryup
 - Step 1. Check your CPU architecture
-    
-    ```bash
-    uname # This will give you the OS type
-    uname -m # This will give you the chip architecture
-    ```
-    
+  ```bash
+  uname # This will give you the OS type
+  uname -m # This will give you the chip architecture
+  ```
 - Step 2. Pull The Required Binary of mev-commit based on your CPU architecture
-    
-    Download the binaries from the following 
-    
-    [https://github.com/primevprotocol/mev-commit/releases/tag/v0.1.0](https://github.com/primevprotocol/mev-commit/releases/tag/v0.1.0)
-    
-    Unzip the binary and store in a root directory of your choice
-    
+  Download the binaries from the following
+  [https://github.com/primevprotocol/mev-commit/releases/tag/v0.1.0](https://github.com/primevprotocol/mev-commit/releases/tag/v0.1.0)
+  Unzip the binary and store in a root directory of your choice
 - Step 3. Place the binary, named mev-commit, into a folder of your choice
-    
-    Note this will be considered the root folder of your mev-commit
-    
+  Note this will be considered the root folder of your mev-commit
 - Step 4. Run the initialization
-    
-    cd into the folder that contains the mev-commit binary and run the following command
-    
-    ```bash
-    ./mev-commit init --dir . --rpc-endpoint http://69.67.151.95:8545  --peer-type provider
-    ```
-    
-    This will create both a private key file and a config.yaml file and store it in your current directory.
-    
-    While in the directory, run the following command to export relevant data about your address and private key:
-    
-    ```bash
-    export KEY=$(cat key)
-    export ADDRESS=$(cast wallet address --private-key 0x$(cat key))
-    ```
-    
+  cd into the folder that contains the mev-commit binary and run the following command
+  ```bash
+  ./mev-commit init --dir . --rpc-endpoint http://69.67.151.95:8545  --peer-type provider
+  ```
+  This will create both a private key file and a config.yaml file and store it in your current directory.
+  While in the directory, run the following command to export relevant data about your address and private key:
+  ```bash
+  export KEY=$(cat key)
+  export ADDRESS=$(cast wallet address --private-key 0x$(cat key))
+  ```
 - Step 5. Fund the account
-    
-    cd to the folder where you’ve stored the key and run the following command to transfer a 100 ether into your wallet from a faucet account:
-    
+  cd to the folder where you’ve stored the key and run the following command to transfer a 100 ether into your wallet from a faucet account:
     <aside>
     ❗ If you’ve named the private key file something other than key, change key to the correct name in `--private-key 0x$(cat ***key***))`
     
@@ -1123,23 +1059,18 @@ We provide advanced instructions for those of you who want to customize the star
     ```bash
     cast send --rpc-url [http://69.67.151.95:8545](http://69.67.151.95:8545/) --private-key 0x7c9bf0f015874594d321c1c01ada3166c3509bbd91f76f9e4d7380c2df269c55 $(cast wallet address --private-key 0x$(cat key)) --value 100ether
     ```
-    
+
 - Step 6. Run the node
-    1. cd into the folder with your mev-commit binary
-    2. Run the Node:
-    
-    ```bash
-    ./mev-commit start --config=~/config.yaml
-    ```
-    
+  1. cd into the folder with your mev-commit binary
+  2. Run the Node:
+  ```bash
+  ./mev-commit start --config=~/config.yaml
+  ```
 - Step 7. Stake Funds and Register
-    
-    This command is used to ensure that your provider has been registered with a stake in our protocol. This is used to ensure it can connect with the mev-commit-p2p network. Ensure you run this command in the mev-commit directory.
-    
-    ```bash
-    cast send 0xeA73E67c2E34C4E02A2f3c5D416F59B76e7617fC "registerAndStake()" $(cast wallet address --private-key 0x$(cat key)) --rpc-url http://69.67.151.95:8545 --private-key $(cat key) --value 100ether
-    ```
-    
+  This command is used to ensure that your provider has been registered with a stake in our protocol. This is used to ensure it can connect with the mev-commit-p2p network. Ensure you run this command in the mev-commit directory.
+  ```bash
+  cast send 0xeA73E67c2E34C4E02A2f3c5D416F59B76e7617fC "registerAndStake()" $(cast wallet address --private-key 0x$(cat key)) --rpc-url http://69.67.151.95:8545 --private-key $(cat key) --value 100ether
+  ```
 
 ## gRPC Node Connection
 
@@ -1151,36 +1082,32 @@ Once a provider node is up and running, you can use the `ReceiveBids` stream to 
 </aside>
 
 - Config file with ProviderAPIEnabled set to true
-    
-    ```yaml
-    **expose_provider_api: true**
-    priv_key_file: /path/to/key
-    peer_type: provider
-    p2p_port: 13522
-    http_port: 13523
-    rpc_port: 13524
-    secret: hello
-    log_fmt: text
-    log_level: debug
-    bidder_registry_contract: 0x62197Abd7672925c7606Bdf9931e42baCa6619AD
-    provider_registry_contract: 0xeA73E67c2E34C4E02A2f3c5D416F59B76e7617fC
-    preconf_contract: 0xBB632720f817792578060F176694D8f7230229d9
-    rpc_endpoint: http://69.67.151.95:8545
-    bootnodes:
-      - /ip4/69.67.151.95/tcp/13522/p2p/16Uiu2HAmLYUvthfDCewNMdfPhrVefBbsfaPL22fWWfC2zuoh5SpV
-    ```
-    
+  ```yaml
+  **expose_provider_api: true**
+  priv_key_file: /path/to/key
+  peer_type: provider
+  p2p_port: 13522
+  http_port: 13523
+  rpc_port: 13524
+  secret: hello
+  log_fmt: text
+  log_level: debug
+  bidder_registry_contract: 0x62197Abd7672925c7606Bdf9931e42baCa6619AD
+  provider_registry_contract: 0xeA73E67c2E34C4E02A2f3c5D416F59B76e7617fC
+  preconf_contract: 0xBB632720f817792578060F176694D8f7230229d9
+  rpc_endpoint: http://69.67.151.95:8545
+  bootnodes:
+    - /ip4/69.67.151.95/tcp/13522/p2p/16Uiu2HAmLYUvthfDCewNMdfPhrVefBbsfaPL22fWWfC2zuoh5SpV
+  ```
 - gRPC API Specification
-    
-    ```bash
-    // ReceiveBids is called by the execution provider to receive bids from the mev-commit node.
-    // The mev-commit node will stream bids to the execution provider.
-    rpc ReceiveBids(EmptyMessage) returns (stream Bid) {}
-    // SendProcessedBids is called by the provider to send processed bids to the mev-commit node.
-    // The execution provider will stream processed bids to the mev-commit node.
-    rpc SendProcessedBids(stream BidResponse) returns (EmptyMessage) {}
-    ```
-    
+  ```bash
+  // ReceiveBids is called by the execution provider to receive bids from the mev-commit node.
+  // The mev-commit node will stream bids to the execution provider.
+  rpc ReceiveBids(EmptyMessage) returns (stream Bid) {}
+  // SendProcessedBids is called by the provider to send processed bids to the mev-commit node.
+  // The execution provider will stream processed bids to the mev-commit node.
+  rpc SendProcessedBids(stream BidResponse) returns (EmptyMessage) {}
+  ```
 
 [The following file](https://github.com/primevprotocol/mev-commit/blob/main/integrationtest/provider/client.go) shows an implementation of a wrapped client that interfaces with the GRPC API client that was autogenerated [here](https://github.com/primevprotocol/mev-commit/blob/main/gen/go/rpc/providerapi/v1/providerapi.pb.go).
 
@@ -1222,8 +1149,8 @@ curl -X POST http://localhost:13523/v1/bidder/bid \
 The most significant difference between Ethereum and mev-commit-chain lies in their block times.
 
 | Ethereum Blocktime | mev-commit-chain Blocktime |
-| --- | --- |
-| 12 seconds | 200 milliseconds |
+| ------------------ | -------------------------- |
+| 12 seconds         | 200 milliseconds           |
 
 ### Other Chain Considerations:
 
