@@ -1,0 +1,418 @@
+---
+title: "Bidder Quickstart"
+description: "Launch into the Primev universe in less than a minute. We'll guide you through setting up your first bidder node and making your inaugural bid. 🚀"
+---
+
+# Quickstart
+
+Want to dive in? Simply run the following command to launch the bidder node:
+
+<Steps titleSize="h3">
+  <Step title="📥 Download" >
+
+    Fetch the latest script directly from our repository.
+
+    ```bash
+    curl -o launchmevcommit \
+    https://raw.githubusercontent.com/primevprotocol/scripts/main/launchmevcommit
+
+    ```
+  
+  </Step>
+
+    Grant execution rights to the script file.
+
+    <Step title="🛠️ Permission">  
+  
+    ```bash
+    chmod +x launchmevcommit
+    ```
+  
+  </Step>
+
+
+    <Step title="⚡ Launch">  
+    
+    Launch the script to start the setup process.
+
+    ```bash
+    ./launchmevcommit --rpc-url http://69.67.151.95:8545 --node-type bidder
+
+    ```
+  
+  </Step>
+
+</Steps>
+
+```bash Mac/Linux  
+curl -o launchmevcommit \
+https://raw.githubusercontent.com/primevprotocol/scripts/main/launchmevcommit \
+&& chmod +x launchmevcommit \
+&& ./launchmevcommit \
+--rpc-url http://69.67.151.95:8545 \
+--node-type bidder
+```
+
+
+<Accordion title="The Script: launchmevcommit">
+
+    ## Script Overview
+
+    This script automates the setup and initialization of your Primev node, catering to both bidder and provider roles. Below is a detailed breakdown of the script's operations:
+
+    ### 1. Initialization
+    - Sets up essential variables like the RPC URL (`http://69.67.151.95:8545`) for network communication and the node type (either `bidder` or `provider`).
+    - Establishes the root directory (`$HOME/.mev-commit`) where the mev-commit node will be installed.
+
+    ### 2. Download
+    - Fetches the appropriate mev-commit binary for your system from the [Primev GitHub releases page](https://github.com/primevprotocol/mev-commit/releases/tag/v0.1.0), considering your operating system and architecture.
+
+    ### 3. Installation
+    - Extracts the downloaded binary into the specified root directory, ensuring all necessary executables are correctly placed for the node's operation.
+
+    ### 4. Configuration
+    - Initializes the mev-commit node with your specified settings, including the node type and the RPC endpoint, along with necessary contract addresses for the node's functionality.
+
+    ### 5. Wallet Setup
+    - Generates a new private key and wallet address for your node and secures it with test ether to facilitate transactions within the testnet environment.
+
+    ### 6. Node Startup
+    - Launches the mev-commit node in the background tailored to the specified role, enabling it to begin its operations within the Primev network.
+
+    ### 7. Cleanup
+    - Includes a cleanup function to ensure the node is properly shut down when the script exits, preventing any residual processes.
+
+</Accordion>
+
+## Tutorial
+
+We provide advanced instructions for those of you who want to customize the starting process.
+
+### Pre-requistes
+
+- `curl`
+- `terminal`
+- `cast`
+
+    Install using `curl -L [https://foundry.paradigm.xyz](https://foundry.paradigm.xyz/) | bash`
+
+- run foundryup
+
+## Running the Bidder Node
+
+<Steps>
+  <Step title="Check your CPU architecture">
+    
+    ```bash
+        uname # This will give you the OS type
+        uname -m # This will give you the chip architecture
+    ```
+
+  </Step>
+  <Step title="Get the mev-commit binary">
+
+    Next up, head over to the [mev-commit repo](https://github.com/primevprotocol/mev-commit/releases/tag/v0.1.0) 
+    and download the mev-commit binary that matches your system's architecture.
+    Unzip the binary and store in a root directory of your choice.
+
+  </Step>
+
+  <Step title="Place the binary, named mev-commit, into a folder of your choice">
+
+    Note this will be considered the root folder of your mev-commit
+
+  </Step>
+
+    <Step title=" Run the initialization">
+
+    
+    cd into the folder that contains the mev-commit binary and run the following command
+    
+    ```bash
+    ./mev-commit init --dir . --rpc-endpoint http://69.67.151.95:8545  --peer-type bidder
+    ```
+    
+    This will create both a private key file and a config.yaml file and store it in your current directory.
+    
+    While in the directory, run the following command to export relevant data about your address and private key:
+    
+    ```bash
+    export KEY=$(cat key)
+    export ADDRESS=$(cast wallet address --private-key 0x$(cat key))
+    ```
+    
+
+  </Step>
+
+    <Step title="Place the binary, named mev-commit, into a folder of your choice">
+
+  </Step>
+
+</Steps>
+
+    
+    
+- Step 3. Place the binary, named mev-commit, into a folder of your choice
+    
+    
+- Step 4. Run the initialization
+
+- Step 5. Fund the account
+    
+    In the same shell run the following command to transfer a 100 ether into your wallet from a faucet account:
+    
+    ```bash
+    cast send --rpc-url [http://69.67.151.95:8545](http://69.67.151.95:8545/) --private-key 0x7c9bf0f015874594d321c1c01ada3166c3509bbd91f76f9e4d7380c2df269c55 $ADDRESS --value 100ether
+    ```
+    
+- Step 6. Run the node
+    1. cd into the folder with your mev-commit binary
+    2. Run the Node:
+    
+    ```bash
+    ./mev-commit start --config=~/config.yaml
+    ```
+    
+- Step 7. Prepay for bids
+    
+    ### Prepaying for Bids
+    
+    The bidder needs to prepay a certain amount onto the primev contracts to allow them to send bids and receive commitments. This is to ensure that providers can pull funds once the bids have been completed.
+    
+    To prepay, first **********************************************open a new terminal********************************************** and run the following command:
+    
+    ```bash
+    curl -X POST http://localhost:13523/v1/bidder/prepay/1000000000000000000
+    ```
+    
+    This will prepay `1000000000000000000 wei` into your account.
+    
+
+## Interacting with the Bidder Node
+
+First you can set the local environment variables to set your KEY and ADDERSS. Change directories to the one with your key (this should be the same folder as mev-commit). If you used the 1 minute quickstart command, your folder would be $HOME/.mevcommitup
+
+Setting these will make running the commands to interact with your account easier.
+
+```bash
+export KEY=$(cat key)
+export ADDRESS=$(cast wallet address --private-key 0x$(cat key))
+```
+
+### Sending Bids
+
+To send bids, we simply run the following command:
+
+```bash
+curl -X POST http://localhost:13523/v1/bidder/bid \
+-d '{
+  "txHash": "91a89B633194c0D86C539A1A5B14DCCacfD47094",
+  "amount": <amount in wei>,
+  "blockNumber": <blocknumber>
+}'
+```
+
+<aside>
+💡 You can change the values in the fields txHash, amount and blockNumber as desired
+
+</aside>
+
+<aside>
+❗ **Ensure you’ve prepayed for bids**
+
+The bidder needs to prepay a certain amount onto the primev contracts to allow them to send bids and receive commitments. This is to ensure that providers can pull funds once the bids have been completed.
+
+To prepay, ensure you’ve got the bidder node up, and run the following command:
+
+```bash
+curl -X POST http://localhost:13523/v1/bidder/prepay/1000000000000000000
+```
+
+This will prepay `1000000000000000000 wei` into your account.
+
+</aside>
+
+- **********************************************************************Optional - Use Postman to send bids**********************************************************************
+    
+    If you’ve got a Postman account and postman agent installed, you can use [the following link](https://primev.postman.co/workspace/Team-Workspace~18870d84-94f0-4d1e-8163-db558f83d7e8/request/27192304-fab87a71-9722-46f8-825f-d9791ead6178?ctx=documentation&tab=body) to send bids Via Postman 
+    
+
+### Checking Prepayed Balance
+
+To get the current prepayed balance in the contract
+
+```bash
+curl -s http://localhost:13523/v1/bidder/get_allowance
+```
+
+<aside>
+ℹ️ Allowance represents the funds in the bidders account that can be used to submit bids on the primev p2p-network and settled on-chain
+
+</aside>
+
+### Withdraw Prepayed Funds
+
+```bash
+cast send 0x62197Abd7672925c7606Bdf9931e42baCa6619AD "withdrawPrepayedAmount(address)" $ADDRESS --rpc-url http://69.67.151.95:8545 --private-key $KEY
+```
+
+### Checking Balance of your Wallet
+
+This command will allow you to check your current wallet balance on mev-commit chain
+
+```bash
+cast b $ADDRESS --rpc-url http://69.67.151.95:8545
+```
+
+### Check Total Value Locked in Contracts
+
+```bash
+python3 -c "print($(cast b 0x62197Abd7672925c7606Bdf9931e42baCa6619AD --rpc-url http://69.67.151.95:8545) + $(cast b 0xeA73E67c2E34C4E02A2f3c5D416F59B76e7617fC --rpc-url http://69.67.151.95:8545))"
+```
+
+### Topology
+
+This allows you to view the topology of your machines p2p connections
+
+```bash
+curl [http://localhost:13523/topology](http://localhost:13523/topology)
+```
+
+## Provider Quickstart
+
+### Pre-requistes
+
+- `curl`
+- `terminal`
+
+To become a provider, you need to run the provider node along with a provider emulator or your own gRPC enabled service to interact with the provider node.
+
+To spin up a Provider node, you can simply run the following:
+
+```bash
+curl -o launchmevcommit https://raw.githubusercontent.com/primevprotocol/scripts/main/launchmevcommit && chmod +x launchmevcommit && ./launchmevcommit --rpc-url http://69.67.151.95:8545 --node-type provider
+```
+
+<aside>
+❗ You will need to expose port 13523 on your local machine to allow the provider node to establish connections that are incoming to the node
+
+</aside>
+
+## Manual Quickstart
+
+We provide advanced instructions for those of you who want to customize the starting process.
+
+### Pre-requistes
+
+- `curl`
+- `terminal`
+- `cast` Install using `curl -L [https://foundry.paradigm.xyz](https://foundry.paradigm.xyz/) | bash`
+    - run foundryup
+- Step 1. Check your CPU architecture
+    
+    ```bash
+    uname # This will give you the OS type
+    uname -m # This will give you the chip architecture
+    ```
+    
+- Step 2. Pull The Required Binary of mev-commit based on your CPU architecture
+    
+    Download the binaries from the following 
+    
+    [https://github.com/primevprotocol/mev-commit/releases/tag/v0.1.0](https://github.com/primevprotocol/mev-commit/releases/tag/v0.1.0)
+    
+    Unzip the binary and store in a root directory of your choice
+    
+- Step 3. Place the binary, named mev-commit, into a folder of your choice
+    
+    Note this will be considered the root folder of your mev-commit
+    
+- Step 4. Run the initialization
+    
+    cd into the folder that contains the mev-commit binary and run the following command
+    
+    ```bash
+    ./mev-commit init --dir . --rpc-endpoint http://69.67.151.95:8545  --peer-type provider
+    ```
+    
+    This will create both a private key file and a config.yaml file and store it in your current directory.
+    
+    While in the directory, run the following command to export relevant data about your address and private key:
+    
+    ```bash
+    export KEY=$(cat key)
+    export ADDRESS=$(cast wallet address --private-key 0x$(cat key))
+    ```
+    
+- Step 5. Fund the account
+    
+    cd to the folder where you’ve stored the key and run the following command to transfer a 100 ether into your wallet from a faucet account:
+    
+    <aside>
+    ❗ If you’ve named the private key file something other than key, change key to the correct name in `--private-key 0x$(cat ***key***))`
+    
+    </aside>
+    
+    ```bash
+    cast send --rpc-url [http://69.67.151.95:8545](http://69.67.151.95:8545/) --private-key 0x7c9bf0f015874594d321c1c01ada3166c3509bbd91f76f9e4d7380c2df269c55 $(cast wallet address --private-key 0x$(cat key)) --value 100ether
+    ```
+    
+- Step 6. Run the node
+    1. cd into the folder with your mev-commit binary
+    2. Run the Node:
+    
+    ```bash
+    ./mev-commit start --config=~/config.yaml
+    ```
+    
+- Step 7. Stake Funds and Register
+    
+    This command is used to ensure that your provider has been registered with a stake in our protocol. This is used to ensure it can connect with the mev-commit-p2p network. Ensure you run this command in the mev-commit directory.
+    
+    ```bash
+    cast send 0xeA73E67c2E34C4E02A2f3c5D416F59B76e7617fC "registerAndStake()" $(cast wallet address --private-key 0x$(cat key)) --rpc-url http://69.67.151.95:8545 --private-key $(cat key) --value 100ether
+    ```
+    
+
+## gRPC Node Connection
+
+Once a provider node is up and running, you can use the `ReceiveBids` stream to receive bids into offline infrastructure and send decisions based on those bids via the `SendProcessedBids` stream.
+
+<aside>
+❗ **By default, this service is disabled** and must be enabled by setting the ProviderAPIEnabled flag in the config file to true.
+
+</aside>
+
+- Config file with ProviderAPIEnabled set to true
+    
+    ```yaml
+    **expose_provider_api: true**
+    priv_key_file: /path/to/key
+    peer_type: provider
+    p2p_port: 13522
+    http_port: 13523
+    rpc_port: 13524
+    secret: hello
+    log_fmt: text
+    log_level: debug
+    bidder_registry_contract: 0x62197Abd7672925c7606Bdf9931e42baCa6619AD
+    provider_registry_contract: 0xeA73E67c2E34C4E02A2f3c5D416F59B76e7617fC
+    preconf_contract: 0xBB632720f817792578060F176694D8f7230229d9
+    rpc_endpoint: http://69.67.151.95:8545
+    bootnodes:
+      - /ip4/69.67.151.95/tcp/13522/p2p/16Uiu2HAmLYUvthfDCewNMdfPhrVefBbsfaPL22fWWfC2zuoh5SpV
+    ```
+    
+- gRPC API Specification
+    
+    ```bash
+    // ReceiveBids is called by the execution provider to receive bids from the mev-commit node.
+    // The mev-commit node will stream bids to the execution provider.
+    rpc ReceiveBids(EmptyMessage) returns (stream Bid) {}
+    // SendProcessedBids is called by the provider to send processed bids to the mev-commit node.
+    // The execution provider will stream processed bids to the mev-commit node.
+    rpc SendProcessedBids(stream BidResponse) returns (EmptyMessage) {}
+    ```
+    
+
+[The following file](https://github.com/primevprotocol/mev-commit/blob/main/integrationtest/provider/client.go) shows an implementation of a wrapped client that interfaces with the GRPC API client that was autogenerated [here](https://github.com/primevprotocol/mev-commit/blob/main/gen/go/rpc/providerapi/v1/providerapi.pb.go).

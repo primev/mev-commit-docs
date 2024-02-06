@@ -7,9 +7,9 @@
   },
   "favicon": "/favicon.svg",
   "colors": {
-    "primary": "#0D9373",
-    "light": "#07C983",
-    "dark": "#0D9373",
+    "primary": "#E97D25",
+    "light": "#E97D25",
+    "dark": "#E97D25",
     "anchors": {
       "from": "#0D9373",
       "to": "#07C983"
@@ -51,10 +51,18 @@
   "navigation": [
     {
       "group": "Get Started",
-      "pages": ["introduction", "quickstart", "development"]
+      "pages": ["overview"]
     },
     {
-      "group": "Essentials",
+      "group": "Quickstarts",
+      "pages": ["quickstart-bidder", "quickstart-provider", "quickstart-eth-user"]
+    },
+    {
+      "group": "Concepts",
+      "pages": ["essentials/markdown", "essentials/code", "essentials/images", "essentials/settings", "essentials/navigation"]
+    },
+    {
+      "group": "Reference",
       "pages": ["essentials/markdown", "essentials/code", "essentials/images", "essentials/settings", "essentials/navigation"]
     },
     {
