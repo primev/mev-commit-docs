@@ -129,7 +129,7 @@ The P2P node implements key protocols to facilitate interaction among different 
 
 - Preconfirmations
   Once the nodes establish connectivity, they will start interacting with other actors on the preconfirmations protocol to exchange signed bids and commitments.
-      ![mev p2p.png](Primev%20Docs%20Testnet%20Ver%2041c24e77a73e47e0966d54365efbbfc8/mev_p2p.png)
+  ![mev p2p.png](Primev%20Docs%20Testnet%20Ver%2041c24e77a73e47e0966d54365efbbfc8/mev_p2p.png)
 
 ## Actors
 
@@ -392,14 +392,19 @@ GLOBAL OPTIONS:
 1. **Install `[buf](https://buf.build/docs/installation)`**:
    - Follow the installation instructions for **`buf`** specific to your operating system.
 2. **Generate Required Files**:
+
    - Open your command line and run:
+
      ```
      Copy code
      buf generate
 
      ```
+
 3. **Compile mev-commit**:
+
    - In the command line, execute:
+
      ```go
      goCopy code
      go build -o mev-commit ./cmd/main.go
@@ -409,8 +414,10 @@ GLOBAL OPTIONS:
 ### If you're using Docker:
 
 1. **Build Docker Image**:
+
    - Open your terminal and navigate to where your Dockerfile is located.
    - Run:
+
      ```sql
      sqlCopy code
      docker build -t mev-commit:latest .
@@ -533,8 +540,10 @@ Please refer to System Requirements section [here.](Primev%20Docs%20Testnet%20Ve
    ```
 
 4. **Start the mev-commit Node**:
+
    - Place your config file in a **`.mev-commit`** folder in your home directory.
    - Once this is done, users can start the node using the `start` command.
+
      ```sql
      NAME:
         mev-commit start - Start the mev-commit node
@@ -546,6 +555,7 @@ Please refer to System Requirements section [here.](Primev%20Docs%20Testnet%20Ve
         --config value  path to config file [$MEV_COMMIT_CONFIG]
         --help, -h      show help
      ```
+
 5. **Optional: Monitor Node Status**:
 
    - Use **`/topology`** endpoint on the HTTP port to check peer connections.
@@ -571,12 +581,16 @@ Please refer to System Requirements section [here.](Primev%20Docs%20Testnet%20Ve
    ```
 
 6. **Docker Compose Users**:
+
    - To start the nodes, run:
+
      ```css
      docker-compose up --build
 
      ```
+
    - To stop the service:
+
      ```
 
      docker-compose down
@@ -903,7 +917,7 @@ We provide advanced instructions for those of you who want to customize the star
 - Step 7. Prepay for bids
   ### Prepaying for Bids
   The bidder needs to prepay a certain amount onto the primev contracts to allow them to send bids and receive commitments. This is to ensure that providers can pull funds once the bids have been completed.
-  To prepay, first **********************\*\***********************open a new terminal**********************\*\*********************** and run the following command:
+  To prepay, first **********\*\***********\*\***********\*\***********open a new terminal**********\*\***********\*\***********\*\*********** and run the following command:
   ```bash
   curl -X POST http://localhost:13523/v1/bidder/prepay/1000000000000000000
   ```
@@ -953,7 +967,7 @@ This will prepay `1000000000000000000 wei` into your account.
 
 </aside>
 
-- **********************************\*\***********************************Optional - Use Postman to send bids**********************************\*\***********************************
+- ****************\*\*****************\*\*****************\*\*****************Optional - Use Postman to send bids****************\*\*****************\*\*****************\*\*****************
   If you’ve got a Postman account and postman agent installed, you can use [the following link](https://primev.postman.co/workspace/Team-Workspace~18870d84-94f0-4d1e-8163-db558f83d7e8/request/27192304-fab87a71-9722-46f8-825f-d9791ead6178?ctx=documentation&tab=body) to send bids Via Postman
 
 ### Checking Prepayed Balance

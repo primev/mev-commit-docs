@@ -55,11 +55,7 @@
     },
     {
       "group": "Quickstarts",
-      "pages": [
-        "quickstart-bidder",
-        "quickstart-provider",
-        "quickstart-eth-user"
-      ]
+      "pages": ["quickstart-bidder", "quickstart-provider"]
     },
     {
       "group": "Concepts",
