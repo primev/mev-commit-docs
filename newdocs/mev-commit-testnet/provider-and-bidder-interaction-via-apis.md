@@ -1,0 +1,77 @@
+---
+layout:
+  title:
+    visible: true
+  description:
+    visible: false
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: true
+---
+
+# Provider and Bidder Interaction via APIs
+
+## **Providers**
+
+Execution providers can use the `provider` role to run their nodes. This allows them to receive signed bids and issue commitments for execution. The **Provider RPC API** allows providers to receive signed bids that are being propagated in the network. Once they get a bid, they'll need to communicate with the mev-commit node to **Accept**. Accepted bids result in the mev-commit node sending a signed commitment to the p2p network.
+
+The Provider API is implemented using the gRPC framework, supporting two primary operations:
+
+* **Receiving Bids:** Providers receive streaming bids from the mev-commit node.
+* **Sending Processed Bids:** Providers send information about processed bids back to the mev-commit node.
+
+### **RPC API**
+
+The protobuf file is available in the [repository(opens in a new tab)](https://github.com/primevprotocol/mev-commit/blob/main/rpc/providerapi/v1/providerapi.proto). The Go client has already been generated in the repository. To generate the RPC client for other languages, please follow the instructions in the [gRPC documentation](https://grpc.io/docs/languages/).
+
+There are two main APIs:
+
+```
+  // ReceiveBids is called by the execution provider to receive bids from the mev-commit node.  // The mev-commit node will stream bids to the execution provider.   rpc ReceiveBids(EmptyMessage) returns (stream Bid) {}   // SendProcessedBids is called by the provider to send processed bids to the mev-commit node.  // The execution provider will stream processed bids to the mev-commit node.   rpc SendProcessedBids(stream BidResponse) returns (EmptyMessage) {}
+```
+
+The message definitions are as follows:
+
+```
+message Bid {  string txn_hash = 1;  int64 bid_amt = 2;  int64 block_number = 3;  bytes bid_hash = 4;}; message BidResponse {  bytes bid_hash = 1;  enum Status {    STATUS_UNSPECIFIED = 0;    STATUS_ACCEPTED = 1;    STATUS_REJECTED = 2;  }  Status status = 2;};
+```
+
+### **HTTP API**
+
+The same API is also available on the HTTP port configured on the node. Please review the [API docs(opens in a new tab)](https://mev-commit-docs.s3.amazonaws.com/provider.html) to understand the usage.
+
+An [example client(opens in a new tab)](https://github.com/primevprotocol/mev-commit/tree/main/examples/provideremulator) is implemented in the repository. This example showcases how to integrate a client into the provider's operational framework. While the sample client automatically accepts every incoming bid, providers should incorporate their own decision-making logic to evaluate and respond to these bids.
+
+## **Bidders**
+
+Bidders will use the `bidder` role to run their nodes. The node provides the **Bidder API** to submit bids to the network and will sign the bid before sending it out. In response, bidders will receive commitments from providers if their bid is accepted. This is a streaming response, and bidders are expected to keep their connection alive until their node receives all relevant commitments.
+
+The Bidder API is also implemented using the gRPC framework, supporting two primary operations:
+
+* **Send Bid:** User submit their bid.
+* **Receive Pre-Confirmation: The u**ser receives streaming pre-confirmations if accepted.
+
+### **RPC API**
+
+Users can find the protobuf file in the [repository](https://github.com/primevprotocol/mev-commit/blob/main/rpc/userapi/v1/userapi.proto). This can be used to generate the client for the RPC in the language of your choice. The Go client has already been generated in the repository. For other languages, please follow the instructions in the [grpc documentation](https://grpc.io/docs/languages/) to generate them separately.
+
+The API available is:
+
+```
+  rpc SendBid(Bid) returns (stream PreConfirmation)
+```
+
+The message definitions are as follows:
+
+```
+message Bid {  string tx_hash = 1;  int64 amount = 2;  int64 block_number = 3;}; message PreConfirmation {  string tx_hash = 1;  int64 amount = 2;  int64 block_number = 3;  string bid_digest = 4;  string bid_signature = 5;  string pre_confirmation_digest = 6;  string pre_confirmation_signature = 7;};
+```
+
+### **HTTP API**
+
+The same API is also available on the HTTP port configured on the node. Please review the [API docs](https://mev-commit-docs.s3.amazonaws.com/user.html) to understand the usage.
+
+An [example CLI application](https://github.com/primevprotocol/mev-commit/tree/main/examples/usercli) is implemented in the repository. The primary purpose of this example is to demonstrate the process of integrating with the RPC API.
