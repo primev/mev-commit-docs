@@ -1,0 +1,37 @@
+---
+layout:
+  title:
+    visible: true
+  description:
+    visible: false
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: true
+---
+
+# Commitments
+
+Commitments represent promises made by providers in a cryptographically verifiable manner.
+
+```bash
+# commitmentDigest: Represents the hash of the bid structure, including the bid signature
+# commitmentSignature: Represents an ECDSA signature of the [commitmentDigest]
+{
+   "result":{
+      "txHash":"91a89B633194c0D86C539A1A5B14DCCacfD47094",
+      "bidAmount":"2000",
+      "blockNumber":"890200",
+      "receivedBidDigest":"61634fad9081e1b23a00234a52a85386a91fc0fad3fb32d325891bdc4f8a52a9",
+      "receivedBidSignature":"be99f499be5483665d569bd52fa8c4c9ed5c3bed2f94fb9949259bf640d8bd365b1d9a4b9ccb3ace86ffdcd1fdadc605b0f49b3adaf1c6a9ffea25585234664f1c",
+      "commitmentDigest":"08a98d4c9d45f8431b46d99a23e6e8f82601ccf0773499d4e47bcd857cad92a6",
+      "commitmentSignature":"cfc1e4e2ea9cc417027ed5846fa073c8e6031f70f91ffa9b92051b5b7738c0500d8fefb0fc189bce16004b3c0e1c4cfa41260968161adf8b55446ed5c40d1ac51b"
+   }
+} 
+```
+
+The commitment consists of the details associated with the bid along with signatures made by the provider.
+
+These commitments are stored on the mev-commit chain by the provider and also sent back to the originating bidder via the mev-commit p2p network.

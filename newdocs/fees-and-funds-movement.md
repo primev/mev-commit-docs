@@ -1,0 +1,58 @@
+---
+layout:
+  title:
+    visible: true
+  description:
+    visible: false
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: true
+---
+
+# Fees and Funds Movement
+
+Funds are moved in the following scenarios:
+
+1. Allowance/prepayment by bidder.
+2. Staking by provider.
+3. Rewarding provider with pre-confirmation from bidder.
+4. Slashing for unfulfilled pre-confirmation promises.
+
+## Fee Structure of a Bid
+
+During the deployment of the Bidder Registry, a protocol-specific Fee Percentage is set (see [here](https://github.com/primevprotocol/contracts/blob/main/contracts/BidderRegistry.sol#L79)). This percentage of the Bid's value is allocated to the protocol Treasury.
+
+<figure><img src="../.gitbook/assets/Bidder Alloawnce.png" alt=""><figcaption></figcaption></figure>
+
+In general, for deployment to Testnet, the current specified fee percentage is 2%.
+
+### Minimum Prepay
+
+❗ The Bidder needs to have 10 times the size of their largest bid in order to receive pre-confirmations.
+
+## Slashing Fee Structure
+
+When a provider fails to fulfill a promise, slashing occurs. The slashing amount depends on the bid size. For instance, if a Bidder bids 100,000 Gwei and the provider is to be slashed, the funds flow as described below. This is similar to the Bid Fee Structure, but the funds are drawn from the provider's stake instead of the Bidder.
+
+<figure><img src="../.gitbook/assets/Provider Allowance.png" alt=""><figcaption></figcaption></figure>
+
+### Minimum Staking
+
+Providers need to stake a minimum amount to Join the p2p Network.
+
+The current minimum requirement is 1 ether set [here](https://github.com/primevprotocol/contracts/blob/main/scripts/DeployScripts.s.sol#L43)
+
+❗ Providers also need to ensure they have 10 times the stake of a bidAmt to preconfirm a given bid.
+
+## Fee Structures and Transactions
+
+Let’s consider the relationship between mev-commit native ether, and aggregate mainnet L1 ether that is locked in bridging contracts. The mev-commit chain fee mechanism must be non-inflationary. Otherwise, overtime there’d be more ether on our sidechain than could be withdrawn from the L1 bridge contract.
+
+On mainnet ethereum with EIP-1559, proposers receive a block reward created by the network, along with any accumulated priority fees for transactions in the block. Base fees are burned. Depending on network load, this fee mechanism can be inflationary or deflationary.
+
+The mev-commit chain will implement a fee model that maintains a 1:1 peg between sidechain ether and L1 escrowed ether, meaning **any transaction executed on the mev-commit does not change the total supply of native ether**. This property circumvents the need for accounting logic related to bridging.
+
+Specifically, the mev-commit chain implements a variation of EIP-1559. The clique POA protocol does [not have block rewards](https://github.com/primevprotocol/go-ethereum/blob/7d52a7068edd08650dc267d26cb8059ece55bc84/consensus/clique/clique.go#L587). Base fees accumulate to a Primev treasury address, and priority fee sent to the signer of a block. See [this PR](https://github.com/primevprotocol/go-ethereum/pull/9). Separate application level fees can be defined as necessary.
