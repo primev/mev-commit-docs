@@ -47,14 +47,6 @@
       "pages": ["quickstart-bidder", "quickstart-provider"]
     },
     {
-      "group": "Concepts",
-      "pages": []
-    },
-    {
-      "group": "Reference",
-      "pages": []
-    },
-    {
       "group": "Knowledge Base",
       "pages": [
         "knowledge-base/introduction",
