@@ -11,8 +11,8 @@
     "light": "#E97D25",
     "dark": "#E97D25",
     "anchors": {
-      "from": "#0D9373",
-      "to": "#07C983"
+      "from": "#E97D25",
+      "to": "#E97D25"
     }
   },
   "topbarLinks": [
@@ -25,33 +25,22 @@
     "name": "Dashboard",
     "url": "https://dashboard.mintlify.com"
   },
-  "tabs": [
-    {
-      "name": "API Reference",
-      "url": "api-reference"
-    }
-  ],
   "anchors": [
     {
-      "name": "Documentation",
-      "icon": "book-open-cover",
-      "url": "https://mintlify.com/docs"
+      "name": "API Reference",
+      "icon": "square-terminal",
+      "url": "api-reference"
     },
     {
-      "name": "Community",
-      "icon": "slack",
-      "url": "https://mintlify.com/community"
-    },
-    {
-      "name": "Blog",
-      "icon": "newspaper",
-      "url": "https://mintlify.com/blog"
+      "name": "Knowledge Base",
+      "icon": "books",
+      "url": "knowledge-base"
     }
   ],
   "navigation": [
     {
-      "group": "Get Started",
-      "pages": ["overview"]
+      "group": "Overview",
+      "pages": ["introduction", "what-is-primev", "setup"]
     },
     {
       "group": "Quickstarts",
@@ -59,26 +48,25 @@
     },
     {
       "group": "Concepts",
-      "pages": [
-        "essentials/markdown",
-        "essentials/code",
-        "essentials/images",
-        "essentials/settings",
-        "essentials/navigation"
-      ]
+      "pages": []
     },
     {
       "group": "Reference",
+      "pages": []
+    },
+    {
+      "group": "Knowledge Base",
       "pages": [
-        "essentials/markdown",
-        "essentials/code",
-        "essentials/images",
-        "essentials/settings",
-        "essentials/navigation"
+        "knowledge-base/introduction",
+        "knowledge-base/what-is-prepay-amount",
+        "knowledge-base/how-do-i-fix-the-error-failed-to-read-msg-stream-reset",
+        "knowledge-base/what-is-foundry",
+        "knowledge-base/why-is-cast-necessary-for-mev-commit-chain-interactions",
+        "knowledge-base/why-do-i-receive-the-same-commitment-when-resending-a-bid"
       ]
     },
     {
-      "group": "API Documentation",
+      "group": "API Reference",
       "pages": ["api-reference/introduction"]
     },
     {
