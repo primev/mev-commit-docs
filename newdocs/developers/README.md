@@ -12,5 +12,5 @@ layout:
     visible: true
 ---
 
-# mev-commit Testnet
+# Developers
 

@@ -14,7 +14,7 @@ layout:
 
 # mev-commit Chain
 
-The mev-commit mainnet is set to launch soon. In the meantime, users are encouraged to join the testnet and familiarize themselves with its functionalities from the [mev-commit Testnet](../../mev-commit-testnet/) section.
+The mev-commit mainnet is set to launch soon. In the meantime, users are encouraged to join the testnet and familiarize themselves with its functionalities from the [mev-commit Testnet](../overview/mev-commit-testnet.md) section.
 
 ## **Current design**
 

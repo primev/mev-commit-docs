@@ -12,7 +12,7 @@ layout:
     visible: true
 ---
 
-# Testnet Overview
+# mev-commit Testnet
 
 ## Introduction to Testnet and its Purpose
 
@@ -38,7 +38,7 @@ The testnet allows bidders and providers to spin up nodes and send bids and comm
 
 Primev will maintain a testnet consisting of the mev-commit chain, oracle service, and hyperlane bridge to Sepolia.
 
-<figure><img src="../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
 
 ## Differences between the testnet and mainnet environments
 
@@ -58,10 +58,3 @@ Users can open an issue on the GitHub repository that is associated with any iss
 
 Please refer to System Requirements section [here.](https://www.notion.so/Primev-Docs-Testnet-Ver-41c24e77a73e47e0966d54365efbbfc8?pvs=21)
 
-## Setting Up Your Full Node for the mev-commit Testnet
-
-To join the mev-commit chain testnet with your own full-node, use [mev-commit geth](https://github.com/primevprotocol/go-ethereum). We've modified go-ethereum to achieve shorter block periods than mainnet Ethereum, and to enable seamless native token bridging capabilities. Geth configuration will vary based on environment, but an example is provided below:
-
-```
-exec geth \\    --verbosity="$VERBOSITY" \\    --datadir="$GETH_DATA_DIR" \\    --port 30311 \\    --syncmode=full \\    --gcmode=full \\    --http \\    --http.corsdomain="*" \\    --http.vhosts="*" \\    --http.addr=0.0.0.0 \\    --http.port="$RPC_PORT" \\    --http.api=web3,debug,eth,txpool,net,engine \\    --bootnodes enode://34a2a388ad31ca37f127bb9ffe93758ee711c5c2277dff6aff2e359bcf2c9509ea55034196788dbd59ed70861f523c1c03d54f1eabb2b4a5c1c129d966fe1e65@172.13.0.100:30301 \\    --networkid=$CHAIN_ID \\    --unlock=$BLOCK_SIGNER_ADDRESS \\    --password="$GETH_DATA_DIR"/password \\    --mine \\    --miner.etherbase=$BLOCK_SIGNER_ADDRESS \\    --allow-insecure-unlock \\    --nousb \\    --netrestrict 172.13.0.0/24 \\    --metrics \\    --metrics.addr=0.0.0.0 \\    --metrics.port=6060 \\    --ws \\    --ws.addr=0.0.0.0 \\    --ws.port="$WS_PORT" \\    --ws.origins="*" \\    --ws.api=debug,eth,txpool,net,engine \\    --rpc.allow-unprotected-txs \\    --authrpc.addr="0.0.0.0" \\    --authrpc.port="8551" \\    --authrpc.vhosts="*" \\    --nat extip:$NODE_IP
-```

@@ -1,0 +1,154 @@
+# Manual Start mev-commit
+
+## Bidder Manual Start
+
+This section is for users who prefer a more hands-on approach to setting up mev-commit. It allows for customization and a better understanding of the setup process.
+
+**Pre-requisites:**
+
+* `curl`: A command-line tool used for downloading files from the internet.
+* `terminal`: A command-line interface for executing commands.
+* `cast`: A command-line tool for Ethereum blockchain interaction. Install it using the following command:
+
+```bash
+curl -L https://foundry.paradigm.xyz | bash
+```
+
+After installing `cast`, run `foundryup` to ensure it's updated.
+
+#### Running the Bidder Node
+
+*   **Step 1. Check your CPU architecture:**
+
+    ```bash
+    uname # This will give you the OS type
+    uname -m # This will give you the chip architecture
+    ```
+*   **Step 2. Pull The Required Binary of mev-commit based on your CPU architecture.**
+
+    Download the binaries from the following:
+
+    https://github.com/primevprotocol/mev-commit/releases/tag/v0.1.0
+
+    Unzip the binary and store it in a root directory of your choice.
+*   **Step 3. Place the binary, named mev-commit, into a folder of your choice.**
+
+    Note this will be considered the root folder of your mev-commit.
+*   **Step 4. Run the initialization**
+
+    cd into the folder that contains the mev-commit binary and run the following command:
+
+    ```bash
+    ./mev-commit init --dir . --rpc-endpoint http://69.67.151.95:8545  --peer-type bidder
+    ```
+
+    This will create both a private key file and a config.yaml file and store it in your current directory.
+
+    While in the directory, run the following command to export relevant data about your address and private key:
+
+    ```bash
+    export KEY=$(cat key)
+    export ADDRESS=$(cast wallet address --private-key 0x$(cat key))
+    ```
+*   **Step 5. Fund the account**
+
+    cd to the folder where you’ve stored the key and run the following command to transfer 100 ether into your wallet from a faucet account:
+
+    ❗If you’ve named the private key file something other than key, change the key to the correct name in \`--private-key 0x$(cat \*\*\*key\*\*\*))\`
+
+    ```bash
+    cast send --rpc-url [http://69.67.151.95:8545](http://69.67.151.95:8545/) --private-key 0x7c9bf0f015874594d321c1c01ada3166c3509bbd91f76f9e4d7380c2df269c55 $(cast wallet address --private-key 0x$(cat key)) --value 100ether
+    ```
+*   **Step 6. Run the node**
+
+    1. cd into the folder with your mev-commit binary
+    2. Run the Node:
+
+    ```bash
+    ./mev-commit start --config=~/config.yaml
+    ```
+*   **Step 7. Prepay for bids**
+
+    The bidder needs to prepay a certain amount onto the Primev contracts to allow them to send bids and receive commitments. This is to ensure that providers can pull funds once the bids have been completed.
+
+    To prepay, first **open a new terminal** and run the following command:
+
+    ```bash
+    curl -X POST http://localhost:13523/v1/bidder/prepay/1000000000000000000
+    ```
+
+    This will prepay `1000000000000000000 wei` into your account.
+
+## Provider Manual Start
+
+Provider Manual Start is tailored for users who prefer a more hands-on approach, offering greater control over the setup process and the ability to customize configurations.
+
+**Pre-requisites:**
+
+* `curl`: Ensure this command-line tool is installed for file downloads.
+* `terminal`: Used for executing all the commands.
+* `cast`: A tool for Ethereum blockchain interactions. Install it by running
+
+```bash
+curl -L https://foundry.paradigm.xyz | bash
+```
+
+* Then execute `foundryup` to complete the setup
+*   **Step 1. Check your CPU architecture**
+
+    ```bash
+    uname # This will give you the OS type
+    uname -m # This will give you the chip architecture
+    ```
+*   **Step 2. Pull The Required Binary of mev-commit based on your CPU architecture**
+
+    Download the binaries from the following
+
+    https://github.com/primevprotocol/mev-commit/releases/tag/v0.1.0
+
+    Unzip the binary and store it in a root directory of your choice
+*   **Step 3. Place the binary, named mev-commit, into a folder of your choice**
+
+    Note this will be considered the root folder of your mev-commit
+*   **Step 4. Run the initialization**
+
+    cd into the folder that contains the mev-commit binary and run the following command
+
+    ```bash
+    ./mev-commit init --dir . --rpc-endpoint http://69.67.151.95:8545  --peer-type provider
+    ```
+
+    This will create both a private key file and a config.yaml file and store it in your current directory.
+
+    While in the directory, run the following command to export relevant data about your address and private key:
+
+    ```bash
+    export KEY=$(cat key)
+    export ADDRESS=$(cast wallet address --private-key 0x$(cat key))
+    ```
+*   **Step 5. Fund the account**
+
+    cd to the folder where you’ve stored the key and run the following command to transfer 100 ether into your wallet from a faucet account:
+
+    ❗If you’ve named the private key file something other than key, change the key to the correct name in \`--private-key 0x$(cat \*\*\*key\*\*\*))\`
+
+    ```bash
+    cast send --rpc-url [http://69.67.151.95:8545](http://69.67.151.95:8545/) --private-key 0x7c9bf0f015874594d321c1c01ada3166c3509bbd91f76f9e4d7380c2df269c55 $(cast wallet address --private-key 0x$(cat key)) --value 100ether
+    ```
+*   **Step 6. Run the node**
+
+    1. cd into the folder with your mev-commit binary
+    2. Run the Node:
+
+    ```bash
+    ./mev-commit start --config=~/config.yaml
+    ```
+*   **Step 7. Stake Funds and Register**
+
+    This command is used to ensure that your provider has been registered with a stake in our protocol. This is used to ensure it can connect with the mev-commit-p2p network. Ensure you run this command in the mev-commit directory.
+
+    {% code overflow="wrap" %}
+    ```bash
+    cast send 0xeA73E67c2E34C4E02A2f3c5D416F59B76e7617fC "registerAndStake()" $(cast wallet address --private-key 0x$(cat key)) --rpc-url http://69.67.151.95:8545 --private-key $(cat key) --value 100ether
+    ```
+    {% endcode %}

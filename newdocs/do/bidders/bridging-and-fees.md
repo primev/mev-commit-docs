@@ -12,5 +12,10 @@ layout:
     visible: true
 ---
 
-# Join Testnet with Node
+# Bridging and Fees
 
+New content here
+
+##
+
+##

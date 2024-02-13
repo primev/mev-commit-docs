@@ -12,7 +12,7 @@ layout:
     visible: true
 ---
 
-# Bridging and Fees
+# Send a Commitment
 
 
 
