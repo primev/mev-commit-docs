@@ -62,11 +62,24 @@
       "pages": ["api-reference/introduction"]
     },
     {
-      "group": "Endpoint Examples",
+      "group": "Provider",
       "pages": [
-        "api-reference/endpoint/get",
-        "api-reference/endpoint/create",
-        "api-reference/endpoint/delete"
+        "api-reference/provider/receivebids",
+        "api-reference/provider/sendprocessedbids",
+        "api-reference/provider/registerstake",
+        "api-reference/provider/getminstake",
+        "api-reference/provider/getstake",
+        "api-reference/provider/getpendingtxns",
+        "api-reference/provider/canceltransaction"
+      ]
+    },
+    {
+      "group": "Bidder",
+      "pages": [
+        "api-reference/bidder/sendbid",
+        "api-reference/bidder/getallowance",
+        "api-reference/bidder/getminallowance",
+        "api-reference/bidder/prepayallowance"
       ]
     }
   ],

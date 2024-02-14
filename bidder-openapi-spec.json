@@ -1,0 +1,271 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Bidder API",
+    "version": "1.0.0-alpha",
+    "license": {
+      "name": "Business Source License 1.1",
+      "url": "https://github.com/primevprotocol/mev-commit/blob/main/LICENSE"
+    }
+  },
+  "paths": {
+    "/v1/bidder/bid": {
+      "post": {
+        "summary": "SendBid",
+        "description": "Send a bid to the bidder mev-commit node.",
+        "operationId": "Bidder_SendBid",
+        "responses": {
+          "200": {
+            "description": "A successful response.(streaming responses)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "$ref": "#/components/schemas/v1Commitment"
+                    },
+                    "error": {
+                      "$ref": "#/components/schemas/googlerpcStatus"
+                    }
+                  },
+                  "title": "Stream result of v1Commitment"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/googlerpcStatus"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/rpcbidderapiv1Bid"
+              }
+            }
+          },
+          "description": "Unsigned bid message from bidders to the bidder mev-commit node.",
+          "required": true
+        }
+      }
+    },
+    "/v1/bidder/get_allowance": {
+      "get": {
+        "summary": "GetAllowance",
+        "description": "GetAllowance is called by the bidder to get its allowance in the bidder registry.",
+        "operationId": "Bidder_GetAllowance",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/v1PrepayResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/googlerpcStatus"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/bidder/get_min_allowance": {
+      "get": {
+        "summary": "GetMinAllowance",
+        "description": "GetMinAllowance is called by the bidder to get the minimum allowance required in the bidder registry to make bids.",
+        "operationId": "Bidder_GetMinAllowance",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/v1PrepayResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/googlerpcStatus"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/bidder/prepay/{amount}": {
+      "post": {
+        "summary": "PrepayAllowance",
+        "description": "PrepayAllowance is called by the bidder node to add prepaid allowance in the bidder registry.",
+        "operationId": "Bidder_PrepayAllowance",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/v1PrepayResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/googlerpcStatus"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "amount",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "googlerpcStatus": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string"
+          },
+          "details": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/protobufAny"
+            }
+          }
+        }
+      },
+      "protobufAny": {
+        "type": "object",
+        "properties": {
+          "@type": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": {}
+      },
+      "rpcbidderapiv1Bid": {
+        "type": "object",
+        "example": {
+          "amount": 1000000000000000000,
+          "blockNumber": 123456,
+          "txHash": "91a89B633194c0D86C539A1A5B14DCCacfD47094"
+        },
+        "properties": {
+          "txHash": {
+            "type": "string",
+            "description": "Hex string encoding of the hash of the transaction that the bidder wants to include in the block.",
+            "pattern": "[a-fA-F0-9]{40}"
+          },
+          "amount": {
+            "type": "string",
+            "format": "int64",
+            "description": "Amount of ETH that the bidder is willing to pay to the provider for including the transaction in the block."
+          },
+          "blockNumber": {
+            "type": "string",
+            "format": "int64",
+            "description": "Max block number that the bidder wants to include the transaction in."
+          }
+        },
+        "description": "Unsigned bid message from bidders to the bidder mev-commit node.",
+        "title": "Bid message",
+        "required": [
+          "txHash",
+          "amount",
+          "blockNumber"
+        ]
+      },
+      "v1Commitment": {
+        "type": "object",
+        "properties": {
+          "txHash": {
+            "type": "string",
+            "description": "Hex string encoding of the hash of the transaction that the bidder wants to include in the block.",
+            "pattern": "[a-fA-F0-9]{40}"
+          },
+          "bidAmount": {
+            "type": "string",
+            "format": "int64",
+            "description": "Amount of ETH that the bidder has agreed to pay to the provider for including the transaction in the block."
+          },
+          "blockNumber": {
+            "type": "string",
+            "format": "int64",
+            "description": "Max block number that the bidder wants to include the transaction in."
+          },
+          "receivedBidDigest": {
+            "type": "string",
+            "description": "Hex string encoding of digest of the bid message signed by the bidder."
+          },
+          "receivedBidSignature": {
+            "type": "string",
+            "description": "Hex string encoding of signature of the bidder that sent this bid."
+          },
+          "commitmentDigest": {
+            "type": "string",
+            "description": "Hex string encoding of digest of the commitment."
+          },
+          "commitmentSignature": {
+            "type": "string",
+            "description": "Hex string encoding of signature of the commitment signed by the provider confirming this transaction."
+          }
+        }
+      },
+      "v1PrepayResponse": {
+        "type": "object",
+        "example": {
+          "amount": "1000000000000000000"
+        },
+        "properties": {
+          "amount": {
+            "type": "string"
+          }
+        },
+        "description": "Get prepaid allowance for bidder in the bidder registry.",
+        "title": "Prepay response"
+      }
+    }
+  }
+}

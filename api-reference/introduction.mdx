@@ -1,33 +1,27 @@
 ---
 title: "Introduction"
-description: "Example section for showcasing API endpoints"
+description: "Understand Primev's API capabilities for blockchain communication and execution."
 ---
 
-<Note>
-  If you're not looking to build API reference documentation, you can delete
-  this section by removing the api-reference folder.
-</Note>
+Primev's API facilitates seamless interaction with Ethereum's blockbuilding and execution bids, providing a robust set of endpoints for developers to engage with the network efficiently. The API is designed to be both flexible and powerful, allowing for a wide range of actions including querying bid statuses, submitting new bids, and retrieving block information.
 
-## Welcome
+Key features of the Primev API include:
 
-There are two ways to build API documentation: [OpenAPI](https://mintlify.com/docs/api-playground/openapi/setup) and [MDX components](https://mintlify.com/docs/api-playground/mdx/configuration). For the starter kit, we are using the following OpenAPI specification.
+- **Bid Management**: Endpoints for creating, querying, and managing execution bids within the Primev ecosystem.
+- **Blockbuilding Tools**: Functions to assist in the construction and submission of blocks, enhancing the efficiency of the blockbuilding process.
+- **Security and Authentication**: Utilizing industry-standard protocols to ensure secure communication between clients and the Primev network.
+- **Real-time Data Access**: Providing access to live blockchain data, enabling informed decision-making based on the latest network state.
 
-<Card
-  title="Plant Store Endpoints"
-  icon="leaf"
-  href="https://github.com/mintlify/starter/blob/main/api-reference/openapi.json"
->
-  View the OpenAPI specification file
-</Card>
+## FAQ
 
-## Authentication
+- **How can I authenticate with the Primev API?**
+  Authentication details, including API keys and access tokens, are essential for secure interactions with the Primev API.
+  Ensure you follow the provided guidelines for authentication to maintain the integrity of your transactions.
 
-All API endpoints are authenticated using Bearer tokens and picked up from the specification file.
+- **What are the rate limits for the Primev API?**
+  Understanding the rate limits is crucial to ensure your application adheres to the API's usage policies and
+  avoids service disruptions. Check the documentation for specific rate limit information.
 
-```json
-"security": [
-  {
-    "bearerAuth": []
-  }
-]
-```
+- **How do I handle errors returned by the Primev API?**
+  Proper error handling is key to building robust applications. The Primev API uses standard HTTP response codes
+  to indicate the success or failure of requests. Refer to the error handling section for guidance on interpreting these codes and troubleshooting.
