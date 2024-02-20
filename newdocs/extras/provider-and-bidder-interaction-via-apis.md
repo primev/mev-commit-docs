@@ -25,7 +25,7 @@ The Provider API is implemented using the gRPC framework, supporting two primary
 
 ### **RPC API**
 
-The protobuf file is available in the [repository(opens in a new tab)](https://github.com/primevprotocol/mev-commit/blob/main/rpc/providerapi/v1/providerapi.proto). The Go client has already been generated in the repository. To generate the RPC client for other languages, please follow the instructions in the [gRPC documentation](https://grpc.io/docs/languages/).
+The protobuf file is available in the [repository](https://github.com/primevprotocol/mev-commit/blob/v0.1.2-rc4/rpc/providerapi/v1/providerapi.proto). The Go client has already been generated in the repository. To generate the RPC client for other languages, please follow the instructions in the [gRPC documentation](https://grpc.io/docs/languages/).
 
 There are two main APIs:
 
@@ -58,7 +58,7 @@ The Bidder API is also implemented using the gRPC framework, supporting two prim
 
 ### **RPC API**
 
-Users can find the protobuf file in the [repository](https://github.com/primevprotocol/mev-commit/blob/main/rpc/userapi/v1/userapi.proto). This can be used to generate the client for the RPC in the language of your choice. The Go client has already been generated in the repository. For other languages, please follow the instructions in the [grpc documentation](https://grpc.io/docs/languages/) to generate them separately.
+Users can find the protobuf file in the [repository](https://github.com/primevprotocol/mev-commit/blob/v0.1.2-rc4/rpc/bidderapi/v1/bidderapi.proto). This can be used to generate the client for the RPC in the language of your choice. The Go client has already been generated in the repository. For other languages, please follow the instructions in the [grpc documentation](https://grpc.io/docs/languages/) to generate them separately.
 
 The API available is:
 

@@ -11,7 +11,7 @@ export KEY=$(cat key)
 export ADDRESS=$(cast wallet address --private-key 0x$(cat key))
 ```
 
-#### Getting Allowance
+#### Getting Allowance ////This might be deprecated as the Fund Your Node section also seems to cover this
 
 To get the current prepaid balance in the contract:
 
