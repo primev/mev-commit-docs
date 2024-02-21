@@ -24,7 +24,7 @@ The mev-commit chain is currently built out as an Ethereum sidechain run with [g
 
 Today, most or arguably all Ethereum scaling solutions rely on centralized bridging and sequencing. Our system components rely on existing tech, and consequently inherit some centralization. However, we’ve chosen solutions that allow anyone to permissionlessly validate correct execution, and operation of chain infrastructure.
 
-To begin with, Primev entities will run all validating infrastructure for the mev-commit chain, where correct/honest operation can be permissionlessly audited. Spinning up a full node and connecting to the mev-commit chain as a peer is encouraged. It’s also encouraged for anyone to run their own bridge relayers. Over time we can permit entities outside of Primev to become POA signers or bridge validators.
+To begin with, Primev entities will run all validating infrastructure for the mev-commit chain, where correct/honest operation can be permissionlessly audited. Spinning up a full node and connecting to the mev-commit chain as a peer is encouraged. Over time we can permit entities outside of Primev to become POA signers or bridge validators.
 
 The mev-commit chain will continue to evolve. Open source scaling solutions that prove to become practical, decentralized, and/or provably secure will be utilized.
 
@@ -53,7 +53,7 @@ Although this oracle is currently centralized and operated by Primev, it can eve
 
 ## **Ether Bridging and Security**
 
-Native ether on the mev-commit chain maintains a 1:1 peg with ether on L1. That is, the only way to mint ether on the mev-commit chain is to lock equivalent ether in the hyperlane bridge contract on L1. In the other direction, ether can be burned on the mev-commit chain to unlock equivalent ether from the L1 contract.
+Native ether on the mev-commit chain maintains a 1:1 peg with ether on L1. That is, the only way to mint ether on the mev-commit chain is to lock equivalent ether in the gateway bridge contract on L1. In the other direction, ether can be burned on the mev-commit chain to unlock equivalent ether from the L1 contract.
 
 Ether that is used as gas on the mev-commit chain will accumulate in a Primev owned treasury account on L1.
 
