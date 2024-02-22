@@ -1,0 +1,34 @@
+---
+title: Understanding MEV-commit
+sidebarTitle: Network Overview
+description: Explore the inner workings of mev-commit, enabling real-time MEV bid and commitment exchanges.
+icon: share-nodes
+---
+
+At the core of MEV-Commit is a sophisticated framework designed to facilitate the exchange of execution bids and commitments between MEV actors, such as searchers and block builders.
+
+This system operates within the mev-commit network, enabling participants to broadcast and receive bids in a real-time environment.
+These bids encompass transaction specifics and proposed execution fees, which are disseminated across the network for consideration by execution providers.
+
+Upon evaluating these bids, providers may issue binding commitments to include the transactions in forthcoming blocks, enhancing both the transparency and competitiveness of MEV extraction processes.
+This framework not only promotes an equitable transaction execution landscape but also contributes to the overall stability of the blockchain ecosystem.
+
+The architecture of the mev-commit peer-to-peer (P2P) network is designed to support instantaneous communication among network participants:
+
+<Frame>
+  <img src="/images/mev-commit-network.png" />
+</Frame>
+
+### Network Connectivity
+
+The network is structured to ensure robust connectivity among users and providers. Each participant node connects to a primary network node, known as a bootnode, during the initial startup phase, establishing a foundational network link.
+
+### Gateway Nodes
+
+Within this network, providers have the option to configure gateway nodes. These nodes serve as the initial recipients of bid submissions, which are then propagated through the network via a gossip protocol, ensuring widespread distribution among providers.
+
+The subsequent diagram provides a detailed representation of the bid, commitment, and fund flows within the mev-commit framework, showcasing the efficiency and effectiveness of P2P interactions among MEV actors.
+
+<Frame>
+  <img src="/images/bids-commitments-flow.png" />
+</Frame>

@@ -39,12 +39,89 @@
   ],
   "navigation": [
     {
-      "group": "Overview",
-      "pages": ["introduction", "what-is-primev", "setup"]
+      "group": "Get started",
+      "pages": [
+        "get-started/introduction",
+        "get-started/quickstart",
+        {
+          "group": "Bidders",
+          "pages": [
+            "get-started/bidders/fund-node",
+            "get-started/bidders/send-bid",
+            "get-started/bidders/receive-preconfirmation-commitment",
+            "get-started/bidders/bridging-and-fees"
+          ],
+          "icon": "user-bounty-hunter"
+        },
+        {
+          "group": "Providers",
+          "pages": [
+            "get-started/providers/consume-bids-mev-commit",
+            "get-started/providers/register-a-provider",
+            "get-started/providers/sending-commitments"
+          ],
+          "icon": "network-wired"
+        }
+      ]
     },
     {
-      "group": "Quickstarts",
-      "pages": ["quickstart-bidder", "quickstart-provider"]
+      "group": "Concepts",
+      "pages": [
+        {
+          "group": "Overview",
+          "pages": [
+            "concepts/overview/introduction",
+            "concepts/overview/actors",
+            "concepts/overview/how-it-works",
+            "concepts/overview/mev-commit-testnet",
+            "concepts/overview/architecture"
+          ],
+          "icon": "fly"
+        },
+        "concepts/privacy",
+        "concepts/fees-and-funds-movement",
+        "concepts/bids",
+        "concepts/commitments",
+        {
+          "group": "mev-commit-chain",
+          "pages": [
+            "concepts/mev-commit-chain/introduction",
+            "concepts/mev-commit-chain/differences-between-ethereum-and-mev-commit-chain"
+          ]
+        },
+        "concepts/bridging-details",
+        "concepts/oracle",
+        {
+          "group": "Rewards",
+          "pages": [
+            "concepts/rewards/introduction",
+            "concepts/rewards/slashing-rules"
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Developers",
+      "pages": [
+        "developers/contracts",
+        "developers/debugging",
+        "developers/key-management",
+        "developers/security-best-practices",
+        "developers/manual-start-mev-commit",
+        "developers/run-mev-commit-chain-node"
+      ]
+    },
+    {
+      "group": "Reference",
+      "pages": [
+        "reference/bid-commands",
+        "reference/provider-and-bidder-interaction-via-apis",
+        "reference/system-requirements",
+        "reference/provider-attribution-methodology",
+        "reference/run-mev-commit",
+        "reference/cryptographic-stack",
+        "reference/tutorials"
+      ]
     },
     {
       "group": "Knowledge Base",
