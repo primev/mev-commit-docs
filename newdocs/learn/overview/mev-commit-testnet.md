@@ -25,7 +25,7 @@ The testnet allows bidders and providers to spin up nodes and send bids and comm
 | Service           | Link                                                       |
 | ----------------- | ---------------------------------------------------------- |
 | Bootnode endpoint | [http://34.215.163.180:8545/](http://34.215.163.180:8545/) |
-| Bridge frontend   | [http://34.215.163.180/](http://34.215.163.180/)           |
+| Bridge frontend   | `Coming soon`                                              |
 | Block explorer    | [http://34.209.10.199/blocks](http://34.209.10.199/blocks) |
 
 ### **Contract addresses**
@@ -36,7 +36,7 @@ The testnet allows bidders and providers to spin up nodes and send bids and comm
 
 ## Infrastructure
 
-Primev will maintain a testnet consisting of the mev-commit chain, oracle service, and hyperlane bridge to Sepolia.
+Primev will maintain a testnet consisting of the mev-commit chain, oracle service, and bridge to Holesky.
 
 <figure><img src="../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
 
