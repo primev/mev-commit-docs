@@ -21,9 +21,20 @@ Open a new terminal window. To send bids, we simply run the following command:
 ```bash
 curl -X POST http://localhost:13523/v1/bidder/bid \
 -d '{
-  "txHash": "91a89B633194c0D86C539A1A5B14DCCacfD47094",
-  "amount": <amount in wei>,
-  "blockNumber": <blocknumber>
+    "txHashes": ["0549fc7c57fffbdbfb2cf9d5e0de165fc68dadb5c27c42fdad0bdf506f4eacae"],
+    "amount": "<amount in wei>",
+    "blockNumber": <integer blocknumber>
+}'
+```
+
+To include bundles of transactions, add them in the atomic sequence in which they exist in the bundle, as follows:
+
+```bash
+curl -X POST http://localhost:13523/v1/bidder/bid \
+-d '{
+    "txHashes": ["0549fc7c57fffbdbfb2cf9d5e0de165fc68dadb5c27c42fdad0bdf506f4eacae", 22145ba31366d29a893ae3ffbc95c36c06e8819a289ac588594c9512d0a99810, 7e1506f266bc86c81ae46018053a274a3bd96a9eff17392930707bf8fa5ff6be],
+    "amount": "<amount in wei>",
+    "blockNumber": <integer blocknumber>
 }'
 ```
 
