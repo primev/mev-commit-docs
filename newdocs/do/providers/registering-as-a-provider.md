@@ -1,8 +1,8 @@
 # Registering as a Provider
 
-In order to register as a provider in the mev-commit network, user has to stake some ETH on the provider registry. This gives us a way to penalize nodes that are misbehaving. For, e.g. preconfirming bids and not adding the transactions to the block that was built. If the provider node is not staked, other nodes will not be connected to it. Once it is staked, it will be allowed into the network and start seeing bidders connecting to it to send bids.
+In order to register as a provider in the mev-commit network, you have to stake some ETH on the provider registry. This adds credibility to the commitments that you'll be issuing, as the stake may be slashed in the event of breaking a commitment, such as committing to a preconfirmation bid and not including the transaction in a block. Once the provider node is registered on the network, other nodes will connect to it and the provider node should start seeing bids come in.
 
-Users can use the provider API to check and add stake.
+You can use the provider API to check and add stake.
 
 *   Check the stake
 
@@ -13,9 +13,9 @@ Users can use the provider API to check and add stake.
     }
     ```
 
-    In order to stake, we need to first add funds to the Ethereum wallet created for the node.
+    In order to stake, we need to first add funds to the Ethereum wallet created for the node on the mev-commit chain.
 
-    *   Get the Ethereum wallet address of the node
+    *   Get the wallet address of the node
 
         ```bash
         > curl localhost:13523/topology | jq
@@ -42,8 +42,8 @@ Users can use the provider API to check and add stake.
         	--value 100ether
         ```
 
-        This command will transfer 100 ETH to your `$ADDRESS` which should be enough to get started.
-*   Check the minimum amount that can be staked. Bidders will only connect to providers which have stake higher than this minimum. The amount is in `wei`
+        This command will transfer 100 ETH on mev-commit to your `$ADDRESS` which should be enough to get started.
+*   Check the minimum amount that can be staked, and consider staking a multiple of it. Bidders will only connect to providers which have stake higher than this minimum, and the larger your stake, the greater the credibility behind your commitments. The amount is set in `wei`
 
     ```bash
     > curl localhost:13523/v1/provider/get_min_stake | jq
@@ -60,4 +60,4 @@ Users can use the provider API to check and add stake.
     }
     ```
 
-Once you have staked, wait for a few minutes, and you should see peers getting connected in the logs. You can check the `/topology` endpoint again to verify that you have some connected peers.
+Once you have staked, you should seeing peers getting connected in the logs within a few minutes. You can check the `/topology` endpoint again to verify that you have some connected peers.
