@@ -1,23 +1,9 @@
 
-## Bridging 
+## Bridging quick-start 
 
-The following diagram illustrates the flow of a cross chain transfer from an account on L1, to a recipient account on the mev-commit chain. 
+Bridging currently requires the use of a bridge cli tool. A frontend compatible with wallet integrations will be available soon.
 
-![Image Not Found](bridge_flow.png)
-
-To bridge from L1 to the mev-commit chain, a user EOA first calls the `InitiateTransfer` function on the L1 gateway contract. This function accepts two parameters, a recipient account to receive funds on the counterparty chain, and an amount to transfer. The user must send (lock) the appropriate amount of ether in the L1 gateway contract as a part of the transaction that calls this function.
-
-During the `InitiateTransfer` transaction, an event is emitted from L1. The relayer continuously monitors for these L1 events from finalized blocks. Once the L1 event is observed by the relayer, it calls the `FinalizeTransfer` function on the bridge gateway contract residing on the mev-commit chain. This transaction mints native ether to the recipient EOA, with an appropriate amount of wei.
-
-To bridge ether from the mev-commit chain back to L1, a user follows the same pattern as described above, as the relayer monitors both chains for transfer events. 
-
-Note the destination gateway contract enforces a flat fee on the destination address. This is a constant fee paid to the relayer during the transfer finalization transaction. It currently serves as a simple 1 wei placeholder. In production this fee must be greater on average than the gas cost of transfer finalization transactions sent from the relayer.
-
-### Bridging quick-start 
-
-See the following instructions to use the bridge cli tool. A frontend compatible with metamask will be available soon.
-
-To test out the bridge cli with a one-liner using a pre-funded account (as of writing) on Holesky, try the following command:
+To test out the bridge cli with a one-liner using a pre-funded account on Holesky, try the following command:
 
 ```bash
 curl -s https://raw.githubusercontent.com/primevprotocol/scripts/bridge/bridge.sh | bash
