@@ -1,233 +1,35 @@
 ---
 title: "Setting Up Your mev-commit Node"
-description: "Step into the Primev ecosystem with ease. This guide covers everything you need to set up your mev-commit node, whether you're aiming to be a bidder or a provider."
+description: "Step into mev-commit with ease. This guide covers everything you need to set up your mev-commit node, as a bidder or a provider."
 sidebarTitle: Quickstart
 icon: "gear"
 ---
 
 # Quickstart
 
-Ready to get your node up and running? This streamlined process will guide you through launching either a bidder or provider node in the Primev network.
+This section provides a fast method to start using mev-commit.
 
-<Steps titleSize="h3">
-  <Step title="📥 Download">
+**Pre-requisites:**
 
-    Start by downloading the latest setup script from our repository.
+* Ensure you have `curl` installed on your system. `curl` is a command-line tool used to transfer data from or to a server.
+* A `terminal` to execute the command. This can be any command-line interface like Command Prompt on Windows, Terminal on macOS, or a Linux shell.
 
-    ```bash ❯_ terminal
-    curl -o launchmevcommit \
-    https://raw.githubusercontent.com/primevprotocol/scripts/main/launchmevcommit
-    ```
+Follow these simple steps to get started:
 
-  </Step>
+```bash
+curl -o launchmevcommit https://raw.githubusercontent.com/primevprotocol/scripts/main/launchmevcommit && chmod +x launchmevcommit && ./launchmevcommit --rpc-url http://69.67.151.95:8545 --node-type bidder
+```
 
-  <Step title="🛠️ Permission">
+**Providers:** Change the last section of the code "--node-type bidder" to "--node-type provider" to set mev-commit up as a provider.  &#x20;
 
-    Ensure the script is executable with the following command:
+❗You will need to expose port 13523 on your local machine to allow the provider node to establish connections that are incoming to the node.
 
-    ```bash ❯_ terminal
-    chmod +x launchmevcommit
-    ```
+**This command performs several actions automatically:**
 
-  </Step>
+* Downloads the mev-commit startup script using `curl`.
+* Makes the script executable with `chmod`.
+* Executes the script to set up mev-commit with the required configurations.
 
-  <Step title="🚀 Launch">
+Your mev-commit node setup is done once the command execution is complete.
 
-    Execute the script to initiate your node, selecting either a bidder or provider configuration based on your role in the network.
-
-    <CodeGroup>
-
-        ```bash ❯_ bidder
-        ./launchmevcommit --rpc-url http://69.67.151.95:8545 --node-type bidder
-        ```
-
-        ```bash ❯_ provider
-        ./launchmevcommit --rpc-url http://69.67.151.95:8545 --node-type provider
-        ```
-
-    </CodeGroup>
-
-  </Step>
-</Steps>
-<Accordion title="🤔 What does the script do?">
-
-    ## Script Overview
-
-    This script automates the setup and initialization of your Primev node, catering to both bidder and provider roles. Below is a detailed breakdown of the script's operations:
-
-    ### 1. Initialization
-    - Sets up essential variables like the RPC URL (`http://69.67.151.95:8545`) for network communication and the node type (either `bidder` or `provider`).
-    - Establishes the root directory (`$HOME/.mev-commit`) where the mev-commit node will be installed.
-
-    ### 2. Download
-    - Fetches the appropriate mev-commit binary for your system from the [Primev GitHub releases page](https://github.com/primevprotocol/mev-commit/releases/tag/v0.1.0), considering your operating system and architecture.
-
-    ### 3. Installation
-    - Extracts the downloaded binary into the specified root directory, ensuring all necessary executables are correctly placed for the node's operation.
-
-    ### 4. Configuration
-    - Initializes the mev-commit node with your specified settings, including the node type and the RPC endpoint, along with necessary contract addresses for the node's functionality.
-
-    ### 5. Wallet Setup
-    - Generates a new private key and wallet address for your node and secures it with test ether to facilitate transactions within the testnet environment.
-
-    ### 6. Node Startup
-    - Launches the mev-commit node in the background tailored to the specified role, enabling it to begin its operations within the Primev network.
-
-    ### 7. Cleanup
-    - Includes a cleanup function to ensure the node is properly shut down when the script exits, preventing any residual processes.
-
-</Accordion>
-
-# Manual Setup
-
-Below, you'll find a guide tailored for those who prefer a more customized installation approach.
-
-<Steps titleSize="h3">
-
-  <Step title="Install cast">
-  
-  We use the [cast](https://book.getfoundry.sh/cast/) CLI tool for making Ethereum RPC calls.
-  If it's not already installed on your system, you can set up the entire Foundry toolchain, including `cast`, with the following command:
-
-    ```bash ❯_ terminal
-    curl -L https://foundry.paradigm.xyz | bash
-    ```
-
-    After installation, execute `foundryup` to update to the latest versions of Foundry's suite of tools:
-     `forge`, `cast`, `anvil`, and `chisel`:
-
-
-    ```bash ❯_ terminal
-    foundryup
-    ```
-
-    For detailed guidance, refer to the official [Foundry Book](https://book.getfoundry.sh/getting-started/installation) installation instructions.
-
-  </Step>
-
-  <Step title="Check your CPU architecture">
-
-    Run the following command which will identify your OS, and chip architecture:
-
-    ```bash  ❯_ terminal
-    uname -sm
-    ```
-
-    This command will output something like `Linux x86_64` or `Darwin arm64`, depending on your system.
-
-  </Step>
-  <Step title="Get the mev-commit binary">
-
-    Navigate to the [mev-commit repo](https://github.com/primevprotocol/mev-commit/releases/tag/v0.1.0)
-     and select the mev-commit binary tailored to your system.
-    For example, if `uname -sm` yields `Linux x86_64`, opt for `mev-commit_Linux_x86_64.tar.gz`.
-    Download, then extract the binary into your preferred root directory to continue with setup.
-
-    You can use the following command which automatically downloads and extracts the appropriate
-    mev-commit binary for your system into your home directory:
-
-    ```bash  ❯_ terminal
-    FILENAME="mev-commit_$(uname -s)_$(uname -m).tar.gz"
-    curl -L "https://github.com/primevprotocol/mev-commit/releases/download/v0.1.0/$FILENAME" \
-    | tar -xz -C $HOME
-    ```
-
-    <Accordion title="🕵️‍♂️ Recommended: Verify the checksum">
-
-    Before executing any code downloaded from the internet, it's recommended to verify the checksum,
-    a practice that ensures the file's integrity and authenticity. Checksums, provided with each release on GitHub,
-    serve as a safeguard, allowing you to confirm that the downloaded binary has not been compromised or altered,
-    thus protecting your system from potential security risks.
-
-    To verify the checksum of the mev-commit binary, you can follow these simplified steps (assumes binary is the home directory):
-
-    <Steps>
-
-      <Step title="Grab the checksum">
-
-        Set the binary's name based on your system and retrieve the corresponding checksum:
-
-        ```bash ❯_ terminal
-        FILENAME="mev-commit_$(uname -s)_$(uname -m).tar.gz"
-        CHECKSUM=$(curl -L \
-        "https://github.com/primevprotocol/mev-commit/releases/download/v0.1.0/mev-commit_0.1.0_checksums.txt" \
-        | awk "/$FILENAME/ {print \$1}")
-        ```
-      </Step>
-
-      <Step title="Verify">
-
-        Verify the binary's checksum by running the following:
-
-        <CodeGroup>
-
-        ```bash linux
-        echo "$CHECKSUM $HOME/$FILENAME" | sha256sum -c -
-        ```
-
-        ```bash macOs (Darwin)
-        echo "$CHECKSUM $HOME/$FILENAME" | shasum -a 256 -c -
-        ```
-
-        </CodeGroup>
-
-       ✅ **Success**
-
-        If the output resembles the following, you may confidently proceed to the next steps:
-
-        ```bash
-        filename.tar.gz: OK
-        ```
-
-        ❌ **Failure**
-
-        Should the output indicate a failure, as shown below, re-download the file and attempt verification once more.
-
-        ```bash
-        filename.tar.gz: FAILED
-        shasum: WARNING: 1 computed checksum did NOT match
-        ```
-
-        If checksum verification continues to fail after multiple attempts, reach out to Primev for support.
-      </Step>
-
-    </Steps>
-
-    </Accordion>
-
-  </Step>
-
-  <Step title="Initialize mev-commit">
-
-    Navigate to the directory with the mev-commit binary and execute the initialization command:
-
-      <CodeGroup>
-
-        ```bash ❯_ bidder
-        ./mev-commit init \
-        --dir . \
-        --rpc-endpoint http://69.67.151.95:8545 \
-        --peer-type bidder
-        ```
-
-        ```bash ❯_ provider
-        ./mev-commit init \
-        --dir . \
-        --rpc-endpoint http://69.67.151.95:8545 \
-        --peer-type provider
-        ```
-
-      </CodeGroup>
-
-    This generates a `private key` and `config.yaml`, saving both in the current directory. To set environment variables for your key, address, and private key, use:
-
-    ```bash ❯_ terminal
-    export KEY=$(cat key)
-    export ADDRESS=$(cast wallet address --private-key 0x$(cat key))
-    export PRIVATE_KEY="0x7c9bf0f015874594d321c1c01ada3166c3509bbd91f76f9e4d7380c2df269c55"
-    ```
-
-  </Step>
-  
-</Steps>
+If you want to perform a manual setup with detailed steps please skip to [Manual Start mev-commit](../developers/manual-start-mev-commit.md) section.

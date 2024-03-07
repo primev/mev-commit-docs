@@ -2,24 +2,49 @@ Submitting Bids
 
 ## Introduction
 
-Once you've allocated the necessary funds to your bidder node's wallet, you're ready to start submitting bids to the network.
+Once you've funded your bidder node wallet, you're ready to start submitting bids to the network.
 It's crucial to verify that your bidder node is connected to at least one provider node.
 This connectivity can be confirmed via the [localhost:13523/topology](http://localhost:13523/topology) endpoint.
 
-### 💳 PrePay For Bids
+### 💳 Prepay For Bids
 
-Before diving in, make sure you've topped up your bid account. Run this command to preload your account with enough credits to start bidding:
+Run this command to load your account with funds to start bidding:
 
 ```bash ❯_ terminal
 curl -X POST http://localhost:13523/v1/bidder/prepay/1000000000000000000
 ```
 
-This tops up your account with `1000000000000000000 wei` (1 ETH), ensuring you're all set to send out those bids!
+This tops up your account with `1000000000000000000 wei` (1 ETH), ensuring you're all set to send bids!
+
+#### Sending Bids
+
+Open a new terminal window. To send bids, we simply run the following command:
+
+```bash
+curl -X POST http://localhost:13523/v1/bidder/bid \
+-d '{
+    "txHashes": ["0549fc7c57fffbdbfb2cf9d5e0de165fc68dadb5c27c42fdad0bdf506f4eacae"],
+    "amount": "<amount in wei>",
+    "blockNumber": <integer blocknumber>
+}'
+```
+
+To include bundles of transactions, add them in the atomic sequence in which they exist in the bundle, as follows:
+
+```bash
+curl -X POST http://localhost:13523/v1/bidder/bid \
+-d '{
+    "txHashes": ["0549fc7c57fffbdbfb2cf9d5e0de165fc68dadb5c27c42fdad0bdf506f4eacae", 22145ba31366d29a893ae3ffbc95c36c06e8819a289ac588594c9512d0a99810, 7e1506f266bc86c81ae46018053a274a3bd96a9eff17392930707bf8fa5ff6be],
+    "amount": "<amount in wei>",
+    "blockNumber": <integer blocknumber>
+}'
+```
+
+💡You can change the values in the fields txHash, amount and blockNumber as desired.
+
+We recommend leveraging [the Go RPC client](https://primev-24.mintlify.app/get-started/bidders/send-bid#official-go-rpc-client) or alternatively using [the REST API](https://primev-24.mintlify.app/get-started/bidders/send-bid#rest-api) to send bids. For those who prefer to use command-line tools, options like [grpcurl](https://github.com/fullstorydev/grpcurl), or [BloomRPC](https://github.com/bloomrpc/bloomrpc) are available. These tools require the protobuf definitions from the repository to interact with the RPC services.
 
 ## REST API
-
-The REST API provides a straightforward way to submit bids using HTTP requests.
-Refer to the API documentation for detailed usage instructions.
 
 🚀 **Ready to send bids?** Just execute this command:
 
@@ -48,6 +73,8 @@ curl -X POST http://localhost:13523/v1/bidder/bid \
 🌐 **Postman Power**: Prefer a GUI? We've created a
 [custom Postman request](https://primev.postman.co/workspace/Team-Workspace~18870d84-94f0-4d1e-8163-db558f83d7e8/request/27192304-fab87a71-9722-46f8-825f-d9791ead6178?ctx=documentation&tab=body)
 as an alterative way to send bids. Ensure you've got the Postman agent ready to go!
+
+The REST API provides a straightforward way to submit bids using HTTP requests. For detailed usage instructions, refer to [the Bidder API documentation](https://primev-24.mintlify.app/api-reference/bidder/sendbid).
 
 ## Official Go RPC Client
 
@@ -99,16 +126,6 @@ for {
 }
 ```
 
-### Command-Line Tools
-
-For those who prefer to use command-line tools, options like [grpcurl](https://github.com/fullstorydev/grpcurl), or [BloomRPC](https://github.com/bloomrpc/bloomrpc) are available.
-These tools require the protobuf definitions from the repository to interact with the RPC services.
-
 ### Custom Client Generation
 
 Utilize the provided protobuf files to generate a client in your preferred programming language, enabling seamless integration with your existing codebase.
-
-## Conclusion
-
-By following these guidelines, developers can efficiently submit bids to the network,
-ensuring participation in the bidding process with their desired configurations and preferences.
