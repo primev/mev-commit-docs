@@ -1,24 +1,20 @@
 ---
-title: "Setting Up Your mev-commit Node"
-description: "Step into mev-commit with ease. This guide covers everything you need to set up your mev-commit node, as a bidder or a provider."
+title: "Quickstart your mev-commit node"
+description: "This section provides a fast method to start using mev-commit."
 sidebarTitle: Quickstart
 icon: "gear"
 ---
 
 # Quickstart
 
-This section provides a fast method to start using mev-commit.
+```bash
+curl -o launchmevcommit https://raw.githubusercontent.com/primevprotocol/scripts/main/launchmevcommit && chmod +x launchmevcommit && ./launchmevcommit --rpc-url http://69.67.151.95:8545 --node-type bidder
+```
 
 **Pre-requisites:**
 
 * Ensure you have `curl` installed on your system. `curl` is a command-line tool used to transfer data from or to a server.
 * A `terminal` to execute the command. This can be any command-line interface like Command Prompt on Windows, Terminal on macOS, or a Linux shell.
-
-Follow these simple steps to get started:
-
-```bash
-curl -o launchmevcommit https://raw.githubusercontent.com/primevprotocol/scripts/main/launchmevcommit && chmod +x launchmevcommit && ./launchmevcommit --rpc-url http://69.67.151.95:8545 --node-type bidder
-```
 
 **Providers:** Change the last section of the code "--node-type bidder" to "--node-type provider" to set mev-commit up as a provider.  &#x20;
 
