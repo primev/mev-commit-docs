@@ -1,0 +1,36 @@
+---
+icon: credit-card
+iconType: duotone
+---
+
+There are three settlement outcomes after a commitment is made and an Ethereum block is proposed:
+
+1. The bid amount is rewarded to the provider for delivering on the commitment
+2. The provider stake is slashed for breaking the commitment
+3. Nothing happens as the provider was not the winning execution provider for the Ethereum block
+
+### Minimum Prepay
+
+❗ The Bidder needs to have 10 times the size of their largest bid in order to receive pre-confirmations.
+
+## Slashing Fee Structure
+
+When a provider fails to fulfill a promise, their stake is slashed according to the bid size. 
+
+### Minimum Staking
+
+Providers need to stake a minimum amount to join the mev-commit p2p network.
+
+The current minimum requirement is 1 ether set [here](https://github.com/primevprotocol/contracts/blob/main/scripts/DeployScripts.s.sol#L43)
+
+❗ Providers also need to ensure they have 10 times the stake of a bidAmt to preconfirm a given bid.
+
+## Fee Structures and Transactions
+
+Let’s consider the relationship between mev-commit native ether, and aggregate mainnet L1 ether that is locked in bridging contracts. The mev-commit chain fee mechanism must be non-inflationary. Otherwise, overtime there’d be more ether on our sidechain than could be withdrawn from the L1 bridge contract.
+
+On mainnet ethereum with EIP-1559, proposers receive a block reward created by the network, along with any accumulated priority fees for transactions in the block. Base fees are burned. Depending on network load, this fee mechanism can be inflationary or deflationary.
+
+The mev-commit chain will implement a fee model that maintains a 1:1 peg between sidechain ether and L1 escrowed ether, meaning **any transaction executed on mev-commit does not change the total supply of native ether**. This property relieves the need for accounting logic related to bridging.
+
+Specifically, the mev-commit chain implements a variation of EIP-1559. The clique POA protocol does [not have block rewards](https://github.com/primevprotocol/go-ethereum/blob/7d52a7068edd08650dc267d26cb8059ece55bc84/consensus/clique/clique.go#L587). Base fees accumulate to the protocol treasury address, and priority fees are sent to the signer of a block. See [this PR](https://github.com/primevprotocol/go-ethereum/pull/9). Application level fees can be separately defined as necessary.
