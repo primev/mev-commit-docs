@@ -3,26 +3,12 @@ title: 'Receive your First Preconfirmation'
 sidebarTitle: 'My First Preconf <3'
 ---
 
-## Receiving your First Preconfirmation
+### Prerequisite
+Make sure you get a [mev-commit Bidder Node up and running](https://docs.primev.xyz/get-started/quickstart)
 
-### Step 1. Get a mev-commit Bidder Node up and running
+### Submit a Bid and receive a Preconfirmation commitment
 
-```bash ❯_ terminal
-curl -o launchmevcommit <https://raw.githubusercontent.com/primevprotocol/scripts/main/launchmevcommit> \
-&& chmod +x launchmevcommit \
-&& ./launchmevcommit --node-type bidder
-```
-
-This will fund your wallet, and start a new mev-commit bidder node for you.
-
-If you’ve already ran the command, it will ask you if you want to overwrite. Respond with a `y` for a clean setup.
-
-There is a mev-commit provider node on the Holesky testnet that will always instantly commit to a bid and return a preconfirmation.
-However, this provider will not be able to deliver inclusion as it's a "dummy" provider.
-
-### Step 2. Submit Bid and receive Preconfirmation commitment
-
-Change the `txHash` `amount` and `blockNumber` to your liking
+Change the `txHash`, `amount`, and `blockNumber` to your liking
 
 ```bash ❯_ terminal
 curl -X POST <http://localhost:13523/v1/bidder/bid> \
