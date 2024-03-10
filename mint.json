@@ -41,7 +41,6 @@
     {
       "group": "Get started",
       "pages": [
-        "get-started/introduction",
         "get-started/quickstart",
         {
           "group": "Bidders",

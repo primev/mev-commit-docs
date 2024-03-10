@@ -1,1 +1,7 @@
+To send your first commitment quickly, you will need to connect to the primev Testnet.
+This will allow you to consume bids incoming to the network and do commitments.
 
+Your first step is to construct a provider node. The following command will allow you to automatically set up a full provider mev-commit node.
+```
+ curl -o launchmevcommit https://raw.githubusercontent.com/primevprotocol/scripts/main/launchmevcommit && chmod +x launchmevcommit && ./launchmevcommit --rpc-url https://chainrpc.testnet.mev-commit.xyz --node-type provider
+ ```
