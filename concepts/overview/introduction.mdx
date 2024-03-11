@@ -4,21 +4,31 @@ icon: sailboat
 
 ## What is mev-commit?
 
-Mev-commit is a peer-to-peer (P2P) networking platform designed to facilitate direct and real-time interactions between mev actors and execution providers. It provides a robust network for exchanging execution bids and commitments, thus significantly improving the transaction execution process. This platform allows for detailed specification of execution requirements and delivers timely and reliable commitments, ensuring a more precise and efficient transactional experience.
+Mev-commit is a peer-to-peer (P2P) networking platform designed to facilitate direct and real-time interactions and coordination between mev actors and execution providers. It provides a robust network for exchanging execution bids and cryptographic commitments, which are used to specify execution requirements in detail and to receive credible commitments that act as promises to fulfill bid requirements. mev-commit allows actors to engage in "fast games" such as preconfirmations through real-time cryptographic commitments, and settles the result using a high throughput blockchain and an oracle.
 
 <Frame>
   <img src="/images/mev-commit.png" />
 </Frame>
 
-## Why mev-commit?
-
-**mev-commit** addresses the centralizing tendencies of mev within Ethereum's ecosystem. Unchecked, mev can lead to consensus instability and the emergence of permissioned communication infrastructures among searchers, block producers, and validators.
-
-In a PoS (Proof of Stake) Ethereum landscape, where block subsidies are expected to reduce, mev's proportion in total staking revenue becomes significantly more impactful. mev-commit offers a decentralized solution, enabling real-time, transparent exchanges between various mev actors. It facilitates a fairer, more accessible mev environment, fostering a more stable, efficient, and equitable blockchain ecosystem. By leveraging mev-commit, actors can engage in mev opportunities while contributing to the overall health and decentralization of Ethereum.
-
 ## Actors
 
-In the mev-commit ecosystem, participants are divided into Bidders, including mev searchers, AA bundlers, solvers, and Rollup Provers seeking efficient block space utilization, and Providers, such as Block Builders and Rollup Sequencers, who execute transactions. For detailed roles and interactions, refer to the [Actors](./#actors) section.
+Network actors' roles are defined based on their interactions with other ecosystem actors. A diagram below depicts a given mev actor's relative placement compared to others.
+
+<Frame>
+  <img src="/images/supply-chain.png" />
+</Frame>
+
+For example, a Searcher is a bidder for a Sequencer; but that same Sequencer can be a bidder for a block builder. Thus it's best to think of actors' roles in mev-commit similar to their roles in the mev pipeline. To the left of the diagram are bidders, and to the right of the diagram are execution providers who can issue commitments against these bids.
+
+Under PBS, information only moves to the right amongst actors in the mev pipeline. With mev-commit, credible commitments for execution that share bits of information flow from providers back to bidders, who consume blockspace.
+
+### **Providers**
+
+Providers of execution services, such as **Block Builders and Rollup Sequencers**.
+
+### **Bidders**
+
+Users bidding for execution services include **mev searchers, AA bundlers, solvers, Rollup Provers, and others seeking efficient use of block space**. For detailed roles and interactions, refer to the [Actors](./#actors) section.
 
 ## Bids
 
@@ -26,21 +36,11 @@ Within mev-commit, bids act as the foundational requests placed by bidders, sign
 
 Bids essentially convey a user's readiness to pay a certain fee for the execution of their transaction, proposing a price designed to motivate execution providers to give priority to their transaction.&#x20;
 
-#### Bids and Privacy
-
-mev-commit is inherently pseudonymous, allowing any Ethereum address to submit a bid for the execution of any transaction, including bids for transactions that belong to others. Bids are visible to providers on the network and are identifiable by transaction hashes. Bids get processed by network providers and mev-commit chain validators for verifiable commitments and seamless reward settlement.
-
 ## Commitments
 
 Commitments within mev-commit represent the execution providers' affirmative responses to bids, confirming their agreement to execute the specified transactions at the proposed prices within designated blocks. These commitments are conveyed through cryptographic proofs or digital signatures, signifying the providers' acceptance of a bid.
 
 Commitments serve as the critical link that aligns the supply and demand dynamics of the network, facilitating an effective and streamlined process for transaction execution.&#x20;
-
-#### Commitments and Privacy
-
-mev-commit offers standard and privacy-preserving commitment methods for providers to choose from. Privacy-preserving commitments safeguard the confidentiality of commitment details, letting only the bidder know their bid is committed to during the block slot, and revealing the full details for the network after the slot concludes.
-
-You can read more about how mev-commit enables execution commitment privacy [here](https://mirror.xyz/0xB456F9deb9bB6f545f91Ce2949C458c3A723659e/1gjUCw9tCUDZ2U71N-6IkINeJYyhuTdC7WeVeBam-fM).
 
 ## mev-commit software components
 
@@ -49,3 +49,9 @@ You can read more about how mev-commit enables execution commitment privacy [her
 - [contracts](https://github.com/primevprotocol/contracts)
 - [mev-commit-oracle](https://github.com/primevprotocol/mev-commit-oracle)
 - [mev-commit-bridge](https://github.com/primevprotocol/mev-commit-geth/tree/master/geth-poa)
+
+## Why mev-commit?
+
+**mev-commit** addresses the centralizing tendencies of mev within Ethereum's ecosystem. Unchecked, mev can lead to consensus instability and the emergence of permissioned communication infrastructures among searchers, block producers, and validators.
+
+In a PoS (Proof of Stake) Ethereum landscape, where block subsidies are expected to reduce, mev's proportion in total staking revenue becomes significantly more impactful. mev-commit offers a decentralized solution, enabling real-time, transparent exchanges between various mev actors. It facilitates a fairer, more accessible mev environment, fostering a more stable, efficient, and equitable blockchain ecosystem. By leveraging mev-commit, actors can engage in mev opportunities while contributing to the overall health and decentralization of Ethereum.

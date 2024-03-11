@@ -9,12 +9,12 @@ icon: "gear"
 curl -o launchmevcommit https://raw.githubusercontent.com/primevprotocol/scripts/main/launchmevcommit && chmod +x launchmevcommit && ./launchmevcommit --rpc-url http://69.67.151.95:8545 --node-type bidder
 ```
 
+This will get you going with a mev-commit node as a bidder on the network. To join the network as a **provider**, simply change the "--node-type bidder" to "--node-type provider". Next, dive into the [bidder](https://docs.primev.xyz/get-started/bidders/receive-preconfirmation-commitment) or [provider](https://docs.primev.xyz/get-started/providers/consume-bids-mev-commit) sections to run your operations on the network.
+
 **Pre-requisites:**
 
 * Ensure you have `curl` installed on your system. `curl` is a command-line tool used to transfer data from or to a server.
 * A `terminal` to execute the command. This can be any command-line interface like Command Prompt on Windows, Terminal on macOS, or a Linux shell.
-
-**Providers:** Change the last section of the code "--node-type bidder" to "--node-type provider" to set mev-commit up as a provider.  &#x20;
 
 ❗You will need to expose port 13523 on your local machine to allow the provider node to establish connections that are incoming to the node.
 
