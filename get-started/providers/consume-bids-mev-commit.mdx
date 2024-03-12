@@ -13,14 +13,22 @@ There are 4 options to communicate with the API
 
 *   We recommend using the official go RPC client to communicate with the mev-commit API. In order to use this in go code, you can go get the mev-commit package and then import the generated client.
 
+    - For Go developers, leveraging the official Go RPC client is the recommended approach. Start by installing the mev-commit package:
+
+    ```bash ❯_ terminal
+    go get github.com/primevprotocol/mev-commit
+    ```
+
+    - Then, incorporate the generated client into your Go application as follows:
+
     ```go
-    import providerapiv1 "[github.com/primevprotocol/mev-commit/gen/go/rpc/providerapi/v1](<http://github.com/primevprotocol/mev-commit/gen/go/rpc/providerapi/v1>)"
+    import providerapiv1 "github.com/primevprotocol/mev-commit/gen/go/rpc/providerapi/v1"
 
     conn, err = grpc.DialContext(
-    			context.Background(),
-    			"localhost:13524",
-    			grpc.WithBlock(),
-    			grpc.WithTransportCredentials(insecure.NewCredentials()),
+    	context.Background(),
+    	"localhost:13524",
+    	grpc.WithBlock(),
+    	grpc.WithTransportCredentials(insecure.NewCredentials()),
     )
 
     if err != nil {
