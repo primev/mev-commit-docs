@@ -918,7 +918,7 @@ We provide advanced instructions for those of you who want to customize the star
   The bidder needs to prepay a certain amount onto the primev contracts to allow them to send bids and receive commitments. This is to ensure that providers can pull funds once the bids have been completed.
   To prepay, first **********\*\***********\*\***********\*\***********open a new terminal**********\*\***********\*\***********\*\*********** and run the following command:
   ```bash
-  curl -X POST http://localhost:13523/v1/bidder/prepay/1000000000000000000
+  curl -X POST http://localhost:13523/v1/bidder/provide_allowance/1000000000000000000
   ```
   This will prepay `1000000000000000000 wei` into your account.
 
@@ -959,7 +959,7 @@ The bidder needs to prepay a certain amount onto the primev contracts to allow t
 To prepay, ensure you’ve got the bidder node up, and run the following command:
 
 ```bash
-curl -X POST http://localhost:13523/v1/bidder/prepay/1000000000000000000
+curl -X POST http://localhost:13523/v1/bidder/provide_allowance/1000000000000000000
 ```
 
 This will prepay `1000000000000000000 wei` into your account.
