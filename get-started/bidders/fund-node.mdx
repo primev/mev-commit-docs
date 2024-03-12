@@ -10,7 +10,7 @@ Given a bid with associated bid _amount_ is preconfirmed by a certain provider, 
 
 Bidders can check or add to their prepaid allowance by interacting with the settlement chain via the bidder API.
 
-- Check their prepaid allowance
+- To check your prepaid allowance
 
   ```bash
   > curl localhost:13523/v1/bidder/get_allowance | jq
@@ -19,9 +19,9 @@ Bidders can check or add to their prepaid allowance by interacting with the sett
   }
   ```
 
-  First fund your node account with ether on the mev-commit chain.
+  To fund your node account with ether on the mev-commit chain.
 
-  - Get the Ethereum account address of the node
+  - Get the Ethereum account address of your node
 
     ```bash
     > curl localhost:13523/topology | jq
@@ -46,7 +46,7 @@ Bidders can check or add to their prepaid allowance by interacting with the sett
     }
     ```
 
-  - Fund your account with ether on the mev-commit chain. Currently for the testnet, you can use a faucet account to get some testnet ETH. This can be done using the cast command:
+  - Fund your account with ether on the mev-commit chain. Currently for the testnet, you can use a faucet account to get some mev-commit chain ETH. This can be done using the cast command:
 
     ```bash
     > cast send --rpc-url https://chainrpc.testnet.mev-commit.xyz \\
@@ -55,7 +55,7 @@ Bidders can check or add to their prepaid allowance by interacting with the sett
     	--value 100ether
     ```
 
-    This command will transfer 100 ETH to your `$ADDRESS` which should be enough to get started.
+    This command will transfer 100 mev-commit chain ETH to your `$ADDRESS` which should be enough to get started.
   
   - Alternatively, use the bridge from Holesky to fund your account. See [bridging-and-fees](https://docs.primev.xyz/get-started/bidders/bridging-and-fees).
 
