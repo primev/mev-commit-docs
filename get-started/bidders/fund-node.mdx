@@ -1,10 +1,16 @@
 # Fund Your Node
 
-To send bids to provider nodes, the bidder nodes need to prepay the amount to the bidder registry. Funds are locked for each unique bid till the settlement chain settles the commitments. If the bid that was preconfirmed by a provider ends up in the L1 block built by the provider node, we settle the rewards from this amount. If the bid was preconfirmed by a provider which did not build the L1 block, the amount is refunded. If the bid was preconfirmed by a provider who built the block, but the transaction in the bid is not included in the L1 block, the amount is refunded back to the bidder’s balance.
+To send bids to provider nodes, bidder nodes need to prepay an amount to the bidder registry. Funds are locked for each unique bid until a corresponding commitment is settled on the mev-commit chain. 
 
-Bidders can withdraw this balance at any point by interacting with the settlement chain. In order to check or prepay, the user needs to interact with the bidder API.
+Given a bid with associated bid _amount_ is preconfirmed by a certain provider, three outcomes are possible:
 
-- Check the allowance
+* If the provider ends up *not* building the L1 block, _amount_ is refunded to the bidder.
+* If the provider builds the L1 block, but the preconfirmed transaction is not included in the L1 block, _amount_ is refunded to the bidder.
+* If the corresponding transaction ends up in the L1 block built by the provider, _amount_ is rewarded to the provider.
+
+Bidders can check or add to their prepaid allowance by interacting with the settlement chain via the bidder API.
+
+- Check their prepaid allowance
 
   ```bash
   > curl localhost:13523/v1/bidder/get_allowance | jq
@@ -13,9 +19,9 @@ Bidders can withdraw this balance at any point by interacting with the settlemen
   }
   ```
 
-  In order to add funds to your allowance, we need to first add funds to the Ethereum wallet created for the node.
+  First fund your node account with ether on the mev-commit chain.
 
-  - Get the Ethereum wallet address of the node
+  - Get the Ethereum account address of the node
 
     ```bash
     > curl localhost:13523/topology | jq
@@ -40,7 +46,7 @@ Bidders can withdraw this balance at any point by interacting with the settlemen
     }
     ```
 
-  - Add funds to the account. Currently for the testnet, you can use the Primev account to get some testnet ETH. This can be done using the cast command:
+  - Fund your account with ether on the mev-commit chain. Currently for the testnet, you can use a faucet account to get some testnet ETH. This can be done using the cast command:
 
     ```bash
     > cast send --rpc-url https://chainrpc.testnet.mev-commit.xyz \\
@@ -50,8 +56,10 @@ Bidders can withdraw this balance at any point by interacting with the settlemen
     ```
 
     This command will transfer 100 ETH to your `$ADDRESS` which should be enough to get started.
+  
+  - Alternatively, use the bridge from Holesky to fund your account. See [bridging-and-fees](https://docs.primev.xyz/get-started/bidders/bridging-and-fees).
 
-- Check the minimum amount that can be added to the allowance. Providers will only authorize bids if the bidder has funds greater than the minimum allowance. The amount is in `wei`
+- Check the minimum prepaid allowance to send bids. Providers will only authorize bids if the bidder has funds greater than the minimum allowance. The amount is in `wei`.
 
   ```bash
   > curl localhost:13523/v1/bidder/get_min_allowance | jq
@@ -60,7 +68,7 @@ Bidders can withdraw this balance at any point by interacting with the settlemen
   }
   ```
 
-- Add allowance
+- Add to prepaid allowance
 
   ```bash
   > curl -X POST localhost/v1/bidder/prepay/10000000000000000000 | jq
