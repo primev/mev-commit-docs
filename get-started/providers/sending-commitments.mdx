@@ -1,7 +1,17 @@
-To send your first commitment quickly, you will need to connect to the primev Testnet.
-This will allow you to consume bids incoming to the network and do commitments.
+To send your first commitment, you will need to connect to the primev Testnet. 
+This will allow you to consume bids incoming to the network and submit commitments. 
+Your first step is to set up a provider node. The following command will allow you to automatically set up a full provider mev-commit node:
 
-Your first step is to construct a provider node. The following command will allow you to automatically set up a full provider mev-commit node.
 ```
- curl -o launchmevcommit https://raw.githubusercontent.com/primevprotocol/scripts/main/launchmevcommit && chmod +x launchmevcommit && ./launchmevcommit --rpc-url https://chainrpc.testnet.mev-commit.xyz --node-type provider
- ```
+curl -o launchmevcommit https://raw.githubusercontent.com/primevprotocol/scripts/main/launchmevcommit && chmod +x launchmevcommit && ./launchmevcommit --rpc-url https://chainrpc.testnet.mev-commit.xyz --node-type provider
+```
+
+Now you'll want to run an emulator to simulate the accepting and rejecting of bids. You can read more about the internal builder API [here](http://localhost:3000/api-reference/provider/sendprocessedbids).
+
+To get started with the emulator, open a new termainl and run the following command:
+<Warning>You require Go Version 1.21.1 to run the example emulator</Warning>
+```
+git clone https://github.com/primevprotocol/mev-commit.git && cd mev-commit && git checkout v0.2.0 && cd examples/provideremulator && go run .
+```
+
+Now you have a running instance of both an emulator that will auto-accept incoming bids and a provider node that will submit commitments on your behalf.
