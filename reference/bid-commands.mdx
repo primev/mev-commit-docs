@@ -22,8 +22,8 @@ curl -s http://localhost:13523/v1/bidder/get_allowance
 ## Withdraw Prepaid Funds
 
 ```bash ❯_ terminal
-cast send 0x62197Abd7672925c7606Bdf9931e42baCa6619AD "withdrawPrepayedAmount(address)" $ADDRESS \
---rpc-url http://69.67.151.95:8545 --private-key $KEY
+cast send 0xa86a41b57Fb73f9118F84847574517258d29eAD0 "withdrawPrepayedAmount(address)" $ADDRESS \
+--rpc-url https://chainrpc.testnet.mev-commit.xyz --private-key $KEY
 ```
 
 ## Checking the Balance of your Wallet
@@ -31,15 +31,15 @@ cast send 0x62197Abd7672925c7606Bdf9931e42baCa6619AD "withdrawPrepayedAmount(add
 This command will allow you to check your current wallet balance on mev-commit chain:
 
 ```bash ❯_ terminal
-cast b $ADDRESS --rpc-url http://69.67.151.95:8545
+cast b $ADDRESS --rpc-url https://chainrpc.testnet.mev-commit.xyz
 ```
 
 ## Check Total Value Locked in Contracts
 
 ```bash ❯_ terminal
-python3 -c "print($(cast b 0x62197Abd7672925c7606Bdf9931e42baCa6619AD \
---rpc-url http://69.67.151.95:8545) + $(cast b 0xeA73E67c2E34C4E02A2f3c5D416F59B76e7617fC \
---rpc-url http://69.67.151.95:8545))"
+python3 -c "print($(cast b 0xa86a41b57Fb73f9118F84847574517258d29eAD0 \
+--rpc-url https://chainrpc.testnet.mev-commit.xyz) + $(cast b 0x5960774AD41D03DAB4916a30bD2190f8b3b3b4b2 \
+--rpc-url https://chainrpc.testnet.mev-commit.xyz))"
 ```
 
 ## Topology

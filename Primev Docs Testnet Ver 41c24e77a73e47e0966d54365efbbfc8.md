@@ -217,21 +217,20 @@ You can read more about how mev-commit enables execution commitment privacy [her
 
 ### **Services links**
 
-| Service           | Link                        |
-| ----------------- | --------------------------- |
-| Bootnode endpoint | http://34.215.163.180:8545/ |
-| Bridge frontend   | http://34.215.163.180/      |
-| Block explorer    | http://34.209.10.199/blocks |
+| Service           | Link                                          |
+| ----------------- |-----------------------------------------------|
+| Bootnode endpoint | https://bootnode.testnet.mev-commit.xyz/      |
+| Block explorer    | http://explorer.testnet.mev-commit.xyz/blocks |
 
 ### **Contract addresses**
 
 | Contract               | Address                                    |
-| ---------------------- | ------------------------------------------ |
-| UserRegistry           | 0x390066a15e1048445F1B1b69Ba98AC4cb5e91c52 |
-| ProviderRegistry       | 0xeA73E67c2E34C4E02A2f3c5D416F59B76e7617fC |
-| PreConfCommitmentStore | 0xBB632720f817792578060F176694D8f7230229d9 |
-| Oracle                 | 0x51dcB14bcb0B4eE747BE445550A4Fb53ecd31617 |
-| Whitelist              | 0xc5bB85F941fb8dbbed6416A8aC84A06226E0f138 |
+|------------------------| ------------------------------------------ |
+| BidderRegistry         | 0xa86a41b57Fb73f9118F84847574517258d29eAD0 |
+| ProviderRegistry       | 0x5960774AD41D03DAB4916a30bD2190f8b3b3b4b2 |
+| PreConfCommitmentStore | 0x7D1a4707e573D260581f3AB3f90f697Ab03fC6Dd |
+| Oracle                 | 0xFA626Ad00244CC08e4E34A10d2d1Aa1E930AA6dC |
+| Whitelist              | 0x57508f0B0f3426758F1f3D63ad4935a7c9383620 |
 
 ### **Current design**
 
@@ -533,7 +532,7 @@ Please refer to System Requirements section [here.](Primev%20Docs%20Testnet%20Ve
 
    # Bootnodes used for bootstrapping the network.
    bootnodes:
-     - /ip4/35.91.118.20/tcp/13522/p2p/16Uiu2HAmAG5z3E8p7o19tEcLdGvYrJYdD1NabRDc6jmizDva5BL3
+     - /dnsaddr/bootnode.testnet.mev-commit.xyz
 
    # The default is set to false for development reasons. Change it to true if you wish to accept bids on your provider instance
    expose_provider_api: false
@@ -819,7 +818,7 @@ Hyperlane’s [Mailbox.sol](https://github.com/primevprotocol/hyperlane-monorepo
 To join the mev-commit chain testnet with your own full-node, use [mev-commit geth (opens in a new tab)](https://github.com/primevprotocol/go-ethereum). We've modified go-ethereum to achieve shorter block periods than mainnet Ethereum, and to enable seamless native token bridging capabilities. Geth configuration will vary based on environment, but an example is provided below:
 
 ```
-exec geth \    --verbosity="$VERBOSITY" \    --datadir="$GETH_DATA_DIR" \    --port 30311 \    --syncmode=full \    --gcmode=full \    --http \    --http.corsdomain="*" \    --http.vhosts="*" \    --http.addr=0.0.0.0 \    --http.port="$RPC_PORT" \    --http.api=web3,debug,eth,txpool,net,engine \    --bootnodes enode://34a2a388ad31ca37f127bb9ffe93758ee711c5c2277dff6aff2e359bcf2c9509ea55034196788dbd59ed70861f523c1c03d54f1eabb2b4a5c1c129d966fe1e65@172.13.0.100:30301 \    --networkid=$CHAIN_ID \    --unlock=$BLOCK_SIGNER_ADDRESS \    --password="$GETH_DATA_DIR"/password \    --mine \    --miner.etherbase=$BLOCK_SIGNER_ADDRESS \    --allow-insecure-unlock \    --nousb \    --netrestrict 172.13.0.0/24 \    --metrics \    --metrics.addr=0.0.0.0 \    --metrics.port=6060 \    --ws \    --ws.addr=0.0.0.0 \    --ws.port="$WS_PORT" \    --ws.origins="*" \    --ws.api=debug,eth,txpool,net,engine \    --rpc.allow-unprotected-txs \    --authrpc.addr="0.0.0.0" \    --authrpc.port="8551" \    --authrpc.vhosts="*" \    --nat extip:$NODE_IP
+exec geth \    --verbosity="$VERBOSITY" \    --datadir="$GETH_DATA_DIR" \    --port 30311 \    --syncmode=full \    --gcmode=full \    --http \    --http.corsdomain="*" \    --http.vhosts="*" \    --http.addr=0.0.0.0 \    --http.port="$RPC_PORT" \    --http.api=web3,debug,eth,txpool,net,engine \    --bootnodes enode://34a2a388ad31ca37f127bb9ffe93758ee711c5c2277dff6aff2e359bcf2c9509ea55034196788dbd59ed70861f523c1c03d54f1eabb2b4a5c1c129d966fe1e65@103.219.170.127:29746 \    --networkid=$CHAIN_ID \    --unlock=$BLOCK_SIGNER_ADDRESS \    --password="$GETH_DATA_DIR"/password \    --mine \    --miner.etherbase=$BLOCK_SIGNER_ADDRESS \    --allow-insecure-unlock \    --nousb \    --netrestrict 172.13.0.0/24 \    --metrics \    --metrics.addr=0.0.0.0 \    --metrics.port=6060 \    --ws \    --ws.addr=0.0.0.0 \    --ws.port="$WS_PORT" \    --ws.origins="*" \    --ws.api=debug,eth,txpool,net,engine \    --rpc.allow-unprotected-txs \    --authrpc.addr="0.0.0.0" \    --authrpc.port="8551" \    --authrpc.vhosts="*" \    --nat extip:$NODE_IP
 ```
 
 Note this configuration will be productionized further in the coming weeks.
@@ -865,7 +864,7 @@ The current minimum requirement is 1 ether set [here](https://github.com/primevp
 Simply run the following command in your terminal:
 
 ```bash
-curl -o launchmevcommit https://raw.githubusercontent.com/primevprotocol/scripts/main/launchmevcommit && chmod +x launchmevcommit && ./launchmevcommit --rpc-url http://69.67.151.95:8545 --node-type bidder
+curl -o launchmevcommit https://raw.githubusercontent.com/primevprotocol/scripts/v0.1.0/launchmevcommit && chmod +x launchmevcommit && ./launchmevcommit --rpc-url https://chainrpc.testnet.mev-commit.xyz --node-type bidder
 ```
 
 ## Manual Quickstart
@@ -888,14 +887,14 @@ We provide advanced instructions for those of you who want to customize the star
   ```
 - Step 2. Pull The Required Binary of mev-commit based on your CPU architecture
   Download the binaries from the following
-  [https://github.com/primevprotocol/mev-commit/releases/tag/v0.1.0](https://github.com/primevprotocol/mev-commit/releases/tag/v0.1.0)
+  [https://github.com/primevprotocol/mev-commit/releases/tag/v0.2.0](https://github.com/primevprotocol/mev-commit/releases/tag/v0.2.0)
   Unzip the binary and store in a root directory of your choice
 - Step 3. Place the binary, named mev-commit, into a folder of your choice
   Note this will be considered the root folder of your mev-commit
 - Step 4. Run the initialization
   cd into the folder that contains the mev-commit binary and run the following command
   ```bash
-  ./mev-commit init --dir . --rpc-endpoint http://69.67.151.95:8545  --peer-type bidder
+  ./mev-commit init --dir . --rpc-endpoint https://chainrpc.testnet.mev-commit.xyz  --peer-type bidder
   ```
   This will create both a private key file and a config.yaml file and store it in your current directory.
   While in the directory, run the following command to export relevant data about your address and private key:
@@ -906,7 +905,7 @@ We provide advanced instructions for those of you who want to customize the star
 - Step 5. Fund the account
   In the same shell run the following command to transfer a 100 ether into your wallet from a faucet account:
   ```bash
-  cast send --rpc-url [http://69.67.151.95:8545](http://69.67.151.95:8545/) --private-key 0x7c9bf0f015874594d321c1c01ada3166c3509bbd91f76f9e4d7380c2df269c55 $ADDRESS --value 100ether
+  cast send --rpc-url [https://chainrpc.testnet.mev-commit.xyz](https://chainrpc.testnet.mev-commit.xyz/) --private-key 0x7c9bf0f015874594d321c1c01ada3166c3509bbd91f76f9e4d7380c2df269c55 $ADDRESS --value 100ether
   ```
 - Step 6. Run the node
   1. cd into the folder with your mev-commit binary
@@ -986,7 +985,7 @@ curl -s http://localhost:13523/v1/bidder/get_allowance
 ### Withdraw Prepayed Funds
 
 ```bash
-cast send 0x62197Abd7672925c7606Bdf9931e42baCa6619AD "withdrawPrepayedAmount(address)" $ADDRESS --rpc-url http://69.67.151.95:8545 --private-key $KEY
+cast send 0xa86a41b57Fb73f9118F84847574517258d29eAD0 "withdrawPrepayedAmount(address)" $ADDRESS --rpc-url https://chainrpc.testnet.mev-commit.xyz --private-key $KEY
 ```
 
 ### Checking Balance of your Wallet
@@ -994,13 +993,13 @@ cast send 0x62197Abd7672925c7606Bdf9931e42baCa6619AD "withdrawPrepayedAmount(add
 This command will allow you to check your current wallet balance on mev-commit chain
 
 ```bash
-cast b $ADDRESS --rpc-url http://69.67.151.95:8545
+cast b $ADDRESS --rpc-url https://chainrpc.testnet.mev-commit.xyz
 ```
 
 ### Check Total Value Locked in Contracts
 
 ```bash
-python3 -c "print($(cast b 0x62197Abd7672925c7606Bdf9931e42baCa6619AD --rpc-url http://69.67.151.95:8545) + $(cast b 0xeA73E67c2E34C4E02A2f3c5D416F59B76e7617fC --rpc-url http://69.67.151.95:8545))"
+python3 -c "print($(cast b 0xa86a41b57Fb73f9118F84847574517258d29eAD0 --rpc-url https://chainrpc.testnet.mev-commit.xyz) + $(cast b 0x5960774AD41D03DAB4916a30bD2190f8b3b3b4b2 --rpc-url https://chainrpc.testnet.mev-commit.xyz))"
 ```
 
 ### Topology
@@ -1023,7 +1022,7 @@ To become a provider, you need to run the provider node along with a provider em
 To spin up a Provider node, you can simply run the following:
 
 ```bash
-curl -o launchmevcommit https://raw.githubusercontent.com/primevprotocol/scripts/main/launchmevcommit && chmod +x launchmevcommit && ./launchmevcommit --rpc-url http://69.67.151.95:8545 --node-type provider
+curl -o launchmevcommit https://raw.githubusercontent.com/primevprotocol/scripts/v0.1.0/launchmevcommit && chmod +x launchmevcommit && ./launchmevcommit --rpc-url https://chainrpc.testnet.mev-commit.xyz --node-type provider
 ```
 
 <aside>
@@ -1048,14 +1047,14 @@ We provide advanced instructions for those of you who want to customize the star
   ```
 - Step 2. Pull The Required Binary of mev-commit based on your CPU architecture
   Download the binaries from the following
-  [https://github.com/primevprotocol/mev-commit/releases/tag/v0.1.0](https://github.com/primevprotocol/mev-commit/releases/tag/v0.1.0)
+  [https://github.com/primevprotocol/mev-commit/releases/tag/v0.2.0](https://github.com/primevprotocol/mev-commit/releases/tag/v0.2.0)
   Unzip the binary and store in a root directory of your choice
 - Step 3. Place the binary, named mev-commit, into a folder of your choice
   Note this will be considered the root folder of your mev-commit
 - Step 4. Run the initialization
   cd into the folder that contains the mev-commit binary and run the following command
   ```bash
-  ./mev-commit init --dir . --rpc-endpoint http://69.67.151.95:8545  --peer-type provider
+  ./mev-commit init --dir . --rpc-endpoint https://chainrpc.testnet.mev-commit.xyz  --peer-type provider
   ```
   This will create both a private key file and a config.yaml file and store it in your current directory.
   While in the directory, run the following command to export relevant data about your address and private key:
@@ -1071,7 +1070,7 @@ We provide advanced instructions for those of you who want to customize the star
     </aside>
     
     ```bash
-    cast send --rpc-url [http://69.67.151.95:8545](http://69.67.151.95:8545/) --private-key 0x7c9bf0f015874594d321c1c01ada3166c3509bbd91f76f9e4d7380c2df269c55 $(cast wallet address --private-key 0x$(cat key)) --value 100ether
+    cast send --rpc-url https://chainrpc.testnet.mev-commit.xyz --private-key 0x7c9bf0f015874594d321c1c01ada3166c3509bbd91f76f9e4d7380c2df269c55 $(cast wallet address --private-key 0x$(cat key)) --value 100ether
     ```
 
 - Step 6. Run the node
@@ -1083,7 +1082,7 @@ We provide advanced instructions for those of you who want to customize the star
 - Step 7. Stake Funds and Register
   This command is used to ensure that your provider has been registered with a stake in our protocol. This is used to ensure it can connect with the mev-commit-p2p network. Ensure you run this command in the mev-commit directory.
   ```bash
-  cast send 0xeA73E67c2E34C4E02A2f3c5D416F59B76e7617fC "registerAndStake()" $(cast wallet address --private-key 0x$(cat key)) --rpc-url http://69.67.151.95:8545 --private-key $(cat key) --value 100ether
+  cast send 0x5960774AD41D03DAB4916a30bD2190f8b3b3b4b2 "registerAndStake()" $(cast wallet address --private-key 0x$(cat key)) --rpc-url https://chainrpc.testnet.mev-commit.xyz --private-key $(cat key) --value 100ether
   ```
 
 ## gRPC Node Connection
@@ -1106,12 +1105,12 @@ Once a provider node is up and running, you can use the `ReceiveBids` stream to 
   secret: hello
   log_fmt: text
   log_level: debug
-  bidder_registry_contract: 0x62197Abd7672925c7606Bdf9931e42baCa6619AD
-  provider_registry_contract: 0xeA73E67c2E34C4E02A2f3c5D416F59B76e7617fC
-  preconf_contract: 0xBB632720f817792578060F176694D8f7230229d9
-  rpc_endpoint: http://69.67.151.95:8545
+  bidder_registry_contract: 0xa86a41b57Fb73f9118F84847574517258d29eAD0
+  provider_registry_contract: 0x5960774AD41D03DAB4916a30bD2190f8b3b3b4b2
+  preconf_contract: 0x7D1a4707e573D260581f3AB3f90f697Ab03fC6Dd
+  rpc_endpoint: https://chainrpc.testnet.mev-commit.xyz
   bootnodes:
-    - /ip4/69.67.151.95/tcp/13522/p2p/16Uiu2HAmLYUvthfDCewNMdfPhrVefBbsfaPL22fWWfC2zuoh5SpV
+    - /dnsaddr/bootnode.testnet.mev-commit.xyz
   ```
 - gRPC API Specification
   ```bash
@@ -1136,7 +1135,7 @@ We have a running mev-commit provider node on our testnet that will always retur
 ### Step 1. Get the Bidder Node up and running
 
 ```bash
-curl -o launchmevcommit https://raw.githubusercontent.com/primevprotocol/scripts/main/launchmevcommit && chmod +x launchmevcommit && ./launchmevcommit --node-type bidder
+curl -o launchmevcommit https://raw.githubusercontent.com/primevprotocol/scripts/v0.1.0/launchmevcommit && chmod +x launchmevcommit && ./launchmevcommit --node-type bidder
 ```
 
 This will fund your wallet, and start a new mev-commit bidder node for you.

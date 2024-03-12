@@ -28,7 +28,7 @@ After installing `cast`, run `foundryup` to ensure it's updated.
 
   Download the binaries from the following:
 
-  https://github.com/primevprotocol/mev-commit/releases/tag/v0.1.0
+  https://github.com/primevprotocol/mev-commit/releases/tag/v0.2.0
 
   Unzip the binary and store it in a root directory of your choice.
 
@@ -41,7 +41,7 @@ After installing `cast`, run `foundryup` to ensure it's updated.
   cd into the folder that contains the mev-commit binary and run the following command:
 
   ```bash ❯_ terminal
-  ./mev-commit init --dir . --rpc-endpoint http://69.67.151.95:8545  --peer-type bidder
+  ./mev-commit init --dir . --rpc-endpoint https://chainrpc.testnet.mev-commit.xyz  --peer-type bidder
   ```
 
   This will create both a private key file and a config.yaml file and store it in your current directory.
@@ -61,7 +61,7 @@ After installing `cast`, run `foundryup` to ensure it's updated.
 
 ```bash ❯_ terminal
  cast send \
- --rpc-url [http://69.67.151.95:8545](http://69.67.151.95:8545/) \
+ --rpc-url https://chainrpc.testnet.mev-commit.xyz \
  --private-key 0x7c9bf0f015874594d321c1c01ada3166c3509bbd91f76f9e4d7380c2df269c55 $(cast wallet address --private-key 0x$(cat key)) \
  --value 100ether
 ```
@@ -113,7 +113,7 @@ curl -L https://foundry.paradigm.xyz | bash
 
   Download the binaries from the following
 
-  https://github.com/primevprotocol/mev-commit/releases/tag/v0.1.0
+  https://github.com/primevprotocol/mev-commit/releases/tag/v0.2.0
 
   Unzip the binary and store it in a root directory of your choice
 
@@ -126,7 +126,7 @@ curl -L https://foundry.paradigm.xyz | bash
   cd into the folder that contains the mev-commit binary and run the following command
 
   ```bash ❯_ terminal
-  ./mev-commit init --dir . --rpc-endpoint http://69.67.151.95:8545  --peer-type provider
+  ./mev-commit init --dir . --rpc-endpoint https://chainrpc.testnet.mev-commit.xyz  --peer-type provider
   ```
 
   This will create both a private key file and a config.yaml file and store it in your current directory.
@@ -145,7 +145,7 @@ curl -L https://foundry.paradigm.xyz | bash
   ❗If you’ve named the private key file something other than key, change the key to the correct name in `--private-key 0x$(cat key)`
 
   ```bash ❯_ terminal
-  cast send --rpc-url [http://69.67.151.95:8545](http://69.67.151.95:8545/) \
+  cast send --rpc-url https://chainrpc.testnet.mev-commit.xyz \
   --private-key 0x7c9bf0f015874594d321c1c01ada3166c3509bbd91f76f9e4d7380c2df269c55 $(cast wallet address --private-key 0x$(cat key)) \
   --value 100ether
   ```
@@ -165,6 +165,6 @@ curl -L https://foundry.paradigm.xyz | bash
   This is used to ensure it can connect with the mev-commit-p2p network. Ensure you run this command in the mev-commit directory.
 
   ```bash ❯_ terminal
-  cast send 0xeA73E67c2E34C4E02A2f3c5D416F59B76e7617fC "registerAndStake()" $(cast wallet address --private-key 0x$(cat key)) \
-  --rpc-url http://69.67.151.95:8545 --private-key $(cat key) --value 100ether
+  cast send 0x5960774AD41D03DAB4916a30bD2190f8b3b3b4b2 "registerAndStake()" $(cast wallet address --private-key 0x$(cat key)) \
+  --rpc-url https://chainrpc.testnet.mev-commit.xyz --private-key $(cat key) --value 100ether
   ```
