@@ -3,15 +3,17 @@ title: Consuming Bids from Mev-Commit
 sidebarTitle: Consuming Bids
 ---
 
-Provider nodes that have a stake in the mev-commit registry will start receiving bids on the mev-commit p2p network from bidders. In order to see the incoming bids, the providers need to communicate with the provider API using the RPC clients or the HTTP APIs. 
+Provider nodes that have a stake in the mev-commit registry will start receiving bids on the mev-commit p2p network from bidders. In order to see incoming bids, providers need to communicate with their mev-commit node using one of the available options below.
 
-Once a provider sees a bid and decides to accept or reject it, they send the status to the mev-commit node. If the bid is ACCEPTED, a signed commitment is sent back to the bidder and the mev-commit node will issue a transaction to the mev-commit chain to record the commitment. 
+Once a provider sees a bid and decides to accept or reject it, they send a status to their mev-commit node. If the bid is ACCEPTED, a signed commitment is sent back to the bidder and the provider's mev-commit node will send a transaction to the mev-commit chain to record the commitment.
 
-It is the provider's responsibility to deliver inclusion of the transactions once they make a commitment. If they win or influence the mev-boost auction and they include the transactions correctly, the bid rewards will be settled by the oracle and made available to the provider. If the bid is rejected, no commitment is made and no response is sent to the network. There is no reward or penalty for rejecting bids. The accept and reject decisioning logic is left up to the provider.
+It is the provider's responsibility to ensure inclusion of transactions on L1, relevant to accepted bids, once they make a commitment. If the provider wins the mev-boost auction and includes transactions correctly, bid amounts will be settled and rewarded to the provider.
 
-There are 4 options to communicate with the API
+If a bid is rejected by a provider, no commitment is made and no response is sent to the p2p network. There is no reward or penalty for rejecting bids, decision logic is left up to the provider.
 
-*   We recommend using the official go RPC client to communicate with the mev-commit API. In order to use this in go code, you can go get the mev-commit package and then import the generated client.
+There are 4 options for a provider to communicate with their mev-commit node
+
+*   We recommend using the official go RPC client to communicate with your mev-commit node. In order to programmatically use this client in go, you can go get the mev-commit package and then import the generated client.
 
     ```go
     import providerapiv1 "github.com/primevprotocol/mev-commit/gen/go/rpc/providerapi/v1"
@@ -69,7 +71,7 @@ There are 4 options to communicate with the API
     }
     ```
 
-    There is an [example implementation](https://github.com/primevprotocol/mev-commit/tree/main/examples/provideremulator) of a dummy provider client that can be found in the repository which blindly accepts all the bids it sees. This could be a good starting point for providers to use if they are trying to integrate a Golang project in.
-* Use [https://github.com/fullstorydev/grpcurl](https://github.com/fullstorydev/grpcurl) or [https://github.com/bloomrpc/bloomrpc](https://github.com/bloomrpc/bloomrpc) or other GUI clients like [Postman](https://www.postman.com). The protobuf files are available in the repository.
+    There is an [example implementation](https://github.com/primevprotocol/mev-commit/tree/main/examples/provideremulator) of a dummy provider client which blindly accepts all the bids it sees from its mev-commit node. This could be a good starting point for providers implementing their commitment decision logic in golang.
+* Use [https://github.com/fullstorydev/grpcurl](https://github.com/fullstorydev/grpcurl) or [https://github.com/bloomrpc/bloomrpc](https://github.com/bloomrpc/bloomrpc) or other GUI clients like [Postman](https://www.postman.com). Relevant protobuf files are available in the [mev-commit repository](https://github.com/primevprotocol/mev-commit).
 * Check the [API docs](https://primev-24.mintlify.app/api-reference/provider/sendprocessedbids) to use the REST APIs. The RPC APIs are also available on the HTTP server.
-* Users can use the protobuf files to generate client in language of their choice.
+* Users can use the protobuf files to generate a client in language of their choice.
