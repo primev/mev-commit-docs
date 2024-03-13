@@ -1,5 +1,3 @@
-# Fund Your Node
-
 To send bids to provider nodes, the bidder nodes need to prepay the amount to the bidder registry. Funds are locked for each unique bid till the settlement chain settles the commitments. If the bid that was preconfirmed by a provider ends up in the L1 block built by the provider node, we settle the rewards from this amount. If the bid was preconfirmed by a provider which did not build the L1 block, the amount is refunded. If the bid was preconfirmed by a provider who built the block, but the transaction in the bid is not included in the L1 block, the amount is refunded back to the bidder’s balance.
 
 Bidders can withdraw this balance at any point by interacting with the settlement chain. In order to check or prepay, the user needs to interact with the bidder API.
