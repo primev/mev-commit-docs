@@ -53,7 +53,7 @@ The testnet allows bidders and providers to spin up nodes and send bids and comm
 
 ## Infrastructure
 
-Primev will maintain a testnet consisting of the mev-commit chain, oracle service, and hyperlane bridge to Sepolia.
+Primev will maintain a testnet consisting of the mev-commit chain, oracle service, and bridge to Holesky.
 
 <Frame>
   <img src="/images/mev-commit-nodes.png" />
@@ -61,7 +61,7 @@ Primev will maintain a testnet consisting of the mev-commit chain, oracle servic
 
 ## Differences between the testnet and mainnet environments
 
-Testnet will use Holesky and Holesky eth, whereas mainnet uses mainnet eth. Commitments are also written to the settlement in plaintext, whereas mainnnet will include private commitments.
+Testnet bridging ether to/from Holesky, whereas mainnet mev-commit chain will bridge using mainnet ether. Commitments are also written to the settlement chain in plaintext, whereas mainnnet will include private commitments.
 
 ## Limitations of the testnet
 
