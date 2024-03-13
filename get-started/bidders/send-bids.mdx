@@ -10,7 +10,7 @@ This connectivity can be confirmed via the [localhost:13523/topology](http://loc
 
 Run this command to load your account with funds to start bidding:
 
-```bash ❯_ terminal
+```shell ❯_ terminal
 curl -X POST http://localhost:13523/v1/bidder/prepay/1000000000000000000
 ```
 
@@ -20,7 +20,7 @@ This tops up your account with `1000000000000000000 wei` (1 ETH), ensuring you'r
 
 Open a new terminal window. To send bids, we simply run the following command:
 
-```bash
+```shell ❯_ example
 curl -X POST http://localhost:13523/v1/bidder/bid \
 -d '{
     "txHashes": ["0549fc7c57fffbdbfb2cf9d5e0de165fc68dadb5c27c42fdad0bdf506f4eacae"],
@@ -31,7 +31,7 @@ curl -X POST http://localhost:13523/v1/bidder/bid \
 
 To include bundles of transactions, add them in the atomic sequence in which they exist in the bundle, as follows:
 
-```bash
+```shell ❯_ example
 curl -X POST http://localhost:13523/v1/bidder/bid \
 -d '{
     "txHashes": ["0549fc7c57fffbdbfb2cf9d5e0de165fc68dadb5c27c42fdad0bdf506f4eacae", 22145ba31366d29a893ae3ffbc95c36c06e8819a289ac588594c9512d0a99810, 7e1506f266bc86c81ae46018053a274a3bd96a9eff17392930707bf8fa5ff6be],
@@ -50,7 +50,7 @@ We recommend leveraging [the Go RPC client](https://primev-24.mintlify.app/get-s
 
 <CodeGroup>
 
-```bash ❯_ structure
+```shell ❯_ structure
 curl -X POST http://localhost:13523/v1/bidder/bid \
 -d '{
   "txHash": <the hash of the transaction>,
@@ -59,7 +59,7 @@ curl -X POST http://localhost:13523/v1/bidder/bid \
 }'
 ```
 
-```bash ❯_ example
+```shell ❯_ example
 curl -X POST http://localhost:13523/v1/bidder/bid \
 -d '{
   "txHash": "91a89B633194c0D86C539A1A5B14DCCacfD47094",
@@ -80,13 +80,13 @@ The REST API provides a straightforward way to submit bids using HTTP requests. 
 
 For Go developers, leveraging the official Go RPC client is the recommended approach. Start by installing the mev-commit package:
 
-```bash ❯_ terminal
+```shell ❯_ terminal
 go get github.com/primevprotocol/mev-commit
 ```
 
 Then, incorporate the generated client into your Go application as follows:
 
-```go go
+```go
 import bidderapiv1 "github.com/primevprotocol/mev-commit/gen/go/rpc/bidderapi/v1"
 
 conn, err := grpc.DialContext(
