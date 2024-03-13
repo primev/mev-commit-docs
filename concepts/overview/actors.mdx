@@ -1,22 +1,19 @@
----
-icon: 'users'
-iconType: 'solid'
----
+### **Actors**
 
-Network actors' roles are defined based on their interactions with other ecosystem actors. A diagram below depicts a given mev actor's relative placement compared to others.
+#### **Providers:**
+In the mev-commit ecosystem, **Providers** are pivotal in shaping the blockchain landscape. This group includes:
 
-<Frame>
-  <img src="/images/supply-chain.png" />
-</Frame>
+- **Block Builders**: They curate and optimize transaction inclusion in blocks, maximizing the efficiency and value extraction from the Ethereum block space.
+- **Rollup Sequencers**: Specializing in layer 2 solutions, they sequence transactions on rollups to enhance scalability and efficiency beyond Ethereum's base layer.
 
-For example, a Searcher is a bidder for a Sequencer; but that same Sequencer can be a bidder for a block builder. Thus it's best to think of actors' roles in mev-commit similar to their roles in the mev pipeline. To the left of the diagram are bidders, and to the right of the diagram are execution providers who can issue commitments against these bids.
+Primev streamlines the bid/commit interactions between these Providers and Bidders, ensuring a seamless execution process that aligns with Ethereum's decentralized ethos.
 
-Under PBS, information only moves to the right amongst actors in the mev pipeline. With mev-commit, credible commitments for execution that share bits of information flow from providers back to bidders, who consume blockspace.
+#### **Bidders**
+Bidders compete for optimal transaction execution, utilizing strategies that span from value extraction to efficient block space utilization. This category encompasses:
 
-### **Providers**
+- **MEV Searchers**: Seekers of maximum extractable value opportunities, leveraging transaction order for profit.
+- **Solvers**: Participants who tackle complex computational problems within the blockchain ecosystem, such as those found in decentralized finance (DeFi) protocols or blockchain-based puzzles. Solvers play a vital role in optimizing transaction ordering and execution, contributing to the overall efficiency and fairness of the blockchain.
+- **AA Bundlers** and **Rollup Provers**: Innovators in transaction efficiency, bundling transactions for streamlined execution or proving transactions within rollups, contributing to Ethereum's scalability.
 
-Providers of execution services, such as **Block Builders, Relays, and Rollup Sequencers**.
-
-### **Bidders**
-
-Users bidding for execution services include **mev searchers, AA bundlers, solvers, Rollup Provers, and others seeking efficient use of block space**.
+#### **Primev's Role in Facilitating Ecosystem Synergy**
+Primev is at the forefront of enhancing interactions within this ecosystem. By providing a robust platform for Providers and Bidders to communicate, Primev addresses the inherent complexities of transaction execution. Its mission is to reduce trust assumptions, promote transparency, and tackle the evolving challenges of decentralization.
