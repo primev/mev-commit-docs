@@ -6,7 +6,7 @@ icon: "gear"
 ---
 
 ```bash
-curl -o launchmevcommit https://raw.githubusercontent.com/primevprotocol/scripts/main/launchmevcommit && chmod +x launchmevcommit && ./launchmevcommit --rpc-url http://69.67.151.95:8545 --node-type bidder
+curl -o launchmevcommit https://raw.githubusercontent.com/primevprotocol/scripts/v0.1.0/launchmevcommit && chmod +x launchmevcommit && ./launchmevcommit --rpc-url https://chainrpc.testnet.mev-commit.xyz --node-type bidder
 ```
 
 This will get you going with a mev-commit node as a bidder on the network. To join the network as a **provider**, simply change the "--node-type bidder" to "--node-type provider". Next, dive into the [bidder](https://docs.primev.xyz/get-started/bidders/receive-preconfirmation-commitment) or [provider](https://docs.primev.xyz/get-started/providers/consume-bids-mev-commit) sections to run your operations on the network.
