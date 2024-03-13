@@ -18,7 +18,7 @@ in the [gRPC documentation](https://grpc.io/docs/languages/).
 
 There are two main APIs:
 
-```go go
+```protobuf
 // ReceiveBids is called by the execution provider to receive bids from the mev-commit node.
 // The mev-commit node will stream bids to the execution provider.
 rpc ReceiveBids(EmptyMessage) returns (stream Bid) {}
@@ -101,7 +101,7 @@ Once a provider node is up and running, you can use the `ReceiveBids` stream to 
 
 - gRPC API Specification
 
-  ```bash
+  ```protobuf
   // ReceiveBids is called by the execution provider to receive bids from the mev-commit node.
   // The mev-commit node will stream bids to the execution provider.
   rpc ReceiveBids(EmptyMessage) returns (stream Bid) {}

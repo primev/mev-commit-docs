@@ -9,7 +9,7 @@ It allows for customization and a better understanding of the setup process.
 - `terminal`: A command-line interface for executing commands.
 - `cast`: A command-line tool for Ethereum blockchain interaction. Install it using the following command:
 
-```bash ❯_ terminal
+```shell ❯_ terminal
 curl -L https://foundry.paradigm.xyz | bash
 ```
 
@@ -19,7 +19,7 @@ After installing `cast`, run `foundryup` to ensure it's updated.
 
 - **Step 1. Check your CPU architecture:**
 
-  ```bash ❯_ terminal
+  ```shell ❯_ terminal
   uname # This will give you the OS type
   uname -m # This will give you the chip architecture
   ```
@@ -40,7 +40,7 @@ After installing `cast`, run `foundryup` to ensure it's updated.
 
   cd into the folder that contains the mev-commit binary and run the following command:
 
-  ```bash ❯_ terminal
+  ```shell ❯_ terminal
   ./mev-commit init --dir . --rpc-endpoint https://chainrpc.testnet.mev-commit.xyz  --peer-type bidder
   ```
 
@@ -48,7 +48,7 @@ After installing `cast`, run `foundryup` to ensure it's updated.
 
   While in the directory, run the following command to export relevant data about your address and private key:
 
-  ```bash ❯_ terminal
+  ```shell ❯_ terminal
   export KEY=$(cat key)
   export ADDRESS=$(cast wallet address --private-key 0x$(cat key))
   ```
@@ -59,7 +59,7 @@ After installing `cast`, run `foundryup` to ensure it's updated.
 
   ❗If you’ve named the private key file something other than key, change the key to the correct name in \`--private-key 0x$(cat \*\*\*key\*\*\*))\`
 
-```bash ❯_ terminal
+```shell ❯_ terminal
  cast send \
  --rpc-url https://chainrpc.testnet.mev-commit.xyz \
  --private-key 0x7c9bf0f015874594d321c1c01ada3166c3509bbd91f76f9e4d7380c2df269c55 $(cast wallet address --private-key 0x$(cat key)) \
@@ -71,7 +71,7 @@ After installing `cast`, run `foundryup` to ensure it's updated.
   1. cd into the folder with your mev-commit binary
   2. Run the Node:
 
-  ```bash ❯_ terminal
+  ```shell ❯_ terminal
   ./mev-commit start --config=~/config.yaml
   ```
 
@@ -81,7 +81,7 @@ After installing `cast`, run `foundryup` to ensure it's updated.
 
   To prepay, first **open a new terminal** and run the following command:
 
-  ```bash ❯_ terminal
+  ```shell ❯_ terminal
   curl -X POST http://localhost:13523/v1/bidder/prepay/1000000000000000000
   ```
 
@@ -97,14 +97,14 @@ Provider Manual Start is tailored for users who prefer a more hands-on approach,
 - `terminal`: Used for executing all the commands.
 - `cast`: A tool for Ethereum blockchain interactions. Install it by running
 
-```bash ❯_ terminal
+```shell ❯_ terminal
 curl -L https://foundry.paradigm.xyz | bash
 ```
 
 - Then execute `foundryup` to complete the setup
 - **Step 1. Check your CPU architecture**
 
-  ```bash ❯_ terminal
+  ```shell ❯_ terminal
   uname # This will give you the OS type
   uname -m # This will give you the chip architecture
   ```
@@ -125,7 +125,7 @@ curl -L https://foundry.paradigm.xyz | bash
 
   cd into the folder that contains the mev-commit binary and run the following command
 
-  ```bash ❯_ terminal
+  ```shell ❯_ terminal
   ./mev-commit init --dir . --rpc-endpoint https://chainrpc.testnet.mev-commit.xyz  --peer-type provider
   ```
 
@@ -133,7 +133,7 @@ curl -L https://foundry.paradigm.xyz | bash
 
   While in the directory, run the following command to export relevant data about your address and private key:
 
-  ```bash ❯_ terminal
+  ```shell ❯_ terminal
   export KEY=$(cat key)
   export ADDRESS=$(cast wallet address --private-key 0x$(cat key))
   ```
@@ -144,7 +144,7 @@ curl -L https://foundry.paradigm.xyz | bash
 
   ❗If you’ve named the private key file something other than key, change the key to the correct name in `--private-key 0x$(cat key)`
 
-  ```bash ❯_ terminal
+  ```shell ❯_ terminal
   cast send --rpc-url https://chainrpc.testnet.mev-commit.xyz \
   --private-key 0x7c9bf0f015874594d321c1c01ada3166c3509bbd91f76f9e4d7380c2df269c55 $(cast wallet address --private-key 0x$(cat key)) \
   --value 100ether
@@ -155,7 +155,7 @@ curl -L https://foundry.paradigm.xyz | bash
   1. cd into the folder with your mev-commit binary
   2. Run the Node:
 
-  ```bash ❯_ terminal
+  ```shell ❯_ terminal
   ./mev-commit start --config=~/config.yaml
   ```
 
@@ -164,7 +164,7 @@ curl -L https://foundry.paradigm.xyz | bash
   This command is used to ensure that your provider has been registered with a stake in our protocol.
   This is used to ensure it can connect with the mev-commit-p2p network. Ensure you run this command in the mev-commit directory.
 
-  ```bash ❯_ terminal
+  ```shell ❯_ terminal
   cast send 0x5960774AD41D03DAB4916a30bD2190f8b3b3b4b2 "registerAndStake()" $(cast wallet address --private-key 0x$(cat key)) \
   --rpc-url https://chainrpc.testnet.mev-commit.xyz --private-key $(cat key) --value 100ether
   ```
