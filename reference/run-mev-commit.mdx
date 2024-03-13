@@ -5,7 +5,7 @@ The CLI mainly includes two commands. To view available commands, use the `-h` o
 
 Example:
 
-```sql sql
+```text
 NAME:
    mev-commit - Start mev-commit node
 
@@ -59,7 +59,7 @@ YAML config file or environment variables as described in the above help output.
 1. Run Make in the root directory
 2. This will compile the mev-commit binary under the bin folder
 
-```bash ❯_ terminal
+```shell ❯_ terminal
 mev-commit % tree -L 2
 .
 ├── Dockerfile
@@ -72,7 +72,7 @@ mev-commit % tree -L 2
 
 1. Run the mev-commit directly:
 
-```bash ❯_ terminal
+```shell ❯_ terminal
 
 RPC_URL="https://chainrpc.testnet.mev-commit.xyz";bin/mev-commit \
 --peer-type <peerType> \
@@ -87,7 +87,6 @@ RPC_URL="https://chainrpc.testnet.mev-commit.xyz";bin/mev-commit \
 - Open your terminal and navigate to where your Dockerfile is located.
 - Run:
 
-  ```sql sql
-  sqlCopy code
+  ```shell
   docker build -t mev-commit:latest .
   ```

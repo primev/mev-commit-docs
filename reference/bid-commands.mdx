@@ -4,7 +4,7 @@ First, you can set the local environment variables to set your KEY and ADDRESS. 
 
 Setting these will make running the commands to interact with your account easier.
 
-```bash ❯_ terminal
+```shell ❯_ terminal
 export KEY=$(cat key)
 export ADDRESS=$(cast wallet address --private-key 0x$(cat key))
 ```
@@ -13,7 +13,7 @@ export ADDRESS=$(cast wallet address --private-key 0x$(cat key))
 
 To get the current prepaid balance in the contract:
 
-```bash ❯_ terminal
+```shell ❯_ terminal
 curl -s http://localhost:13523/v1/bidder/get_allowance
 ```
 
@@ -21,7 +21,7 @@ curl -s http://localhost:13523/v1/bidder/get_allowance
 
 ## Withdraw Prepaid Funds
 
-```bash ❯_ terminal
+```shell ❯_ terminal
 cast send 0xa86a41b57Fb73f9118F84847574517258d29eAD0 "withdrawPrepayedAmount(address)" $ADDRESS \
 --rpc-url https://chainrpc.testnet.mev-commit.xyz --private-key $KEY
 ```
@@ -30,13 +30,13 @@ cast send 0xa86a41b57Fb73f9118F84847574517258d29eAD0 "withdrawPrepayedAmount(add
 
 This command will allow you to check your current wallet balance on mev-commit chain:
 
-```bash ❯_ terminal
+```shell ❯_ terminal
 cast b $ADDRESS --rpc-url https://chainrpc.testnet.mev-commit.xyz
 ```
 
 ## Check Total Value Locked in Contracts
 
-```bash ❯_ terminal
+```shell ❯_ terminal
 python3 -c "print($(cast b 0xa86a41b57Fb73f9118F84847574517258d29eAD0 \
 --rpc-url https://chainrpc.testnet.mev-commit.xyz) + $(cast b 0x5960774AD41D03DAB4916a30bD2190f8b3b3b4b2 \
 --rpc-url https://chainrpc.testnet.mev-commit.xyz))"
@@ -44,6 +44,6 @@ python3 -c "print($(cast b 0xa86a41b57Fb73f9118F84847574517258d29eAD0 \
 
 ## Topology
 
-```bash ❯_ terminal ❯_ terminal
+```shell ❯_ terminal ❯_ terminal
 curl http://localhost:13523/topology
 ```
