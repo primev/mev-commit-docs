@@ -1,8 +1,10 @@
-In order to register as a provider in the mev-commit network, you have to stake some ETH on the provider registry. This adds credibility to the commitments that you'll be issuing, as the stake may be slashed in the event of breaking a commitment, such as committing to a preconfirmation bid and not including the transaction in a block. Once the provider node is registered on the network, other nodes will connect to it and the provider node should start seeing bids come in.
+To register on the mev-commit network, providers need to stake some ether with the provider registry contract. This adds credibility to issued commitments, as stake may be slashed in the event of a broken commitment, such as committing to a preconfirmation bid and not including the relevant transaction in a block. 
+
+Once a provider is registered on the network, other nodes will connect to it and the provider node should see bids come in.
 
 You can use the provider API to check and add stake.
 
-*   Check the stake
+*   Check stake
 
     ```shell
     > curl localhost:13523/v1/provider/get_stake | jq
@@ -11,9 +13,9 @@ You can use the provider API to check and add stake.
     }
     ```
 
-    In order to stake, we need to first add funds to the Ethereum wallet created for the node on the mev-commit chain.
+    In order to stake, first fund the mev-commit chain account relevant to your node.
 
-    *   Get the wallet address of the node
+    *   Get the account address of your node
 
         ```shell
         > curl localhost:13523/topology | jq
@@ -31,7 +33,7 @@ You can use the provider API to check and add stake.
           "blocked_peers": null
         }
         ```
-    *   Add funds to the account. Currently for the testnet, you can use the Primev account to get some testnet ETH. This can be done using the cast command:
+    *   Fund your account with ether on the mev-commit chain. Currently for the testnet, you can use a faucet account to get some mev-commit chain ether. This can be done using the cast command:
 
         ```shell
         > cast send --rpc-url https://chainrpc.testnet.mev-commit.xyz \
@@ -41,7 +43,10 @@ You can use the provider API to check and add stake.
         ```
 
         This command will transfer 100 ETH on mev-commit to your `$ADDRESS` which should be enough to get started.
-*   Check the minimum amount that can be staked, and consider staking a multiple of it. Bidders will only connect to providers which have stake higher than this minimum, and the larger your stake, the greater the credibility behind your commitments. The amount is set in `wei`
+
+        Alternatively, use the bridge from Holesky to fund your account. See [bridging-and-fees](https://docs.primev.xyz/get-started/bidders/bridging-and-fees).
+
+*   Check the minimum amount that can be staked, and consider staking more than the minimum. Bidders will only connect to providers which have stake higher than this minimum. The larger a provider's stake, the greater the credibility behind that provider's commitments. The amount is set in `wei`.
 
     ```shell
     > curl localhost:13523/v1/provider/get_min_stake | jq
@@ -49,6 +54,7 @@ You can use the provider API to check and add stake.
       "amount": "1000000000000000000"
     }
     ```
+
 *   Stake
 
     ```shell
@@ -58,4 +64,4 @@ You can use the provider API to check and add stake.
     }
     ```
 
-Once you have staked, you should seeing peers getting connected in the logs within a few minutes. You can check the `/topology` endpoint again to verify that you have some connected peers.
+Once staked, peer connection logs should appear within a few minutes. You can check the `/topology` endpoint again to verify connected peers.
