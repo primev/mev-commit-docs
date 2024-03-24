@@ -16,4 +16,113 @@ To get started with the emulator, open a new termainl and run the following comm
 git clone https://github.com/primevprotocol/mev-commit.git && cd mev-commit && git checkout v0.2.0 && cd examples/provideremulator && go run .
 ```
 
+## Configuring custom logic to process bids and send Commitments
+
 Now you have a running instance of both an emulator that will auto-accept incoming bids and a provider node that will submit commitments on your behalf.
+We can take a deeper look at how you can add custom logic to decision on the sending of commitments.
+
+### Integrating Bid Processing in Your System
+To integrate bid processing in your system using the Provider API, follow these steps to receive bid information and send back processed bids:
+#### 1. Implement the gRPC Service
+Implement the Provider service as outlined in the [providerapi.proto](https://github.com/primevprotocol/mev-commit/blob/main/rpc/providerapi/v1/providerapi.proto#L20). This requires setting up a server that can manage RPC methods, with a particular emphasis on the reception of bids and response of commitment authorizations.
+#### 2. Receive Bids
+Utilize the ReceiveBids RPC method to listen for incoming bids from clients. This method streams bid messages to your server.
+The structure of the bid is as follows:
+```
+message Bid {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      title: "Bid message"
+      description: "Signed bid message from bidders to the provider."
+      required: ["txHashes", "bidAmount", "blockNumber", "bidDigest"]
+    }
+    example: "{"bidDigest": "9dJinwL+FZ6B1xsIQQo8t8B0ZXJubJwY86l/Yu7yAH159QrPHU0qj2P+YFj+llbuI1ZygdxGsX8+P3byMEA5ig==", "status": "STATUS_ACCEPTED"}"
+  };
+  repeated string tx_hashes = 1;
+  string bid_amount = 2;
+  int64 block_number = 3;
+  bytes bid_digest = 4;
+  int64 decay_start_timestamp = 5;
+  int64 decay_end_timestamp = 6;
+};
+```
+
+Below is an image of the flow through which bids would be received through the gRPC API
+![gRPC Flow for Getting Bids](/images/grpc-flow-getbids.png)
+
+
+#### 3. Process Bids
+For each received bid, implement your custom logic to validate and process these bids. This could involve checking the bid's validity and feasibility based on orderflow, computing the effective gas price, and deciding whether to accept or reject the bid.
+#### 4. Send Processed Bid Responses (Accept/Reject)
+After processing each bid, construct a BidResponse message indicating the outcome. This message should include the bid's digest and a status indicating acceptance or rejection.
+At a high level, to commit to a bid, your code must send a `STATUS_ACCEPTED` with the bid digest specified, and correspondingly `STATUS_REJECTED` to reject the bid.
+<Accordion title="Details on BidResponse">
+The BidResponse structure is as follows:
+```
+message BidResponse {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      title: "Bid response"
+      description: "Response sent by the provider with the decision on the bid received."
+      required: ["bidDigest", "status"]
+    }
+    example: "{\"bidDigest\": \"9dJinwL+FZ6B1xsIQQo8t8B0ZXJubJwY86l/Yu7yAH159QrPHU0qj2P+YFj+llbuI1ZygdxGsX8+P3byMEA5ig==\", \"status\": \"STATUS_ACCEPTED\"}"
+  };
+  bytes bid_digest = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description: "Digest of the bid message signed by the bidder."
+  }];
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_ACCEPTED = 1;
+    STATUS_REJECTED = 2;
+  }
+  Status status = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description: "Status of the bid."
+  }, (buf.validate.field).enum = {
+      defined_only: true,
+      in: [
+        1,
+        2
+      ]
+  }];
+};
+```
+
+It contains the following fields:
+1. bid_digest: A byte array (bytes type) that represents the digest of the bid message signed by the bidder. This serves as a unique identifier for the bid in question.
+2. status: An enumeration (enum Status) that indicates the status of the bid. The status can be one of three values:
+STATUS_UNSPECIFIED: The default value, indicating that the status has not been set or is unknown.
+STATUS_ACCEPTED: Indicates that the bid has been accepted by the provider.
+STATUS_REJECTED: Indicates that the bid has been rejected by the provider.
+</Accordion>
+
+#### 5. Server Setup
+Deploy your gRPC server on suitable infrastructure, ensuring it's accessible to clients. Configure necessary network settings for security and connectivity.
+Example Server Implementation in Go:
+```
+func (s *Server) SendProcessedBids(stream providerapi.Provider_SendProcessedBidsServer) error {
+  for {
+    bid, err := stream.Recv()
+    if err == io.EOF {
+      return nil // End of stream
+    }
+    if err != nil {
+      return err // Handle reception error
+    }
+
+    // Insert custom bid processing logic here
+    status := providerapi.BidResponse_STATUS_ACCEPTED // Determine based on processing
+
+    // Respond with the processed bid status
+    err = stream.Send(&providerapi.BidResponse{
+      BidDigest: bid.BidDigest,
+      Status:    status,
+    })
+    if err != nil {
+      return err // Handle sending error
+    }
+  }
+}
+```
+
+This should help you integrate bid processing into your system, allowing for the reception of bid information and sending back processed bids as commitments.
