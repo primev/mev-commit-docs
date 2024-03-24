@@ -3,25 +3,17 @@ title: Consuming Bids from Mev-Commit
 sidebarTitle: Consuming Bids
 ---
 
-Provider nodes that have a stake in the mev-commit registry will start receiving bids on the mev-commit p2p network from bidders. In order to see incoming bids, providers need to communicate with their mev-commit node using one of the available options below.
+Providers that have registered in the mev-commit registry will automatically start receiving bids on the mev-commit p2p network from bidders. In order to see incoming bids, providers need to communicate with their mev-commit node:
 
-Once a provider sees a bid and decides to accept or reject it, they send a status to their mev-commit node. If the bid is ACCEPTED, a signed commitment is sent back to the bidder and the provider's mev-commit node will send a transaction to the mev-commit chain to record the commitment.
+*   Use the official go RPC client to communicate with your mev-commit node. Go get the mev-commit package and then import the generated client as below:
 
-It is the provider's responsibility to ensure inclusion of transactions on L1, relevant to accepted bids, once they make a commitment. If the provider wins the mev-boost auction and includes transactions correctly, bid amounts will be settled and rewarded to the provider.
-
-If a bid is rejected by a provider, no commitment is made and no response is sent to the p2p network. There is no reward or penalty for rejecting bids, decision logic is left up to the provider.
-
-There are 4 options for a provider to communicate with their mev-commit node
-
-*   We recommend using the official go RPC client to communicate with your mev-commit node. In order to programmatically use this client in go, you can go get the mev-commit package and then import the generated client.
-
-    - For Go developers, leveraging the official Go RPC client is the recommended approach. Start by installing the mev-commit package:
+    1. Install the mev-commit package:
 
     ```bash ❯_ terminal
     go get github.com/primevprotocol/mev-commit
     ```
 
-    - Then, incorporate the generated client into your Go application as follows:
+    2. Incorporate the generated client into your Go application as follows:
 
     ```go
     import providerapiv1 "github.com/primevprotocol/mev-commit/gen/go/rpc/providerapi/v1"
@@ -80,6 +72,8 @@ There are 4 options for a provider to communicate with their mev-commit node
     ```
 
     There is an [example implementation](https://github.com/primevprotocol/mev-commit/tree/main/examples/provideremulator) of a dummy provider client which blindly accepts all the bids it sees from its mev-commit node. This could be a good starting point for providers implementing their commitment decision logic in golang.
-* Use [https://github.com/fullstorydev/grpcurl](https://github.com/fullstorydev/grpcurl) or [https://github.com/bloomrpc/bloomrpc](https://github.com/bloomrpc/bloomrpc) or other GUI clients like [Postman](https://www.postman.com). Relevant protobuf files are available in the [mev-commit repository](https://github.com/primevprotocol/mev-commit).
-* Check the [API docs](https://primev-24.mintlify.app/api-reference/provider/sendprocessedbids) to use the REST APIs. The RPC APIs are also available on the HTTP server.
-* Users can use the protobuf files to generate a client in language of their choice.
+
+### Alternative Methods
+1. Use [https://github.com/fullstorydev/grpcurl](https://github.com/fullstorydev/grpcurl) or [https://github.com/bloomrpc/bloomrpc](https://github.com/bloomrpc/bloomrpc) or other GUI clients like [Postman](https://www.postman.com). Relevant protobuf files are available in the [mev-commit repository](https://github.com/primevprotocol/mev-commit).
+2. Check the [API docs](https://primev-24.mintlify.app/api-reference/provider/sendprocessedbids) to use the REST APIs. The RPC APIs are also available on the HTTP server.
+3. Users can use the protobuf files to generate a client in language of their choice.
