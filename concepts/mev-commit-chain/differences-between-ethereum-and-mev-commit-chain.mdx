@@ -17,7 +17,7 @@ The allocation of fees differs:
 
 ### Other Chain Considerations:
 
-1. **Mempool:** mev-commit-chain's mempool is smaller than Ethereum's. It's public; however, as primev is the currently sole node operator, this restricts visibility of the mempool.
-2. **Number of validators:** the mev-commit chain has only two nodes creating blocks in a round-robin fashion.
-3. **Opcodes:** All Ethereum opcodes are supported on mev-commit chain, as it consists of Ethereum nodes.
-4. **Consensus**: Although mainnet Ethereum uses proof of stake, mev-commit-chain uses clique proof of authority
+1. **Mempool:** mev-commit-chain's mempool is smaller than Ethereum's. It's public; however transactions may be encrypted, and chain mempool visibility is limited as there are only a few chain node operators.
+2. **Number of validators:** the mev-commit chain has only two validator nodes creating blocks in a round-robin fashion.
+3. **Opcodes:** All Ethereum opcodes are supported on the mev-commit chain, as it consists of Ethereum nodes.
+4. **Consensus**: Mainnet Ethereum uses proof of stake, mev-commit-chain currently uses clique proof of authority consensus.
