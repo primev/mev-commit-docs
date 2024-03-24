@@ -15,15 +15,14 @@
       "to": "#E97D25"
     }
   },
-  "anchors": [
+
+  "tabs": [
     {
       "name": "API Reference",
-      "icon": "square-terminal",
       "url": "api-reference"
     },
     {
       "name": "Knowledge Base",
-      "icon": "books",
       "url": "knowledge-base"
     }
   ],
