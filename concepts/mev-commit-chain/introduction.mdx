@@ -1,12 +1,12 @@
-The mev-commit mainnet chain is set to launch soon. In the meantime, users are encouraged to join the testnet and familiarize themselves with its functionalities from the [mev-commit Testnet](../overview/mev-commit-testnet.md) section.
+mev-commit chain mainnet is set to launch soon. In the meantime, join the testnet and get familiar with its functionalities from the [mev-commit Testnet](../overview/mev-commit-testnet.md) section.
 
-## **Current design**
+## **Design**
 
-The mev-commit chain, also referred to as the settlement chain, is currently built out as an Ethereum sidechain run with [go-ethereum’s Clique proof-of-authority consensus mechanism](https://geth.ethereum.org/docs/tools/clef/clique-signing).
+mev-commit chain is currently built out as an Ethereum sidechain run with [go-ethereum’s Clique proof-of-authority consensus mechanism](https://geth.ethereum.org/docs/tools/clef/clique-signing). It's not a generalized chain for everyone to launch dapps on, but only for specific execution service applications, such as preconfirmations, top of block, bottom of block, or other services.
 
 Source code for the geth fork which runs the mev-commit chain can be found in the [mev-commit-geth repo](https://github.com/primevprotocol/mev-commit-geth).
 
-## **Level of decentralization**
+## **Progressive decentralization**
 
 Today, most or arguably all Ethereum scaling solutions rely on centralized bridging and sequencing. Our system components rely on existing tech, and consequently inherit some centralization. However, we’ve chosen solutions that allow anyone to permissionlessly validate correct execution, and operation of chain infrastructure.
 
