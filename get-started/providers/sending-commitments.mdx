@@ -22,7 +22,7 @@ We can take a deeper look at how you can add custom logic to decision on the sen
 ### Integrating Bid Processing in Your System
 To integrate bid processing in your system using the Provider API, follow these steps to receive bid information and send back processed bids:
 #### 1. Implement the gRPC Service
-Implement the Provider service as defined in the providerapi.proto. This involves creating a server capable of handling RPC methods, particularly focusing on bid reception and response.
+Implement the Provider service as outlined in the [providerapi.proto](https://github.com/primevprotocol/mev-commit/blob/main/rpc/providerapi/v1/providerapi.proto#L20). This requires setting up a server that can manage RPC methods, with a particular emphasis on the reception of bids and response of commitment authorizations.
 #### 2. Receive Bids
 Utilize the ReceiveBids RPC method to listen for incoming bids from clients. This method streams bid messages to your server.
 The structure of the bid is as follows:
