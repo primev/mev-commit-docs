@@ -33,6 +33,7 @@
       "pages": [
         "get-started/quickstart",
 		"get-started/bridging-funds"
+		],
         {
           "group": "Bidders",
           "pages": [
