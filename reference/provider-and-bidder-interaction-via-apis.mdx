@@ -10,13 +10,13 @@ The Provider API is implemented using the gRPC framework, supporting two primary
 - **Receiving Bids:** Providers receive streaming bids from the mev-commit node.
 - **Sending Processed Bids:** Providers send information about processed bids back to the mev-commit node.
 
-### **RPC API**
+### **RPC API Details**
 
 The protobuf file is available in the [repository](https://github.com/primevprotocol/mev-commit/blob/v0.1.2-rc4/rpc/providerapi/v1/providerapi.proto).
 The Go client has already been generated in the repository. To generate the RPC client for other languages, please follow the instructions
 in the [gRPC documentation](https://grpc.io/docs/languages/).
 
-There are two main APIs:
+**Primary RPC Operations:**
 
 ```protobuf
 // ReceiveBids is called by the execution provider to receive bids from the mev-commit node.
@@ -28,17 +28,17 @@ rpc ReceiveBids(EmptyMessage) returns (stream Bid) {}
 rpc SendProcessedBids(stream BidResponse) returns (EmptyMessage) {}
 ```
 
-The message definitions are as follows:
+**Message Structures**
 
-```
+```protobuf
 message Bid {  string txn_hash = 1;  int64 bid_amt = 2;  int64 block_number = 3;  bytes bid_hash = 4;}; message BidResponse {  bytes bid_hash = 1;  enum Status {    STATUS_UNSPECIFIED = 0;    STATUS_ACCEPTED = 1;    STATUS_REJECTED = 2;  }  Status status = 2;};
 ```
 
 ### **HTTP API**
 
-The same API is also available on the HTTP port configured on the node. Please review the [API docs(opens in a new tab)](https://mev-commit-docs.s3.amazonaws.com/provider.html) to understand the usage.
+The same API is also available on the HTTP port configured on the node. Please review the [API docs](https://mev-commit-docs.s3.amazonaws.com/provider.html) to understand the usage.
 
-An [example client(opens in a new tab)](https://github.com/primevprotocol/mev-commit/tree/main/examples/provideremulator) is implemented in the repository. This example showcases how to integrate a client into the provider's operational framework. While the sample client automatically accepts every incoming bid, providers should incorporate their own decision-making logic to evaluate and respond to these bids.
+An [example client](https://github.com/primevprotocol/mev-commit/tree/main/examples/provideremulator) is implemented in the repository. This example showcases how to integrate a client into the provider's operational framework. While the sample client automatically accepts every incoming bid, providers should incorporate their own decision-making logic to evaluate and respond to these bids.
 
 ## **Bidders**
 
@@ -49,19 +49,19 @@ The Bidder API is also implemented using the gRPC framework, supporting two prim
 - **Send Bid:** User submit their bid.
 - **Receive Pre-Confirmation: The u**ser receives streaming pre-confirmations if accepted.
 
-### **RPC API**
+### **RPC API for Bidders**
 
-Users can find the protobuf file in the [repository](https://github.com/primevprotocol/mev-commit/blob/v0.1.2-rc4/rpc/bidderapi/v1/bidderapi.proto). This can be used to generate the client for the RPC in the language of your choice. The Go client has already been generated in the repository. For other languages, please follow the instructions in the [grpc documentation](https://grpc.io/docs/languages/) to generate them separately.
+Users can find the protobuf file in the [repository](https://github.com/primevprotocol/mev-commit/blob/v0.1.2-rc4/rpc/bidderapi/v1/bidderapi.proto). This can be used to generate the client for the RPC in the language of your choice. The Go client has already been generated in the repository. For other languages, please follow the instructions in the [gRPC documentation](https://grpc.io/docs/languages/) to generate them separately.
 
-The API available is:
+**API Operation:**
 
 ```
   rpc SendBid(Bid) returns (stream PreConfirmation)
 ```
 
-The message definitions are as follows:
+**Message Definitions**
 
-```
+```protobuf
 message Bid {  string tx_hash = 1;  int64 amount = 2;  int64 block_number = 3;}; message PreConfirmation {  string tx_hash = 1;  int64 amount = 2;  int64 block_number = 3;  string bid_digest = 4;  string bid_signature = 5;  string pre_confirmation_digest = 6;  string pre_confirmation_signature = 7;};
 ```
 
@@ -71,15 +71,11 @@ The same API is also available on the HTTP port configured on the node. Please r
 
 An [example CLI application](https://github.com/primevprotocol/mev-commit/tree/main/examples/usercli) is implemented in the repository. The primary purpose of this example is to demonstrate the process of integrating with the RPC API.
 
-\---- moved here temporarily ----
+#### Connecting to the gRPC Node
 
-#### gRPC Node Connection
+For providers, the `ReceiveBids` and `SendProcessedBids` streams are vital for bid management. By default, this service is disabled and must be enabled via the `ProviderAPIEnabled` flag in the config file.
 
-Once a provider node is up and running, you can use the `ReceiveBids` stream to receive bids into offline infrastructure and send decisions based on those bids via the `SendProcessedBids` stream.
-
-❗\*\*By default, this service is disabled\*\* and must be enabled by setting the ProviderAPIEnabled flag in the config file to true.
-
-- Config file with ProviderAPIEnabled set to true
+**Config Example with Provider API Enabled:**
 
   ```yaml
   **expose_provider_api: true**
@@ -99,7 +95,7 @@ Once a provider node is up and running, you can use the `ReceiveBids` stream to 
     - /dnsaddr/bootnode.testnet.mev-commit.xyz
   ```
 
-- gRPC API Specification
+**gRPC API Specification:**
 
   ```protobuf
   // ReceiveBids is called by the execution provider to receive bids from the mev-commit node.

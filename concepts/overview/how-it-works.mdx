@@ -1,11 +1,10 @@
 ---
 title: Understanding mev-commit
 sidebarTitle: Network Overview
-description: Explore the inner workings of mev-commit, and how it integrates to your bidder or provider environment.
 icon: share-nodes
 ---
 
-mev-commit is designed as an out of protocol layer to systems like mev-boost, facilitating the exchange of execution bids and commitments between mev actors, solving for coordination inefficiencies. This design ensures that only necessary parts of this faciliation happen on mev-commit (bids, commitments, settlement) and not the transaction flow itself. This design achieves chain abstraction by its nature, as any transaction hash on any chain can be referred to in a mev-commit bid, and be paid in eth. Bids and commitments on mev-commit also do not rely on blockchain bottlenecks and are real-time.
+Mev-commit is designed as an out of protocol layer to systems like mev-boost, facilitating the exchange of execution bids and commitments between mev actors, solving for coordination inefficiencies. This design ensures that only necessary parts of this faciliation happen on mev-commit (bids, commitments, settlement) and not the transaction flow itself. This design achieves chain abstraction by its nature, as any transaction hash on any chain can be referred to in a mev-commit bid, and be paid in eth. Bids and commitments on mev-commit also do not rely on blockchain bottlenecks and are real-time.
 
 Bids are received and evaluated by providers, who run decisioning logic in their own environment and may decide to issue a cryptographic commitment against whatever the bid is for. In the preconfirmation case, the minimum a commitment can be made is for inclusion of the referred transaction hash(es) in the bid on the target block number specified.
 

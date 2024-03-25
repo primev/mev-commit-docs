@@ -1,5 +1,4 @@
-This section is for users who prefer a more hands-on approach to setting up mev-commit.
-It allows for customization and a better understanding of the setup process.
+For users who prefer a detailed and hands-on approach to setting up mev-commit, this section allows for deeper customization and a thorough understanding of the setup process.
 
 **Pre-requisites:**
 
@@ -15,16 +14,18 @@ After installing `cast`, run `foundryup` to ensure it's updated.
 
 ## Download the binary
 
-- **Step 1. Check your CPU architecture:**
+- **Step 1. Identify CPU Architecture:**
+
+Determine your OS type and chip architecture with the following commands:
 
   ```shell ❯_ terminal
   uname # This will give you the OS type
   uname -m # This will give you the chip architecture
   ```
 
-- **Step 2. Pull The Required Binary of mev-commit based on your CPU architecture.**
+- **Step 2. Download the Appropriate mev-commit Binary**
 
-  Download the binaries from the following:
+  Based on your CPU architecture, download the necessary binary from:
 
   https://github.com/primevprotocol/mev-commit/releases/tag/v0.2.0
 
@@ -34,6 +35,8 @@ After installing `cast`, run `foundryup` to ensure it's updated.
   ```
 
 ## Run the node
+
+The mev-commit application allows you to start a node with various configurations:
 
 ```shell
 NAME:
@@ -88,7 +91,7 @@ Most of the options above have default values. The minimum set of arguments requ
 
 ❗ The mev-commit node, when started for the first time will create a private key for the node at `~/.mev-commit/key`. This is a plain-text key. In order to store encrypted keys, users need to use the keystore. This can be configured using the `--keystore-path` and `--keystore-password`.
 
-### Bidder node
+### Starting as a Bidder Node:
 ```shell
 mev-commit --keystore-path ~/.mev-commit --keystore-password <PASSWORD> \
 	--bootnodes /dnsaddr/bootnode.testnet.mev-commit.xyz \
@@ -97,11 +100,11 @@ mev-commit --keystore-path ~/.mev-commit --keystore-password <PASSWORD> \
 
 Once the node is started you can go through the [funding process](https://docs.primev.xyz/get-started/bidders/fund-node) to start sending bids.
 
-### Provider node
+### Starting as a Provider Node:
 ```shell
 mev-commit --peer-type provider --keystore-path ~/.mev-commit --keystore-password <PASSWORD> \
 	--bootnodes /dnsaddr/bootnode.testnet.mev-commit.xyz \
 	--settlement-rpc-endpoint https://chainrpc.testnet.mev-commit.xyz
 ```
 
-In order to register as a provider please go through the [registration process](https://docs.primev.xyz/get-started/providers/register-a-provider)
+In order to register as a provider please go through the [registration process](https://docs.primev.xyz/get-started/providers/register-a-provider).

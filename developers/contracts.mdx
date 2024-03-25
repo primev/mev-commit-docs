@@ -10,17 +10,17 @@ The [mev-commit contracts](https://github.com/primevprotocol/contracts) verify a
 
 The mev-commit protocol uses 4 core contracts:
 
-- **PreConfirmations Contract**
-  - This will persist details about the commitments that have been made into contract storage
+- **Preconfirmations Contract**
+  - This will persist details about the commitments that have been made into contract storage.
 - **Bidder Registry Contract**
-  - This will be where the bulk of monetary transfer occurs
-  - Bidders prepay for bids into this contract
-  - The payment gets processed into a provider-allocated section that a provider can later retrieve
+  - This will be where the bulk of monetary transfer occurs.
+  - Bidders prepay for bids into this contract.
+  - The payment gets processed into a provider-allocated section that a provider can later retrieve.
 - **Provider Registry Contract**
-  - This contract stores the stake a provider bounds to ensure it doesn't break its promises under pre-confirmations
+  - This contract stores the stake a provider bounds to ensure it doesn't break its promises under preconfirmations.
 - **Oracle Contract**
   - This simply retrieves details on which commitments to process for rewarding or slashing.
-  - Access to the functions on this contract is restricted to the owner of the Oracle key
+  - Access to the functions on this contract is restricted to the owner of the Oracle key.
 
 ## Fee Vault Contract
 
@@ -38,7 +38,7 @@ i.e. a secure multisig governing the protocol treasury doesn't need to submit re
 
 See [bridging details](../concepts/bridging-details.mdx) for more information.
 
-## L1Gateway and SettlementGateway bridge contracts
+## L1Gateway and SettlementGateway Bridge Contracts
 
 See [bridging details](../concepts/bridging-details.mdx) for more information.
 
