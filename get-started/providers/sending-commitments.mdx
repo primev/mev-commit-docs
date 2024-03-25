@@ -8,7 +8,7 @@ curl -o launchmevcommit https://raw.githubusercontent.com/primevprotocol/scripts
 
 Now you'll want to run an emulator to simulate the accepting and rejecting of bids. You can read more about the internal builder API [here](http://localhost:3000/api-reference/provider/sendprocessedbids).
 
-To get started with the emulator, open a new termainl and run the following command:
+To get started with the emulator, open a new terminal and run the following command:
 <Warning>You require Go Version 1.21.1 to run the example emulator</Warning>
 ```
 git clone https://github.com/primevprotocol/mev-commit.git && cd mev-commit && git checkout v0.2.0 && cd examples/provideremulator && go run .
@@ -40,8 +40,6 @@ message Bid {
   string bid_amount = 2;
   int64 block_number = 3;
   bytes bid_digest = 4;
-  int64 decay_start_timestamp = 5;
-  int64 decay_end_timestamp = 6;
 };
 ```
 
