@@ -1,16 +1,22 @@
 
-## Bridging quick-start 
+## Bridging Quick-Start Guide 
 
-Bridging currently requires the use of a bridge cli tool. A frontend compatible with wallet integrations will be available soon.
+Bridging between Holesky and the mev-commit chain is a crucial step for users engaging with cross-chain functionalities. This guide outlines the process using the CLI tool. A user-friendly frontend with wallet integrations is under development and will be launched shortly.
 
-To test out the bridge cli with a one-liner using a pre-funded account on Holesky, try the following command:
+### Testing the Bridge CLI  
+
+For a quick test using a pre-funded account on Holesky, execute the following one-liner:
 
 ```shell
 curl -s https://raw.githubusercontent.com/primevprotocol/scripts/v0.1.0/bridge.sh | bash
 ```
-Otherwise see further instructions to bridge using your own Holesky account.
+This command simplifies the bridging process, allowing you to quickly experience cross-chain operations.
 
-First clone [mev-commit-bridge](https://github.com/primevprotocol/mev-commit-bridge) and build the user cli for your machine from the `standard/bridge-v1` directory:
+### Setting Up for Bridging
+
+1.**Clone and Build:**  
+
+Start by cloning the [mev-commit-bridge](https://github.com/primevprotocol/mev-commit-bridge) and build the user CLI for your machine from the `standard/bridge-v1` directory:
 
 ```shell
 make user_cli
@@ -18,7 +24,9 @@ make user_cli
 
 Or use a pre-built binary from the `releases` tab in [mev-commit-bridge](https://github.com/primevprotocol/mev-commit-bridge/releases).
 
-Set proper environment variables for a cross-chain transfer, example below:
+2. **Configure Environment Variables:**  
+
+Set the necessary environment variables for a cross-chain transfer. Replace the values below with your own details:
 
 ```shell
 export PRIVATE_KEY="0xe82a054e06f89598485134b4f2ce8a612ce7f7f7e14e650f9f20b30efddd0e57"
@@ -33,17 +41,21 @@ export SETTLEMENT_CONTRACT_ADDR="0xf60f8e762a3fe90fd4d8c005872b6f6e12eda8ca"
 
 Note the above contract addresses are correct for the current deployment of the mev-commit testnet. Constant ENS addresses will be available soon.
 
-To bridge ether from Holesky to the mev-commit chain, use:
+3. **Bridging to mev-commit Chain:**  
+
+To bridge ether from Holesky to the mev-commit chain, specify the amount in wei and the destination address:
 
 ```shell
 ./bin/user_cli bridge-to-settlement --amount $AMOUNT_IN_WEI --dest-addr $DEST_ADDR
 ```
 
-Where `PRIVATE_KEY` corresponds to an account that's funded on Holesky. 
+Ensure your `PRIVATE_KEY` corresponds to a funded account on Holesky.
 
-To bridge ether back to Holesky from the mev-commit chain, use:
+4. **Bridging Back to Holesky:**  
+
+To return ether to Holesky from the mev-commit chain, use:
 
 ```shell
 ./bin/user_cli bridge-to-l1 --amount $AMOUNT_IN_WEI --dest-addr $DEST_ADDR
 ```
-Where `PRIVATE_KEY` corresponds to an account that's funded on the mev-commit chain.
+Here, the`PRIVATE_KEY` should match an account with funds on the mev-commit chain.
