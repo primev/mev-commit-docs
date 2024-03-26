@@ -9,11 +9,10 @@ The oracle consists of two parts:
   <img src="/images/oracle-detailed-overview.png" />
 </Frame>
 
-The oracle mechanism in this protocol automates the verification of provider commitments to include specific transactions in L1 blocks.
-The Oracle Microservice queries the L1 Data Source for transaction hashes and extra data,
-cross-references these with commitments logged in the Commitments Contract, and then the
-Oracle Contract verifies adherence. If a commitment is met, the Oracle Contract triggers a
-reward to the provider via the Bidder Contract; if not, it slashes the provider by interacting
+The oracle automates the verification of provider commitments and queries the L1 Data Source for transaction hashes and block extra data. It then
+cross-references these with commitments logged in the Commitments Contract, and then
+verifies adherence using the Oracle Contract. If a commitment is satisfied, the Oracle Contract triggers a
+reward to the provider using the Bidder Contract; if not, it slashes the provider by interacting
 with the Provider Contract.
 
 ## Prior to Oracle Engagement

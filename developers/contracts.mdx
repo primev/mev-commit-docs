@@ -1,7 +1,6 @@
 # Introduction
 
-The purpose of smart contracts is to verify and manage the movement of funds as a response
-to bid and commitment activities that occur on our p2p network.
+The [mev-commit contracts](https://github.com/primevprotocol/contracts) verify and manage the movement of funds as a response to bid and commitment activities that occur on our p2p network.
 
 <Frame>
   <img src="/images/contract-architecture.png" />
@@ -9,47 +8,19 @@ to bid and commitment activities that occur on our p2p network.
 
 ## Contract Architecture and Functionality
 
-The Core Protocol has 4 Key Contracts:
+The mev-commit protocol uses 4 core contracts:
 
-- **PreConfirmations Contract**
-  - This will persist details about the commitments that have been made into contract storage
+- **Preconfirmations Contract**
+  - This will persist details about the commitments that have been made into contract storage.
 - **Bidder Registry Contract**
-  - This will be where the bulk of monetary transfer occurs
-  - Bidders prepay for bids into this contract
-  - The payment gets processed into a provider-allocated section that a provider can later retrieve
+  - This will be where the bulk of monetary transfer occurs.
+  - Bidders prepay for bids into this contract.
+  - The payment gets processed into a provider-allocated section that a provider can later retrieve.
 - **Provider Registry Contract**
-  - This contract stores the stake a provider bounds to ensure it doesn't break its promises under pre-confirmations
+  - This contract stores the stake a provider bounds to ensure it doesn't break its promises under preconfirmations.
 - **Oracle Contract**
   - This simply retrieves details on which commitments to process for rewarding or slashing.
-  - Access to the functions on this contract is restricted to the owner of the Oracle key
-
-## Whitelist Contract
-
-We envision mev-commit to eventually integrate a multitude of bridges to other chains, using multiple tech stacks.
-Think wormhole, layerzero, etc. Only whitelisted (approved/active) bridging contracts should be able to mint/burn native ether.
-Thus the following intermediary whitelist contract is proposed.
-
-<Frame>
-  <img src="/images/white-list-contract.png" />
-</Frame>
-
-A whitelist contract is responsible for managing a whitelist of addresses that can mint/burn native ether as a part of bridging.
-Note this contract can be easily integrated with any bridging implementation.
-Most of the time, integration is simple - replace a line of code that mints wrapped ERC20 tokens on the destination chain with
-a call to the whitelist contract's mint function.
-
-To demonstrate how this contract can be integrated with a bridge, we use hyperlane as an example.
-First, the address where the whitelist contract will be deployed is precomputed with the CREATE2
-opcode as a function of the deployer address, salt, and contract bytecode. This precomputed address is
-hardcoded or set into both the custom geth clients' precompiles, and the hyperlane contracts.
-
-Next, the mev-commit chain is started from genesis, and the hyperlane bridging contracts are deployed.
-The predetermined admin account then deploys the whitelist contract, and finally submits a permissioned
-transaction that adds the `HypERC20.sol` contract address to the whitelist. Note only the admin account
-is able to mutate the on-chain whitelist, and will mutate this list for existing bridge upgrades, or new bridge deployments.
-
-Note the `HypERC20.sol` contract inherits ERC20Upgradeable, but the hyperlane stack doesn't seem to implement a proxy contract.
-Luckily the whitelist contract naturally makes `HypERC20.sol` upgradable in that the whitelist is mutable.
+  - Access to the functions on this contract is restricted to the owner of the Oracle key.
 
 ## Fee Vault Contract
 
@@ -62,6 +33,14 @@ The contract owner can invoke transfers of the accumulated fees from the sidecha
 Since the treasury address is immutable, the contract owner only has the power to initiate transfers.
 The separation between the contract owner and treasury accounts is useful because key management can be separate;
 i.e. a secure multisig governing the protocol treasury doesn't need to submit regular transfer transactions.
+
+## Whitelist Contract
+
+See [bridging details](../concepts/bridging-details.mdx) for more information.
+
+## L1Gateway and SettlementGateway Bridge Contracts
+
+See [bridging details](../concepts/bridging-details.mdx) for more information.
 
 ## Deploying Custom Contracts
 
