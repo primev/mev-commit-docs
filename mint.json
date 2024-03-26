@@ -61,10 +61,8 @@
           "pages": [
             "concepts/overview/introduction",
             "concepts/overview/actors",
-            "concepts/overview/how-it-works",
-            "concepts/overview/mev-commit-testnet"
-          ],
-          "icon": "fly"
+            "concepts/overview/how-it-works"
+          ]
         },
         "concepts/privacy",
         "concepts/fees-and-funds-movement",
@@ -84,13 +82,14 @@
     {
       "group": "Developers",
       "pages": [
+        "developers/mev-commit-testnet",
         "developers/contracts",
         "developers/debugging",
         "developers/key-management",
         "developers/security-best-practices",
         "developers/manual-start-mev-commit",
         "developers/run-mev-commit-chain-node",
-		"developers/system-requirements"
+		    "developers/system-requirements"
       ]
     },
     {
