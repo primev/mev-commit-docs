@@ -1,0 +1,6 @@
+/* Targeting the pre element within the specific container */
+div.min-w-full > pre.language-shell {
+  white-space: pre-wrap; /* Wrap text */
+  word-break: break-word; /* Prevents overflow by breaking long words */
+  overflow-wrap: break-word; /* Ensures text breaks nicely */
+}
