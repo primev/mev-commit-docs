@@ -86,8 +86,6 @@
         "developers/mev-commit-testnet",
         "developers/contracts",
         "developers/debugging",
-        "developers/key-management",
-        "developers/security-best-practices",
         "developers/manual-start-mev-commit",
         "developers/run-mev-commit-chain-node"      
       ]
