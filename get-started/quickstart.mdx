@@ -1,28 +1,30 @@
 ---
-title: "Quickstart your mev-commit node"
-description: "This section provides a fast method to start using mev-commit."
+title: 'Quickstart your mev-commit node'
+description: 'This section provides a fast method to start using mev-commit.'
 sidebarTitle: Quickstart
-icon: "gear"
+icon: 'gear'
 ---
 
 ```shell
-curl -o launchmevcommit https://raw.githubusercontent.com/primevprotocol/scripts/v0.1.0/launchmevcommit && chmod +x launchmevcommit && ./launchmevcommit --rpc-url https://chainrpc.testnet.mev-commit.xyz --node-type bidder
+curl -o launchmevcommit https://raw.githubusercontent.com/primevprotocol/scripts/v0.1.0/launchmevcommit && \
+chmod +x launchmevcommit && \
+./launchmevcommit --rpc-url https://chainrpc.testnet.mev-commit.xyz --node-type bidder
 ```
 
 This will get you going with a mev-commit node as a bidder on the network. To join the network as a **provider**, simply change the "--node-type bidder" to "--node-type provider". Next, dive into the [bidder](https://docs.primev.xyz/get-started/bidders/receive-preconfirmation-commitment) or [provider](https://docs.primev.xyz/get-started/providers/consume-bids-mev-commit) sections to run your operations on the network.
 
 **Pre-requisites:**
 
-* Ensure you have `curl` installed on your system. `curl` is a command-line tool used to transfer data from or to a server.
-* A `terminal` to execute the command. This can be any command-line interface like Command Prompt on Windows, Terminal on macOS, or a Linux shell.
+- Ensure you have `curl` installed on your system. `curl` is a command-line tool used to transfer data from or to a server.
+- A `terminal` to execute the command. This can be any command-line interface like Command Prompt on Windows, Terminal on macOS, or a Linux shell.
 
 ❗You will need to have a public IP and expose the peer-to-peer port 13522 on your local machine to allow the provider node to establish connections that are incoming to the node.
 
 **This command performs several actions automatically:**
 
-* Downloads the mev-commit startup script using `curl`.
-* Makes the script executable with `chmod`.
-* Executes the script to set up mev-commit with the required configurations.
+- Downloads the mev-commit startup script using `curl`.
+- Makes the script executable with `chmod`.
+- Executes the script to set up mev-commit with the required configurations.
 
 Your mev-commit node setup is done once the command execution is complete.
 
