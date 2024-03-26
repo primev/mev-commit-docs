@@ -286,7 +286,7 @@ Before the oracle can be engaged according to the protocol's intended sequence o
 
 ![Oracle-before.png](Primev%20Docs%20Testnet%20Ver%2041c24e77a73e47e0966d54365efbbfc8/Oracle-before.png)
 
-1a. A bidder sends their raw transaction to a provider, such as a Block Builder or the public mempool.
+1a. A bidder sends their raw transaction to a provider, such as a block builder, or to the public mempool.
 1b. Simultaneously, the bidder issues a bid via the mev-commit peer-to-peer network.
 
 After the bidder's actions, the provider proceeds to:
