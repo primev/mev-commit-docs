@@ -9,7 +9,7 @@ export KEY=$(cat key)
 export ADDRESS=$(cast wallet address --private-key 0x$(cat key))
 ```
 
-## Getting Allowance ////This might be deprecated as the Fund Your Node section also seems to cover this
+## Getting Allowance
 
 To get the current prepaid balance in the contract:
 
@@ -17,7 +17,7 @@ To get the current prepaid balance in the contract:
 curl -s http://localhost:13523/v1/bidder/get_allowance
 ```
 
-💡Allowance represents the funds in the bidder's account that can be used to submit bids on the Primev p2p-network and settled on-chain.
+💡Allowance represents the funds in the bidder's account that can be used to submit bids on the mev-commit p2p-network and settled on-chain.
 
 ## Withdraw Prepaid Funds
 
