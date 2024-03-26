@@ -96,28 +96,34 @@ STATUS_REJECTED: Indicates that the bid has been rejected by the provider.
 Deploy your gRPC server on suitable infrastructure, ensuring it's accessible to clients. Configure necessary network settings for security and connectivity.
 Example Server Implementation in Go:
 ```
-func (s *Server) SendProcessedBids(stream providerapi.Provider_SendProcessedBidsServer) error {
-  for {
-    bid, err := stream.Recv()
-    if err == io.EOF {
-      return nil // End of stream
-    }
-    if err != nil {
-      return err // Handle reception error
-    }
 
-    // Insert custom bid processing logic here
-    status := providerapi.BidResponse_STATUS_ACCEPTED // Determine based on processing
+import (
+	...
 
-    // Respond with the processed bid status
-    err = stream.Send(&providerapi.BidResponse{
-      BidDigest: bid.BidDigest,
-      Status:    status,
-    })
-    if err != nil {
-      return err // Handle sending error
-    }
-  }
+	"github.com/primevprotocol/mev-commit/examples/provideremulator/client"
+	providerapiv1 "github.com/primevprotocol/mev-commit/gen/go/providerapi/v1"
+)
+
+func ...() {
+	...
+
+	providerClient, _ := client.NewProviderClient(*serverAddr, logger)
+	
+	bidS, _ := providerClient.ReceiveBids()
+
+	for {
+		select {
+		case bid, more := <-bidS:
+			if !more {
+				return
+			}
+			logger.Info("received new bid", "bid", bid)
+			_ := providerClient.SendBidResponse(context.Background(), &providerapiv1.BidResponse{
+				BidDigest: bid.BidDigest,
+				Status:    providerapiv1.BidResponse_STATUS_ACCEPTED, // decide here if you want to accept or reject
+			})
+		}
+	}
 }
 ```
 
