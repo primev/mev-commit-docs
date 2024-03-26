@@ -256,7 +256,7 @@ Future experimentation will help identify the maximize the number of signers tha
 
 Contracts are deployed on the mev-commit chain to follow the state of bids and commitments, and invoke rewards or slashing as needed. Contracts are designed as follows:
 
-- A pre-confirmation contract allows pre-confirmation commitments to bids from the p2p network to be tracked on-chain.
+- A preconfirmation contract allows preconfirmation commitments to bids from the p2p network to be tracked on-chain.
 - Two separate registry contracts exist to manage users and providers, where both parties must stake ETH to participate. Rewards and/or slashing are managed by these contracts.
 - An oracle contract receives L1 payloads from the oracle service. To start, it will receive data from L1 Testnet Sepolia and transition to Mainnet as we go from Testnet to Mainnet.
 - A whitelist contract allows certain other contracts to mint/burn native ether as a part of bridging with L1.
@@ -448,7 +448,7 @@ Our system employs keccak256 (SHA-3) for hashing, aligning with EVM standards fo
 
 ### Introduction to Testnet and its Purpose
 
-The testnet allows bidders and providers to spin up nodes and send bids and commitments along. This will allow bidders to get pre-confirmations from providers on the Holesky network.
+The testnet allows bidders and providers to spin up nodes and send bids and commitments along. This will allow bidders to get preconfirmations from providers on the Holesky network.
 
 ### Differences between the testnet and mainnet environments
 
@@ -627,7 +627,7 @@ Bidders will use the `bidder` role to run their nodes. The node provides the 
 The Bidder API is also implemented using the gRPC framework, supporting two primary operations:
 
 - **Send Bid:** User submit their bid.
-- **Receive Pre-Confirmation: The u**ser receives streaming pre-confirmations if accepted.
+- **Receive Preconfirmation: The u**ser receives streaming preconfirmations if accepted.
 
 ### **RPC API**
 
@@ -692,7 +692,7 @@ The Core Protocol has 4 Key Contracts:
   - Bidders prepay for bids into this contract
   - The payment gets processed into a provider-allocated section that a provider can later retrieve
 - Provider Registry Contract
-  - This contract stores the stake a provider bounds to ensure it doesn’t break its promises under pre-confirmations
+  - This contract stores the stake a provider bounds to ensure it doesn’t break its promises under preconfirmations
 - Oracle Contract
   - This simply retrieves details on which commitments to process for rewarding or slashing.
   - Access to the functions on this contract is restricted to the owner of the Oracle key
@@ -820,8 +820,8 @@ Funds are moved in the following scenarios:
 
 1. Allowance/prepayment by bidder.
 2. Staking by provider.
-3. Rewarding provider with pre-confirmation from bidder.
-4. Slashing for unfulfilled pre-confirmation promises.
+3. Rewarding provider with preconfirmation from bidder.
+4. Slashing for unfulfilled preconfirmation promises.
 
 ## Fee Structure of a Bid
 
@@ -1119,9 +1119,9 @@ Once a provider node is up and running, you can use the `ReceiveBids` stream to 
 
 # Tutorials
 
-## Receiving your First Pre-Confirmation
+## Receiving your First Preconfirmation
 
-We have a running mev-commit provider node on our testnet that will always return you a Pre-Confirmation. However, this provider is not a builder, and will not produce blocks. The node is purely to showcase the process of submitting a bid and waiting for a pre-confirmation from the network.
+We have a running mev-commit provider node on our testnet that will always return you a Preconfirmation. However, this provider is not a builder, and will not produce blocks. The node is purely to showcase the process of submitting a bid and waiting for a preconfirmation from the network.
 
 ### Step 1. Get the Bidder Node up and running
 
@@ -1133,7 +1133,7 @@ This will fund your wallet, and start a new mev-commit bidder node for you.
 
 If you’ve already run the command, it will ask you if you want to overwrite, for a clean setup, respond with a `y`.
 
-### Step 2. Submit Bid and wait for Pre-Confirmation
+### Step 2. Submit Bid and wait for Preconfirmation
 
 Change the `txHash` `amount` and `blockNumber` to your liking
 
@@ -1146,7 +1146,7 @@ curl -X POST http://localhost:13523/v1/bidder/bid \
 }'
 ```
 
-🎉 Congrats, you’ve should receive a Pre-Confirmation!
+🎉 Congrats, you’ve should receive a Preconfirmation!
 
 # **Differences between Ethereum and mev-commit chain**
 
