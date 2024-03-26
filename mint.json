@@ -28,7 +28,7 @@
   ],
   "navigation": [
     {
-      "group": "Get started",
+      "group": "Get Started",
       "pages": [
         "get-started/quickstart",
 		    "get-started/bridging-funds",
@@ -69,7 +69,7 @@
         "concepts/bids",
         "concepts/commitments",
         {
-          "group": "mev-commit-chain",
+          "group": "mev-commit Chain",
           "pages": [
             "concepts/mev-commit-chain/chain-details",
             "concepts/mev-commit-chain/differences-between-ethereum-and-mev-commit-chain"
