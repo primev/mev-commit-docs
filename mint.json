@@ -35,6 +35,7 @@
         {
           "group": "Bidders",
           "pages": [
+            "get-started/bidders/bidder-overview",
             "get-started/bidders/fund-node",
             "get-started/bidders/send-bids",
             "get-started/bidders/receive-preconfirmation-commitment",
