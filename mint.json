@@ -56,9 +56,9 @@
     {
       "group": "Concepts",
       "pages": [ 
-        "concepts/overview/what-is-mev-commit",
-        "concepts/overview/actors",
-        "concepts/overview/how-it-works",
+        "concepts/what-is-mev-commit",
+        "concepts/actors",
+        "concepts/how-it-works",
         "concepts/privacy",
         "concepts/fees-and-funds-movement",
         "concepts/bids",
