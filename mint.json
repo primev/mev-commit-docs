@@ -15,21 +15,20 @@
       "to": "#E97D25"
     }
   },
-  "anchors": [
+
+  "tabs": [
     {
       "name": "API Reference",
-      "icon": "square-terminal",
       "url": "api-reference"
     },
     {
       "name": "Knowledge Base",
-      "icon": "books",
       "url": "knowledge-base"
     }
   ],
   "navigation": [
     {
-      "group": "Get started",
+      "group": "Get Started",
       "pages": [
         "get-started/introduction",
         "get-started/quickstart",
@@ -47,8 +46,8 @@
         {
           "group": "Providers",
           "pages": [
+            "get-started/providers/register-a-provider",
             "get-started/providers/consume-bids-mev-commit",
-            "get-started/providers/aregister-a-provider",
             "get-started/providers/sending-commitments"
           ],
           "icon": "network-wired"
@@ -63,17 +62,15 @@
           "pages": [
             "concepts/overview/introduction",
             "concepts/overview/actors",
-            "concepts/overview/how-it-works",
-            "concepts/overview/mev-commit-testnet"
-          ],
-          "icon": "fly"
+            "concepts/overview/how-it-works"
+          ]
         },
         "concepts/privacy",
         "concepts/fees-and-funds-movement",
         "concepts/bids",
         "concepts/commitments",
         {
-          "group": "mev-commit-chain",
+          "group": "mev-commit Chain",
           "pages": [
             "concepts/mev-commit-chain/chain-details",
             "concepts/mev-commit-chain/differences-between-ethereum-and-mev-commit-chain"
@@ -86,13 +83,12 @@
     {
       "group": "Developers",
       "pages": [
+        "developers/system-requirements",
+        "developers/mev-commit-testnet",
         "developers/contracts",
         "developers/debugging",
-        "developers/key-management",
-        "developers/security-best-practices",
         "developers/manual-start-mev-commit",
-        "developers/run-mev-commit-chain-node",
-        "developers/system-requirements"
+        "developers/run-mev-commit-chain-node"
       ]
     },
     {

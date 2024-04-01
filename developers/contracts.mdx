@@ -36,11 +36,21 @@ i.e. a secure multisig governing the protocol treasury doesn't need to submit re
 
 ## Whitelist Contract
 
-See [bridging details](../concepts/bridging-details.mdx) for more information.
+- **Managing Bridging Permissions**: A whitelist contract on the mev-commit chain manages addresses authorized to mint or burn sidechain ether as part of the bridging process. This contract is crucial for integrating various bridges and maintaining control over which contracts can perform critical functions.
+- **Mint/Burn Functionality**: The whitelist contract on the mev-commit chain is responsible for minting and burning native ether corresponding to bridging actions. This ensures that ether on the mev-commit chain accurately reflects locked collateral on L1.
+
+We envision mev-commit to eventually integrate a multitude of bridges to other chains, using multiple tech stacks.
+Think wormhole, layerzero, etc. Only whitelisted (approved/active) bridging contracts should be able to mint/burn native ether.
 
 ## L1Gateway and SettlementGateway Bridge Contracts
 
-See [bridging details](../concepts/bridging-details.mdx) for more information.
+To bridge from L1 to the mev-commit chain, a user EOA first calls the `InitiateTransfer` function on the `L1Gateway` contract. This function accepts two parameters, a recipient account to receive funds on the counterparty chain, and an amount to transfer. The user must send (lock) the appropriate amount of ether in the `L1Gateway` contract as a part of the transaction that calls this function.
+
+During the `InitiateTransfer` transaction, an event is emitted from L1. The relayer continuously monitors for these L1 events from finalized blocks. Once the L1 event is observed by the relayer, it calls the `FinalizeTransfer` function on the bridge gateway contract residing on the mev-commit chain, the `SettlementGateway` contract. This transaction mints native ether to the recipient EOA, with an appropriate amount of wei.
+
+To bridge ether from the mev-commit chain back to L1, a user follows the same pattern as described above, as the relayer monitors both chains for transfer events.
+
+Note the destination gateway contract enforces a flat fee on the destination address. This is a constant fee paid to the relayer during the transfer finalization transaction. It currently serves as a simple 1 wei placeholder. In production, this fee must be greater on average than the gas cost of transfer finalization transactions sent from the relayer.
 
 ## Deploying Custom Contracts
 
