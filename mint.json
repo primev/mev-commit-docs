@@ -30,8 +30,9 @@
     {
       "group": "Get Started",
       "pages": [
+        "get-started/introduction",
         "get-started/quickstart",
-		    "get-started/bridging-funds",
+        "get-started/bridging-funds",
         {
           "group": "Bidders",
           "pages": [
@@ -60,7 +61,7 @@
         "concepts/actors",
         "concepts/how-it-works",
         "concepts/privacy",
-        "concepts/fees-and-funds-movement",
+        "concepts/what-is-primev",
         "concepts/bids",
         "concepts/commitments",
         {
@@ -82,14 +83,12 @@
         "developers/contracts",
         "developers/debugging",
         "developers/manual-start-mev-commit",
-        "developers/run-mev-commit-chain-node"      
+        "developers/run-mev-commit-chain-node"
       ]
     },
     {
       "group": "Reference",
-      "pages": [
-        "reference/provider-and-bidder-interaction-via-apis"
-      ]
+      "pages": ["reference/provider-and-bidder-interaction-via-apis"]
     },
     {
       "group": "Knowledge Base",
