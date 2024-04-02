@@ -57,11 +57,11 @@
     {
       "group": "Concepts",
       "pages": [ 
+        "concepts/what-is-primev",
         "concepts/what-is-mev-commit",
         "concepts/actors",
         "concepts/Network Overview",
         "concepts/privacy",
-        "concepts/what-is-primev",
         "concepts/bids",
         "concepts/commitments",
         {
