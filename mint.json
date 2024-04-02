@@ -30,15 +30,15 @@
     {
       "group": "Get Started",
       "pages": [
-        "get-started/introduction",
+        "get-started/Welcome",
         "get-started/quickstart",
         "get-started/bridging-funds",
         {
           "group": "Bidders",
           "pages": [
             "get-started/bidders/fund-node",
-            "get-started/bidders/send-bids",
-            "get-started/bidders/receive-preconfirmation-commitment",
+            "get-started/bidders/submitting bids",
+            "get-started/bidders/My First Preconf",
             "get-started/bidders/bidder-node-commands"
           ],
           "icon": "user-bounty-hunter"
@@ -46,8 +46,8 @@
         {
           "group": "Providers",
           "pages": [
-            "get-started/providers/register-a-provider",
-            "get-started/providers/consume-bids-mev-commit",
+            "get-started/providers/Registering as a Provider",
+            "get-started/providers/Consuming bids",
             "get-started/providers/sending-commitments"
           ],
           "icon": "network-wired"
@@ -59,7 +59,7 @@
       "pages": [ 
         "concepts/what-is-mev-commit",
         "concepts/actors",
-        "concepts/how-it-works",
+        "concepts/Network Overview",
         "concepts/privacy",
         "concepts/what-is-primev",
         "concepts/bids",
@@ -79,7 +79,7 @@
       "group": "Developers",
       "pages": [
         "developers/system-requirements",
-        "developers/mev-commit-testnet",
+        "developers/Testnet",
         "developers/contracts",
         "developers/debugging",
         "developers/manual-start-mev-commit",
