@@ -56,15 +56,10 @@
     },
     {
       "group": "Concepts",
-      "pages": [
-        {
-          "group": "Overview",
-          "pages": [
-            "concepts/overview/introduction",
-            "concepts/overview/actors",
-            "concepts/overview/how-it-works"
-          ]
-        },
+      "pages": [ 
+        "concepts/what-is-mev-commit",
+        "concepts/actors",
+        "concepts/how-it-works",
         "concepts/privacy",
         "concepts/what-is-primev",
         "concepts/bids",
