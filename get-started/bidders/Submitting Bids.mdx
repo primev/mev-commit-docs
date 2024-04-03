@@ -1,4 +1,7 @@
-Submitting Bids
+---
+title: 'Submitting Bids'
+sidebarTitle: Submitting Bids
+---
 
 ## Introduction
 
@@ -42,7 +45,7 @@ curl -X POST http://localhost:13523/v1/bidder/bid \
 
 💡You can change the values in the fields txHash, amount and blockNumber as desired.
 
-We recommend leveraging [the Go RPC client](https://primev-24.mintlify.app/get-started/bidders/send-bid#official-go-rpc-client) or alternatively using [the REST API](https://primev-24.mintlify.app/get-started/bidders/send-bid#rest-api) to send bids. For those who prefer to use command-line tools, options like [grpcurl](https://github.com/fullstorydev/grpcurl), or [BloomRPC](https://github.com/bloomrpc/bloomrpc) are available. These tools require the protobuf definitions from the repository to interact with the RPC services.
+We recommend leveraging the Go RPC client or alternatively using the REST API below to send bids. For those who prefer to use command-line tools, options like [grpcurl](https://github.com/fullstorydev/grpcurl), or [BloomRPC](https://github.com/bloomrpc/bloomrpc) are available. These tools require the protobuf definitions from the repository to interact with the RPC services.
 
 ## REST API
 
@@ -74,7 +77,7 @@ curl -X POST http://localhost:13523/v1/bidder/bid \
 [custom Postman request](https://primev.postman.co/workspace/Team-Workspace~18870d84-94f0-4d1e-8163-db558f83d7e8/request/27192304-fab87a71-9722-46f8-825f-d9791ead6178?ctx=documentation&tab=body)
 as an alterative way to send bids. Ensure you've got the Postman agent ready to go!
 
-The REST API provides a straightforward way to submit bids using HTTP requests. For detailed usage instructions, refer to [the Bidder API documentation](https://primev-24.mintlify.app/api-reference/bidder/sendbid).
+The REST API provides a straightforward way to submit bids using HTTP requests. For detailed usage instructions, refer to [the Bidder API documentation](https://docs.primev.xyz/api-reference/bidder/sendbid).
 
 ## Official Go RPC Client
 

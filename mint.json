@@ -15,30 +15,30 @@
       "to": "#E97D25"
     }
   },
-  "anchors": [
+
+  "tabs": [
     {
       "name": "API Reference",
-      "icon": "square-terminal",
       "url": "api-reference"
     },
     {
       "name": "Knowledge Base",
-      "icon": "books",
       "url": "knowledge-base"
     }
   ],
   "navigation": [
     {
-      "group": "Get started",
+      "group": "Get Started",
       "pages": [
+        "get-started/Welcome",
         "get-started/quickstart",
-		"get-started/bridging-funds",
+        "get-started/bridging-funds",
         {
           "group": "Bidders",
           "pages": [
             "get-started/bidders/fund-node",
-            "get-started/bidders/send-bids",
-            "get-started/bidders/receive-preconfirmation-commitment",
+            "get-started/bidders/Submitting Bids",
+            "get-started/bidders/My First Preconf",
             "get-started/bidders/bidder-node-commands"
           ],
           "icon": "user-bounty-hunter"
@@ -46,8 +46,8 @@
         {
           "group": "Providers",
           "pages": [
-            "get-started/providers/consume-bids-mev-commit",
-            "get-started/providers/aregister-a-provider",
+            "get-started/providers/Registering as a Provider",
+            "get-started/providers/Consuming Bids",
             "get-started/providers/sending-commitments"
           ],
           "icon": "network-wired"
@@ -56,23 +56,16 @@
     },
     {
       "group": "Concepts",
-      "pages": [
-        {
-          "group": "Overview",
-          "pages": [
-            "concepts/overview/introduction",
-            "concepts/overview/actors",
-            "concepts/overview/how-it-works",
-            "concepts/overview/mev-commit-testnet"
-          ],
-          "icon": "fly"
-        },
+      "pages": [ 
+        "concepts/what-is-primev",
+        "concepts/what-is-mev-commit",
+        "concepts/actors",
+        "concepts/Network Overview",
         "concepts/privacy",
-        "concepts/fees-and-funds-movement",
         "concepts/bids",
         "concepts/commitments",
         {
-          "group": "mev-commit-chain",
+          "group": "mev-commit Chain",
           "pages": [
             "concepts/mev-commit-chain/chain-details",
             "concepts/mev-commit-chain/differences-between-ethereum-and-mev-commit-chain"
@@ -85,20 +78,17 @@
     {
       "group": "Developers",
       "pages": [
+        "developers/system-requirements",
+        "developers/Testnet",
         "developers/contracts",
         "developers/debugging",
-        "developers/key-management",
-        "developers/security-best-practices",
         "developers/manual-start-mev-commit",
-        "developers/run-mev-commit-chain-node",
-		"developers/system-requirements"
+        "developers/run-mev-commit-chain-node"
       ]
     },
     {
       "group": "Reference",
-      "pages": [
-        "reference/provider-and-bidder-interaction-via-apis"
-      ]
+      "pages": ["reference/provider-and-bidder-interaction-via-apis"]
     },
     {
       "group": "Knowledge Base",
