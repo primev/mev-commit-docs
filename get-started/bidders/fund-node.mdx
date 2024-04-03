@@ -14,11 +14,12 @@ Once you've bridged funds to the network, you'll need to load a balance to parti
 </Accordion>
 
 ### Outcome of Preconfirmed Bids:
-When a bid is preconfirmed by a provider, three outcomes are possible:
+When a bid is preconfirmed by a provider, there are several possible outcomes:
 
-**Refund**: If the provider does *not* build the L1 block, the _amount_ is refunded to the bidder.  
-**Refund**: If the provider builds the L1 block but does not include the preconfirmed transaction, the _amount_ is refunded to the bidder.  
-**Reward to Provider**: If the bid's corresponding transaction is included in the L1 block built by the provider, the _amount_ is rewarded to the provider.
+| Outcome Matrix | Provider Wins Slot Auction| Provider Loses Slot Auction |
+| --------------------- | --------------| --------|
+| **Transaction in block**                   | Reward Provider          | Refund Bid to Bidder  |
+| **Transaction not in block**                 | Slash Provider & Refund Bid To Bidder           | Refund Bid to Bidder  |
 
 ### Managing Prepaid Allowance:
 
@@ -32,8 +33,7 @@ When a bid is preconfirmed by a provider, three outcomes are possible:
   ```
 
 - **Funding Your Node Account:**
-
-First, retrieve the Ethereum account address of your node:
+  First, retrieve the Ethereum account address of your node:
 
     ```shell
     > curl localhost:13523/topology | jq
