@@ -47,8 +47,14 @@ Ready to get your node up and running? This streamlined process will guide you t
 
     </CodeGroup>
 
+    <Note>
+      You need to make sure that the peer-to-peer port 13522 on your local machine is accessible through a public IP address.
+      This setup enables the provider node to initiate incoming connections to your node.
+    </Note>
+
   </Step>
 </Steps>
+
 <Accordion title="🤔 What does the script do?">
 
     ## Script Overview
@@ -78,5 +84,8 @@ Ready to get your node up and running? This streamlined process will guide you t
     - Includes a cleanup function to ensure the node is properly shut down when the script exits, preventing any residual processes.
 
 </Accordion>
+
+
+
 
 If you want to perform a manual setup with detailed steps please skip to [manual start mev-commit](../developers/manual-start-mev-commit) section.
