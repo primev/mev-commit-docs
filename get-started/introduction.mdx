@@ -1,0 +1,93 @@
+---
+title: Welcome to Primev
+sidebarTitle: Welcome
+description: 'Primev is a domain-agnostic network that enhances the Ethereum blockbuilding experience by streamlining MEV coordination and improving the interaction among searchers, users, and builders.'
+icon: sailboat
+mode: wide
+---
+import { QuickStartCard, CardDescription, Separator, CardContent, QuickStartCardFooter } from '/snippets/quick-start-card.mdx';
+
+## Get Started
+
+Welcome to the starting point of your Primev journey!
+Our quickstart guides are tailored to your specific role within the Ethereum ecosystem and designed to get you up and running quickly.
+Choose the guide below that best aligns with your interests and needs:
+
+
+
+<CardGroup cols={3}>
+
+    <QuickStartCard title="Bidders" icon="user-bounty-hunter" >
+        <CardDescription>
+            Searchers, Solvers, Rollup Provers, AA Bundlers, End Users
+        </CardDescription>
+
+        <Separator />
+
+        <CardContent>
+            For those looking to explore MEV opportunities, follow our Bidder Quickstart to learn how to
+            efficiently identify and capture valuable transactions.
+        </CardContent>
+
+        <QuickStartCardFooter>
+            • [Fund Your Node](/get-started/bidders/fund-node)
+
+            • [Receive your First Preconfirmation](/get-started/bidders/first-preconf)
+
+            • [Bidder Node Commands](/get-started/bidders/bidder-node-commands)
+
+            • [Submitting Bids](/get-started/bidders/submitting-bids)
+
+            • [Bid Structure](/concepts/bids)
+        </QuickStartCardFooter>
+    </QuickStartCard>
+
+    <QuickStartCard title="Providers" icon="network-wired">
+        <CardDescription>
+            Block Builders, Relays, Proposers, Rollup Sequencers
+        </CardDescription>
+
+        <Separator />
+
+        <CardContent>
+            Providers are the backbone of the Primev ecosystem. Start with our Provider's Quick Setup to
+            optimize your block production and validation processes.
+        </CardContent>
+
+        <QuickStartCardFooter>
+            • [Registering as a Provider](/get-started/providers/registering-a-provider)
+
+            • [Consuming Bids](/get-started/providers/consuming-bids)
+
+            • [Sending Commitments](/get-started/providers/sending-commitments)
+
+            • [Commitments Structure](/concepts/commitments)
+        </QuickStartCardFooter>
+    </QuickStartCard>
+
+    <QuickStartCard title="Ethereum Users" icon="ethereum">
+        <CardDescription>
+            Users of Ethereum
+        </CardDescription>
+
+        <Separator />
+
+        <CardContent>
+            If you're an Ethereum user looking to engage with the network more efficiently,
+            our general quickstart will guide you through the essentials.
+        </CardContent>
+
+        <QuickStartCardFooter>
+            • [Quickstart](/get-started/quickstart)
+
+            • [What is mev-commit?](/concepts/what-is-mev-commit)
+
+            • [mev-commit Chain](/concepts/mev-commit-chain/chain-details)
+
+            • [Ethereum vs mev-commit](/concepts/mev-commit-chain/differences-between-ethereum-and-mev-commit-chain)
+
+            • [mev-commit Testnet](/developers/testnet)
+        </QuickStartCardFooter>
+    </QuickStartCard>
+
+</CardGroup>

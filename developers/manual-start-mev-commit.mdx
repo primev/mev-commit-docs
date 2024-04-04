@@ -1,46 +1,175 @@
 ---
-title: 'Manual Start mev-commit'
-sidebarTitle: Manual Start mev-commit
+title: 'Manual Node Setup'
+sidebarTitle: Manual Node Setup
 ---
 
-For users who prefer a detailed and hands-on approach to setting up mev-commit, this section allows for deeper customization and a thorough understanding of the setup process.
+Below, you'll find a guide tailored for those who prefer a more customized installation approach.
 
-**Pre-requisites:**
+<Steps titleSize="h3">
 
-- `curl`: A command-line tool used for downloading files from the internet.
-- `terminal`: A command-line interface for executing commands.
-- `cast`: A command-line tool for Ethereum blockchain interaction. Install it using the following command:
+  <Step title="Install cast">
+  
+  We use the [cast](https://book.getfoundry.sh/cast/) CLI tool for making Ethereum RPC calls.
+  If it's not already installed on your system, you can set up the entire Foundry toolchain, including `cast`, with the following command:
 
-```shell ❯_ terminal
-curl -L https://foundry.paradigm.xyz | bash
-```
+    ```bash ❯_ terminal
+    curl -L https://foundry.paradigm.xyz | bash
+    ```
 
-After installing `cast`, run `foundryup` to ensure it's updated.
+    After installation, execute `foundryup` to update to the latest versions of Foundry's suite of tools:
+     `forge`, `cast`, `anvil`, and `chisel`:
 
-## Download the Binary
 
-- **Step 1. Identify CPU Architecture**
+    ```bash ❯_ terminal
+    foundryup
+    ```
 
-  Determine your OS type and chip architecture with the following commands:
+    For detailed guidance, refer to the official [Foundry Book](https://book.getfoundry.sh/getting-started/installation) installation instructions.
 
-  ```shell ❯_ terminal
-  uname # This will give you the OS type
-  uname -m # This will give you the chip architecture
-  ```
+  </Step>
 
-- **Step 2. Download the Appropriate mev-commit Binary**
+  <Step title="Check your CPU architecture">
 
-  Based on your CPU architecture, download the necessary binary from:
+    Run the following command which will identify your OS, and chip architecture:
 
-  https://github.com/primevprotocol/mev-commit/releases/tag/v0.2.0
+    ```bash  ❯_ terminal
+    uname -sm
+    ```
 
-  Unzip the binary and add it to your `$PATH`.
-  ```shell
-  export PATH=$PATH:<path/to/binary>
-  ```
-- **Step 3. Run the node**
+    This command will output something like `Linux x86_64` or `Darwin arm64`, depending on your system.
 
-  The mev-commit application allows you to start a node with various configurations:
+  </Step>
+  <Step title="Get the mev-commit binary">
+
+    Navigate to the [mev-commit repo](https://github.com/primevprotocol/mev-commit/releases/latest)
+    and select the mev-commit binary tailored to your system.
+    For example, if `uname -sm` yields `Linux x86_64`, opt for `mev-commit_Linux_x86_64.tar.gz`.
+    Download, then extract the binary into your preferred root directory to continue with setup.
+
+    You can use the following command which automatically downloads and extracts the appropriate
+    mev-commit binary for your system into your home directory:
+
+    ```bash  ❯_ terminal
+    FILENAME="mev-commit_$(uname -s)_$(uname -m).tar.gz"
+    curl -L \
+    "https://github.com/primevprotocol/mev-commit/releases/download/v0.3.0-rc2/$FILENAME" \
+    | tar -xz -C $HOME
+    ```
+
+    <Accordion title="🕵️‍♂️ Recommended: Verify the checksum">
+
+    Before executing any code downloaded from the internet, it's recommended to verify the checksum,
+    a practice that ensures the file's integrity and authenticity. Checksums, provided with each release on GitHub,
+    serve as a safeguard, allowing you to confirm that the downloaded binary has not been compromised or altered,
+    thus protecting your system from potential security risks.
+
+    To verify the checksum of the mev-commit binary, you can follow these simplified steps (assumes binary is the home directory):
+
+    <Steps>
+
+      <Step title="Grab the checksum">
+
+        Set the binary's name based on your system and retrieve the corresponding checksum:
+
+        ```bash ❯_ terminal
+        FILENAME="mev-commit_$(uname -s)_$(uname -m).tar.gz"
+        CHECKSUM=$(curl -L \
+        "https://github.com/primevprotocol/mev-commit/releases/download/v0.3.0-rc2/mev-commit_v0.3.0-rc2_checksums.txt" \
+        | awk "/$FILENAME/ {print \$1}")
+        ```
+      </Step>
+
+      <Step title="Verify">
+
+        Verify the binary's checksum by running the following:
+
+        <CodeGroup>
+
+        ```bash linux
+        echo "$CHECKSUM $HOME/$FILENAME" | sha256sum -c -
+        ```
+
+        ```bash macOs (Darwin)
+        echo "$CHECKSUM $HOME/$FILENAME" | shasum -a 256 -c -
+        ```
+
+        </CodeGroup>
+
+       ✅ **Success**
+
+        If the output resembles the following, you may confidently proceed to the next steps:
+
+        ```bash
+        filename.tar.gz: OK
+        ```
+
+        ❌ **Failure**
+
+        Should the output indicate a failure, as shown below, re-download the file and attempt verification once more.
+
+        ```bash
+        filename.tar.gz: FAILED
+        shasum: WARNING: 1 computed checksum did NOT match
+        ```
+
+        If checksum verification continues to fail after multiple attempts, reach out to Primev for support.
+      </Step>
+
+    </Steps>
+
+    </Accordion>
+
+  </Step>
+
+</Steps>
+
+## Starting up your Node
+
+Execute the script to initiate your node, selecting either a bidder or provider configuration based on your role in the network.
+
+<CodeGroup>
+
+   ```bash ❯_ bidder
+   mev-commit --keystore-path ~/.mev-commit \
+    --keystore-password <PASSWORD> \
+	--bootnodes /dnsaddr/bootnode.testnet.mev-commit.xyz \
+	--settlement-rpc-endpoint https://chainrpc.testnet.mev-commit.xyz
+   ```
+
+   ```bash ❯_ provider
+   mev-commit --peer-type provider --keystore-path ~/.mev-commit \
+    --keystore-password <PASSWORD> \
+	--bootnodes /dnsaddr/bootnode.testnet.mev-commit.xyz \
+	--settlement-rpc-endpoint https://chainrpc.testnet.mev-commit.xyz
+   ```
+
+</CodeGroup>
+
+<CardGroup cols={2}>
+   <div className="inline-card-header">
+      <Card title="Bidders" icon="user-bounty-hunter">
+         <br/><br/>
+         Once the node is started you can go through the [funding process](/get-started/bidders/fund-node) to start sending bids.
+      </Card>
+    </div>
+    <div className="inline-card-header">
+      <Card title="Providers" icon="network-wired">
+         <br/><br/>
+         In order to register as a provider please go through the [registration process](/get-started/providers/registering-a-provider).
+      </Card>
+    </div>
+</CardGroup>
+
+- `--bootnodes` This should point to the bootnode for the Primev testnet network.
+- `--settlement-rpc-endpoint` This should point to the Primev Settlement Chain RPC endpoint. At present this is managed by the Primev team.
+
+❗ By default, the node is started as a `Bidder` node. The `--peer-type` flag can be used to run a different type of node. This will most likely be the `provider` node.
+
+❗ The default contract addresses point to the Primev testnet at the moment. All the options can be provided using a YAML config file or environment variables as described in the above help output.
+
+❗ The mev-commit node, when started for the first time will create a private key for the node at `~/.mev-commit/key`. This is a plain-text key. In order to store encrypted keys, users need to use the keystore. This can be configured using the `--keystore-path` and `--keystore-password`.
+
+## CLI Reference
 
   ```shell
   NAME:
@@ -82,33 +211,3 @@ After installing `cast`, run `foundryup` to ensure it's updated.
      --help, -h                               show help
      --version, -v                            print the version
   ```
-
-  Most of the options above have default values. The minimum set of arguments required for all nodes are:
-
-  - `--bootnodes`               This should point to the bootnode for the Primev testnet network.
-  - `--settlement-rpc-endpoint` This should point to the Primev Settlement Chain RPC endpoint. At present this is managed by the Primev team.
-
-
-  ❗ By default, the node is started as a `Bidder` node. The `--peer-type` flag can be used to run a different type of node. This will most likely be the `provider` node.
-
-  ❗ The default contract addresses point to the Primev testnet at the moment. All the options can be provided using a YAML config file or environment variables as described in the above help output.
-
-  ❗ The mev-commit node, when started for the first time will create a private key for the node at `~/.mev-commit/key`. This is a plain-text key. In order to store encrypted keys, users need to use the keystore. This can be configured using the `--keystore-path` and `--keystore-password`.
-
-  ### Starting as a Bidder Node
-  ```shell
-  mev-commit --keystore-path ~/.mev-commit --keystore-password <PASSWORD> \
-	--bootnodes /dnsaddr/bootnode.testnet.mev-commit.xyz \
-	--settlement-rpc-endpoint https://chainrpc.testnet.mev-commit.xyz
-  ```
-
-  Once the node is started you can go through the [funding process](https://docs.primev.xyz/get-started/bidders/fund-node) to start sending bids.
-
-  ### Starting as a Provider Node
-  ```shell
-  mev-commit --peer-type provider --keystore-path ~/.mev-commit --keystore-password <PASSWORD> \
-	--bootnodes /dnsaddr/bootnode.testnet.mev-commit.xyz \
-	--settlement-rpc-endpoint https://chainrpc.testnet.mev-commit.xyz
-  ```
-
-  In order to register as a provider please go through the [registration process](https://docs.primev.xyz/get-started/providers/register-a-provider).
