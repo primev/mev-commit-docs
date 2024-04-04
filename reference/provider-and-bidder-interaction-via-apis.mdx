@@ -40,7 +40,7 @@ message Bid {  string txn_hash = 1;  int64 bid_amt = 2;  int64 block_number = 3;
 
 ### **HTTP API**
 
-The same API is also available on the HTTP port configured on the node. Please review the [API docs](https://mev-commit-docs.s3.amazonaws.com/provider.html) to understand the usage.
+The same API is also available on the HTTP port configured on the node. Please review the [API docs](/api-reference/provider/receivebids) to understand the usage.
 
 An [example client](https://github.com/primevprotocol/mev-commit/tree/main/examples/provideremulator) is implemented in the repository. This example showcases how to integrate a client into the provider's operational framework. While the sample client automatically accepts every incoming bid, providers should incorporate their own decision-making logic to evaluate and respond to these bids.
 
@@ -71,7 +71,7 @@ message Bid {  string tx_hash = 1;  int64 amount = 2;  int64 block_number = 3;};
 
 ### **HTTP API**
 
-The same API is also available on the HTTP port configured on the node. Please review the [API docs](https://mev-commit-docs.s3.amazonaws.com/user.html) to understand the usage.
+The same API is also available on the HTTP port configured on the node. Please review the [API docs](/api-reference/bidder/sendbid) to understand the usage.
 
 An [example CLI application](https://github.com/primevprotocol/mev-commit/tree/main/examples/usercli) is implemented in the repository. The primary purpose of this example is to demonstrate the process of integrating with the RPC API.
 
