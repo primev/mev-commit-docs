@@ -80,15 +80,13 @@
       "pages": [
         "developers/system-requirements",
         "developers/Testnet",
+		"developers/Provider API",
+		"developers/Bidder API",
         "developers/contracts",
         "developers/debugging",
         "developers/manual-start-mev-commit",
         "developers/run-mev-commit-chain-node"
       ]
-    },
-    {
-      "group": "Reference",
-      "pages": ["reference/provider-and-bidder-interaction-via-apis"]
     },
     {
       "group": "Knowledge Base",
