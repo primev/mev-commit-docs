@@ -30,15 +30,15 @@
     {
       "group": "Get Started",
       "pages": [
-        "get-started/Welcome",
+        "get-started/welcome",
         "get-started/quickstart",
         "get-started/bridging-funds",
         {
           "group": "Bidders",
           "pages": [
             "get-started/bidders/fund-node",
-            "get-started/bidders/Submitting Bids",
-            "get-started/bidders/My First Preconf",
+            "get-started/bidders/submitting-bids",
+            "get-started/bidders/my-first-preconf",
             "get-started/bidders/bidder-node-commands"
           ],
           "icon": "user-bounty-hunter"
@@ -46,8 +46,8 @@
         {
           "group": "Providers",
           "pages": [
-            "get-started/providers/Registering as a Provider",
-            "get-started/providers/Consuming Bids",
+            "get-started/providers/registering-as-a-provider",
+            "get-started/providers/consuming-bids",
             "get-started/providers/sending-commitments"
           ],
           "icon": "network-wired"
@@ -60,7 +60,7 @@
         "concepts/what-is-primev",
         "concepts/what-is-mev-commit",
         "concepts/actors",
-        "concepts/Network Overview",
+        "concepts/network-overview",
         "concepts/privacy",
         "concepts/bids",
         "concepts/commitments",

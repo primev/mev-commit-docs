@@ -84,7 +84,7 @@ Mev-commit's p2p network is structured to allow real-time communication across n
 
 The diagram below illustrates how **bids, commitments, and funds** flow with mev-commit, reflecting its efficiency in facilitating P2P interactions for mev actors.
 
-![https://docs.primev.xyz/flow.png](https://docs.primev.xyz/flow.png)
+![https://docs.primev.xyz/flow.png]/flow.png)
 
 ## mev-commit Details
 
@@ -298,7 +298,7 @@ After the bidder's actions, the provider proceeds to:
 
 When a bid for a transaction (txnj) is circulated through the mev-commit p2p network and the provider has made a commitment, the oracle is activated to verify whether the provider has honored this commitment.
 
-![Oracle.png](Primev%20Docs%20Testnet%20Ver%2041c24e77a73e47e0966d54365efbbfc8/Oracle.png)
+![oracle.png](Primev%20Docs%20Testnet%20Ver%2041c24e77a73e47e0966d54365efbbfc8/oracle.png)
 
 The process is as follows:
 
@@ -470,7 +470,7 @@ Users can open an issue on the GitHub repository that is associated with any iss
 
 Primev will maintain a testnet consisting of the mev-commit chain, oracle service, and hyperlane bridge to Sepolia.
 
-![https://docs.primev.xyz/chain.png](https://docs.primev.xyz/chain.png)
+![https://docs.primev.xyz/chain.png]/chain.png)
 
 ## Testnet System Requirements
 
