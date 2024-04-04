@@ -37,7 +37,7 @@
           "group": "Bidders",
           "pages": [
             "get-started/bidders/fund-node",
-            "get-started/bidders/Submitting Bids",
+            "get-started/bidders/submitting-bids",
             "get-started/bidders/my-first-preconf",
             "get-started/bidders/bidder-node-commands"
           ],
