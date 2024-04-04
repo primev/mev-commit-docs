@@ -298,7 +298,7 @@ After the bidder's actions, the provider proceeds to:
 
 When a bid for a transaction (txnj) is circulated through the mev-commit p2p network and the provider has made a commitment, the oracle is activated to verify whether the provider has honored this commitment.
 
-![Oracle.png](Primev%20Docs%20Testnet%20Ver%2041c24e77a73e47e0966d54365efbbfc8/Oracle.png)
+![oracle.png](Primev%20Docs%20Testnet%20Ver%2041c24e77a73e47e0966d54365efbbfc8/oracle.png)
 
 The process is as follows:
 
