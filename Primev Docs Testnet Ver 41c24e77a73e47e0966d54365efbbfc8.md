@@ -84,7 +84,7 @@ Mev-commit's p2p network is structured to allow real-time communication across n
 
 The diagram below illustrates how **bids, commitments, and funds** flow with mev-commit, reflecting its efficiency in facilitating P2P interactions for mev actors.
 
-![https://docs.primev.xyz/flow.png](https://docs.primev.xyz/flow.png)
+![https://docs.primev.xyz/flow.png]/flow.png)
 
 ## mev-commit Details
 
@@ -470,7 +470,7 @@ Users can open an issue on the GitHub repository that is associated with any iss
 
 Primev will maintain a testnet consisting of the mev-commit chain, oracle service, and hyperlane bridge to Sepolia.
 
-![https://docs.primev.xyz/chain.png](https://docs.primev.xyz/chain.png)
+![https://docs.primev.xyz/chain.png]/chain.png)
 
 ## Testnet System Requirements
 
