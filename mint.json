@@ -79,7 +79,7 @@
       "group": "Developers",
       "pages": [
         "developers/system-requirements",
-        "developers/testnet",
+        "developers/Testnet",
         "developers/contracts",
         "developers/debugging",
         "developers/manual-start-mev-commit",
