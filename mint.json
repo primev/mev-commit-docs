@@ -47,7 +47,7 @@
           "group": "Providers",
           "pages": [
             "get-started/providers/registering-as-a-provider",
-            "get-started/providers/Consuming Bids",
+            "get-started/providers/consuming-bids",
             "get-started/providers/sending-commitments"
           ],
           "icon": "network-wired"
