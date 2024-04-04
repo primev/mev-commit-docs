@@ -1,8 +1,8 @@
-## mev-commit platform documentatino
+## mev-commit platform documentation
 
 
 # Contribution Guidelines
-Wellcome to our documentation, we are glad to have you here!
+Welcome to our documentation, we are glad to have you here!
 
 This repository contains the source code for our documentation website. If you'd like to contribute, please follow these guidelines:
 
@@ -13,10 +13,10 @@ This repository contains the source code for our documentation website. If you'd
 ## Standards and conventions
 
 ### Links
-- Ensure all links that reference the documentation is linking using an absolute path. For example, to reference fund node page, you do as follows: `[fund node](/get-started/bidders/fund-node)`.
+- Ensure all links that reference the documentation are linking using an absolute path. For example, to reference fund node page, you do as follows: `[fund node](/get-started/bidders/fund-node)`.
 
 ### New Files
 - Ensure all files are in lowercase.
 - Ensure all files are using kebab-case. For example, the kebab-case version of "My First Preconf" is "my-first-preconf.mdx".
 
-We'd appericiate if you would run mintlify dev to verify changes locally and mintlify broken-links to ensure there aren't any broken links introduced from your changes. Thank you! :) 
+We'd appreciate if you would run mintlify dev to verify changes locally and mintlify broken-links to ensure there aren't any broken links introduced from your changes. Thank you! :) 
