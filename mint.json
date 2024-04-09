@@ -56,7 +56,7 @@
     },
     {
       "group": "Concepts",
-      "pages": [ 
+      "pages": [
         "concepts/what-is-mev-commit",
         "concepts/actors",
         "concepts/network-overview",
@@ -78,9 +78,9 @@
       "group": "Developers",
       "pages": [
         "developers/system-requirements",
-        "developers/Testnet",
-		"developers/Provider API",
-		"developers/Bidder API",
+        "developers/testnet",
+        "developers/provider-api",
+        "developers/bidder-api",
         "developers/contracts",
         "developers/debugging",
         "developers/manual-start-mev-commit",

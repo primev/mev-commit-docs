@@ -211,11 +211,7 @@
         },
         "description": "Unsigned bid message from bidders to the bidder mev-commit node.",
         "title": "Bid message",
-        "required": [
-          "txHash",
-          "amount",
-          "blockNumber"
-        ]
+        "required": ["txHash", "amount", "blockNumber"]
       },
       "v1Commitment": {
         "type": "object",
