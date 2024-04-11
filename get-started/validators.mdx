@@ -39,12 +39,20 @@ By opting-in to the mev-commit protocol as a Holesky validator, you agree to the
 
 To stake with the mev-commit validator registry, first use our faucet page to obtain some ether on the mev-commit chain.
 
-_Faucet page in progress_
+_Faucet needs subdomain_
 
-Once you've obtained ether on the mev-commit chain, you can stake it on the validator registry page. Note the registry is designed such that one transaction can opt-in multiple validators accounts.
+Once you've obtained ether on the mev-commit chain, you can `selfStake` it with the [validator registry contract](https://github.com/primevprotocol/monorepo/blob/40e00bc8f95329423a116077f7b5ef11ac7df3e2/contracts/contracts/ValidatorRegistry.sol). Alteratively, one account can opt-in multiple validators accounts via the registry's `splitStake` method.
 
-_Registry page in progress_
+_Validator registry contract address TBD_
+
+A frontend UI for the validator registry is in progress. For now, you can programmatically interact with the registry via [forge script](https://book.getfoundry.sh/reference/forge/forge-script). See [example script](https://github.com/primevprotocol/monorepo/blob/40e00bc8f95329423a116077f7b5ef11ac7df3e2/contracts/scripts/ValidatorExampleScript.s.sol).
+
+Where invocation of said script would look like the following
+
+```bash
+forge script "scripts/ValidatorExampleScript.s.sol:StakeAndUnstakeExample" --rpc-url "https://chainrpc.testnet.mev-commit.xyz" --private-key $PRIVATE_KEY --broadcast --chain-id "17864" -vvvv --use 0.8.23 --via-ir
+```
 
 ## Withdrawing staked ether
 
-If you wish to withdraw your staked ether, you can do so on the previously mentioned validator registry page. Note an unstaking period is enforced, meaning you must first submit an `unstake` transaction, wait an appropriate amount of blocks, then submit a `withdraw` transaction, transferring funds to your account.
+If you wish to withdraw your staked ether, you can do so via the previously mentioned validator registry page, or using a forge script. Note an unstaking period is enforced, meaning you must first submit an `unstake` transaction, wait an appropriate amount of blocks, then submit a `withdraw` transaction, transferring funds to your account.
