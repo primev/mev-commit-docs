@@ -6,7 +6,7 @@ icon: 'check-circle'
 
 # Introduction
 
-L1 validator participation in the mev-commit protocol is crucial to enforce delivery of preconfs, and add additional credibility to commitments. This guide will walk you through the process of opting-in to the mev-commit protocol as a Holesky validator.
+L1 validator participation in the mev-commit protocol is crucial to enforce delivery of preconfs, and add additional credibility to commitments. This guide will walk you through the process of opting-in to the mev-commit testnet as a Holesky validator. A restaking version will also be enabled in the future through Eigenlayer.
 
 ## Querying opted-in validators
 
@@ -25,15 +25,15 @@ The mev-commit-oracle will streamline this process by updating a list on the val
 Before you begin, ensure you have the following:
 
 1. An operational Holesky validator node. 
-2. An operational mev-boost sidecar.
-3. Associated validator keys.
+2. An operational mev-boost sidecar or equivalent.
+3. Associated validator key(s).
 
 ## Requirements
 
 By opting-in to the mev-commit protocol as a Holesky validator, you agree to the following:
 
 * Your mev-boost client will connect ONLY to mev-commit opted in relays. The Titan Holesky relay is the only such relay at this time, see [URL here](https://docs.titanrelay.xyz/).
-* 3 ether must be staked with a registry contract on the mev-commit chain for the validator account, see below for further instructions.
+* 3 ether must be staked with a registry contract on the mev-commit chain for the validator account, which you can obtain from our faucet for the testnet. See below for further instructions.
 
 ## Staking with registry
 
@@ -68,7 +68,7 @@ function splitStake(address[] calldata recipients) external payable {
 
 The validator registry contract is deployed to the mev-commit chain at address `0x9938f7EfB83dd3150cF3B784CEa473D29fe7cBF0`, with a minimum stake requirement of 3 ether, and a 64 block unstaking period.
 
-A frontend UI for the validator registry is in progress. For now, you can programmatically interact with the registry via [forge script](https://book.getfoundry.sh/reference/forge/forge-script).
+We're working on a UI for the validator registry for convenience. In the meantime you can programmatically interact with the registry via [forge script](https://book.getfoundry.sh/reference/forge/forge-script).
 
 For example, to split 10 ether of stake for three accounts:
 
@@ -96,7 +96,7 @@ contract SplitStake is Script {
 }
 ```
 
-Invocation of the contract from said script would look like:
+Invocation of the contract from the script would look like:
 
 ```bash
 forge script "scripts/ScriptName.s.sol:SplitStake" \
