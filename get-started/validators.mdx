@@ -7,19 +7,9 @@ icon: 'list-check'
 
 # Introduction
 
-L1 validator participation in the mev-commit protocol is crucial to enforce delivery of preconfs, and add additional credibility to commitments. This guide will walk you through the process of opting-in to the mev-commit testnet as a Holesky validator. A restaking version will also be enabled in the future through Eigenlayer.
+L1 validator participation in the mev-commit protocol adds ultimate credibility to commitments and enforces their delivery. This guide walks through the process of opting-in to the mev-commit testnet as a Holesky validator. A restaking version will also be enabled in the future through Eigenlayer.
 
-## Querying opted-in validators
-
-Anyone can query whether a validator is opted-in to the mev-commit protocol by calling the `isStaked` function on the [validator registry contract](https://github.com/primevprotocol/contracts/pull/86).
-
-## Determining upcoming opted-in proposers
-
-Due to L1 proposer selection being fixed two epochs in advance, bidders can accurately predict whether the proposer for an upcoming slot will be a mev-commit opted-in validator. To query upcoming proposers from a beacon node, use the [getProposerDuties endpoint](https://ethereum.github.io/beacon-APIs/#/Validator/getProposerDuties). The returned proposer list can be cross-checked with the previously mentioned `isStaked` function to determine if a validator is opted-in to mev-commit.
-
-The mev-commit-oracle will streamline this process by updating a list on the validator registry contract with mev-commit opted-in proposers for the latest two epochs.
-
-# Opting-in as a validator
+# Opting-in as a Validator
 
 ## Prerequisites
 
@@ -33,8 +23,8 @@ Before you begin, ensure you have the following:
 
 By opting-in to the mev-commit protocol as a Holesky validator, you agree to the following:
 
-* Your mev-boost client will connect ONLY to mev-commit opted in relays. The Titan Holesky relay is the only such relay at this time, see [URL here](https://docs.titanrelay.xyz/).
-* 3 ether must be staked with a registry contract on the mev-commit chain for the validator account, which you can obtain from our faucet for the testnet. See below for further instructions.
+* Your mev-boost client should ONLY connect to mev-commit opted in relays to avoid being slashed by proposing a block that doesn't deliver commitments. The Titan Holesky relay is the only such relay at this time, see [URL here](https://docs.titanrelay.xyz/).
+* 3 ETH must be staked with the registry contract on the mev-commit chain for the validator account, which you can obtain from our faucet for the testnet. See below for further instructions.
 
 ## Staking with registry
 

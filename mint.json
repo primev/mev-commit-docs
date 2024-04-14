@@ -86,7 +86,8 @@
         "developers/contracts",
         "developers/debugging",
         "developers/manual-start-mev-commit",
-        "developers/run-mev-commit-chain-node"
+        "developers/run-mev-commit-chain-node",
+	"developers/Querying-for-proposers"
       ]
     },
     {
