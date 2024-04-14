@@ -1,0 +1,13 @@
+---
+title: 'Querying mev-commit validators'
+description: Use the pointers below to see whether an upcoming proposer has opted in to mev-commit or not.
+sidebarTitle: Querying for proposers
+---
+
+Anyone can query whether a validator has opted-in to the mev-commit protocol by calling the `isStaked` function on the [validator registry contract](https://github.com/primevprotocol/contracts/pull/86).
+
+## Upcoming Proposers
+
+Due to L1 proposer selection being fixed two epochs in advance, bidders can foresee whether the proposer for an upcoming slot has opted-in to mev-commit. To query upcoming proposers from a beacon node, use the [getProposerDuties endpoint](https://ethereum.github.io/beacon-APIs/#/Validator/getProposerDuties). The returned proposer list can be cross-checked with the previously mentioned `isStaked` function to determine if a validator is opted-in to mev-commit.
+
+The mev-commit-oracle will streamline this process by updating a list on the validator registry contract with mev-commit opted-in validators for the latest two epochs.
