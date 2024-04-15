@@ -14,10 +14,8 @@ Opting into the mev-commit protocol signals from a validator that they:
 Validators opting into the mev-commit protocol should be aware of the following risks:
 
 * Relay block delivery: Relays could communicate blocks that do not abide by existing commitments. This would lead to slashing of the validator.
-* Failure to propose block: Validators could fail to propose a block for a slot that has preconf commitments. This would lead to slashing of the validator.
+* Failure to propose block: Validators could fail to propose a block for a slot that has preconf commitments. This would lead to slashing of the validator if there are existing commitments
 
-### Future plans
+### Future plans & Eigenlayer
 
-Primev is working on improvements to the validator opt-in mechanism to make it more seamless to validators, and enable new preconf use-cases.
-
-One such idea is to introduce an eigenlayer AVS in which operators could serve as mev-commit providers, who act on behalf of validators. Upcoming proposers could then directly commit to preconf bids affecting their block. This new type of direct preconf offers the highest level of credibility to bidders, and offers concrete revenue generation for proposers/operators. 
+Primev is working on improvements to the validator opt-in mechanism to make it more seamless to validators, and enable new preconf use cases. There is active work on a mev-commit Eigenlayer AVS in which operators could serve as mev-commit providers, who act on behalf of validators.
