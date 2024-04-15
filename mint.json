@@ -73,7 +73,8 @@
           ]
         },
         "concepts/rewards-and-slashing",
-        "concepts/oracle"
+        "concepts/oracle",
+        "concepts/validator-considerations"
       ]
     },
     {
