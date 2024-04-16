@@ -43,16 +43,9 @@ First, retrieve the Ethereum account address of your node:
     }
     ```
 
-To add funds to your account on the mev-commit chain, you may use the testnet faucet. Execute the following command, replacing `$ADDRESS` with your node's Ethereum address:
+To add funds to your account on the mev-commit chain, you may use the [testnet faucet](http://faucet.testnet.mev-commit.xyz/). 
 
-    ```shell
-    > cast send --rpc-url https://chainrpc.testnet.mev-commit.xyz \
-    	--private-key 0x7c9bf0f015874594d321c1c01ada3166c3509bbd91f76f9e4d7380c2df269c55 \
-    	$ADDRESS \
-    	--value 100ether
-    ```
-
-Alternatively, utilize the bridge from Holesky for account funding. See [Bridging Funds](/get-started/bidders/bridging-funds).
+Alternatively, utilize the bridge from Holesky for account funding. See [Bridging Funds](/get-started/bridging-funds).
 
 - **Checking Minimum Prepaid Allowance:**
 
