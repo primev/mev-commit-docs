@@ -33,9 +33,11 @@
         "get-started/introduction",
         "get-started/quickstart",
         "get-started/bridging-funds",
+        "get-started/validators",
         {
           "group": "Bidders",
           "pages": [
+            "get-started/bidders/bidder-overview",
             "get-started/bidders/fund-node",
             "get-started/bidders/submitting-bids",
             "get-started/bidders/first-preconf",
@@ -67,11 +69,13 @@
           "group": "mev-commit Chain",
           "pages": [
             "concepts/mev-commit-chain/chain-details",
-            "concepts/mev-commit-chain/differences-between-ethereum-and-mev-commit-chain"
+            "concepts/mev-commit-chain/differences-between-ethereum-and-mev-commit-chain",
+            "concepts/mev-commit-chain/bridging-details"
           ]
         },
         "concepts/rewards-and-slashing",
-        "concepts/oracle"
+        "concepts/oracle",
+        "concepts/validator-considerations"
       ]
     },
     {
@@ -84,7 +88,8 @@
         "developers/contracts",
         "developers/debugging",
         "developers/manual-start-mev-commit",
-        "developers/run-mev-commit-chain-node"
+        "developers/run-mev-commit-chain-node",
+	"developers/Querying-for-proposers"
       ]
     },
     {
