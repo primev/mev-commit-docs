@@ -3,7 +3,21 @@ title: 'Fund Node'
 sidebarTitle: Fund Node
 ---
 
-To participate in the network as a bidder, your node must prepay an amount to the bidder registry. This deposit is locked for each unique bid until the settlement process on the mev-commit chain is completed. Understanding the funding process is crucial for seamless bid submission to provider nodes.
+<Warning>If you haven't already bridged funds, you'll need to do so before you can place bids. You can learn more about bridging [here](/get-started/bridging-funds).</Warning>
+
+Once you've bridged funds to the network, you'll need to load a balance to participate in the network as a bidder. This involves placing a prepay amount in the bidder registry. 
+
+<Accordion title="Understanding the Funding Process and Liqudity">
+  <p>This deposit is locked for each unique bid until the settlement process on the mev-commit chain is completed. This usually means your funds will be locked up until a few seconds after the block your bid targets is built.</p>
+</Accordion>
+
+### Outcome of Preconfirmed Bids:
+When a bid is preconfirmed by a provider, there are several possible outcomes:
+
+| Outcome Matrix | Provider Wins Slot Auction| Provider Loses Slot Auction |
+| --------------------- | --------------| --------|
+| **Transaction in block**                   | Reward Provider          | Refund Bid to Bidder  |
+| **Transaction not in block**                 | Slash Provider & Refund Bid To Bidder           | Refund Bid to Bidder  |
 
 ### Managing Prepaid Allowance:
 
@@ -17,8 +31,7 @@ To participate in the network as a bidder, your node must prepay an amount to th
   ```
 
 - **Funding Your Node Account:**
-
-First, retrieve the Ethereum account address of your node:
+  First, retrieve the Ethereum account address of your node:
 
     ```shell
     > curl localhost:13523/topology | jq
