@@ -315,12 +315,7 @@
         },
         "description": "Signed bid message from bidders to the provider.",
         "title": "Bid message",
-        "required": [
-          "txHash",
-          "bidAmount",
-          "blockNumber",
-          "bidDigest"
-        ]
+        "required": ["txHash", "bidAmount", "blockNumber", "bidDigest"]
       },
       "rpcproviderapiv1EmptyMessage": {
         "type": "object"
@@ -343,17 +338,11 @@
         },
         "description": "Response sent by the provider with the decision on the bid received.",
         "title": "Bid response",
-        "required": [
-          "bidDigest",
-          "status"
-        ]
+        "required": ["bidDigest", "status"]
       },
       "v1BidResponseStatus": {
         "type": "string",
-        "enum": [
-          "STATUS_ACCEPTED",
-          "STATUS_REJECTED"
-        ]
+        "enum": ["STATUS_ACCEPTED", "STATUS_REJECTED"]
       },
       "v1CancelResponse": {
         "type": "object",
@@ -369,9 +358,7 @@
         },
         "description": "Hash of the cancellation transaction request.",
         "title": "Cancel response",
-        "required": [
-          "txHash"
-        ]
+        "required": ["txHash"]
       },
       "v1PendingTxnsResponse": {
         "type": "object",
@@ -386,9 +373,7 @@
         },
         "description": "Transaction info returned by the provider.",
         "title": "Pending transactions list",
-        "required": [
-          "pendingTxns"
-        ]
+        "required": ["pendingTxns"]
       },
       "v1StakeResponse": {
         "type": "object",
@@ -428,11 +413,7 @@
         },
         "description": "Transaction info returned by the provider.",
         "title": "Transaction info",
-        "required": [
-          "txHash",
-          "nonce",
-          "created"
-        ]
+        "required": ["txHash", "nonce", "created"]
       }
     }
   }

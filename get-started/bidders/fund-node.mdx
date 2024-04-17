@@ -1,5 +1,5 @@
 ---
-title: 'Fund Node'
+title: "Fund Node"
 sidebarTitle: Fund Node
 ---
 
@@ -64,26 +64,27 @@ Alternatively, utilize the bridge from Holesky for account funding. See [Bridgin
 
 Providers will only accept bids from bidders with funds exceeding the minimum allowance. The amount is in `wei`. To check this amount:
 
-  ```shell
-  > curl localhost:13523/v1/bidder/get_min_allowance | jq
-  {
-    "amount": "1000000000000000000"
-  }
-  ```
+```shell
+> curl localhost:13523/v1/bidder/get_min_allowance | jq
+{
+  "amount": "1000000000000000000"
+}
+```
 
 - **Adding to Your Prepaid Allowance:**
 
 To increase your prepaid allowance, use the following command, specifying the desired amount:
 
-  ```shell
-  > curl -X POST localhost/v1/bidder/prepay/YOUR_AMOUNT | jq
-  ```
+```shell
+> curl -X POST localhost/v1/bidder/prepay/YOUR_AMOUNT | jq
+```
 
 After successfully adding to your allowance, you are ready to send bids and receive preconfirmations on the network.
 
 ### Outcome of Preconfirmed Bids:
+
 When a bid is preconfirmed by a provider, three outcomes are possible:
 
-**Refund**: If the provider does *not* build the L1 block, the _amount_ is refunded to the bidder.  
+**Refund**: If the provider does _not_ build the L1 block, the _amount_ is refunded to the bidder.  
 **Refund**: If the provider builds the L1 block but does not include the preconfirmed transaction, the _amount_ is refunded to the bidder.  
 **Reward to Provider**: If the bid's corresponding transaction is included in the L1 block built by the provider, the _amount_ is rewarded to the provider.
