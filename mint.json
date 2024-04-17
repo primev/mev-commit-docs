@@ -70,7 +70,8 @@
           "group": "mev-commit Chain",
           "pages": [
             "concepts/mev-commit-chain/chain-details",
-            "concepts/mev-commit-chain/differences-between-ethereum-and-mev-commit-chain"
+            "concepts/mev-commit-chain/differences-between-ethereum-and-mev-commit-chain",
+            "concepts/mev-commit-chain/bridging-details"
           ]
         },
         "concepts/rewards-and-slashing",

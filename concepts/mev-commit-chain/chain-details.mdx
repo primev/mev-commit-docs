@@ -25,6 +25,10 @@ Primev currently maintains a mev-commit-geth bootnode which doesn’t participat
 
 The current target block period is 200ms, meaning about 60 mev-commit chain blocks will be committed for every Ethereum mainnet block. The block time will likely change as enhancements are added and chain state grows.
 
+## **Fee Mechanism**
+
+- **Non-inflationary Approach**: The fee mechanism on the mev-commit chain is designed to be non-inflationary, maintaining a strict 1:1 peg between the sidechain ether and the L1 escrowed ether. This is achieved through a variation of EIP-1559, where base fees are accumulated in a treasury and priority fees are allocated to block signers.
+
 ## **Smart Contracts**
 
 Smart Contracts are deployed on the mev-commit chain to enable use cases, follow bid and commitment states, and invoke rewards or slashing as needed. Anyone can deploy contracts on the mev-commit chain, however there'll be additional integration work needed with mev-commit off-chain components to fully enable the use case under the current design. Thus we first recommend getting in touch with the Primev team to enable a use case at this stage of the network.
@@ -41,17 +45,3 @@ Currently deployed contracts are designed as follows:
 The oracle service is an off-chain process that interacts with the oracle contract as needed. This service monitors and extracts the winning builder and corresponding transaction hash list from each L1 block, and submits this data to the oracle contract residing on the mev-commit chain.
 
 This is a centralized oracle currently operated by Primev. We're actively looking into decentralizing the oracle role through existing decentralized Oracle protocols and evaluating creating a service where this can be decentralized.
-
-## **Bridging and Security**
-
-Native ether on the mev-commit chain maintains a 1:1 peg with ether on L1. The only way to mint ether on the mev-commit chain is to lock equivalent ether in a bridge contract on L1. Ether can be burned on the mev-commit chain's bridge contract to release equivalent ether from the L1 bridge contract.
-
-Ether that is used as gas on the mev-commit chain will accumulate in a treasury contract on L1.
-
-There are inherent security assumptions in bridging ether to the mev-commit chain. While these are similar to other bridge trust assumptions, we've listed them below:
-
-- Liveness of the mev-commit-bridge relayer actor.
-- POA signers that maintain mev-commit chain state.
-- Correctness of Primev's [standard bridge protocol](https://github.com/primevprotocol/mev-commit-bridge/tree/main/standard/bridge-v1) and integration into the mev-commit chain.
-
-The Primev core team is committed to secure and live bridging, all system components can be permissionlessly validated by anyone.
