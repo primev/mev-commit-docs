@@ -1,0 +1,26 @@
+---
+title: 'Receive your First Preconfirmation'
+sidebarTitle: 'My First Preconf <3'
+---
+
+### Pre-requisites
+Make sure you:
+1. Get a [mev-commit Bidder Node up and running](/get-started/quickstart).
+2. [Fund your node](/get-started/bidders/fund-node) so you have the funds to submit bids.
+
+### Submit a Bid and Receive a Preconfirmation Commitment
+
+Change the `txHash`, `amount`, and `blockNumber` to your liking:
+
+```shell ❯_ terminal
+curl -X POST <http://localhost:13523/v1/bidder/bid> \
+-d '{
+  "txHash": "fe4cb47db3630551beedfbd02a71ecc69fd59758e2ba699606e2d5c74284ffa7",
+  "amount": 20000,
+  "blockNumber": 899099
+}'
+```
+
+🎉 Congrats, you received your first L1 preconfirmation!
+
+Make sure your bid amount is sufficiently high for the commitment you're requesting, and your target block number is accurate. It's up to the providers to commit to your bid, so try to ensure a commitment is feasible to your bid by its construction.

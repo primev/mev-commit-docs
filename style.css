@@ -1,6 +1,40 @@
-/* Targeting the pre element within the specific container */
+/* Wraps all code blocks to prevent overflow  */
 div.min-w-full > pre.language-shell {
   white-space: pre-wrap; /* Wrap text */
   word-break: break-word; /* Prevents overflow by breaking long words */
   overflow-wrap: break-word; /* Ensures text breaks nicely */
 }
+
+.inline-card-header > a {
+  height: 100%;
+}
+
+/* Adjusts card padding */
+.inline-card-header > a > div  {
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+
+/* Displays the logo and title of a card inline */
+.inline-card-header > a > div > div {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.inline-card-header > a > div > h2 {
+  display: inline-block;
+  vertical-align: middle;
+  margin: auto 0 auto 10px;
+}
+
+/* Adds back link styles to links within cards */
+.inline-card-header div a {
+  text-decoration: none;
+  font-weight: 600;
+  border-bottom: 1px solid rgb(var(--primary-light)) !important;
+}
+
+/* 
+.inline-card-header > a > div {
+  color: blue;
+} */

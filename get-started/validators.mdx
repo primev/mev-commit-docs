@@ -1,0 +1,103 @@
+---
+title: Validator Guide
+sidebarTitle: Validators
+description: 'Opt into mev-commit with ease. This guide covers everything you need to do to passively interact with the mev-commit protocol as a validator.'
+icon: 'list-check'
+---
+
+### Opting-in as a Validator
+
+L1 validator participation in the mev-commit protocol adds ultimate credibility to commitments and enforces their delivery. This guide walks through the process of opting-in to the mev-commit testnet as a Holesky validator. A restaking version will also be enabled in the future through Eigenlayer.
+
+**Prerequisites:**
+
+1. An operational Holesky validator node. 
+2. An operational mev-boost sidecar or equivalent.
+3. Associated validator key(s).
+
+## Requirements
+
+By opting-in to the mev-commit protocol as a Holesky validator, you agree to the following:
+
+* Your mev-boost client should ONLY connect to mev-commit opted in relays to avoid being slashed by proposing a block that doesn't deliver commitments. The Titan Holesky relay is the only such relay at this time, see [URL here](https://docs.titanrelay.xyz/).
+* 3 ETH must be staked with the registry contract on the mev-commit chain for the validator account, which you can obtain from our [faucet](http://faucet.testnet.mev-commit.xyz/) for the testnet. See below for further instructions.
+
+## Staking with registry
+
+To stake with the mev-commit validator registry, first use our [faucet page](http://faucet.testnet.mev-commit.xyz/) to obtain some ether on the mev-commit chain.
+
+Once you've obtained ether on the mev-commit chain, you can stake it with the [validator registry contract](http://explorer.testnet.mev-commit.xyz/address/0x9938f7EfB83dd3150cF3B784CEa473D29fe7cBF0).
+
+to `selfStake` with the contract, see the following method signature:
+
+```solidity
+function selfStake() external payable {
+    require(msg.value >= minStake, "Stake amount must meet the minimum requirement");
+    _stake(msg.sender, msg.value);
+}
+```
+
+Alteratively, one account can opt-in multiple validators accounts via the registry's `splitStake` method.
+
+```solidity
+function splitStake(address[] calldata recipients) external payable {
+    
+    uint256 splitAmount = msg.value / recipients.length;
+    require(splitAmount >= minStake, "Split amount must meet the minimum requirement");
+
+    for (uint256 i = 0; i < recipients.length; i++) {
+        _stake(recipients[i], splitAmount);
+    }
+}
+```
+
+The validator registry contract is deployed to the mev-commit chain at address `0x9938f7EfB83dd3150cF3B784CEa473D29fe7cBF0`, with a minimum stake requirement of 3 ether, and a 64 block unstaking period.
+
+We're working on a UI for the validator registry for convenience. In the meantime you can programmatically interact with the registry via [forge script](https://book.getfoundry.sh/reference/forge/forge-script).
+
+For example, to split 10 ether of stake for three accounts:
+
+```solidity
+pragma solidity ^0.8.15;
+import "forge-std/Script.sol";
+import "../contracts/ValidatorRegistry.sol";
+
+contract SplitStake is Script {
+    ValidatorRegistry private _validatorRegistry = ValidatorRegistry(0x9938f7EfB83dd3150cF3B784CEa473D29fe7cBF0);
+
+    function run() external {
+
+        vm.startBroadcast();
+        
+        address[] memory recipients = new address[](3);
+        recipients[0] = address(0x3d77fE0CeB523FAa006Cd2408F6Cb34A234C4317);
+        recipients[1] = address(0x7802BF57d9f5a449A879E3cF89280157846651c3);
+        recipients[2] = address(0x8662a945619e31182894C641fC5bf74E7Cd75A7D);
+        
+        _validatorRegistry.splitStake{value: 10 ether}(recipients);
+
+        vm.stopBroadcast();
+    }
+}
+```
+
+Invocation of the contract from the script would look like:
+
+```bash
+forge script "scripts/ScriptName.s.sol:SplitStake" \
+    --rpc-url "https://chainrpc.testnet.mev-commit.xyz" \
+    --private-key $PRIVATE_KEY \
+    --broadcast \
+    --chain-id 17864 \
+    -vvvv \
+    --use 0.8.23 \
+    --via-ir \
+    --priority-gas-price 2000000000 \
+    --with-gas-price 5000000000
+```
+
+where gas params can be adjusted as desired.
+
+## Withdrawing staked ether
+
+If you wish to withdraw your staked ether, you can do so via the previously mentioned validator registry page, or using a forge script. Note an unstaking period is enforced, meaning you must first submit an `unstake` transaction, wait an appropriate amount of blocks, then submit a `withdraw` transaction, transferring funds to your account.

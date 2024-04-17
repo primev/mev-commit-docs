@@ -1,31 +1,104 @@
 ---
-title: 'Quickstart your mev-commit node'
-description: 'This section provides a fast method to start using mev-commit.'
+title: 'Quickstart Your mev-commit Node'
+description: "Step into the Primev ecosystem with ease. This guide covers everything you need to set up your mev-commit node, whether you're aiming to be a bidder or a provider."
 sidebarTitle: Quickstart
 icon: 'gear'
 ---
 
-```shell
-curl -o launchmevcommit https://raw.githubusercontent.com/primevprotocol/scripts/v0.1.0/launchmevcommit && \
-chmod +x launchmevcommit && \
-./launchmevcommit --rpc-url https://chainrpc.testnet.mev-commit.xyz --node-type bidder
-```
+# Quickstart
 
-This will get you going with a mev-commit node as a bidder on the network. To join the network as a **provider**, simply change the "--node-type bidder" to "--node-type provider". Next, dive into the [bidder](https://docs.primev.xyz/get-started/bidders/receive-preconfirmation-commitment) or [provider](https://docs.primev.xyz/get-started/providers/consume-bids-mev-commit) sections to run your operations on the network.
+Ready to get your node up and running? This streamlined process will guide you through launching either a bidder or provider node in the Primev network.
 
-**Pre-requisites:**
+<Steps titleSize="h3">
+  <Step title="📥 Download">
 
-- Ensure you have `curl` installed on your system. `curl` is a command-line tool used to transfer data from or to a server.
-- A `terminal` to execute the command. This can be any command-line interface like Command Prompt on Windows, Terminal on macOS, or a Linux shell.
+    Start by downloading the latest setup script from our repository.
 
-❗You will need to have a public IP and expose the peer-to-peer port 13522 on your local machine to allow the provider node to establish connections that are incoming to the node.
+    ```bash ❯_ terminal
+    curl -o launchmevcommit \
+    https://raw.githubusercontent.com/primevprotocol/scripts/main/launchmevcommit
+    ```
 
-**This command performs several actions automatically:**
+  </Step>
 
-- Downloads the mev-commit startup script using `curl`.
-- Makes the script executable with `chmod`.
-- Executes the script to set up mev-commit with the required configurations.
+  <Step title="🛠️ Permission">
 
-Your mev-commit node setup is done once the command execution is complete.
+    Ensure the script is executable with the following command:
 
-If you want to perform a manual setup with detailed steps please skip to [manual start mev-commit](../developers/manual-start-mev-commit.md) section.
+    ```bash ❯_ terminal
+    chmod +x launchmevcommit
+    ```
+
+  </Step>
+
+  <Step title="🚀 Launch">
+
+    Execute the script to initiate your node, selecting either a bidder or provider configuration based on your role in the network.
+
+    <CodeGroup>
+
+        ```bash ❯_ bidder
+        ./launchmevcommit --node-type bidder
+        ```
+
+        ```bash ❯_ provider
+        ./launchmevcommit --node-type provider
+        ```
+
+    </CodeGroup>
+
+    <Note>
+      You need to make sure that the peer-to-peer port 13522 on your local machine is accessible through a public IP address.
+      This setup enables the provider node to initiate incoming connections to your node.
+    </Note>
+
+  </Step>
+</Steps>
+
+<Accordion title="🤔 What does the script do?">
+
+    ## Script Overview
+
+    This script automates the setup and initialization of your Primev node, catering to both bidder and provider roles. Below is a detailed breakdown of the script's operations:
+
+    ### 1. Initialization
+    - Sets up essential variables like the RPC URL (`https://chainrpc.testnet.mev-commit.xyz) for network communication and the node type (either `bidder` or `provider`).
+    - Establishes the root directory (`$HOME/.mev-commit`) where the mev-commit node will be installed.
+
+    ### 2. Download
+    - Fetches the appropriate mev-commit binary for your system from the [Primev GitHub releases page](https://github.com/primevprotocol/mev-commit/releases/latest), considering your operating system and architecture.
+
+    ### 3. Installation
+    - Extracts the downloaded binary into the specified root directory, ensuring all necessary executables are correctly placed for the node's operation.
+
+    ### 4. Configuration
+    - Initializes the mev-commit node with your specified settings, including the node type and the RPC endpoint, along with necessary contract addresses for the node's functionality.
+
+    ### 5. Wallet Setup
+    - Generates a new private key and wallet address for your node and secures it with test ether to facilitate transactions within the testnet environment.
+
+    ### 6. Node Startup
+    - Launches the mev-commit node in the background tailored to the specified role, enabling it to begin its operations within the Primev network.
+
+    ### 7. Cleanup
+    - Includes a cleanup function to ensure the node is properly shut down when the script exits, preventing any residual processes.
+
+</Accordion>
+
+
+<CardGroup cols={2}>
+   <div className="inline-card-header">
+      <Card title="Bidders" icon="user-bounty-hunter">
+         <br/><br/>
+         Once the node is started you can go through the [funding process](/get-started/bidders/fund-node) to start sending bids.
+      </Card>
+    </div>
+    <div className="inline-card-header">
+      <Card title="Providers" icon="network-wired">
+         <br/><br/>
+         In order to register as a provider please go through the [registration process](/get-started/providers/registering-a-provider).
+      </Card>
+    </div>
+</CardGroup>
+
+If you want to perform a manual setup with detailed steps please skip to [manual start mev-commit](/developers/manual-start-mev-commit) section.
