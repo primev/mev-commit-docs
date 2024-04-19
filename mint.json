@@ -80,8 +80,8 @@
     {
       "group": "Developers",
       "pages": [
+	    "developers/testnet",
         "developers/system-requirements",
-        "developers/testnet",
         "developers/provider-api",
         "developers/bidder-api",
         "developers/contracts",

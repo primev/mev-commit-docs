@@ -7,17 +7,8 @@ sidebarTitle: Fund Node
 
 Once you've bridged funds to the network, you'll need to load a balance to participate in the network as a bidder. This involves placing a prepay amount in the bidder registry. 
 
-<Accordion title="Understanding the Funding Process and Liqudity">
-  <p>This deposit is locked for each unique bid until the settlement process on the mev-commit chain is completed. This usually means your funds will be locked up until a few seconds after the block your bid targets is built.</p>
-</Accordion>
+<p>This deposit is locked for each unique bid until the settlement process on the mev-commit chain is completed. This usually means your funds will be locked up until a few seconds after the block your bid targets is built.</p>
 
-### Outcome of Preconfirmed Bids:
-When a bid is preconfirmed by a provider, there are several possible outcomes:
-
-| Outcome Matrix | Provider Wins Slot Auction| Provider Loses Slot Auction |
-| --------------------- | --------------| --------|
-| **Transaction in block**                   | Reward Provider          | Refund Bid to Bidder  |
-| **Transaction not in block**                 | Slash Provider & Refund Bid To Bidder           | Refund Bid to Bidder  |
 
 ### Managing Prepaid Allowance:
 
@@ -82,9 +73,9 @@ To increase your prepaid allowance, use the following command, specifying the de
 After successfully adding to your allowance, you are ready to send bids and receive preconfirmations on the network.
 
 ### Outcome of Preconfirmed Bids:
+When a bid is preconfirmed by a provider, there are several possible outcomes:
 
-When a bid is preconfirmed by a provider, three outcomes are possible:
-
-**Refund**: If the provider does _not_ build the L1 block, the _amount_ is refunded to the bidder.  
-**Refund**: If the provider builds the L1 block but does not include the preconfirmed transaction, the _amount_ is refunded to the bidder.  
-**Reward to Provider**: If the bid's corresponding transaction is included in the L1 block built by the provider, the _amount_ is rewarded to the provider.
+| Outcome Matrix | Provider Wins Slot Auction| Provider Loses Slot Auction |
+| --------------------- | --------------| --------|
+| **Transaction in block**                   | Reward Provider          | Refund Bid to Bidder  |
+| **Transaction not in block**                 | Slash Provider & Refund Bid To Bidder           | Refund Bid to Bidder  |
