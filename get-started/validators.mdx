@@ -26,55 +26,53 @@ By opting-in to the mev-commit protocol as a Holesky validator, you agree to the
 
 To stake with the mev-commit validator registry, first use our [faucet page](http://faucet.testnet.mev-commit.xyz/) to obtain some ether on the mev-commit chain.
 
-Once you've obtained ether on the mev-commit chain, you can stake it with the [validator registry contract](http://explorer.testnet.mev-commit.xyz/address/0x9938f7EfB83dd3150cF3B784CEa473D29fe7cBF0).
+Once you've obtained ether on the mev-commit chain, you can stake it with the [validator registry contract](http://explorer.testnet.mev-commit.xyz/address/0xAd291fcfDBA7c9c5545af35Ca52edDe6cBdF92e5).
 
-to `selfStake` with the contract, see the following method signature:
+The registry strictly accepts BLS public keys as the validator opt-in identifier. Any EOA can stake on behalf of a validator pub key, and only that EOA has the ability to withdraw in the future.
 
-```solidity
-function selfStake() external payable {
-    require(msg.value >= minStake, "Stake amount must meet the minimum requirement");
-    _stake(msg.sender, msg.value);
-}
-```
+```bash
 
-Alteratively, one account can opt-in multiple validators accounts via the registry's `splitStake` method.
+to `stake` with the contract, see the following function signature, where ether sent with the transaction is split evenly among the specified validator accounts:
 
 ```solidity
-function splitStake(address[] calldata recipients) external payable {
-    
-    uint256 splitAmount = msg.value / recipients.length;
-    require(splitAmount >= minStake, "Split amount must meet the minimum requirement");
-
-    for (uint256 i = 0; i < recipients.length; i++) {
-        _stake(recipients[i], splitAmount);
+function stake(bytes[] calldata validatorBLSPubKeys) external payable {
+    uint256 splitAmount = msg.value / validatorBLSPubKeys.length;
+    for (uint256 i = 0; i < validatorBLSPubKeys.length; i++) {
+        stakedBalances[validatorBLSPubKeys[i]] += splitAmount;
     }
 }
 ```
 
-The validator registry contract is deployed to the mev-commit chain at address `0x9938f7EfB83dd3150cF3B784CEa473D29fe7cBF0`, with a minimum stake requirement of 3 ether, and a 64 block unstaking period.
+The validator registry contract is deployed to the mev-commit chain at address `0xAd291fcfDBA7c9c5545af35Ca52edDe6cBdF92e5`, with a minimum stake requirement of 3 ether, and a 64 block unstaking period.
+
+### Forge scripting
 
 We're working on a UI for the validator registry for convenience. In the meantime you can programmatically interact with the registry via [forge script](https://book.getfoundry.sh/reference/forge/forge-script).
 
-For example, to split 10 ether of stake for three accounts:
+For example, to stake and immediately unstake for a few validators:
 
 ```solidity
 pragma solidity ^0.8.15;
+
 import "forge-std/Script.sol";
+import "forge-std/console.sol";
 import "../contracts/ValidatorRegistry.sol";
 
-contract SplitStake is Script {
-    ValidatorRegistry private _validatorRegistry = ValidatorRegistry(0x9938f7EfB83dd3150cF3B784CEa473D29fe7cBF0);
+contract StakeAndUnstakeExample is Script {
+    ValidatorRegistry private _validatorRegistry = ValidatorRegistry(0xAd291fcfDBA7c9c5545af35Ca52edDe6cBdF92e5);
 
     function run() external {
-
         vm.startBroadcast();
-        
-        address[] memory recipients = new address[](3);
-        recipients[0] = address(0x3d77fE0CeB523FAa006Cd2408F6Cb34A234C4317);
-        recipients[1] = address(0x7802BF57d9f5a449A879E3cF89280157846651c3);
-        recipients[2] = address(0x8662a945619e31182894C641fC5bf74E7Cd75A7D);
-        
-        _validatorRegistry.splitStake{value: 10 ether}(recipients);
+
+        bytes[] memory validators = new bytes[](3);
+        validators[0] = hex"a97794deb52ea4529d37d283213ca7e298ea9be0a2fec1bb3134a1464ab8cf9eb2c703d1b42dd68d97b5f1c8e74cc0df";
+        validators[1] = hex"96db1884af7bf7a1b57c77222723286a8ce3ef9a16ab6c5542ec5160662d450a1b396b22fc519679adae6ad741547268";
+        validators[2] = hex"a840634f574c20e9a35ff80be19309dfd3ace623a093f114e7f44555e3035725b4d1d59b3ce0b2f169871fbe7abc448a";
+
+        uint256 totalAmount = 10 ether;
+        _validatorRegistry.stake{value: totalAmount}(validators);
+
+        _validatorRegistry.unstake(validators);
 
         vm.stopBroadcast();
     }
@@ -97,6 +95,10 @@ forge script "scripts/ScriptName.s.sol:SplitStake" \
 ```
 
 where gas params can be adjusted as desired.
+
+### Go bindings for the registry
+
+Golang contract bindings for the validator registry contract are also available to programmatically interact with the registry. See [contracts-abi](https://github.com/primevprotocol/contracts-abi) repo.
 
 ## Withdrawing staked ether
 
