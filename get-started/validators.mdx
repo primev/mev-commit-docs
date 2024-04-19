@@ -30,9 +30,7 @@ Once you've obtained ether on the mev-commit chain, you can stake it with the [v
 
 The registry strictly accepts BLS public keys as the validator opt-in identifier. Any EOA can stake on behalf of a validator pub key, and only that EOA has the ability to withdraw in the future.
 
-```bash
-
-to `stake` with the contract, see the following function signature, where ether sent with the transaction is split evenly among the specified validator accounts:
+To `stake` with the contract, see the following function signature, where ether sent with the transaction is split evenly among the specified validator accounts:
 
 ```solidity
 function stake(bytes[] calldata validatorBLSPubKeys) external payable {
