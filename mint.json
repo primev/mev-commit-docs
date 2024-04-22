@@ -32,13 +32,11 @@
       "pages": [
         "get-started/introduction",
         "get-started/quickstart",
-        "get-started/bridging-funds",
+		"get-started/faucet",
         "get-started/validators",
         {
           "group": "Bidders",
           "pages": [
-            "get-started/bidders/fund-node",
-            "get-started/bidders/submitting-bids",
             "get-started/bidders/first-preconf",
             "get-started/bidders/bidder-node-commands"
           ],
@@ -49,7 +47,8 @@
           "pages": [
             "get-started/providers/registering-a-provider",
             "get-started/providers/consuming-bids",
-            "get-started/providers/sending-commitments"
+            "get-started/providers/sending-commitments",
+			"get-started/providers/Querying-for-proposers"
           ],
           "icon": "network-wired"
         }
@@ -84,11 +83,12 @@
         "developers/system-requirements",
         "developers/provider-api",
         "developers/bidder-api",
+		"developers/bidder-deposit",
+		"developers/tools-for-bid-submission",
         "developers/contracts",
         "developers/debugging",
         "developers/manual-start-mev-commit",
-        "developers/run-mev-commit-chain-node",
-	"developers/Querying-for-proposers"
+        "developers/run-mev-commit-chain-node"
       ]
     },
     {

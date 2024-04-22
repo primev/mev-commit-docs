@@ -1,18 +1,9 @@
 ---
-title: "Fund Node"
-sidebarTitle: Fund Node
+title: "Managing Your Bidder Deposit"
+sidebarTitle: Managing Your Bidder Deposit
 ---
 
-<Warning>If you haven't already bridged funds, you'll need to do so before you can place bids. You can learn more about bridging [here](/get-started/bridging-funds).</Warning>
-
-Once you've bridged funds to the network, you'll need to load a balance to participate in the network as a bidder. This involves placing a prepay amount in the bidder registry. 
-
-<p>This deposit is locked for each unique bid until the settlement process on the mev-commit chain is completed. This usually means your funds will be locked up until a few seconds after the block your bid targets is built.</p>
-
-
-### Managing Prepaid Allowance:
-
-- **To Check Your Prepaid Allowance:**
+**To Check Your Deposit Allowance:**
 
   ```shell
   > curl localhost:13523/v1/bidder/get_allowance | jq
@@ -21,7 +12,7 @@ Once you've bridged funds to the network, you'll need to load a balance to parti
   }
   ```
 
-- **Funding Your Node Account:**
+**Funding Your Node Account:**
   First, retrieve the Ethereum account address of your node:
 
     ```shell
@@ -49,9 +40,8 @@ Once you've bridged funds to the network, you'll need to load a balance to parti
 
 To add funds to your account on the mev-commit chain, you may use the [testnet faucet](http://faucet.testnet.mev-commit.xyz/). 
 
-Alternatively, utilize the bridge from Holesky for account funding. See [Bridging Funds](/get-started/bridging-funds).
 
-- **Checking Minimum Prepaid Allowance:**
+- **Checking Minimum Deposit Allowance:**
 
 Providers will only accept bids from bidders with funds exceeding the minimum allowance. The amount is in `wei`. To check this amount:
 
@@ -62,9 +52,9 @@ Providers will only accept bids from bidders with funds exceeding the minimum al
 }
 ```
 
-- **Adding to Your Prepaid Allowance:**
+- **Adding to Your Deposit Allowance:**
 
-To increase your prepaid allowance, use the following command, specifying the desired amount:
+To increase your deposit allowance, use the following command, specifying the desired amount:
 
 ```shell
 > curl -X POST localhost/v1/bidder/prepay/YOUR_AMOUNT | jq
