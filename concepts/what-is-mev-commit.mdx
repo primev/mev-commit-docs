@@ -17,17 +17,17 @@ Network actors' roles are defined based on their interactions with other ecosyst
   <img src="/images/supply-chain.png" />
 </Frame>
 
-For example, a Searcher is a bidder for a Sequencer; but that same Sequencer can be a bidder for a block builder. Thus it's best to think of actors' roles in mev-commit similar to their roles in the mev pipeline. To the left of the diagram are bidders, and to the right of the diagram are execution providers who can issue commitments against these bids.
+For example, a Searcher can be a bidder for a Sequencer; but that same Sequencer can be a bidder for a block builder. Thus it's best to think of actors' roles in mev-commit similar to their roles in the mev pipeline. To the left of the diagram are bidders, and to the right of the diagram are execution providers who can issue commitments against these bids.
 
 Under the Proposer Builder Separation (PBS) model, information only moves to the right among actors in the mev pipeline. With mev-commit, credible commitments for execution and bits of information flow from providers back to bidders, enabling them to effectively utilize block space. This two-way exchange of information and commitments within the mev-commit system enhances the dynamic utilization and management of block space, supporting a more interactive and responsive ecosystem.
 
 ### **Providers**
 
-Providers in the mev ecosystem include **Block Builders, Relays, Proposers, and Rollup Sequencers**. They are crucial for the actual building and execution of blocks. These providers receive bids and execute the transactions, ensuring the efficient and effective use of block space.
+Providers in the mev ecosystem include **Block Builders, Relays, Proposers, Rollup Sequencers, and even Solvers**. They are crucial for the delivery of commitments through their role in respective ecosystem or their sophistication. These providers receive bids and deliver transaction inclusion and execution, ensuring the efficient and effective use of block space.
 
 ### **Bidders**
 
-Bidders consist of **Searchers, Solvers, Rollup Provers, AA Bundlers, and End Users**. They bid for execution services, aiming to optimize their transactions within the block space. Their activities are fundamental to maintaining a competitive and efficient environment within the mev pipeline, facilitating a dynamic market for block space utilization.
+Bidders consist of **Searchers, Solvers, Blob Producers, AA Bundlers, Wallets and even End Users**. They bid for execution services, aiming to optimize their transactions within the block space. Their activities are fundamental to maintaining a competitive and efficient environment within the mev pipeline, facilitating a dynamic market for block space utilization.
 
 For a deep-dive into these roles and their interactions, please visit the [Actors](/concepts/actors) section.
 
