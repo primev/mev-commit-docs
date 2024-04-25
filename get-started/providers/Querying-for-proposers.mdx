@@ -1,14 +1,14 @@
 ---
 title: 'Querying for Proposers'
-description: Use the pointers below to see whether an upcoming proposer has opted in to mev-commit or not.
+description: Use the pointers below to determine whether an upcoming proposer has opted in to mev-commit or not.
 sidebarTitle: Querying for Proposers
 ---
 
-## Querying opted-in validators
+## Set of opted-in validators
 
 The validator registry contract maintains a set of validators who are opted in to the mev-commit protocol. This is achieved by requiring those validators to stake ether with the registry on behalf of their BLS public key.
 
-Anyone can query the full list of validator pubkeys who have opted in to mev-commit by calling the `getNumberOfStakedValidators` function in conjunction with `getStakedValidators` on the validator registry contract. See the following signatures:
+Anyone can query the full set of validator pubkeys who have opted in to mev-commit by calling the `getNumberOfStakedValidators` function in conjunction with `getStakedValidators` on the validator registry contract. See the following signatures:
 
 ```solidity
 /// @return numStakedValidators uint number of currently staked validators. 
@@ -23,7 +23,7 @@ function getNumberOfStakedValidators() external view returns (uint256, uint256);
 function getStakedValidators(uint256 start, uint256 end) external view returns (bytes[] memory, uint256);
 ```
 
-`stakedValsetVersion` is updated on-chain anytime the set of opted-in validators changes. This returned value can be used for debugging and/or as an [optimistic locking](https://www.ibm.com/docs/en/db2/11.5?topic=overview-optimistic-locking) mechanism to ensure the set of validators hasn't changed during a batch query.
+The returned `stakedValsetVersion` is updated on-chain anytime the set of opted-in validators changes. This value can be used for debugging and/or as an [optimistic locking](https://www.ibm.com/docs/en/db2/11.5?topic=overview-optimistic-locking) mechanism to ensure the set of validators hasn't changed during a batch query.
 
 That is, if all queries in a batch return the same `stakedValsetVersion`, the aggregate staked validator set is valid. Otherwise handling is left to the user (who will likely retry the batch query).
 
