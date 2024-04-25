@@ -32,7 +32,7 @@ The registry strictly accepts BLS public keys as the validator opt-in identifier
 
 To stake with the mev-commit validator registry, first use the [testnet faucet](/get-started/faucet) to fund an account on the mev-commit chain.
 
-To `stake` with the contract, see the following function signature, where ether sent with the transaction is split evenly among the specified validator accounts:
+To `stake` with the contract, see the following function signature, where ether sent with the transaction is split evenly among the specified validator pub keys:
 
 ```solidity
 function stake(bytes[] calldata validatorBLSPubKeys) external payable {
