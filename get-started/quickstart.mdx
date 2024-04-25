@@ -9,51 +9,17 @@ icon: "gear"
 
 Ready to get your node up and running? This streamlined process will guide you through launching either a bidder or provider node on the mev-commit network.
 
-<Steps titleSize="h3">
-  <Step title="📥 Download">
-
-    Start by downloading the latest setup script from our repository.
-
-    ```bash ❯_ terminal
-    curl -L -o launchmevcommit \
-    launch.mev-commit.xyz
-    ```
-
-  </Step>
-
-  <Step title="🛠️ Permission">
-
-    Ensure the script is executable with the following command:
-
-    ```bash ❯_ terminal
-    chmod +x launchmevcommit
-    ```
-
-  </Step>
-
-  <Step title="🚀 Launch">
-
-    Execute the script to initiate your node, selecting either a bidder or provider configuration based on your role in the network.
 
     <CodeGroup>
-
         ```bash ❯_ bidder
-        ./launchmevcommit --node-type bidder
+         curl -L -o launchmevcommit launch.mev-commit.xyz; chmod +x launchmevcommit; ./launchmevcommit --node-type bidder
         ```
 
         ```bash ❯_ provider
-        ./launchmevcommit --node-type provider
+         curl -L -o launchmevcommit launch.mev-commit.xyz; chmod +x launchmevcommit; ./launchmevcommit --node-type provider
         ```
 
     </CodeGroup>
-
-    <Note>
-      You need to make sure that the peer-to-peer port 13522 on your local machine is accessible through a public IP address.
-      This setup enables the provider node to initiate incoming connections to your node.
-    </Note>
-
-  </Step>
-</Steps>
 
 <Accordion title="🤔 What does the script do?">
 
