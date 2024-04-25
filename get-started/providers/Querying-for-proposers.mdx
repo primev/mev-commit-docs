@@ -52,6 +52,10 @@ This script can act as a starting point for integrating validator registry queri
 
 ## Upcoming Proposers
 
-Due to L1 proposer selection being fixed two epochs in advance, bidders can foresee whether the proposer for an upcoming slot has opted-in to mev-commit. To query upcoming proposers from a beacon node, use the [getProposerDuties endpoint](https://ethereum.github.io/beacon-APIs/#/Validator/getProposerDuties). The returned proposer list can be cross-checked with a validator registry query to determine upcoming mev-commit opted-in proposers.
+To determine whether the proposer for a certain L1 slot has opted in to mev-commit, you can cross-check the full set of opted-in validators, with knowledge of proposer selection on the beacon chain.
 
-The mev-commit-oracle will streamline this process by updating a list on the validator registry contract with mev-commit opted-in validators for the latest two epochs.
+Note proposer selection is only stable within the context of the current epoch, and must be checked during the epoch in question. See specification [here](https://github.com/ethereum/consensus-specs/blob/dev/specs/phase0/validator.md#validator-assignments) and [here](https://github.com/ethereum/consensus-specs/blob/dev/specs/phase0/validator.md#lookahead). 
+
+To query proposer selection on the beacon chain, use the [getProposerDuties endpoint](https://ethereum.github.io/beacon-APIs/#/Validator/getProposerDuties).
+
+The mev-commit-oracle will streamline this process by updating a contract on the mev-commit chain with opted-in proposers for the current L1 epoch.
