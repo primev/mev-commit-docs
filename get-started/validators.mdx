@@ -24,11 +24,13 @@ By opting-in to the mev-commit protocol as a Holesky validator, you agree to the
 
 ## Staking with registry
 
-To stake with the mev-commit validator registry, first use the [testnet faucet](/get-started/faucet) to fund an account on the mev-commit chain.
+[Validator Registry Contract](http://explorer.testnet.mev-commit.xyz/address/0xF263483500e849Bd8d452c9A0F075B606ee64087)
 
-Once you've obtained ether on the mev-commit chain, you can stake it with the [validator registry contract](http://explorer.testnet.mev-commit.xyz/address/0xF263483500e849Bd8d452c9A0F075B606ee64087). The validator registry contract is deployed to the mev-commit chain at address `0xF263483500e849Bd8d452c9A0F075B606ee64087`, with a minimum stake requirement of 3 ETH, and a 7000 block unstaking period (23.3 minutes with 200ms mev-commit chain blocktime). This allows two L1 epochs (finalization period) plus a settlement buffer, to pass between validator unstake initiation and withdrawal.
+The validator registry contract is deployed to the mev-commit chain at address `0xF263483500e849Bd8d452c9A0F075B606ee64087`, with a minimum stake requirement of 3 ETH, and a 7000 block unstaking period. This unstaking period corresponds to 23.3 minutes, assuming a 200ms mev-commit chain block time. This period allows two L1 epochs (L1 finalization period) plus a settlement buffer, to pass between validator unstake initiation and withdrawal.
 
 The registry strictly accepts BLS public keys as the validator opt-in identifier. Any EOA can stake on behalf of a validator pub key, and only that EOA has the ability to withdraw in the future.
+
+To stake with the mev-commit validator registry, first use the [testnet faucet](/get-started/faucet) to fund an account on the mev-commit chain.
 
 To `stake` with the contract, see the following function signature, where ether sent with the transaction is split evenly among the specified validator accounts:
 
@@ -40,6 +42,8 @@ function stake(bytes[] calldata validatorBLSPubKeys) external payable {
     }
 }
 ```
+
+Note the `stake` function accepts multiple validator BLS pub keys. There are inherent gas limitations to the number of validators that can be staked in a single transaction, it's recommended to stake in batches of 10-20 pub keys at a time.
 
 ### Golang example
 
