@@ -4,9 +4,9 @@ description: Use the pointers below to see whether an upcoming proposer has opte
 sidebarTitle: Querying for Proposers
 ---
 
-The validator registry contract maintains a set of validators who are opted in to the mev-commit protocol. This is achieved by requiring those validators to stake ether with the registry on behalf of their BLS public key.
-
 ## Querying opted-in validators
+
+The validator registry contract maintains a set of validators who are opted in to the mev-commit protocol. This is achieved by requiring those validators to stake ether with the registry on behalf of their BLS public key.
 
 Anyone can query the full list of validator pubkeys who have opted in to mev-commit by calling the `getNumberOfStakedValidators` function in conjunction with `getStakedValidators` on the validator registry contract. See the following signatures:
 
