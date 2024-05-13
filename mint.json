@@ -34,7 +34,7 @@
         "get-started/quickstart",
 		"get-started/faucet",
         "get-started/validators",
-		"get-started/relays"
+		"get-started/relays",
         {
           "group": "Bidders",
           "pages": [
