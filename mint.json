@@ -29,13 +29,14 @@
   "navigation": [
     {
 	  "pages": [	
-		"get-started/introduction"
+		"/introduction"
 	  ],
       "group": "Get Started",
       "pages": [
         "get-started/quickstart",
 		"get-started/faucet",
         "get-started/validators",
+		"get-started/relays"
         {
           "group": "Bidders",
           "pages": [
