@@ -28,9 +28,11 @@
   ],
   "navigation": [
     {
+	  "pages": [	
+		"get-started/introduction"
+	  ],
       "group": "Get Started",
       "pages": [
-        "get-started/introduction",
         "get-started/quickstart",
 		"get-started/faucet",
         "get-started/validators",
