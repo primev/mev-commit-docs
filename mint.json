@@ -64,6 +64,7 @@
         "concepts/privacy",
         "concepts/bids",
         "concepts/commitments",
+        "concepts/bundles",
         {
           "group": "mev-commit Chain",
           "pages": [

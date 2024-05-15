@@ -1,0 +1,21 @@
+---
+title: "Atomic Bundles"
+sidebarTitle: "Atomic Bundles"
+---
+
+Users can submit atomic bundles, ensuring the provider is rewarded only when all transactions are executed as a single unit and in the defined order.
+
+## Example Bundle Payload
+
+Below is an example of a bundle payload that can be submitted by users. This payload ensures that all transactions are executed as a single unit and in the defined order.
+```
+{
+    "txHashes": ["0549fc7c57fffbdbfb2cf9d5e0de165fc68dadb5c27c42fdad0bdf506f4eacae", "0549fc7c57fffbdbfb2cf9d5e0de165fc68dadb5c27c42fdad0bdf506f4eacaf","0549fc7c57fffbdbfb2cf9d5e0de165fc68dadb5c27c42fdad0bdf506f4effff"],
+    "amount": "100040",
+    "blockNumber": 133459
+}
+```
+
+If one of the transactions in the `txHashes` list is missing from the produced block, the pre-confirming provider will be slashed if they produced the block. 
+
+For example, if the transaction hash `"0549fc7c57fffbdbfb2cf9d5e0de165fc68dadb5c27c42fdad0bdf506f4eacae"` is missing from the produced block, the pre-confirming provider will be slashed, even if the rest of the transactions are included.
