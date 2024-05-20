@@ -41,7 +41,7 @@ Below, you'll find a guide tailored for those who prefer a more customized insta
   </Step>
   <Step title="Get the mev-commit binary">
 
-    Navigate to the [mev-commit repo](https://github.com/primevprotocol/mev-commit/releases/latest)
+    Navigate to the [mev-commit repo](https://github.com/primev/mev-commit/releases/latest)
     and select the mev-commit binary tailored to your system.
     For example, if `uname -sm` yields `Linux x86_64`, opt for `mev-commit_Linux_x86_64.tar.gz`.
     Download, then extract the binary into your preferred root directory to continue with setup.
@@ -52,7 +52,7 @@ Below, you'll find a guide tailored for those who prefer a more customized insta
     ```bash  ❯_ terminal
     FILENAME="mev-commit_$(uname -s)_$(uname -m).tar.gz"
     curl -L \
-    "https://github.com/primevprotocol/mev-commit/releases/download/v0.3.0-rc2/$FILENAME" \
+    "https://github.com/primev/mev-commit/releases/download/v0.3.0-rc2/$FILENAME" \
     | tar -xz -C $HOME
     ```
 
@@ -74,7 +74,7 @@ Below, you'll find a guide tailored for those who prefer a more customized insta
         ```bash ❯_ terminal
         FILENAME="mev-commit_$(uname -s)_$(uname -m).tar.gz"
         CHECKSUM=$(curl -L \
-        "https://github.com/primevprotocol/mev-commit/releases/download/v0.3.0-rc2/mev-commit_v0.3.0-rc2_checksums.txt" \
+        "https://github.com/primev/mev-commit/releases/download/v0.3.0-rc2/mev-commit_v0.3.0-rc2_checksums.txt" \
         | awk "/$FILENAME/ {print \$1}")
         ```
       </Step>

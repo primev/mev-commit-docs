@@ -34,14 +34,14 @@ Note geth supports [batched RPC requests](https://geth.ethereum.org/docs/interac
 
 ### Golang example
 
-You can programmatically query the validator registry via [golang scripts](https://github.com/primevprotocol/validator-registry).
+You can programmatically query the validator registry via [golang scripts](https://github.com/primev/validator-registry).
 
-For example, to query the full set of staked validators, use [this example script](https://github.com/primevprotocol/validator-registry/blob/main/cmd/query/main.go) as described below.
+For example, to query the full set of staked validators, use [this example script](https://github.com/primev/validator-registry/blob/main/cmd/query/main.go) as described below.
 
 First clone the validator-registry repo:
 
 ```bash
-git clone https://github.com/primevprotocol/validator-registry.git
+git clone https://github.com/primev/validator-registry.git
 ```
 
 Then cd into the repo and run the query script:
@@ -51,7 +51,7 @@ cd validator-registry/cmd/query
 go run main.go
 ```
 
-This script can act as a starting point for integrating validator registry queries into your own tooling. The contract's go binding is available [here](https://github.com/primevprotocol/validator-registry/blob/main/pkg/validatorregistry/ValidatorRegistry.go).
+This script can act as a starting point for integrating validator registry queries into your own tooling. The contract's go binding is available [here](https://github.com/primev/validator-registry/blob/main/pkg/validatorregistry/ValidatorRegistry.go).
 
 ## Upcoming Proposers
 

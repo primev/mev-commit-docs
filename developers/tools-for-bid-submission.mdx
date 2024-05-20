@@ -10,13 +10,13 @@ We recommend leveraging the Go RPC client or alternatively using the REST API be
 For Go developers, leveraging the official Go RPC client is the recommended approach. Start by installing the mev-commit package:
 
 ```shell ❯_ terminal
-go get github.com/primevprotocol/mev-commit
+go get github.com/primev/mev-commit
 ```
 
 Then, incorporate the generated client into your Go application as follows:
 
 ```go
-import bidderapiv1 "github.com/primevprotocol/mev-commit/gen/go/rpc/bidderapi/v1"
+import bidderapiv1 "github.com/primev/mev-commit/gen/go/rpc/bidderapi/v1"
 
 conn, err := grpc.DialContext(
     context.Background(),

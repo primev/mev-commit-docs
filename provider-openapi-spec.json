@@ -5,7 +5,7 @@
     "version": "1.0.0-alpha",
     "license": {
       "name": "Business Source License 1.1",
-      "url": "https://github.com/primevprotocol/mev-commit/blob/main/LICENSE"
+      "url": "https://github.com/primev/mev-commit/blob/main/LICENSE"
     }
   },
   "paths": {
