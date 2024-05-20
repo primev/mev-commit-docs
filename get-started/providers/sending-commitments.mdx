@@ -16,7 +16,7 @@ Now you'll want to run an emulator to simulate the accepting and rejecting of bi
 To get started with the emulator, open a new terminal and run the following command:
 
 <Warning>You require Go Version 1.21.1 to run the example emulator</Warning>
-``` git clone https://github.com/primevprotocol/mev-commit.git && cd mev-commit &&
+``` git clone https://github.com/primev/mev-commit.git && cd mev-commit &&
 git checkout v0.2.0 && cd examples/provideremulator && go run . ```
 
 ## Configuring custom logic to process bids and send Commitments
@@ -30,7 +30,7 @@ To integrate bid processing in your system using the Provider API, follow these 
 
 #### 1. Implement the gRPC Service
 
-Implement the Provider service as outlined in the [providerapi.proto](https://github.com/primevprotocol/mev-commit/blob/main/rpc/providerapi/v1/providerapi.proto#L20). This requires setting up a server that can manage RPC methods, with a particular emphasis on the reception of bids and response of commitment authorizations.
+Implement the Provider service as outlined in the [providerapi.proto](https://github.com/primev/mev-commit/blob/main/rpc/providerapi/v1/providerapi.proto#L20). This requires setting up a server that can manage RPC methods, with a particular emphasis on the reception of bids and response of commitment authorizations.
 
 #### 2. Receive Bids
 
@@ -117,8 +117,8 @@ Example Server Implementation in Go:
 import (
 	...
 
-	"github.com/primevprotocol/mev-commit/examples/provideremulator/client"
-	providerapiv1 "github.com/primevprotocol/mev-commit/gen/go/providerapi/v1"
+	"github.com/primev/mev-commit/examples/provideremulator/client"
+	providerapiv1 "github.com/primev/mev-commit/gen/go/providerapi/v1"
 )
 
 func ...() {

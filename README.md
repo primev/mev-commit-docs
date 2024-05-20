@@ -1,4 +1,4 @@
-This is the open source documentation repository for [mev-commit](https://github.com/primevprotocol/mev-commit).
+This is the open source documentation repository for [mev-commit](https://github.com/primev/mev-commit).
 
 # mev-commit
 
