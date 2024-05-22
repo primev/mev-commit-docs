@@ -8,7 +8,7 @@ export const ProviderRegistryExplorerUrl = `http://explorer.testnet.mev-commit.x
 
 Relays play an important role in the mev-commit ecosystem to uphold validator commitments. Validators are passively opting in to the network, and configuring their mev-boost relays to the ones that have opted in to mev-commit.
 
-Opting into mev-commit as a relay means that you sign up to deliver mev-boost bids only from builder addresses that have registered with mev-commit. This is necessary as it acts as a sybil resistance mechanism, disallowing block builders to make commitments but build a block under a different builder key that mev-commit would not be able to penalize.
+Opting into mev-commit as a relay means that you sign up to deliver mev-boost bids only from builder addresses that have registered with mev-commit. This is necessary as it acts as a sybil resistance mechanism, disallowing block builders from making commitments but building a block under a different builder key that mev-commit would not be able to penalize.
 
 Information about the providers (the name for entities like builders on our network) is stored in our provider registry. You can interact with the registry at the contract address at {ProviderRegistryAddress}. 
 <AccordionGroup>
@@ -88,4 +88,3 @@ Information about the providers (the name for entities like builders on our netw
 Relays need to look out for mev-commit opted-in validator addresses to watch for proposers, and filter block builder bids to addresses that are registered with mev-commit when it's that proposer's turn. See [Querying for Proposers](/get-started/providers/Querying-for-proposers) to see how you can check whether an upcoming proposer is opted in to mev-commit or not.
 
 Once you've configured your relay to deliver blocks with mev-commit commitments, create a PR to this [docs repo](https://github.com/primev/mev-commit-docs/blob/main/get-started/validators.mdx) to add your relay to the supporting relays list. This will let validators know that they can add your relay as they opt-in to mev-commit. You should also let the Primev team know so we can further engage with validators to make sure they use your relay as well.
-Once you’ve configured your relay to deliver blocks with mev-commit commitments, create a PR to this [docs repo](https://github.com/primev/mev-commit-docs/blob/main/get-started/validators.mdx) to add your relay to the supporting relays list. This will let validators know that they can add your relay as they opt-in to mev-commit. You should also let the Primev team know so we can further engage with validators to make sure they use your relay as well.
