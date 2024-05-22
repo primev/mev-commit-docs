@@ -29,7 +29,7 @@ Information about the providers (entities like builders who commit on our networ
     ];
 
     // Create a new contract instance
-    const contract = new ethers.Contract(contractAddress, abi, provider);
+    const contract = new ethers.Contract(providerRegistryAddress, abi, provider);
 
     // Function to retrieve the list of registered providers
     async function getRegisteredProviders() {
