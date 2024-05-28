@@ -58,18 +58,18 @@
         }
       }
     },
-    "/v1/bidder/get_allowance": {
+    "/v1/bidder/get_deposit": {
       "get": {
-        "summary": "GetAllowance",
-        "description": "GetAllowance is called by the bidder to get its allowance in the bidder registry.",
-        "operationId": "Bidder_GetAllowance",
+        "summary": "GetDeposit",
+        "description": "GetDeposit is called by the bidder to get its deposit in the bidder registry.",
+        "operationId": "Bidder_GetDeposit",
         "responses": {
           "200": {
             "description": "A successful response.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/v1PrepayResponse"
+                  "$ref": "#/components/schemas/v1DepositResponse"
                 }
               }
             }
@@ -87,18 +87,18 @@
         }
       }
     },
-    "/v1/bidder/get_min_allowance": {
+    "/v1/bidder/get_min_deposit": {
       "get": {
-        "summary": "GetMinAllowance",
-        "description": "GetMinAllowance is called by the bidder to get the minimum allowance required in the bidder registry to make bids.",
-        "operationId": "Bidder_GetMinAllowance",
+        "summary": "GetMinDeposit",
+        "description": "GetMinDeposit is called by the bidder to get the minimum deposit required in the bidder registry to make bids.",
+        "operationId": "Bidder_GetMinDeposit",
         "responses": {
           "200": {
             "description": "A successful response.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/v1PrepayResponse"
+                  "$ref": "#/components/schemas/v1DepositResponse"
                 }
               }
             }
@@ -116,18 +116,18 @@
         }
       }
     },
-    "/v1/bidder/prepay/{amount}": {
+    "/v1/bidder/deposit/{amount}": {
       "post": {
-        "summary": "PrepayAllowance",
-        "description": "PrepayAllowance is called by the bidder node to add prepaid allowance in the bidder registry.",
-        "operationId": "Bidder_PrepayAllowance",
+        "summary": "Deposit",
+        "description": "Deposit is called by the bidder node to add deposit in the bidder registry.",
+        "operationId": "Bidder_Deposit",
         "responses": {
           "200": {
             "description": "A successful response.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/v1PrepayResponse"
+                  "$ref": "#/components/schemas/v1DepositResponse"
                 }
               }
             }
@@ -249,7 +249,7 @@
           }
         }
       },
-      "v1PrepayResponse": {
+      "v1DepositResponse": {
         "type": "object",
         "example": {
           "amount": "1000000000000000000"
@@ -259,8 +259,8 @@
             "type": "string"
           }
         },
-        "description": "Get prepaid allowance for bidder in the bidder registry.",
-        "title": "Prepay response"
+        "description": "Get deposit for bidder in the bidder registry.",
+        "title": "Deposit response"
       }
     }
   }

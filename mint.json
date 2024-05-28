@@ -85,9 +85,9 @@
         "developers/system-requirements",
         "developers/provider-api",
         "developers/bidder-api",
-		"developers/bidder-deposit",
-		"developers/tools-for-bid-submission",
-		"developers/stake-validator-keys-manually",
+		    "developers/bidder-deposit",
+		    "developers/tools-for-bid-submission",
+		    "developers/stake-validator-keys-manually",
         "developers/contracts",
         "developers/debugging",
         "developers/manual-start-mev-commit",
@@ -98,7 +98,7 @@
       "group": "Knowledge Base",
       "pages": [
         "knowledge-base/introduction",
-        "knowledge-base/what-is-prepay-amount",
+        "knowledge-base/what-is-deposit-amount",
         "knowledge-base/how-do-i-fix-the-error-failed-to-read-msg-stream-reset",
         "knowledge-base/what-is-foundry",
         "knowledge-base/why-is-cast-necessary-for-mev-commit-chain-interactions",
@@ -125,9 +125,9 @@
       "group": "Bidder",
       "pages": [
         "api-reference/bidder/sendbid",
-        "api-reference/bidder/getallowance",
-        "api-reference/bidder/getminallowance",
-        "api-reference/bidder/prepayallowance"
+        "api-reference/bidder/getdeposit",
+        "api-reference/bidder/getmindeposit",
+        "api-reference/bidder/deposit"
       ]
     }
   ],

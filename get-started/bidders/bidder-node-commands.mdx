@@ -14,20 +14,20 @@ export KEY=$(cat key)
 export ADDRESS=$(cast wallet address --private-key 0x$(cat key))
 ```
 
-## Getting Allowance
+## Getting Deposit
 
 To get the current deposit balance in the contract:
 
 ```shell ❯_ terminal
-curl -s http://localhost:13523/v1/bidder/get_allowance
+curl -s http://localhost:13523/v1/bidder/get_deposit
 ```
 
-💡Allowance represents the funds in the bidder's account that can be used to submit bids on the mev-commit p2p-network and settled on-chain.
+💡Deposit represents the funds in the bidder's account that can be used to submit bids on the mev-commit p2p-network and settled on-chain.
 
 ## Withdraw Deposited Funds
 
 ```shell ❯_ terminal
-cast send 0xa86a41b57Fb73f9118F84847574517258d29eAD0 "withdrawPrepayedAmount(address)" $ADDRESS \
+cast send 0xa86a41b57Fb73f9118F84847574517258d29eAD0 "withdrawBidderAmountFromWindow(address,uint256)" $ADDRESS $WINDOW_NUMBER \
 --rpc-url https://chainrpc.testnet.mev-commit.xyz --private-key $KEY
 ```
 
