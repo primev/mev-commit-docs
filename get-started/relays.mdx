@@ -7,7 +7,11 @@ import { ProviderRegistryAddress } from '/snippets/testnet-addresses.mdx';
 
 Relays play an important role in the mev-commit ecosystem to uphold validator commitments. Validators are passively opting in to the network, and configuring their mev-boost relays to the ones that have opted in to mev-commit.
 
-Opting into mev-commit as a relay means that you sign up to deliver mev-boost bids only from builder addresses that have registered with mev-commit. This is necessary as it acts as a sybil resistance mechanism, disallowing block builders from making commitments but building a block under a different builder key that mev-commit would not be able to penalize.
+Opting into mev-commit as a relay means that you sign up to deliver mev-boost bids only from builder addresses that have registered with mev-commit. This is necessary as it acts as a sybil resistance mechanism, disallowing block builders from making commitments but building a block under a different builder key that mev-commit would not be able to penalize. In this context, 'filtering' refers to the relay's role in screening and validating builder addresses, ensuring that only those registered with mev-commit are allowed to submit bids, following the protocol.
+
+<Frame>
+  <img src="/images/relay-filtering.png" />
+</Frame>
 
 Information about the providers (entities like builders who commit on our network) is stored in our provider registry. You can interact with the registry at the contract address at {ProviderRegistryAddress}. 
 <AccordionGroup>
@@ -78,7 +82,7 @@ Information about the providers (entities like builders who commit on our networ
     ```
   </Accordion>
 
-  <Accordion title="Additional Information" icon="info">
+  <Accordion title="Additional Information">
     Check out the [Provider Registry Explorer](http://explorer.testnet.mev-commit.xyz/address/0x5960774AD41D03DAB4916a30bD2190f8b3b3b4b2) for more details on registered providers.
   </Accordion>
 
