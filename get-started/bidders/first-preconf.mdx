@@ -35,7 +35,9 @@ curl -X POST http://localhost:13523/v1/bidder/bid \
 -d '{
     "txHashes": ["0549fc7c57fffbdbfb2cf9d5e0de165fc68dadb5c27c42fdad0bdf506f4eacae"],
     "amount": "<amount in wei>",
-    "blockNumber": <integer blocknumber>
+    "blockNumber": <integer blocknumber>,
+    "decayStartTimestamp": <timestamp>,
+    "decayEndTimestamp": <timestamp>
 }'
 ```
 
@@ -46,7 +48,9 @@ curl -X POST http://localhost:13523/v1/bidder/bid \
 -d '{
     "txHashes": ["0549fc7c57fffbdbfb2cf9d5e0de165fc68dadb5c27c42fdad0bdf506f4eacae", 22145ba31366d29a893ae3ffbc95c36c06e8819a289ac588594c9512d0a99810, 7e1506f266bc86c81ae46018053a274a3bd96a9eff17392930707bf8fa5ff6be],
     "amount": "<amount in wei>",
-    "blockNumber": <integer blocknumber>
+    "blockNumber": <integer blocknumber>,
+    "decayStartTimestamp": <timestamp>,
+    "decayEndTimestamp": <timestamp>
 }'
 ```
 
