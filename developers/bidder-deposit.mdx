@@ -3,12 +3,23 @@ title: "Managing Your Bidder Deposit"
 sidebarTitle: Managing Your Bidder Deposit
 ---
 
-**To Check Your Deposit:**
+**To Check Your Deposit for current window:**
 
   ```shell
   > curl localhost:13523/v1/bidder/get_deposit | jq
   {
-    "amount": "0"
+    "amount": "0",
+    "windowNumber": 1
+  }
+  ```
+
+**To Check Your Deposit for a specific window:**
+
+  ```shell
+  > curl localhost:13523/v1/bidder/get_deposit?window_number=1 | jq
+  {
+    "amount": "0",
+    "windowNumber": 1
   }
   ```
 
@@ -54,12 +65,31 @@ Providers will only accept bids from bidders with funds exceeding the minimum de
 
 - **Adding to Your Deposit:**
 
-To increase your deposit, use the following command, specifying the desired amount:
+To increase your deposit for the current window, use the following command, specifying the desired amount:
 
 ```shell
 > curl -X POST localhost/v1/bidder/deposit/YOUR_AMOUNT | jq
 ```
 
+To increase your deposit for the specific window, use the following command, specifying the desired amount and window number:
+
+```shell
+> curl -X POST "localhost/v1/bidder/deposit/YOUR_AMOUNT" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "window_number": 1,
+  }' | jq
+```
+
+To increase your deposit for the specific L1 block number, use the following command, specifying the desired amount and block number:
+
+```shell
+> curl -X POST "localhost/v1/bidder/deposit/YOUR_AMOUNT" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "block_number": 1,
+  }' | jq
+```
 After successfully adding to your deposit, you are ready to send bids and receive preconfirmations on the network.
 
 ### Outcome of Preconfirmed Bids:
