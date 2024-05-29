@@ -77,7 +77,7 @@ To increase your deposit for the specific window, use the following command, spe
 > curl -X POST "localhost/v1/bidder/deposit/YOUR_AMOUNT" \
   -H "Content-Type: application/json" \
   -d '{
-    "window_number": 1,
+    "window_number": 1
   }' | jq
 ```
 
@@ -91,6 +91,19 @@ To increase your deposit for the specific L1 block number, use the following com
   }' | jq
 ```
 After successfully adding to your deposit, you are ready to send bids and receive preconfirmations on the network.
+
+- **Withdrawing from Your Deposit:**
+
+To withdraw funds from your deposit, use the following command:
+
+```shell
+> curl -X POST localhost/v1/bidder/withdraw \
+  -H "Content-Type: application/json" \
+  -d '{
+    "window_number": 1
+  }' | jq
+```
+If you don't specify a window number, the current window will be used by default.
 
 ### Outcome of Preconfirmed Bids:
 When a bid is preconfirmed by a provider, there are several possible outcomes:
