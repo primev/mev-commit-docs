@@ -6,7 +6,7 @@ For mev-commit testnet contract addresses please refer to [Testnet](/developers/
 
 ## Core Contract Architecture and Functionality
 
-The mev-commit protocol uses 4 core contracts:
+The mev-commit protocol uses 5 core contracts:
 
 - **Preconfirmations Contract**
   - This will persist details about the commitments that have been made into contract storage.
@@ -18,6 +18,9 @@ The mev-commit protocol uses 4 core contracts:
   - This contract stores the stake a provider bounds to ensure it doesn't break its promises under preconfirmations.
 - **Oracle Contract**
   - This simply retrieves details on which commitments to process for rewarding or slashing.
+  - Access to the functions on this contract is restricted to the owner of the Oracle key.
+- **Block Tracker Contract**
+  - This will track Ethereum blocks and their winners, so commitments could be rewarded or slashed
   - Access to the functions on this contract is restricted to the owner of the Oracle key.
 
 ## Fee Vault Contract

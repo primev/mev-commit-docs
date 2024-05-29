@@ -49,7 +49,7 @@
             "get-started/providers/registering-a-provider",
             "get-started/providers/consuming-bids",
             "get-started/providers/sending-commitments",
-			"get-started/providers/Querying-for-proposers"
+			      "get-started/providers/Querying-for-proposers"
           ],
           "icon": "network-wired"
         }
