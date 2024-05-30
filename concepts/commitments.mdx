@@ -30,7 +30,8 @@ Commitments represent promises made by providers in a cryptographically verifiab
 
 The commitment consists of the details associated with the bid along with signatures made by the provider.
 
-From the commitment provider generates digest, signs it with their private key, store digest and signature as encrypted commitment on the mev-commit chain, and sends the commitment back to the originating bidder via p2p network.
+The provider generates a digest from the commitment, signs it with their private key, stores the digest and signature as an encrypted commitment on the mev-commit chain, and sends the commitment back to the originating bidder via the P2P network.
+
 ```json
 {
    "result":{
