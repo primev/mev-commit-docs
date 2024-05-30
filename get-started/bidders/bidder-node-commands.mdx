@@ -16,7 +16,7 @@ export ADDRESS=$(cast wallet address --private-key 0x$(cat key))
 
 ## Getting Deposit
 
-To get the current deposit balance in the contract:
+To get the current deposit balance in the contract for the current window:
 
 ```shell ❯_ terminal
 curl -s http://localhost:13523/v1/bidder/get_deposit
