@@ -32,9 +32,9 @@
       "pages": [
         "get-started/introduction",
         "get-started/quickstart",
-		"get-started/faucet",
+        "get-started/faucet",
         "get-started/validators",
-		"get-started/relays",
+        "get-started/relays",
         {
           "group": "Bidders",
           "pages": [
@@ -49,7 +49,7 @@
             "get-started/providers/registering-a-provider",
             "get-started/providers/consuming-bids",
             "get-started/providers/sending-commitments",
-			      "get-started/providers/Querying-for-proposers"
+            "get-started/providers/Querying-for-proposers"
           ],
           "icon": "network-wired"
         }
@@ -81,7 +81,7 @@
     {
       "group": "Developers",
       "pages": [
-	    "developers/testnet",
+        "developers/testnet",
         "developers/system-requirements",
         "developers/provider-api",
         "developers/bidder-api",
