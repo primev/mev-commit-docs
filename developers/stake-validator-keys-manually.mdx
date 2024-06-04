@@ -1,6 +1,6 @@
 ---
-title: "Staking Validators Keys Manually"
-sidebarTitle: "Staking Validators Keys Manually"
+title: "Stake Validators Keys Manually"
+sidebarTitle: "Stake Validators Keys Manually"
 ---
 
 ## Staking with registry
@@ -28,7 +28,7 @@ Note the `stake` function accepts multiple validator BLS pub keys. There are inh
 
 ### Golang example
 
-We're working on a UI to stake with the validator registry. In the meantime you can programmatically interact with the registry via [golang scripts](https://github.com/primev/validator-registry).
+You can programmatically interact with the registry via [golang scripts](https://github.com/primev/validator-registry).
 
 For example, to stake any number of validator BLS public keys with the registry, use [this example script](https://github.com/primev/validator-registry/blob/main/cmd/stake/main.go) as described below.
 
@@ -57,4 +57,4 @@ Note this script will attempt to stake 3.1 ETH on behalf of each validator BLS p
 
 ## Withdrawing staked ether
 
-If you wish to withdraw your staked ether, you can do so via the previously mentioned validator registry page, or using a golang script similar to what's provided. Note an unstaking period is enforced, meaning you must first submit an `unstake` transaction, wait an appropriate amount of blocks, then submit a `withdraw` transaction, transferring funds to your account.
+If you wish to withdraw your staked ether manually, you can use a golang script similar to what's provided. Please note that an unstaking period is enforced, meaning you must first submit an `unstake` transaction, wait an appropriate amount of blocks, then submit a `withdraw` transaction, transferring funds to your account.
