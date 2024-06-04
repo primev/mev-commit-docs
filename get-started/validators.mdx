@@ -42,58 +42,47 @@ If you are a relay looking to join mev-commit network please visit our [Relays p
   
 * 3 ETH must be staked with the registry contract on the mev-commit chain for the validator account, which you can obtain from our [Testnet Faucet](/get-started/faucet).
 
-## Staking with registry
+## Staking Your Validator Keys
 
-[Validator Registry Contract](http://explorer.testnet.mev-commit.xyz/address/0xF263483500e849Bd8d452c9A0F075B606ee64087)
+<Steps titleSize="h3">
 
-The validator registry contract is deployed to the mev-commit chain at address `0xF263483500e849Bd8d452c9A0F075B606ee64087`, with a minimum stake requirement of 3 ETH, and a 7000 block unstaking period. This unstaking period corresponds to 23.3 minutes, assuming a 200ms mev-commit chain block time. This period allows two L1 epochs (L1 finalization period) plus a settlement buffer, to pass between validator unstake initiation and withdrawal.
+  <Step title="Visit the Validator Dashboard">
 
-The registry strictly accepts BLS public keys as the validator opt-in identifier. Any EOA can stake on behalf of a validator pub key, and only that EOA has the ability to withdraw in the future.
+- Navigate to [validators.mev-commit.xyz](https://validators.mev-commit.xyz/).
+- Press the "Opt-in to mev-commit" button to connect your wallet.
 
-To stake with the mev-commit validator registry, first use the [testnet faucet](/get-started/faucet) to fund an account on the mev-commit chain.
+</Step>
 
-To `stake` with the contract, see the following function signature, where ether sent with the transaction is split evenly among the specified validator pub keys:
+<Step title="Acquire Testnet ETH">   
 
-```solidity
-function stake(bytes[] calldata validatorBLSPubKeys) external payable {
-    uint256 splitAmount = msg.value / validatorBLSPubKeys.length;
-    for (uint256 i = 0; i < validatorBLSPubKeys.length; i++) {
-        stakedBalances[validatorBLSPubKeys[i]] += splitAmount;
-    }
-}
-```
+- If you don't have sufficient ETH, visit our [Testnet Faucet](http://faucet.testnet.mev-commit.xyz/) to obtain the necessary ETH. The faucet can dispense up to 10 ETH at a time.
+- For larger amounts, contact the Primev team for faster allocation.
 
-Note the `stake` function accepts multiple validator BLS pub keys. There are inherent gas limitations to the number of validators that can be staked in a single transaction, it's recommended to stake in batches of 10-20 pub keys at a time.
+</Step>
 
-### Golang example
+<Step title="Stake Your Validator Keys"> 
 
-We're working on a UI to stake with the validator registry. In the meantime you can programmatically interact with the registry via [golang scripts](https://github.com/primev/validator-registry).
+- Click the lock symbol button on the top right of the dashboard to initiate staking.
+- You can either upload a .txt file containing your keys separated by commas or line breaks, or you can copy and paste the keys directly into the field provided.
+- Ensure that you have at least 3 ETH per key to stake.
 
-For example, to stake any number of validator BLS public keys with the registry, use [this example script](https://github.com/primev/validator-registry/blob/main/cmd/stake/main.go) as described below.
+</Step>
 
-First clone the validator-registry repo:
+<Step title="Enter Stake Amounts">  
 
-```bash
-git clone https://github.com/primev/validator-registry.git
-```
+- Press "Next" and enter the amount of ETH you wish to stake for each key.
+- Press "Next" again to confirm and finalize the staking of your keys.
 
-Then cd into the repo and populate `keys_example.txt` with your validator BLS public keys.
+</Step>
 
-```bash
-cd validator-registry
-vi keys_example.txt
-*Edit file as needed*
-```
+<Step title="Manage Your Staked Keys "> 
 
-Then navigate to the `cmd/stake` directory and run the script with the private key that was funded above.
+- After staking, you can view your staked keys by clicking on "Manage Stake".
+- To unstake your keys, you can multi-select the keys or use the 3-dot menu to unstake them.
+- After unstaking, you will need to wait a specified number of blocks before you can either re-stake or withdraw your ETH. The required waiting period will be displayed for each key.
 
-```bash
-cd cmd/stake
-PRIVATE_KEY="0x..." go run main.go
-```
+If you want to stake your keys manually, please visit [Staking Validators Keys Manually](/developers/stake-validator-keys-manually).
 
-Note this script will attempt to stake 3.1 ETH on behalf of each validator BLS public key in `keys_example.txt`.
+</Step>
 
-## Withdrawing staked ether
-
-If you wish to withdraw your staked ether, you can do so via the previously mentioned validator registry page, or using a golang script similar to what's provided. Note an unstaking period is enforced, meaning you must first submit an `unstake` transaction, wait an appropriate amount of blocks, then submit a `withdraw` transaction, transferring funds to your account.
+</Steps>
