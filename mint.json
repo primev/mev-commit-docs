@@ -86,6 +86,7 @@
         "developers/bidder-api",
 		"developers/bidder-deposit",
 		"developers/tools-for-bid-submission",
+		"developers/stake-validator-keys-manually",
         "developers/contracts",
         "developers/debugging",
         "developers/manual-start-mev-commit",
