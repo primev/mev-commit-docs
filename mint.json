@@ -63,6 +63,7 @@
         "concepts/network-overview",
         "concepts/privacy",
         "concepts/bids",
+	"concepts/bid-decay-mechanism",
         "concepts/commitments",
         {
           "group": "mev-commit Chain",
@@ -93,7 +94,6 @@
       "pages": [
         "knowledge-base/introduction",
         "knowledge-base/what-is-prepay-amount",
-	"knowledge-base/bid-decay-mechanism",
         "knowledge-base/how-do-i-fix-the-error-failed-to-read-msg-stream-reset",
         "knowledge-base/what-is-foundry",
         "knowledge-base/why-is-cast-necessary-for-mev-commit-chain-interactions",
