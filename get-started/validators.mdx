@@ -7,7 +7,7 @@ icon: 'list-check'
 
 ## Opting-in as a Validator
 
-Participation of L1 validators in the mev-commit protocol is crucial as it enhances the integrity of commitments and ensures their enforcement. This document details the steps required to join the mev-commit testnet as a Holesky validator. Future updates will introduce a restaking feature via Eigenlayer.
+L1 validator participation in the mev-commit protocol adds ultimate credibility to commitments and enforces their delivery. This guide walks through the process of opting-in to the mev-commit testnet as a Holesky validator. A restaking version will also be enabled in the future through Eigenlayer.
 
 **Prerequisites:**
 
@@ -15,111 +15,90 @@ Participation of L1 validators in the mev-commit protocol is crucial as it enhan
 2. An operational mev-boost sidecar or equivalent.
 3. Associated validator key(s).
 
-<Warning>As a Holesky validator opting into the mev-commit protocol, ensure your mev-boost client connects only to mev-commit relays to avoid slashing for proposing blocks without delivering commitments.</Warning>
+### Requirements
 
+By opting-in to the mev-commit protocol as a Holesky validator, you agree to the following:
 
-#### Supporting Relays
+* Your mev-boost client should ONLY connect to mev-commit opted in relays to avoid being slashed by proposing a block that doesn't deliver commitments. The Titan Holesky relay is the only supporting relay at this time as shown in the list below. This list will be updated as more relays support the network.  
+  
+**Supporting Relays:**  
 
 <table>
   <thead>
     <tr>
-      <th width="350">Relay</th>
-      <th width="350">Docs</th>
+      <th width="350">Relay Name</th>
+      <th width="350">Docs Link</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td>Titan</td>
-      <td>[docs.titanrelay.xyz](https://docs.titanrelay.xyz)</td>
+      <td>[https://docs.titanrelay.xyz/](https://docs.titanrelay.xyz/)</td>
     </tr>
   </tbody>
 </table>
 
-<Info>Currently, the Titan Holesky relay is the only supporting relay. The list will be updated as more relays join. Relays interested in joining the mev-commit network can visit our [Relays page](/get-started/relays) for more information.</Info>
+If you are a relay looking to join mev-commit network please visit our [Relays page](/get-started/relays) to get more information.
+  
+* 3 ETH must be staked with the registry contract on the mev-commit chain for the validator account, which you can obtain from our [Testnet Faucet](/get-started/faucet).
 
+## Staking Your Validator Keys
 
-## Staking
+<Steps titleSize="h3">
 
-|                      |                                          |
-|---------------------------|-----------------------------------------------|
-| Contract             | [0xF263483500e849Bd8d452c9A0F075B606ee64087](http://explorer.testnet.mev-commit.xyz/address/0xF263483500e849Bd8d452c9A0F075B606ee64087) |
-| Minimum Stake             | <span className="font-bold">3 ETH</span>                                        |
-| Unstaking Period          | <span className="font-bold">7000 blocks</span>                                   |
-| Approx. Unstake Time      | <span className="font-bold">23.3 mins</span><span>*</span>                                 |
+  <Step title="Visit the Validator Dashboard">
 
-<div className="text-sm"> <span className="font-bold">*</span>Assumes 200ms block time on the mev-commit chain. </div>
+- Navigate to mev-commit [Validator Dashboard](https://validators.mev-commit.xyz/).
+- Press the "Opt-in to mev-commit" button to connect your wallet.
 
-The validator registry contract is deployed on the mev-commit chain at the address `0xF263483500e849Bd8d452c9A0F075B606ee64087`. 
-It requires a minimum stake of `3 ETH` and enforces a `7000` block unstaking period. This period, which translates to approximately `23.3` minutes 
-assuming a `200ms` block time on the mev-commit chain, is designed to cover two L1 epochs (L1 finalization period) plus a settlement buffer. 
-This ensures a safe transition period between the initiation of an unstake and the actual withdrawal.
+<Frame>
+  <img src="/images/Opt-in.gif" />
+</Frame>
 
-The registry exclusively uses BLS public keys as identifiers for validator opt-in. Any externally owned account (EOA) can stake on behalf 
-of a validator's public key, but only the staking EOA can initiate withdrawals in the future.
+</Step>
 
-To begin staking, first obtain funds from the [testnet faucet](/get-started/faucet) to use on the mev-commit chain.
+<Step title="Acquire Testnet ETH">   
 
-The `stake` function in the contract allows for multiple validator BLS public keys to be staked in one transaction.
-Ether sent with the transaction is evenly distributed among the provided validator public keys:
+- Ensure that you have at least 3 ETH on Holestky Testnet per key to stake.
+- If you don't have sufficient ETH, visit our [Testnet Faucet](http://faucet.testnet.mev-commit.xyz/) to obtain the necessary ETH. The faucet can dispense up to 10 ETH at a time.
+- For larger amounts, contact the Primev team for faster allocation.
 
-```solidity
-function stake(bytes[] calldata validatorBLSPubKeys) external payable {
-    uint256 splitAmount = msg.value / validatorBLSPubKeys.length;
-    for (uint256 i = 0; i < validatorBLSPubKeys.length; i++) {
-        stakedBalances[validatorBLSPubKeys[i]] += splitAmount;
-    }
-}
-```
+</Step>
 
-<Note> Due to gas limitations, it is recommended to stake in batches of 10-20 public keys at a time to ensure transaction success without hitting gas limits. </Note>
+<Step title="Stake Your Validator Keys"> 
 
-### Validator Dashboard
+- Click the Stake(lock icon) button on the top right of the dashboard to initiate staking.
+- You can either upload a .txt file containing your keys separated by commas or line breaks, or you can copy and right-click paste the keys directly into the field provided.
 
-We have developed a comprehensive Validator Dashboard UI that allows validators to easily manage their stakes.
-This user-friendly interface provides functionalities to stake new validator BLS public keys, unstake keys,
-and withdraw staked keys. Additionally, validators can track their rewards directly through the dashboard.
-This tool is designed to simplify the management of your commitments and rewards on the mev-commit chain.
+<Frame>
+  <img src="/images/Upload-keys.gif" />
+</Frame>
 
-For access and more detailed instructions on how to use the Validator Dashboard, please visit the following link: [Validator Dashboard](/validator-dashboard).
+</Step>
 
-<Info>
-  The Validator Dashboard is an essential tool for anyone participating as a validator on the mev-commit chain.
-  It not only simplifies the staking and unstaking process but also provides real-time insights into your staking rewards.
-</Info>
+<Step title="Enter Stake Amounts">  
 
-### Using Golang
-You can programmatically interact with the validator registry using [Golang scripts](https://github.com/primev/validator-registry). 
-To stake one or more validator BLS public keys, refer to [this example script](https://github.com/primev/validator-registry/blob/main/cmd/stake/main.go) as outlined in the steps below:
+- Enter the amount of ETH you wish to stake for each key.
+- Press "Stake" and confirm the transaction on your wallet to finalize the staking of your keys.
 
-<Steps>
-  <Step title="Clone the Repository">
-    Clone the validator-registry repository using the following command:
-    ```bash ❯_ terminal
-    git clone https://github.com/primev/validator-registry.git
-    ```
-  </Step>
-  <Step title="Prepare Validator Keys">
-    Change directory into the cloned repository and edit the `keys_example.txt` file to include your validator BLS public keys:
-    ```bash ❯_ terminal
-    cd validator-registry
-    vi keys_example.txt
-    *Edit file as needed*
-    ```
-  </Step>
-  <Step title="Run the Stake Script">
-    Navigate to the `cmd/stake` directory and run the staking script with your funded private key:
-    ```bash ❯_ terminal
-    cd cmd/stake
-    PRIVATE_KEY="0x..." go run main.go
-    ```
-    This script will attempt to stake `3.1` ETH on behalf of each validator BLS public key in `keys_example.txt`.
-  </Step>
-</Steps>
+<Frame>
+  <img src="/images/Stake.gif" />
+</Frame>
 
-## Withdrawing
+</Step>
 
-To withdraw your staked ether, you have two options: through the validator registry interface or programmatically using a Golang script.
-Please be aware that an unstaking period is mandatory. You must initiate an `unstake` transaction and wait for the required number of
-blocks to pass before you can execute a `withdraw` transaction to transfer the funds to your account.
+<Step title="Manage Your Staked Keys "> 
 
+- After staking, you can view your staked keys by clicking on "Manage Stake".
+- To unstake your keys, you can multi-select the keys or use the 3-dot menu to unstake them.
+- After unstaking, you will need to wait a 7000 blocks of unstaking period before you can withdraw your ETH. The required waiting period will be displayed for each key on the "Withdraw" column.
 
+<Frame>
+  <img src="/images/Unstake.gif" />
+</Frame>
+
+</Step>
+
+</Steps>  
+
+If you want to stake your keys manually, please visit [Stake Validators Keys Manually](/developers/stake-validator-keys-manually) section.
