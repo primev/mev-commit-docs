@@ -63,6 +63,7 @@
         "concepts/network-overview",
         "concepts/privacy",
         "concepts/bids",
+	"concepts/bid-decay-mechanism",
         "concepts/commitments",
         {
           "group": "mev-commit Chain",
