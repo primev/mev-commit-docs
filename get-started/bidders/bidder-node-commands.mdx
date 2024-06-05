@@ -1,11 +1,11 @@
 ---
-title: 'Bidder Node Commands'
+title: "Bidder Node Commands"
 sidebarTitle: Bidder Node Commands
 ---
 
 ## Interacting with the Bidder Node
 
-First, you can set the local environment variables to set your KEY and ADDRESS. Change directories to the one with your key (this should be the same folder as mev-commit). If you used the 1-minute quickstart command, your folder would be $HOME/.mev-commit
+First, you can set the local environment variables to set your `KEY` and `ADDRESS`. Change directories to the one with your key (this should be the same folder as mev-commit). If you used the [Quickstart](/get-started/quickstart) command, your folder would be `$HOME/.mev-commit`.
 
 Setting these will make running the commands to interact with your account easier.
 
@@ -16,7 +16,7 @@ export ADDRESS=$(cast wallet address --private-key 0x$(cat key))
 
 ## Getting Allowance
 
-To get the current prepaid balance in the contract:
+To get the current deposit balance in the contract:
 
 ```shell ❯_ terminal
 curl -s http://localhost:13523/v1/bidder/get_allowance
@@ -24,7 +24,7 @@ curl -s http://localhost:13523/v1/bidder/get_allowance
 
 💡Allowance represents the funds in the bidder's account that can be used to submit bids on the mev-commit p2p-network and settled on-chain.
 
-## Withdraw Prepaid Funds
+## Withdraw Deposited Funds
 
 ```shell ❯_ terminal
 cast send 0xa86a41b57Fb73f9118F84847574517258d29eAD0 "withdrawPrepayedAmount(address)" $ADDRESS \
@@ -49,6 +49,6 @@ python3 -c "print($(cast b 0xa86a41b57Fb73f9118F84847574517258d29eAD0 \
 
 ## Topology
 
-```shell ❯_ terminal ❯_ terminal
+```shell ❯_ terminal
 curl http://localhost:13523/topology
 ```

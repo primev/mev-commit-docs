@@ -5,7 +5,7 @@
     "version": "1.0.0-alpha",
     "license": {
       "name": "Business Source License 1.1",
-      "url": "https://github.com/primevprotocol/mev-commit/blob/main/LICENSE"
+      "url": "https://github.com/primev/mev-commit/blob/main/LICENSE"
     }
   },
   "paths": {
@@ -211,11 +211,7 @@
         },
         "description": "Unsigned bid message from bidders to the bidder mev-commit node.",
         "title": "Bid message",
-        "required": [
-          "txHash",
-          "amount",
-          "blockNumber"
-        ]
+        "required": ["txHash", "amount", "blockNumber"]
       },
       "v1Commitment": {
         "type": "object",

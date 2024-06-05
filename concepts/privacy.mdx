@@ -1,10 +1,11 @@
-
-Privacy in blockchain transactions is crucial, and mev-commit directly addresses this. It protects bidders' strategic interests by keeping bid and commitment details confidential. This approach is vital in preventing potential manipulations in the auction process. mev-commit provides end-to-end privacy for all bids and commitments in the sense that until commitments are opened after the corresponding L1 block have been confirmed, the contents of the commitment and the corresponding bid are only visible to the bidder who made the bid and the provider who made the commitment. All other bidders and providers and external parties learn nothing except that this provider has made a commitment. Below we expand on the privacy notions achieved for the bidders and the providers.
+Privacy in blockchain transactions is crucial, and mev-commit directly addresses this. It protects bidders' strategic interests by keeping bid and commitment details confidential. This approach is vital in preventing potential manipulations in the auction process. Mev-commit provides end-to-end privacy for all bids and commitments in the sense that until commitments are opened after the corresponding L1 block have been confirmed, the contents of the commitment and the corresponding bid are only visible to the bidder who made the bid and the provider who made the commitment. All other bidders and providers and external parties learn nothing except that this provider has made a commitment. Below we expand on the privacy notions achieved for the bidders and the providers.
 
 ## Bidder Privacy
+
 Each bidder can choose a group of providers who will have access to their bids. The bids are then encrypted for this specific group of providers. Other bidders and providers remain unaware of the details of a bid and its designated receivers. Moreover, even providers within the same receiver group for a particular bidder don't know they are part of the same group. Moreover, after a provider commits to the bid the privacy of the bidder is still preserved as the commitment reveals no information about the bid to third parties.
 
 ## Provider Privacy
+
 A provider who receives a bid can make a commitment to it, which they also sign. This action binds them to the bid. Furthermore, the process is executed in such a way that only the bidder who issued the bid can identify a commitment as being related to their bid. This approach ensures a high level of privacy for the providers, as the commitments they issue are not associated with a specific bid throughout the auction round.
 
 ### Signature Schemes

@@ -1,0 +1,71 @@
+---
+title: "Managing Your Bidder Deposit"
+sidebarTitle: Managing Your Bidder Deposit
+---
+
+**To Check Your Deposit Allowance:**
+
+  ```shell
+  > curl localhost:13523/v1/bidder/get_allowance | jq
+  {
+    "amount": "0"
+  }
+  ```
+
+**Funding Your Node Account:**
+  First, retrieve the Ethereum account address of your node:
+
+    ```shell
+    > curl localhost:13523/topology | jq
+    {
+      "self": {
+        "Addresses": [
+          "/ip4/127.0.0.1/tcp/13522",
+          "/ip4/172.29.0.4/tcp/13522"
+        ],
+        "Ethereum Address": "0xB9286CB4782E43A202BfD426AbB72c8cb34f886c",
+        "Peer Type": "bidder",
+        "Underlay": "16Uiu2HAmDWZb4DxZQkS9yseXNukBFe6MhZdimSKuZcHFeJrF3jC9"
+      },
+      "connected_peers": {
+        "providers": [
+          "0x48ddc642514370bdafad81c91e23759b0302c915",
+          "0x972eb4fc3c457da4c957306be7fa1976bb8f39a6",
+          "0xa1e8fdb3bb6a0db7aa5db49a3512b01671686dcb"
+        ]
+      },
+      "blocked_peers": null
+    }
+    ```
+
+To add funds to your account on the mev-commit chain, you may use the [testnet faucet](http://faucet.testnet.mev-commit.xyz/). 
+
+
+- **Checking Minimum Deposit Allowance:**
+
+Providers will only accept bids from bidders with funds exceeding the minimum allowance. The amount is in `wei`. To check this amount:
+
+```shell
+> curl localhost:13523/v1/bidder/get_min_allowance | jq
+{
+  "amount": "1000000000000000000"
+}
+```
+
+- **Adding to Your Deposit Allowance:**
+
+To increase your deposit allowance, use the following command, specifying the desired amount:
+
+```shell
+> curl -X POST localhost/v1/bidder/prepay/YOUR_AMOUNT | jq
+```
+
+After successfully adding to your allowance, you are ready to send bids and receive preconfirmations on the network.
+
+### Outcome of Preconfirmed Bids:
+When a bid is preconfirmed by a provider, there are several possible outcomes:
+
+| Outcome Matrix | Provider Wins Slot Auction| Provider Loses Slot Auction |
+| --------------------- | --------------| --------|
+| **Transaction in block**                   | Reward Provider          | Refund Bid to Bidder  |
+| **Transaction not in block**                 | Slash Provider & Refund Bid To Bidder           | Refund Bid to Bidder  |

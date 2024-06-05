@@ -32,12 +32,12 @@
       "pages": [
         "get-started/introduction",
         "get-started/quickstart",
-        "get-started/bridging-funds",
+		"get-started/faucet",
+        "get-started/validators",
+		"get-started/relays",
         {
           "group": "Bidders",
           "pages": [
-            "get-started/bidders/fund-node",
-            "get-started/bidders/submitting-bids",
             "get-started/bidders/first-preconf",
             "get-started/bidders/bidder-node-commands"
           ],
@@ -48,7 +48,8 @@
           "pages": [
             "get-started/providers/registering-a-provider",
             "get-started/providers/consuming-bids",
-            "get-started/providers/sending-commitments"
+            "get-started/providers/sending-commitments",
+			"get-started/providers/Querying-for-proposers"
           ],
           "icon": "network-wired"
         }
@@ -56,8 +57,7 @@
     },
     {
       "group": "Concepts",
-      "pages": [ 
-        "concepts/what-is-primev",
+      "pages": [
         "concepts/what-is-mev-commit",
         "concepts/actors",
         "concepts/network-overview",
@@ -69,20 +69,25 @@
           "group": "mev-commit Chain",
           "pages": [
             "concepts/mev-commit-chain/chain-details",
-            "concepts/mev-commit-chain/differences-between-ethereum-and-mev-commit-chain"
+            "concepts/mev-commit-chain/differences-between-ethereum-and-mev-commit-chain",
+            "concepts/mev-commit-chain/bridging-details"
           ]
         },
         "concepts/rewards-and-slashing",
-        "concepts/oracle"
+        "concepts/oracle",
+        "concepts/validator-considerations"
       ]
     },
     {
       "group": "Developers",
       "pages": [
+	    "developers/testnet",
         "developers/system-requirements",
-        "developers/Testnet",
-		"developers/Provider API",
-		"developers/Bidder API",
+        "developers/provider-api",
+        "developers/bidder-api",
+		"developers/bidder-deposit",
+		"developers/tools-for-bid-submission",
+		"developers/stake-validator-keys-manually",
         "developers/contracts",
         "developers/debugging",
         "developers/manual-start-mev-commit",
@@ -128,7 +133,7 @@
   ],
   "footerSocials": {
     "twitter": "https://twitter.com/primev_xyz",
-    "github": "https://github.com/primevprotocol/mev-commit",
+    "github": "https://github.com/primev/mev-commit",
     "linkedin": "https://www.linkedin.com/company/primevxyz/"
   }
 }

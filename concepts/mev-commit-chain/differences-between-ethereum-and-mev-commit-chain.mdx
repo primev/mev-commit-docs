@@ -1,28 +1,52 @@
 ---
-title: 'Differences Between Ethereum and mev-commit Chain'
-sidebarTitle: Differences Between Ethereum and mev-commit Chain
+title: "Differences Between Ethereum and mev-commit Chain"
+sidebarTitle: Ethereum vs mev-commit
 ---
 
-### Block Times
+## Introduction
 
-The most significant difference between Ethereum and mev-commit-chain lies in their block times.
+Mev-Commit Chain is an Ethereum-compatible blockchain designed to provide faster transaction processing and lower fees.
+It aims to optimize the extraction of Maximal Extractable Value (mev) by utilizing a specialized architecture.
+This document highlights the key differences between Ethereum and mev-commit chain.
 
-| Ethereum Blocktime | mev-commit-chain Blocktime |
-| ------------------ | -------------------------- |
-| 12 seconds         | 200 milliseconds           |
+## Overview
 
-### **Transaction Fees**
+The following table provides an overview of the key features and differences between Ethereum and mev-commit chain:
 
-Like Ethereum, mev-commit-chain supports both legacy and EIP-1559 transactions, with a preference for EIP-1559.
+| Feature          | Ethereum                                                                                                                 | Mev-Commit Chain                                                                                                                                |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| Mempool          | Larger mempool size                                                                                                      | Smaller mempool size, transactions may be encrypted, limited chain mempool visibility due to fewer chain node operators                         |
+| Validators       | Decentralized proof of stake system with a large number of validators                                                    | Centralized setup with only two validator nodes creating blocks in a round-robin fashion, allowing for faster consensus and block production    |
+| Opcodes          | Supports Ethereum opcodes                                                                                                | Supports all Ethereum opcodes, ensuring compatibility with existing Ethereum smart contracts and tools                                          |
+| Consensus        | Uses proof of stake consensus, prioritizing decentralization                                                             | Uses clique proof of authority consensus, where authorized validators take turns creating blocks, prioritizing performance and fast block times |
+| Block time       | 12 seconds                                                                                                               | 200 milliseconds                                                                                                                                |
+| Transaction Fees | Supports both legacy and EIP-1559 transactions, with base fee being burned and priority fee going to the proposer/signer | Supports both legacy and EIP-1559 transactions, with base fee directed to the protocol treasury and priority fee going to the proposer/signer   |
+
+### Transaction Fees
+
+Like Ethereum, mev-commit chain supports both legacy and EIP-1559 transactions, with a preference for EIP-1559.
 
 The allocation of fees differs:
 
 - The base fee is directed to the protocol treasury, instead of being burned.
 - The priority fee goes to the proposer/signer, as in Ethereum.
 
-### Other Chain Considerations:
+### Mempool
 
-1. **Mempool:** Mev-commit-chain's mempool is smaller than Ethereum's. It's public; however transactions may be encrypted, and chain mempool visibility is limited as there are only a few chain node operators.
-2. **Number of validators:** The mev-commit chain has only two validator nodes creating blocks in a round-robin fashion.
-3. **Opcodes:** All Ethereum opcodes are supported on the mev-commit chain, as it consists of Ethereum nodes.
-4. **Consensus**: Mainnet Ethereum uses proof of stake, mev-commit-chain currently uses clique proof of authority consensus.
+Mev-Commit chain's mempool is smaller compared to Ethereum's. While the mempool is public, transactions may be encrypted, and chain mempool visibility is limited due to the presence of only a few chain node operators. This reduces the potential for front-running and other mev-related activities.
+
+### Number of Validators
+
+Mev-Commit chain currently operates with only two validator nodes that create blocks in a round-robin fashion. This centralized setup allows for faster consensus and block production. However, it also introduces a higher level of trust in the validators compared to Ethereum's decentralized proof of stake system.
+
+### Opcodes
+
+Mev-Commit chain supports all Ethereum opcodes, as it consists of Ethereum nodes. Opcodes are low-level instructions that define the operations a blockchain can perform. By supporting all Ethereum opcodes, mev-commit chain ensures compatibility with existing Ethereum smart contracts and tools.
+
+### Consensus
+
+Mainnet Ethereum uses proof of stake, while mev-commit chain currently uses clique proof of authority consensus. In clique proof of authority, a set of authorized validators take turns creating blocks. This consensus mechanism prioritizes performance and fast block times over decentralization.
+
+## Conclusion
+
+Mev-Commit chain offers a specialized blockchain environment optimized for mev extraction. With faster block times, a different fee structure, and a centralized validator setup, mev-commit chain provides an alternative to Ethereum for use cases that prioritize speed and mev optimization.

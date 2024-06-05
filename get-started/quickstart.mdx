@@ -1,59 +1,26 @@
 ---
-title: 'Quickstart Your mev-commit Node'
+title: "Quickstart Your mev-commit Node"
 description: "Step into the Primev ecosystem with ease. This guide covers everything you need to set up your mev-commit node, whether you're aiming to be a bidder or a provider."
 sidebarTitle: Quickstart
-icon: 'gear'
+icon: "gear"
 ---
 
 # Quickstart
 
-Ready to get your node up and running? This streamlined process will guide you through launching either a bidder or provider node in the Primev network.
+Ready to get your node up and running? This streamlined process will guide you through launching either a bidder or provider node on the mev-commit network.
 
-<Steps titleSize="h3">
-  <Step title="📥 Download">
-
-    Start by downloading the latest setup script from our repository.
-
-    ```bash ❯_ terminal
-    curl -o launchmevcommit \
-    https://raw.githubusercontent.com/primevprotocol/scripts/main/launchmevcommit
-    ```
-
-  </Step>
-
-  <Step title="🛠️ Permission">
-
-    Ensure the script is executable with the following command:
-
-    ```bash ❯_ terminal
-    chmod +x launchmevcommit
-    ```
-
-  </Step>
-
-  <Step title="🚀 Launch">
-
-    Execute the script to initiate your node, selecting either a bidder or provider configuration based on your role in the network.
 
     <CodeGroup>
-
         ```bash ❯_ bidder
-        ./launchmevcommit --node-type bidder
+         curl -L -o launchmevcommit launch.mev-commit.xyz; chmod +x launchmevcommit; ./launchmevcommit --node-type bidder
         ```
 
         ```bash ❯_ provider
-        ./launchmevcommit --node-type provider
+         curl -L -o launchmevcommit launch.mev-commit.xyz; chmod +x launchmevcommit; ./launchmevcommit --node-type provider
         ```
 
-    </CodeGroup>
-
-    <Note>
-      You need to make sure that the peer-to-peer port 13522 on your local machine is accessible through a public IP address.
-      This setup enables the provider node to initiate incoming connections to your node.
-    </Note>
-
-  </Step>
-</Steps>
+    </CodeGroup>  
+<br></br>  
 
 <Accordion title="🤔 What does the script do?">
 
@@ -66,7 +33,7 @@ Ready to get your node up and running? This streamlined process will guide you t
     - Establishes the root directory (`$HOME/.mev-commit`) where the mev-commit node will be installed.
 
     ### 2. Download
-    - Fetches the appropriate mev-commit binary for your system from the [Primev GitHub releases page](https://github.com/primevprotocol/mev-commit/releases/latest), considering your operating system and architecture.
+    - Fetches the appropriate mev-commit binary for your system from the [Primev GitHub releases page](https://github.com/primev/mev-commit/releases/latest), considering your operating system and architecture.
 
     ### 3. Installation
     - Extracts the downloaded binary into the specified root directory, ensuring all necessary executables are correctly placed for the node's operation.
@@ -84,21 +51,5 @@ Ready to get your node up and running? This streamlined process will guide you t
     - Includes a cleanup function to ensure the node is properly shut down when the script exits, preventing any residual processes.
 
 </Accordion>
-
-
-<CardGroup cols={2}>
-   <div className="inline-card-header">
-      <Card title="Bidders" icon="user-bounty-hunter">
-         <br/><br/>
-         Once the node is started you can go through the [funding process](/get-started/bidders/fund-node) to start sending bids.
-      </Card>
-    </div>
-    <div className="inline-card-header">
-      <Card title="Providers" icon="network-wired">
-         <br/><br/>
-         In order to register as a provider please go through the [registration process](/get-started/providers/registering-a-provider).
-      </Card>
-    </div>
-</CardGroup>
 
 If you want to perform a manual setup with detailed steps please skip to [manual start mev-commit](/developers/manual-start-mev-commit) section.

@@ -2,8 +2,8 @@
 
 The oracle consists of two parts:
 
-- A smart contract component [here](https://github.com/primevprotocol/contracts/blob/main/contracts/Oracle.sol).
-- A microservice [here](https://github.com/primevprotocol/mev-commit-oracle).
+- A smart contract component [here](https://github.com/primev/contracts/blob/main/contracts/Oracle.sol).
+- A microservice [here](https://github.com/primev/mev-commit-oracle).
 
 <Frame>
   <img src="/images/oracle-detailed-overview.png" />
@@ -11,7 +11,7 @@ The oracle consists of two parts:
 
 The oracle automates the verification of provider commitments and queries the L1 data source for transaction hashes and block extra data. It then
 cross-references these with commitments logged in the commitments contract, and then
-verifies adherence using the pracle contract. If a commitment is satisfied, the oracle contract triggers a
+verifies adherence using the oracle contract. If a commitment is satisfied, the oracle contract triggers a
 reward to the provider using the bidder contract; if not, it slashes the provider by interacting
 with the provider contract.
 
@@ -38,7 +38,7 @@ _After the bidder's actions, the provider proceeds to:_
 When a bid for a transaction (txnj) is circulated through the mev-commit p2p network and the provider has made a commitment, the oracle is activated to verify whether the provider has honored this commitment.
 
 <Frame>
-  <img src="/images/Oracle.png" />
+  <img src="/images/oracle.png" />
 </Frame>
 
 The process is as follows:

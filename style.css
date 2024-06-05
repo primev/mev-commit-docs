@@ -10,7 +10,7 @@ div.min-w-full > pre.language-shell {
 }
 
 /* Adjusts card padding */
-.inline-card-header > a > div  {
+.inline-card-header > a > div {
   padding-left: 1.25rem;
   padding-right: 1.25rem;
 }
