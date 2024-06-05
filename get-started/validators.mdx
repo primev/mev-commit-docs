@@ -7,13 +7,15 @@ icon: 'list-check'
 
 ## Opting-in as a Validator
 
-L1 validator participation in the mev-commit protocol adds ultimate credibility to commitments and enforces their delivery. This guide walks through the process of opting-in to the mev-commit testnet as a Holesky validator. A restaking version will also be enabled in the future through Eigenlayer.
+Participation of L1 validators in the mev-commit protocol is crucial as it enhances the integrity of commitments and ensures their enforcement. This document details the steps required to join the mev-commit testnet as a Holesky validator. Future updates will introduce a restaking feature via Eigenlayer.
 
 **Prerequisites:**
 
 1. An operational Holesky validator node. 
 2. An operational mev-boost sidecar or equivalent.
 3. Associated validator key(s).
+
+<Warning>As a Holesky validator opting into the mev-commit protocol, ensure your mev-boost client connects only to mev-commit relays to avoid slashing for proposing blocks without delivering commitments.</Warning>
 
 ### Requirements
 
@@ -26,14 +28,14 @@ By opting-in to the mev-commit protocol as a Holesky validator, you agree to the
 <table>
   <thead>
     <tr>
-      <th width="350">Relay Name</th>
-      <th width="350">Docs Link</th>
+      <th width="350">Relay</th>
+      <th width="350">Docs</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td>Titan</td>
-      <td>[https://docs.titanrelay.xyz/](https://docs.titanrelay.xyz/)</td>
+      <td>[docs.titanrelay.xyz](https://docs.titanrelay.xyz/)</td>
     </tr>
   </tbody>
 </table>
@@ -52,7 +54,7 @@ If you are a relay looking to join mev-commit network please visit our [Relays p
 - Press the "Opt-in to mev-commit" button to connect your wallet.
 
 <Frame>
-  <img src="/images/Opt-in.gif" />
+  <img src="/images/opt-in.gif" />
 </Frame>
 
 </Step>
@@ -71,7 +73,7 @@ If you are a relay looking to join mev-commit network please visit our [Relays p
 - You can either upload a .txt file containing your keys separated by commas or line breaks, or you can copy and right-click paste the keys directly into the field provided.
 
 <Frame>
-  <img src="/images/Upload-keys.gif" />
+  <img src="/images/upload-keys.gif" />
 </Frame>
 
 </Step>
@@ -82,7 +84,7 @@ If you are a relay looking to join mev-commit network please visit our [Relays p
 - Press "Stake" and confirm the transaction on your wallet to finalize the staking of your keys.
 
 <Frame>
-  <img src="/images/Stake.gif" />
+  <img src="/images/stake.gif" />
 </Frame>
 
 </Step>
@@ -94,7 +96,7 @@ If you are a relay looking to join mev-commit network please visit our [Relays p
 - After unstaking, you will need to wait a 7000 blocks of unstaking period before you can withdraw your ETH. The required waiting period will be displayed for each key on the "Withdraw" column.
 
 <Frame>
-  <img src="/images/Unstake.gif" />
+  <img src="/images/unstake.gif" />
 </Frame>
 
 </Step>

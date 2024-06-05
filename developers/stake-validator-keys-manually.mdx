@@ -22,37 +22,39 @@ function stake(bytes[] calldata validatorBLSPubKeys) external payable {
 }
 ```
 
-Note the `stake` function accepts multiple validator BLS pub keys. There are inherent gas limitations to the number of validators that can be staked in a single transaction, it's recommended to stake in batches of 10-20 pub keys at a time.
+<Note> Due to gas limitations, it is recommended to stake in batches of 10-20 public keys at a time to ensure transaction success without hitting gas limits. </Note>
 
-### Golang example
+### Using Golang
+You can programmatically interact with the validator registry using [Golang scripts](https://github.com/primev/validator-registry). 
+To stake one or more validator BLS public keys, refer to [this example script](https://github.com/primev/validator-registry/blob/main/cmd/stake/main.go) as outlined in the steps below:
 
-You can programmatically interact with the registry via [golang scripts](https://github.com/primev/validator-registry).
+<Steps>
+  <Step title="Clone the Repository">
+    Clone the validator-registry repository using the following command:
+    ```bash ❯_ terminal
+    git clone https://github.com/primev/validator-registry.git
+    ```
+  </Step>
+  <Step title="Prepare Validator Keys">
+    Change directory into the cloned repository and edit the `keys_example.txt` file to include your validator BLS public keys:
+    ```bash ❯_ terminal
+    cd validator-registry
+    vi keys_example.txt
+    *Edit file as needed*
+    ```
+  </Step>
+  <Step title="Run the Stake Script">
+    Navigate to the `cmd/stake` directory and run the staking script with your funded private key:
+    ```bash ❯_ terminal
+    cd cmd/stake
+    PRIVATE_KEY="0x..." go run main.go
+    ```
+    This script will attempt to stake `3.1` ETH on behalf of each validator BLS public key in `keys_example.txt`.
+  </Step>
+</Steps>
 
-For example, to stake any number of validator BLS public keys with the registry, use [this example script](https://github.com/primev/validator-registry/blob/main/cmd/stake/main.go) as described below.
+## Withdrawing
 
-First clone the validator-registry repo:
-
-```bash
-git clone https://github.com/primev/validator-registry.git
-```
-
-Then cd into the repo and populate `keys_example.txt` with your validator BLS public keys.
-
-```bash
-cd validator-registry
-vi keys_example.txt
-*Edit file as needed*
-```
-
-Then navigate to the `cmd/stake` directory and run the script with the private key that was funded above.
-
-```bash
-cd cmd/stake
-PRIVATE_KEY="0x..." go run main.go
-```
-
-Note this script will attempt to stake 3.1 ETH on behalf of each validator BLS public key in `keys_example.txt`.
-
-## Withdrawing staked ether
-
-If you wish to withdraw your staked ether manually, you can use a golang script similar to what's provided. Please note that an unstaking period is enforced, meaning you must first submit an `unstake` transaction, wait an appropriate amount of blocks, then submit a `withdraw` transaction, transferring funds to your account.
+To withdraw your staked ether, you have two options: through the validator registry interface or programmatically using a Golang script.
+Please be aware that an unstaking period is mandatory. You must initiate an `unstake` transaction and wait for the required number of
+blocks to pass before you can execute a `withdraw` transaction to transfer the funds to your account.
