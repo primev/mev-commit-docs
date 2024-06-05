@@ -1,6 +1,6 @@
 ---
-title: Bid decay mechanism
-sidebarTitle: Bid decay
+title: Bid Decay Mechanism
+sidebarTitle: Bid Decay
 description: "Learn about how bids decay in value after they are issued."
 ---
 
@@ -16,7 +16,7 @@ When a provider decides to commit to the bid, they must issue a commitment and a
 
 This time parameter $\Delta$ is set to be $350$ms, and its goal is to account for the latency in message delivery among nodes and the discrepancy between the commitment and block timestamps. More precisely, for validation of a commitment it is required that $t_b - t_c \le \Delta$, where $t_c$ denotes the commitment timestamp and $t_b$ denotes the timestamp of the block where the commitment was included. Note that even when $t_c > t_b$, i.e., the commitment timestamp was set to be greater than the timestamp of the block that it was included, the commitment is still considered valid. 
 
-## Computing the bid decay
+## Computing the Bid Decay
 
 Once the commitment is included in the chain it can be publicly determined if the commitment is valid, and if so, what is the exact value that the bid has decayed.
 
@@ -29,21 +29,21 @@ The bid's value decreases linearly from the moment it is issued until its expiry
 For example, if the decay proportion is $1/2$ as in the example above, the bid's value decays by $50$%.
 
 
-## Analysis of the mechanism
+## Analysis of the Mechanism
 
 The security of the mechanism comes from the fact that the participating parties have conflicting incentives. In particular, we note that there is no incentive for the bidder to manipulate the choice of the bid’s timestamps; if the bidder includes a timestamp in the future, then the provider essentially gets less decay (i.e., the bidder pays more). If the bidder includes a timestamp that is too old, then the provider can choose to not commit as the decay is too high (then the bidder gets no commitment). Moreover, we note that this would have the exact same effect as the bidder changing the price of its bid prior to the submission of the bid. Similarly, the commitment timestamp set by the provider must not be too old, as otherwise, it won't be valid when included in the mev-commit chain.
 
 In many network-based systems, including our decay mechanism, faster connections often provide better opportunities, such as quicker access to information or response times. This situation is similar to high-frequency trading in financial markets, where traders with faster connections can outperform others. In our system, any advantage due to a faster connection is bounded by the parameter $\Delta$.
 
 
-## Properties of the mechanism
+## Properties of the Mechanism
 
 Our decay mechanism design achieves the following properties:
 
-**1. predictability of decay:** the providers can *accurately compute* how much their decay will be for a commitment.
+**1. Predictability of Decay:** the providers can *accurately compute* how much their decay will be for a commitment.
 
-**2. public verifiability of decay**: The decay mechanism offers public verifiability, as the decay amount can be calculated using the public timestamps from the bid and the commitment.
+**2. Public Verifiability of Decay**: The decay mechanism offers public verifiability, as the decay amount can be calculated using the public timestamps from the bid and the commitment.
 
-**3. L1 synchrony independent:** Our decay mechanism maintains independence from the L1 actual slot time, ensuring that the decay mechanism functions correctly regardless of whether the L1 block confirmation occurs more quickly or experiences delays.
+**3. L1 Synchrony Independent:** Our decay mechanism maintains independence from the L1 actual slot time, ensuring that the decay mechanism functions correctly regardless of whether the L1 block confirmation occurs more quickly or experiences delays.
 
-**4. Just in time (JIT) awareness of bid:**  JIT awareness of a bid ensures that the decay mechanism operates independently of the bid's submission time within the network, meaning a bid can be sent at anytime during a slot and experience correct decay. This is achieved by specifying the onset of decay and its deadline directly within the bid's structure, thus guaranteeing the mechanism functions as designed, irrespective of the bid's dispatch time.
+**4. Just in time (JIT) Awareness of Bid:**  JIT awareness of a bid ensures that the decay mechanism operates independently of the bid's submission time within the network, meaning a bid can be sent at anytime during a slot and experience correct decay. This is achieved by specifying the onset of decay and its deadline directly within the bid's structure, thus guaranteeing the mechanism functions as designed, irrespective of the bid's dispatch time.
