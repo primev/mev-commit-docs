@@ -17,13 +17,8 @@ Participation of L1 validators in the mev-commit protocol is crucial as it enhan
 
 <Warning>As a Holesky validator opting into the mev-commit protocol, ensure your mev-boost client connects only to mev-commit relays to avoid slashing for proposing blocks without delivering commitments.</Warning>
 
-### Requirements
 
-By opting-in to the mev-commit protocol as a Holesky validator, you agree to the following:
-
-* Your mev-boost client should ONLY connect to mev-commit opted in relays to avoid being slashed by proposing a block that doesn't deliver commitments. The Titan Holesky relay is the only supporting relay at this time as shown in the list below. This list will be updated as more relays support the network.  
-  
-**Supporting Relays:**  
+#### Supporting Relays
 
 <table>
   <thead>
@@ -35,16 +30,70 @@ By opting-in to the mev-commit protocol as a Holesky validator, you agree to the
   <tbody>
     <tr>
       <td>Titan</td>
-      <td>[docs.titanrelay.xyz](https://docs.titanrelay.xyz/)</td>
+      <td>[docs.titanrelay.xyz](https://docs.titanrelay.xyz)</td>
     </tr>
   </tbody>
 </table>
 
-If you are a relay looking to join mev-commit network please visit our [Relays page](/get-started/relays) to get more information.
-  
-* 3 ETH must be staked with the registry contract on the mev-commit chain for the validator account, which you can obtain from our [Testnet Faucet](/get-started/faucet).
+<Info>Currently, the Titan Holesky relay is the only supporting relay. The list will be updated as more relays join. Relays interested in joining the mev-commit network can visit our [Relays page](/get-started/relays) for more information.</Info>
 
-## Staking Your Validator Keys
+
+## Staking
+
+|                      |                                          |
+|---------------------------|-----------------------------------------------|
+| Contract             | [0xF263483500e849Bd8d452c9A0F075B606ee64087](http://explorer.testnet.mev-commit.xyz/address/0xF263483500e849Bd8d452c9A0F075B606ee64087) |
+| Minimum Stake             | <span className="font-bold">3 ETH</span>                                        |
+| Unstaking Period          | <span className="font-bold">7000 blocks</span>                                   |
+| Approx. Unstake Time      | <span className="font-bold">23.3 mins</span><span>*</span>                                 |
+
+<div className="text-sm"> <span className="font-bold">*</span>Assumes 200ms block time on the mev-commit chain. </div>
+
+The validator registry contract is deployed on the mev-commit chain at the address `0xF263483500e849Bd8d452c9A0F075B606ee64087`. 
+It requires a minimum stake of `3 ETH` and enforces a `7000` block unstaking period. This period, which translates to approximately `23.3` minutes 
+assuming a `200ms` block time on the mev-commit chain, is designed to cover two L1 epochs (L1 finalization period) plus a settlement buffer. 
+This ensures a safe transition period between the initiation of an unstake and the actual withdrawal.
+
+The registry exclusively uses BLS public keys as identifiers for validator opt-in. Any externally owned account (EOA) can stake on behalf 
+of a validator's public key, but only the staking EOA can initiate withdrawals in the future.
+
+To begin staking, first obtain funds from the [testnet faucet](/get-started/faucet) to use on the mev-commit chain.
+
+The `stake` function in the contract allows for multiple validator BLS public keys to be staked in one transaction.
+Ether sent with the transaction is evenly distributed among the provided validator public keys:
+
+```solidity
+function stake(bytes[] calldata validatorBLSPubKeys) external payable {
+    uint256 splitAmount = msg.value / validatorBLSPubKeys.length;
+    for (uint256 i = 0; i < validatorBLSPubKeys.length; i++) {
+        stakedBalances[validatorBLSPubKeys[i]] += splitAmount;
+    }
+}
+```
+
+<Note> Due to gas limitations, it is recommended to stake in batches of 10-20 public keys at a time to ensure transaction success without hitting gas limits. </Note>
+
+## Validator Dashboard
+
+<Frame>
+  <a href="https://validators.mev-commit.xyz/" target="_blank">
+  <img height="200" nozoom="true" src="/images/validator-dashboard.png" />
+</a>
+</Frame>
+
+We have developed a comprehensive Validator Dashboard UI that allows validators to easily manage their stakes.
+This user-friendly interface provides functionalities to stake new validator BLS public keys, unstake keys,
+and withdraw staked keys. Additionally, validators can track their rewards directly through the dashboard.
+This tool is designed to simplify the management of your commitments and rewards on the mev-commit chain.
+
+For access and more detailed instructions on how to use the Validator Dashboard, please visit the following link: [Validator Dashboard](https://validators.mev-commit.xyz/).
+
+<Info>
+  The Validator Dashboard is an essential tool for anyone participating as a validator on the mev-commit chain.
+  It not only simplifies the staking and unstaking process but also provides real-time insights into your staking rewards.
+</Info>
+
+### Staking Your Validator Keys
 
 <Steps titleSize="h3">
 
