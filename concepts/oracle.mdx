@@ -23,20 +23,17 @@ Before the oracle can be engaged according to the protocol's intended sequence o
   <img src="/images/oracle-before.png" />
 </Frame>
 
-**1a.** A bidder sends their raw transaction to a provider, such as a block builder, or to the public mempool.
-
-**1b.** Simultaneously, the bidder issues a bid via the mev-commit peer-to-peer network.
+**1a.** Simultaneously, the bidder issues an encrypted bid via the mev-commit peer-to-peer network.
 
 _After the bidder's actions, the provider proceeds to:_
 
-**2a.** Retrieve the bid from the mev-commit network.
+**2a.** Retrieve the encrypted bid from the mev-commit network.
 
-**2b.** Issue a commitment for the transaction mentioned in the bid.
+**2b.** Issue an encrypted commitment for the transaction mentioned in the bid.
 
 ## Oracle Happy Path Flow
 
-When a bid for a transaction (txnj) is circulated through the mev-commit p2p network and the provider has made a commitment, the oracle is activated to verify whether the provider has honored this commitment.
-
+When a bid for a transaction (txnj) is circulated through the mev-commit p2p network, and the provider has made an encrypted commitment and then opened it after the L1 block was created, the oracle is activated to verify whether the provider has honored this commitment.
 <Frame>
   <img src="/images/oracle.png" />
 </Frame>
