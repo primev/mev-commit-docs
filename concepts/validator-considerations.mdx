@@ -1,0 +1,25 @@
+---
+sidebarTitle: "Validator Considerations"
+---
+
+## Validator Considerations
+
+### Trust Assumptions
+
+Opting into the mev-commit protocol signals from a validator that they:
+
+* Trust correctness of execution from the mev-commit chain. See [mev-commit chain](/concepts/mev-commit-chain/chain-details) for more information.
+* Trust correctness of slashing transactions residing from the Primev operated [mev-commit-oracle](https://github.com/primev/mev-commit-oracle) service.
+* Trust at least one mev-commit opted in relay. The Titan Holesky relay is the only such relay at this time, see the [Titan Holesky Relay here](https://docs.titanrelay.xyz/).
+* Attest they will follow the rules of the protocol given the above trust assumptions. This currently entails *only* proposing blocks that come from a mev-commit opted in relay. 
+
+### Risks
+
+Validators opting into the mev-commit protocol should be aware of the following risks:
+
+* **Relay block delivery:** Relays could communicate blocks that do not abide by existing commitments. This would lead to slashing of the validator.
+* **Failure to propose block:** Validators could fail to propose a block for a slot that has preconf commitments. This would lead to slashing of the validator if there are existing commitments
+
+### Future plans & Eigenlayer
+
+Primev is working on improvements to the validator opt-in mechanism to make it more seamless to validators, and enable new preconf use cases. There is active work on a mev-commit Eigenlayer AVS in which operators could serve as mev-commit providers, who act on behalf of validators.

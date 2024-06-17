@@ -1,0 +1,29 @@
+Network actors’ roles are defined based on their interactions with other ecosystem actors. A diagram below depicts a given mev actor’s relative placement compared to others.
+
+<Frame>
+  <img src="/images/supply-chain.png" />
+</Frame>
+
+A list of potential Actors on the mev-commit network are listed below:
+
+### **Providers:**
+
+Providers of execution services include but are not limited to:
+
+- **Block Builders**: They curate and order transactions in blocks, and have their own private mempool, giving them an advantage in committing to transaction inclusion or making related decisions.
+- **Relays**: Relays are trusted actors that accept block bids from block builders and make them available to proposers, also relaying the block payload when requested. Due to their fundamental role in the mev pipeline, they can also act as guardians of proposer preferences for blocks and provide execution services.
+- **Proposers**: Validators who are positioned to propose a block to the network. As prime providers of execution services, they outsource this process to block builders by using mev-boost. As the mev pipeline evolves, they may have additional preferences or an Inclusion List to communicate to other execution service providers.
+- **Rollup Sequencers**: They're practically block builders for the L2 ecosystem, curating and ordering transactions for the L2 rollups.
+- **Miners and Mining Pools**: In PoW systems such as Bitcoin, miners and mining pools can provide execution services as they mine the blocks that contain transactions.
+
+### **Bidders**
+
+Bidders are users of execution services, bidding for inclusion of their transactions, for some specific preference to be adhered to by providers, and more. Bidders include but are not limited to:
+
+- **Searchers**: Searchers of mev opportunities are in prime position to bid for execution services as they may have specific preferences or time constraints that maximize the profitability of their strategies.
+- **Solvers**: Solvers practically act similar to searchers, and will want to bid for execution services that optimize their order in specific ways depending on the protocols they adhere to.
+- **Rollup Provers**: Provers and other rollup actors that create blobs and calldata to be posted to L1 will bid for execution services so their data can reliably make it on-chain.
+- **AA Bundlers, Wallets, and other transaction aggregators** : These entities possess transactions from end users, and can bid for execution services with them or on their behalf so their platform provides the best user experience.
+- **End Users**: While we don't anticipate most end users to send execution service bids directly beyond the gas price of their transactions, end users are considered bidders of execution services in general whether through gas price or other deal or engagement with where they send their transaction order flow to.
+
+Generally, if you send transactions you'll be a bidder, and if you receive transactions you'll be a provider. If you are unsure whether you should be a bidder or provider, or both, reach out to our team and we will guide you according to your specific considerations.

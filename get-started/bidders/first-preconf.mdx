@@ -1,0 +1,57 @@
+---
+title: "Receive your First Preconfirmation"
+sidebarTitle: "My First Preconf"
+---
+
+## Pre-requisites
+
+Make sure you:
+
+1. Get a [mev-commit Bidder Node up and running](/get-started/quickstart).
+2. [Fund your node](/get-started/faucet) so you have the funds to submit bids.
+
+## Introduction
+
+Once you've funded your bidder node wallet, you're ready to start submitting bids to the network.
+It's crucial to verify that your bidder node is connected to at least one provider node.
+This connectivity can be confirmed via the [localhost:13523/topology](http://localhost:13523/topology) endpoint.
+
+### 💳 Deposit For Bids
+
+Run this command to load your account with funds to start bidding:
+
+```shell ❯_ terminal
+curl -X POST http://localhost:13523/v1/bidder/prepay/1000000000000000000
+```
+
+This tops up your account with `1000000000000000000 wei` (1 ETH), ensuring you're all set to send bids!
+
+### Sending Bids
+
+Open a new terminal window. To send bids, we simply run the following command:
+
+```shell ❯_ example
+curl -X POST http://localhost:13523/v1/bidder/bid \
+-d '{
+    "txHashes": ["0549fc7c57fffbdbfb2cf9d5e0de165fc68dadb5c27c42fdad0bdf506f4eacae"],
+    "amount": "<amount in wei>",
+    "blockNumber": <integer blocknumber>
+}'
+```
+
+To include bundles of transactions, add them in the atomic sequence in which they exist in the bundle, as follows:
+
+```shell ❯_ example
+curl -X POST http://localhost:13523/v1/bidder/bid \
+-d '{
+    "txHashes": ["0549fc7c57fffbdbfb2cf9d5e0de165fc68dadb5c27c42fdad0bdf506f4eacae", 22145ba31366d29a893ae3ffbc95c36c06e8819a289ac588594c9512d0a99810, 7e1506f266bc86c81ae46018053a274a3bd96a9eff17392930707bf8fa5ff6be],
+    "amount": "<amount in wei>",
+    "blockNumber": <integer blocknumber>
+}'
+```
+
+💡You can change the values in the fields txHash, amount and blockNumber as desired.
+
+🎉 Congrats, you just sent your first L1 preconfirmation bid! You should be receiving commmitments near instantly.
+
+Make sure your bid amount is sufficiently high for the commitment you're requesting, and your target block number is accurate. It's up to the providers to commit to your bid, so try to ensure a commitment is feasible to your bid by its construction.

@@ -1,0 +1,35 @@
+---
+title: "Rewards and Slashing"
+sidebarTitle: Rewards and Slashing
+---
+
+There are three settlement outcomes after a commitment is made and an Ethereum block is proposed:
+
+1. The bid amount is rewarded to the provider for delivering on the commitment
+2. The provider stake is slashed for breaking the commitment
+3. Nothing happens as the provider was not the winning execution provider for the Ethereum block
+
+## Reward
+
+Upon successfully satisfying a commitment, a provider will be rewarded the bid amount, minus a 2% fee. This fee accumulates in the mev-commit protocol treasury and will not be touched by Primev. A DAO structure in the future can decide what to do with the protocol treasury; bidders and providers on the network are expected to receive respective voting power in the DAO according to their activity on mev-commit.
+
+## Slash
+
+Upon breaking a commitment, a provider will be slashed from their stake equal to the bid amount they committed to, plus a 5% penalty fee. The principal slash amount will be transferred to the bidder for the broken commitment, and the penalty fee will be transferred to the mev-commit protocol treasury.
+
+## Neutral outcome
+
+The protocol will not take action in the event of a commitment being made and the provider not being the execution provider for the winning block. However, the providers reputation would socially be lower over time if they issue commitments that are never satisfied, and bidders will either discard commitments coming from that provider or will be willing to bid less as the commitment value will be less.
+
+Primev anticipates monitoring the network to see how Neutral Outcomes affect the mev-commit protocol, and a reputation scoring system can be employed in the future to quantify the credibility of a provider's commitment. Providers with a higher reputation score can then have lower staking requirements, and vice versa.
+
+### Attribution
+
+The current methodology for identifying the provider responsible for building the L1 block relies on the **`extra_data`** field within the block's execution payload for block builders. We correlate this
+information with the corresponding address registered in the mev-commit protocol. We plan to upgrade this with a cryptographically secure method of attribution and are actively championing the availability of robust builder identity in Ethereum.
+
+For proposers the attribution method is simpler as the proposer is recognized within the Ethereum protocol. For relays, we run a leader election auction and the winning relay is known by mev-commit for any attribution.
+
+### Minimum Prepay
+
+❗ The Bidder needs to have 10 times the size of their largest bid in order for their bid to be considered valid and to receive commitments. Providers must also ensure that they have a stake that is 10 times greater than the bid amount to commit to a bid.

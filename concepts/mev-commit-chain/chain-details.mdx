@@ -1,0 +1,47 @@
+---
+title: "Chain Details"
+sidebarTitle: Chain Details
+---
+
+Mev-commit chain mainnet is set to launch soon. In the meantime, join the testnet and get familiar with its functionalities at the [Testnet](/developers/testnet) section.
+
+## **Design**
+
+Mev-commit chain is currently built out as an Ethereum sidechain run with [go-ethereum’s Clique proof-of-authority consensus mechanism](https://geth.ethereum.org/docs/tools/clef/clique-signing). It's not a generalized chain for everyone to launch dapps on, but only for specific execution service applications, such as preconfirmations, top of block, bottom of block, or other services.
+
+Source code for the geth fork which runs the mev-commit chain can be found in the [mev-commit-geth repo](https://github.com/primev/mev-commit-geth).
+
+## **Progressive decentralization**
+
+Today, most or arguably all Ethereum scaling solutions rely on centralized bridging and sequencing. Mev-commit components rely on existing tech, and consequently inherit this property. However anyone can permissionlessly validate correct execution, and operation of chain infrastructure. Moreover, because the mev-commit p2p network is decentralized and commitments are cryptographic, actors can theoretically settle commitments without the mev-commit chain.
+
+At this point of the network's inception, Primev entities will run all validating infrastructure for the mev-commit chain. Correct and honest operation can be permissionlessly audited by spinning up a full node and connecting to the mev-commit chain as a peer. Over time we plan to have entities outside of Primev to become POA signers or bridge validators to progressively decentralize the centralized components of the system.
+
+The mev-commit chain will continue to evolve. We have ongoing research into consensus algorithms we can employ to decentralize the mev-commit chain without compromising on speed. Open source scaling solutions that prove to be practical, decentralized, and meet security thresholds will be considered to decentralize the mev-commit chain.
+
+## **POA geth nodes**
+
+Primev currently maintains a mev-commit-geth bootnode which doesn’t participate in consensus, and a set of full-node POA signers that run consensus. These signers take turns proposing the next block by utilizing a waiting period.
+
+The current target block period is 200ms, meaning about 60 mev-commit chain blocks will be committed for every Ethereum mainnet block. The block time will likely change as enhancements are added and chain state grows.
+
+## **Fee Mechanism**
+
+**Non-inflationary Approach**: The fee mechanism on the mev-commit chain is designed to be non-inflationary, maintaining a strict 1:1 peg between the sidechain ether and the L1 escrowed ether. This is achieved through a variation of EIP-1559, where base fees are accumulated in a treasury and priority fees are allocated to block signers.
+
+## **Smart Contracts**
+
+Smart Contracts are deployed on the mev-commit chain to enable use cases, follow bid and commitment states, and invoke rewards or slashing as needed. Anyone can deploy contracts on the mev-commit chain, however there'll be additional integration work needed with mev-commit off-chain components to fully enable the use case under the current design. Thus we first recommend getting in touch with the Primev team to enable a use case at this stage of the network.
+
+Currently deployed contracts are designed as follows:
+
+- A preconfirmation contract allows preconfirmation commitments to be stored and tracked on-chain.
+- Two separate registry contracts exist to manage bidders and providers, both parties must stake ETH to participate. Rewards and/or slashing are managed by these contracts.
+- An oracle contract receives L1 payloads from the oracle service. It currently operates by checking confirmed Holesky blocks, and will transition to Mainnet as mev-commit migrates to Mainnet.
+- A whitelist contract allows certain other contracts to mint/burn native ether as part of bridging with L1.
+
+## **Oracle service**
+
+The oracle service is an off-chain process that interacts with the oracle contract as needed. This service monitors and extracts the winning builder and corresponding transaction hash list from each L1 block, and submits this data to the oracle contract residing on the mev-commit chain.
+
+This is a centralized oracle currently operated by Primev. We're actively looking into decentralizing the oracle role through existing decentralized Oracle protocols and evaluating creating a service where this can be decentralized.

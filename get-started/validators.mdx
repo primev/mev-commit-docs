@@ -1,0 +1,106 @@
+---
+title: Validator Guide
+sidebarTitle: Validators
+description: 'Opt into mev-commit with ease. This guide covers everything you need to do to passively interact with the mev-commit protocol as a validator.'
+icon: 'list-check'
+---
+
+## Opting-in as a Validator
+
+Participation of L1 validators in the mev-commit protocol is crucial as it enhances the integrity of commitments and ensures their enforcement. This document details the steps required to join the mev-commit testnet as a Holesky validator. Future updates will introduce a restaking feature via Eigenlayer.
+
+**Prerequisites:**
+
+1. An operational Holesky validator node. 
+2. An operational mev-boost sidecar or equivalent.
+3. Associated validator key(s).
+
+<Warning>As a Holesky validator opting into the mev-commit protocol, ensure your mev-boost client connects only to mev-commit relays to avoid slashing for proposing blocks without delivering commitments.</Warning>
+
+### Requirements
+
+By opting-in to the mev-commit protocol as a Holesky validator, you agree to the following:
+
+* Your mev-boost client should ONLY connect to mev-commit opted in relays to avoid being slashed by proposing a block that doesn't deliver commitments. The Titan Holesky relay is the only supporting relay at this time as shown in the list below. This list will be updated as more relays support the network.  
+  
+**Supporting Relays:**  
+
+<table>
+  <thead>
+    <tr>
+      <th width="350">Relay</th>
+      <th width="350">Docs</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Titan</td>
+      <td>[docs.titanrelay.xyz](https://docs.titanrelay.xyz/)</td>
+    </tr>
+  </tbody>
+</table>
+
+If you are a relay looking to join mev-commit network please visit our [Relays page](/get-started/relays) to get more information.
+  
+* 3 ETH must be staked with the registry contract on the mev-commit chain for the validator account, which you can obtain from our [Testnet Faucet](/get-started/faucet).
+
+## Staking Your Validator Keys
+
+<Steps titleSize="h3">
+
+  <Step title="Visit the Validator Dashboard">
+
+- Navigate to mev-commit [Validator Dashboard](https://validators.mev-commit.xyz/).
+- Press the "Opt-in to mev-commit" button to connect your wallet.
+
+<Frame>
+  <img src="/images/opt-in.gif" />
+</Frame>
+
+</Step>
+
+<Step title="Acquire Testnet ETH">   
+
+- Ensure that you have at least 3 ETH on Holestky Testnet per key to stake.
+- If you don't have sufficient ETH, visit our [Testnet Faucet](http://faucet.testnet.mev-commit.xyz/) to obtain the necessary ETH. The faucet can dispense up to 10 ETH at a time.
+- For larger amounts, contact the Primev team for faster allocation.
+
+</Step>
+
+<Step title="Stake Your Validator Keys"> 
+
+- Click the Stake(lock icon) button on the top right of the dashboard to initiate staking.
+- You can either upload a .txt file containing your keys separated by commas or line breaks, or you can copy and right-click paste the keys directly into the field provided.
+
+<Frame>
+  <img src="/images/upload-keys.gif" />
+</Frame>
+
+</Step>
+
+<Step title="Enter Stake Amounts">  
+
+- Enter the amount of ETH you wish to stake for each key.
+- Press "Stake" and confirm the transaction on your wallet to finalize the staking of your keys.
+
+<Frame>
+  <img src="/images/stake.gif" />
+</Frame>
+
+</Step>
+
+<Step title="Manage Your Staked Keys "> 
+
+- After staking, you can view your staked keys by clicking on "Manage Stake".
+- To unstake your keys, you can multi-select the keys or use the 3-dot menu to unstake them.
+- After unstaking, you will need to wait a 7000 blocks of unstaking period before you can withdraw your ETH. The required waiting period will be displayed for each key on the "Withdraw" column.
+
+<Frame>
+  <img src="/images/unstake.gif" />
+</Frame>
+
+</Step>
+
+</Steps>  
+
+If you want to stake your keys manually, please visit [Stake Validators Keys Manually](/developers/stake-validator-keys-manually) section.

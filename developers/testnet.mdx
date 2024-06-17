@@ -1,0 +1,78 @@
+---
+title: mev-commit Testnet
+sidebarTitle: Testnet
+---
+
+## mev-commit Testnet
+
+Live on Holesky Testnet, mev-commit allows bidders and providers to engage in execution service bids and commitments. Preconfirmations, the first use case for real time bids and commitments, are available to be tested on the mev-commit testnet.
+
+## **Links and Connection Details**
+
+### **Services links**
+
+| Service           | Link                                                                                           |
+| ----------------- | ---------------------------------------------------------------------------------------------- |
+| Testnet RPC       | [https://chainrpc.testnet.mev-commit.xyz/](https://chainrpc.testnet.mev-commit.xyz/)           |
+| Bootnode endpoint | [https://bootnode.testnet.mev-commit.xyz/](https://bootnode.testnet.mev-commit.xyz/)           |
+| Block explorer    | [http://explorer.testnet.mev-commit.xyz/blocks](http://explorer.testnet.mev-commit.xyz/blocks) |
+| Faucet            | [http://faucet.testnet.mev-commit.xyz/](http://faucet.testnet.mev-commit.xyz/)                 |
+
+### **Contract Addresses**
+
+import { BidderRegistryAddress, ProviderRegistryAddress, PreConfCommitmentStoreAddress, OracleAddress, WhitelistAddress } from '/snippets/testnet-addresses.mdx';
+
+<table>
+  <thead>
+    <tr>
+      <th width="299">Contract</th>
+      <th>Address</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>BidderRegistry</td>
+      <td>{BidderRegistryAddress}</td>
+    </tr>
+    <tr>
+      <td>ProviderRegistry</td>
+      <td>{ProviderRegistryAddress}</td>
+    </tr>
+    <tr>
+      <td>PreConfCommitmentStore</td>
+      <td>{PreConfCommitmentStoreAddress}</td>
+    </tr>
+    <tr>
+      <td>Oracle</td>
+      <td>{OracleAddress}</td>
+    </tr>
+    <tr>
+      <td>Whitelist</td>
+      <td>{WhitelistAddress}</td>
+    </tr>
+  </tbody>
+</table>
+
+## Infrastructure
+
+Primev will maintain a testnet consisting of the mev-commit chain, oracle service, and bridge to Holesky.
+
+<Frame>
+  <img src="/images/mev-commit-nodes.png" />
+</Frame>
+
+## Differences Between the Testnet and Mainnet Environments
+
+Testnet bridging ether to/from Holesky, whereas mainnet mev-commit chain will bridge using mainnet ether. Commitments are also written to the settlement chain in plaintext, whereas mainnnet will include private commitments.
+
+## Limitations of the Testnet
+
+Bids aren't encrypted on the testnet yet, meaning all exchanges are publicly visible. There is also no differentiator between a timely or a late commitment as of now. Both of these will change with our upcoming testnet milestone.
+
+## How can users provide feedback or report issues encountered on the testnet?
+
+Users can open an issue on the GitHub repository that is associated with any issue they encounter. They can also tag @primev_xyz on Twitter, or reach out to us to join a Telegram group for early power users.
+
+## Testnet System Requirements
+
+Please refer to the System Requirements section [here.](/developers/system-requirements)

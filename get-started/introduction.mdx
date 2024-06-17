@@ -1,0 +1,102 @@
+---
+title: Welcome to Primev
+sidebarTitle: Welcome
+description: "Primev is building mev-commit; a credible commitment network used for preconfirmations & more"
+icon: sailboat
+mode: wide
+---
+
+import {
+  QuickStartCard,
+  CardDescription,
+  Separator,
+  CardContent,
+  QuickStartCardFooter,
+} from "/snippets/quick-start-card.mdx";
+
+## Get Started
+
+Welcome to the starting point of your mev-commit journey!
+Our quickstart guides are tailored to your specific role within the Ethereum ecosystem and designed to get you up and running quickly.
+Choose the guide below that best aligns with your interests and needs:
+
+<CardGroup cols={3}>
+
+    <QuickStartCard title="Bidders" icon="user-bounty-hunter" >
+        <CardDescription>
+            Searchers, Solvers, Rollup Provers, AA Bundlers, End Users
+        </CardDescription>
+
+        <Separator />
+
+        <CardContent>
+            For those looking to explore MEV opportunities, follow our Bidder Quickstart to learn how to
+            efficiently identify and capture valuable transactions.
+        </CardContent>
+
+        <QuickStartCardFooter>
+
+            • [Receive a Preconfirmation](/get-started/bidders/first-preconf)
+
+            • [Bidder Node Commands](/get-started/bidders/bidder-node-commands)
+			
+			• [Bid Structure](/concepts/bids)
+
+            • [Tools For Bid Submission](/developers/tools-for-bid-submission)
+			
+			• [Managing Your Bidder Deposit](/developers/bidder-deposit)
+
+        </QuickStartCardFooter>
+    </QuickStartCard>
+
+    <QuickStartCard title="Providers" icon="network-wired">
+        <CardDescription>
+            Block Builders, Relays, Proposers, Rollup Sequencers
+        </CardDescription>
+
+        <Separator />
+
+        <CardContent>
+            Providers are the backbone of the Primev ecosystem. Start with our Provider's Quick Setup to
+            optimize your block production and validation processes.
+        </CardContent>
+
+        <QuickStartCardFooter>
+            • [Registering as a Provider](/get-started/providers/registering-a-provider)
+
+            • [Consuming Bids](/get-started/providers/consuming-bids)
+
+            • [Sending Commitments](/get-started/providers/sending-commitments)
+
+            • [Commitments Structure](/concepts/commitments)
+
+            • [Querying for Proposers](/get-started/providers/Querying-for-proposers)
+			
+			• [Relay Guide](/get-started/relays)
+			
+        </QuickStartCardFooter>
+    </QuickStartCard>
+
+    <QuickStartCard title="Validators" icon="ethereum">
+        <CardDescription>
+            L1 Ethereum validators
+        </CardDescription>
+
+        <Separator />
+
+        <CardContent>
+            Validators add ultimate credibility to commitments within the mev-commit network. Start here to participate in the mev-commit protocol as a Validator.
+        </CardContent>
+
+        <QuickStartCardFooter>
+            • [Opting-in as a Validator](/get-started/validators)
+
+            • [What is mev-commit?](/concepts/what-is-mev-commit)
+
+            • [Validator considerations](/concepts/validator-considerations)
+
+            • [mev-commit Testnet](/developers/testnet)
+        </QuickStartCardFooter>
+    </QuickStartCard>
+
+</CardGroup>

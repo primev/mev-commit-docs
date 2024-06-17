@@ -1,8 +1,12 @@
 Commitments represent promises made by providers in a cryptographically verifiable manner.
 
-```bash
-# commitmentDigest: Represents the hash of the bid structure, including the bid signature
-# commitmentSignature: Represents an ECDSA signature of the [commitmentDigest]
+| Key           | Description                                           |
+|---------------|-------------------------------------------------------|
+| `commitmentDigest`      | Represents the hash of the bid structure, including the bid signature |
+| `commitmentSignature`   | Represents an ECDSA signature of the `commitmentDigest` |
+
+
+```json Example commitment
 {
    "result":{
       "txHash":"91a89B633194c0D86C539A1A5B14DCCacfD47094",

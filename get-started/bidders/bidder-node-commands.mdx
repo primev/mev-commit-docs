@@ -1,0 +1,54 @@
+---
+title: "Bidder Node Commands"
+sidebarTitle: Bidder Node Commands
+---
+
+## Interacting with the Bidder Node
+
+First, you can set the local environment variables to set your `KEY` and `ADDRESS`. Change directories to the one with your key (this should be the same folder as mev-commit). If you used the [Quickstart](/get-started/quickstart) command, your folder would be `$HOME/.mev-commit`.
+
+Setting these will make running the commands to interact with your account easier.
+
+```shell ❯_ terminal
+export KEY=$(cat key)
+export ADDRESS=$(cast wallet address --private-key 0x$(cat key))
+```
+
+## Getting Allowance
+
+To get the current deposit balance in the contract:
+
+```shell ❯_ terminal
+curl -s http://localhost:13523/v1/bidder/get_allowance
+```
+
+💡Allowance represents the funds in the bidder's account that can be used to submit bids on the mev-commit p2p-network and settled on-chain.
+
+## Withdraw Deposited Funds
+
+```shell ❯_ terminal
+cast send 0xa86a41b57Fb73f9118F84847574517258d29eAD0 "withdrawPrepayedAmount(address)" $ADDRESS \
+--rpc-url https://chainrpc.testnet.mev-commit.xyz --private-key $KEY
+```
+
+## Checking the Balance of your Wallet
+
+This command will allow you to check your current wallet balance on mev-commit chain:
+
+```shell ❯_ terminal
+cast b $ADDRESS --rpc-url https://chainrpc.testnet.mev-commit.xyz
+```
+
+## Check Total Value Locked in Contracts
+
+```shell ❯_ terminal
+python3 -c "print($(cast b 0xa86a41b57Fb73f9118F84847574517258d29eAD0 \
+--rpc-url https://chainrpc.testnet.mev-commit.xyz) + $(cast b 0x5960774AD41D03DAB4916a30bD2190f8b3b3b4b2 \
+--rpc-url https://chainrpc.testnet.mev-commit.xyz))"
+```
+
+## Topology
+
+```shell ❯_ terminal
+curl http://localhost:13523/topology
+```

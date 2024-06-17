@@ -15,50 +15,41 @@
       "to": "#E97D25"
     }
   },
-  "topbarLinks": [
-    {
-      "name": "Support",
-      "url": "mailto:hi@mintlify.com"
-    }
-  ],
-  "topbarCtaButton": {
-    "name": "Dashboard",
-    "url": "https://dashboard.mintlify.com"
-  },
-  "anchors": [
+
+  "tabs": [
     {
       "name": "API Reference",
-      "icon": "square-terminal",
       "url": "api-reference"
     },
     {
       "name": "Knowledge Base",
-      "icon": "books",
       "url": "knowledge-base"
     }
   ],
   "navigation": [
     {
-      "group": "Get started",
+      "group": "Get Started",
       "pages": [
         "get-started/introduction",
         "get-started/quickstart",
+		"get-started/faucet",
+        "get-started/validators",
+		"get-started/relays",
         {
           "group": "Bidders",
           "pages": [
-            "get-started/bidders/fund-node",
-            "get-started/bidders/send-bid",
-            "get-started/bidders/receive-preconfirmation-commitment",
-            "get-started/bidders/bridging-and-fees"
+            "get-started/bidders/first-preconf",
+            "get-started/bidders/bidder-node-commands"
           ],
           "icon": "user-bounty-hunter"
         },
         {
           "group": "Providers",
           "pages": [
-            "get-started/providers/consume-bids-mev-commit",
-            "get-started/providers/register-a-provider",
-            "get-started/providers/sending-commitments"
+            "get-started/providers/registering-a-provider",
+            "get-started/providers/consuming-bids",
+            "get-started/providers/sending-commitments",
+			"get-started/providers/Querying-for-proposers"
           ],
           "icon": "network-wired"
         }
@@ -67,60 +58,40 @@
     {
       "group": "Concepts",
       "pages": [
-        {
-          "group": "Overview",
-          "pages": [
-            "concepts/overview/introduction",
-            "concepts/overview/actors",
-            "concepts/overview/how-it-works",
-            "concepts/overview/mev-commit-testnet",
-            "concepts/overview/architecture"
-          ],
-          "icon": "fly"
-        },
+        "concepts/what-is-mev-commit",
+        "concepts/actors",
+        "concepts/network-overview",
         "concepts/privacy",
-        "concepts/fees-and-funds-movement",
         "concepts/bids",
+	"concepts/bid-decay-mechanism",
         "concepts/commitments",
         {
-          "group": "mev-commit-chain",
+          "group": "mev-commit Chain",
           "pages": [
-            "concepts/mev-commit-chain/introduction",
-            "concepts/mev-commit-chain/differences-between-ethereum-and-mev-commit-chain"
+            "concepts/mev-commit-chain/chain-details",
+            "concepts/mev-commit-chain/differences-between-ethereum-and-mev-commit-chain",
+            "concepts/mev-commit-chain/bridging-details"
           ]
         },
-        "concepts/bridging-details",
+        "concepts/rewards-and-slashing",
         "concepts/oracle",
-        {
-          "group": "Rewards",
-          "pages": [
-            "concepts/rewards/introduction",
-            "concepts/rewards/slashing-rules"
-          ]
-        }
+        "concepts/validator-considerations"
       ]
     },
     {
       "group": "Developers",
       "pages": [
+	    "developers/testnet",
+        "developers/system-requirements",
+        "developers/provider-api",
+        "developers/bidder-api",
+		"developers/bidder-deposit",
+		"developers/tools-for-bid-submission",
+		"developers/stake-validator-keys-manually",
         "developers/contracts",
         "developers/debugging",
-        "developers/key-management",
-        "developers/security-best-practices",
         "developers/manual-start-mev-commit",
         "developers/run-mev-commit-chain-node"
-      ]
-    },
-    {
-      "group": "Reference",
-      "pages": [
-        "reference/bid-commands",
-        "reference/provider-and-bidder-interaction-via-apis",
-        "reference/system-requirements",
-        "reference/provider-attribution-methodology",
-        "reference/run-mev-commit",
-        "reference/cryptographic-stack",
-        "reference/tutorials"
       ]
     },
     {
@@ -162,7 +133,7 @@
   ],
   "footerSocials": {
     "twitter": "https://twitter.com/primev_xyz",
-    "github": "https://github.com/primevprotocol/mev-commit",
+    "github": "https://github.com/primev/mev-commit",
     "linkedin": "https://www.linkedin.com/company/primevxyz/"
   }
 }
