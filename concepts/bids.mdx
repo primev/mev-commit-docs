@@ -7,6 +7,8 @@ The bid payload sent to the internal mev-commit API is as follows:
 | `txn_hash`      | Array of transaction hashes as strings |
 | `bid_amt`       | Bid amount in wei |
 | `block_number`  | Block number targeted for bid inclusion |
+| `decayStartTimestamp` | Start timestamp for bid decay |
+| `decayEndTimestamp` | End timestamp for bid decay |
 
 
 ```json Example bid
