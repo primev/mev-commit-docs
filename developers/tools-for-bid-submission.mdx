@@ -10,7 +10,7 @@ We recommend leveraging the Go RPC client or alternatively using the REST API be
 For Go developers, leveraging the official Go RPC client is the recommended approach. Start by installing the mev-commit package:
 
 ```shell ❯_ terminal
-go get github.com/primev/mev-commit
+go install github.com/primev/mev-commit@latest
 ```
 
 Then, incorporate the generated client into your Go application as follows:
@@ -72,7 +72,7 @@ Utilize the provided protobuf files to generate a client in your preferred progr
 ```shell ❯_ structure
 curl -X POST http://localhost:13523/v1/bidder/bid \
 -d '{
-  "txHash": <the hash of the transaction>,
+  "txHashes": [<the hash of the transaction>],
   "amount": <amount in wei>,
   "blockNumber": <blocknumber>
   "decayStartTimestamp": <timestamp>,
@@ -83,7 +83,7 @@ curl -X POST http://localhost:13523/v1/bidder/bid \
 ```shell ❯_ example
 curl -X POST http://localhost:13523/v1/bidder/bid \
 -d '{
-  "txHash": "91a89B633194c0D86C539A1A5B14DCCacfD47094",
+  "txHashes": ["91a89B633194c0D86C539A1A5B14DCCacfD47094"],
   "amount": 10000000000000000,
   "blockNumber": 4123456,
   "decayStartTimestamp": 1716935571901,
