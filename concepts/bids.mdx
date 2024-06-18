@@ -7,6 +7,8 @@ The bid payload sent to the internal mev-commit API is as follows:
 | `txn_hash`      | Array of transaction hashes as strings |
 | `bid_amt`       | Bid amount in wei |
 | `block_number`  | Block number targeted for bid inclusion |
+| `decayStartTimestamp` | Start timestamp for bid decay |
+| `decayEndTimestamp` | End timestamp for bid decay |
 
 
 ```json Example bid
@@ -15,25 +17,27 @@ The bid payload sent to the internal mev-commit API is as follows:
     "txHashes": ["0549fc7c57fffbdbfb2cf9d5e0de165fc68dadb5c27c42fdad0bdf506f4eacae", "0549fc7c57fffbdbfb2cf9d5e0de165fc68dadb5c27c42fdad0bdf506f4eacaf","0549fc7c57fffbdbfb2cf9d5e0de165fc68dadb5c27c42fdad0bdf506f4effff"],
     "amount": "100040",
     "blockNumber": 133459,
-    "decayStartTimestamp": 1713804918616,
-    "decayEndTimestamp": 1713899918616
-
+    "decayStartTimestamp": 1716935571901,
+    "decayEndTimestamp": 1716935572901
 }
 ```
 
 The final bid structure includes a hash and signature that is auto-constructed by your mev-commit bidder node and looks as follows.
 
-```bash
+```json
 {
    "txn_hash":"0549fc7c57fffbdbfb2cf9d5e0de165fc68dadb5c27c42fdad0bdf506f4eacae,0549fc7c57fffbdbfb2cf9d5e0de165fc68dadb5c27c42fdad0bdf506f4eacaf,0549fc7c57fffbdbfb2cf9d5e0de165fc68dadb5c27c42fdad0bdf506f4effff",
    "bid_amt":277610,
    "block_number":2703,
-   "decayStartTimestamp": 1713804918616,
-   "decayEndTimestamp": 1713899918616,
-   "bid_digest":"uU2p20f5KmehWqpuY1u+CbhcS8jNwdQAJQe2dh0Vnrk=",
-   "bid_signature":"nY6jYsGPxj6LVlSVQJbZcxvmRrw8Ym5rqOL1x0W/xPlJGBaF/ZzzjkxiioY/MDiRGvlflSWeoT0fh3aIJiJxAhw="
+   "digest":"uU2p20f5KmehWqpuY1u+CbhcS8jNwdQAJQe2dh0Vnrk=",
+   "signature":"nY6jYsGPxj6LVlSVQJbZcxvmRrw8Ym5rqOL1x0W/xPlJGBaF/ZzzjkxiioY/MDiRGvlflSWeoT0fh3aIJiJxAhw=",
+   "decay_start_timestamp":1716935571901,
+   "decay_end_timestamp": 1716935572901,
+   "nike_public_key": "04c631d017981efdc0c319b475de36389a10ede86fbbc9adcf573844a858ce8ddcddb41306eb9c34ec4ee9bc0234f7e30684bf389142437166d407e47974d5cbf7"
 }
 ```
+
+Note that the deposit amount a bidder has set needs to be 10 times higher than the bid_amt in the bid. We will be introducing a deposit mechanism in the next testnet milestone.
 
 ## Details on Bid Structure
 
@@ -54,3 +58,10 @@ The `decayStartTimestamp` and `decayEndTimestamp` allow the bidder to set the ra
  
 You can find more details about the purpose and internal workings of the decay mechanism under the [Bid Decay Page](/concepts/bid-decay-mechanism).
 
+### Details on Encrypted Bid Structure
+The bid structure is encrypted using an AES key, which the bidder P2P node generates at the start, and is then sent to the provider.
+```json
+{
+    "ciphertext": "5750d8af6296296f1147f5e11f47f253f376dea3fd5c2760cd82bd82a7066a8fe1c84f48a4e738d1df7c0e64f930c6b0b642800156e453a501c8b993951fcb50fe0b9fce4a2046838f499317a6018eb59abd5e84dbe3b7e296d4e0e70ef3bb221af7afe341908dbd02e8c91b4eff935b2697208f51ccacf5fe744c199afca687d85850a2e12a75433510dccda9258612348c586e971cc521486806ea25ec94d5fa7038beda3f532970e7b06198deef96677af3a6889c84d657585a9eefd224961f87a3353ad4ede4a7368e2e5bc9571d320a8a3be0f1e08e769f9bb2da6fb76c81cd"
+}
+```

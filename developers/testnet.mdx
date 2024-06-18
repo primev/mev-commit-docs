@@ -20,7 +20,7 @@ Live on Holesky Testnet, mev-commit allows bidders and providers to engage in ex
 
 ### **Contract Addresses**
 
-import { BidderRegistryAddress, ProviderRegistryAddress, PreConfCommitmentStoreAddress, OracleAddress, WhitelistAddress } from '/snippets/testnet-addresses.mdx';
+import { BidderRegistryAddress, ProviderRegistryAddress, PreConfCommitmentStoreAddress, OracleAddress, WhitelistAddress, BlockTrackerAddress } from '/snippets/testnet-addresses.mdx';
 
 <table>
   <thead>
@@ -47,6 +47,10 @@ import { BidderRegistryAddress, ProviderRegistryAddress, PreConfCommitmentStoreA
       <td>{OracleAddress}</td>
     </tr>
     <tr>
+      <td>BlockTracker</td>
+      <td>{BlockTrackerAddress}</td>
+    </tr>
+    <tr>
       <td>Whitelist</td>
       <td>{WhitelistAddress}</td>
     </tr>
@@ -64,10 +68,6 @@ Primev will maintain a testnet consisting of the mev-commit chain, oracle servic
 ## Differences Between the Testnet and Mainnet Environments
 
 Testnet bridging ether to/from Holesky, whereas mainnet mev-commit chain will bridge using mainnet ether. Commitments are also written to the settlement chain in plaintext, whereas mainnnet will include private commitments.
-
-## Limitations of the Testnet
-
-Bids aren't encrypted on the testnet yet, meaning all exchanges are publicly visible. There is also no differentiator between a timely or a late commitment as of now. Both of these will change with our upcoming testnet milestone.
 
 ## How can users provide feedback or report issues encountered on the testnet?
 

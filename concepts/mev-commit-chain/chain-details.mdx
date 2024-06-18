@@ -38,6 +38,7 @@ Currently deployed contracts are designed as follows:
 - A preconfirmation contract allows preconfirmation commitments to be stored and tracked on-chain.
 - Two separate registry contracts exist to manage bidders and providers, both parties must stake ETH to participate. Rewards and/or slashing are managed by these contracts.
 - An oracle contract receives L1 payloads from the oracle service. It currently operates by checking confirmed Holesky blocks, and will transition to Mainnet as mev-commit migrates to Mainnet.
+- An block tracker contract which designed to track Ethereum blocks and their respective winners.
 - A whitelist contract allows certain other contracts to mint/burn native ether as part of bridging with L1.
 
 ## **Oracle service**

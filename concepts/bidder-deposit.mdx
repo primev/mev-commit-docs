@@ -1,0 +1,49 @@
+---
+title: Understanding bidder deposit rules
+sidebarTitle: Bidder Deposit
+---
+
+A deposit is made by a bidder to place bids on the mev-commit network. The deposit ensures that the bidder has a minimum amount of funds to place bids. As bids are posted privately, providers cannot determine in advance if a bidder has sufficient balance to cover a bid. To address this, we require bidders to make a deposit at the beginning of a round that will cover all bids they plan to post for that round. Providers should ensure that bids from the same bidder do not exceed the amount deposited.
+
+It is important to note that if a bidder deposits, for example, 1 ETH in a round, they can post bids totaling 1 ETH for each provider. This is because only a single provider can post the block to L1, meaning bids made to other providers will not be executed.
+
+After the auction round is over, the remaining funds of the bidder (if any) can be unlocked. The bidder can then withdraw the funds from the deposit.
+
+
+## Minimum Deposit
+At a minimum, a bidder should deposit 10 times the amount for the window. The window is the number of L1 blocks in the round for which the bidder can post bids. After the window has passed and the commitment is settled, the bidder can withdraw the remaining amount from the deposit.
+
+## Deposit/Withdrawal Flow
+
+<Frame>
+    <img src="/images/bidder-deposit.png" />
+</Frame>
+
+This diagram illustrates the process and timeline of bidding, settlements, and withdrawals within mev-commit system, structured around a series of blocks.
+
+### Diagram Description
+
+#### Timeline of Blocks
+
+- The horizontal axis represents a sequence of blockchain blocks.
+- Blocks are labeled as `n-1`, `n`, and `n+1`, indicating their position relative to the current block `n`.
+
+#### Current Window
+
+- The "Current Window" is the interval within which bidding occurs.
+- The window extends from the current block to a point two windows earlier (`Current Block - 2 * window`).
+
+#### Bidding Phase
+
+- Bidding occurs in the current window, starting from the current block `n` and extending into the future blocks (`n+1`, etc.).
+- The arrow labeled "Bidding" points to the right, indicating that bidding continues into future blocks.
+
+#### Settlements Phase
+
+- Settlements happen after the bidding window closes.
+- The arrow labeled "Settlements" points downward, showing the transition from the bidding phase to the settlement phase.
+
+#### Withdrawals Phase
+
+- Withdrawals occur after settlements are completed.
+- The arrow labeled "Withdrawals" points to the left, indicating the final phase where bidders can withdraw their remaining funds.

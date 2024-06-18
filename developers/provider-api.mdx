@@ -16,7 +16,7 @@ The Provider API is implemented using the gRPC framework, supporting two primary
 
 ### **RPC API Details**
 
-The protobuf file is available in the [repository](https://github.com/primev/mev-commit/blob/v0.1.2-rc4/rpc/providerapi/v1/providerapi.proto).
+The protobuf file is available in the [repository](https://github.com/primev/mev-commit/blob/main/p2p/rpc/providerapi/v1/providerapi.proto).
 The Go client has already been generated in the repository. To generate the RPC client for other languages, please follow the instructions
 in the [gRPC documentation](https://grpc.io/docs/languages/).
 
@@ -35,11 +35,11 @@ rpc SendProcessedBids(stream BidResponse) returns (EmptyMessage) {}
 **Message Structures**
 
 ```protobuf
-message Bid {  string txn_hash = 1;  int64 bid_amt = 2;  int64 block_number = 3;  bytes bid_hash = 4;}; message BidResponse {  bytes bid_hash = 1;  enum Status {    STATUS_UNSPECIFIED = 0;    STATUS_ACCEPTED = 1;    STATUS_REJECTED = 2;  }  Status status = 2;};
+message Bid {  string tx_hashes = 1;  string bid_amount = 2;  int64 block_number = 3;  bytes bid_digest = 4; int64 decay_start_timestamp; int64 decay_end_timestamp;}; message BidResponse {  bytes bid_digest = 1;  enum Status {    STATUS_UNSPECIFIED = 0;    STATUS_ACCEPTED = 1;    STATUS_REJECTED = 2;  }  Status status = 2; int64 dispatch_timestamp;};
 ```
 
 ### **HTTP API**
 
 The same API is also available on the HTTP port configured on the node. Please review the [API docs](/api-reference/provider/receivebids) to understand the usage.
 
-An [example client](https://github.com/primev/mev-commit/tree/main/examples/provideremulator) is implemented in the repository. This example showcases how to integrate a client into the provider's operational framework. While the sample client automatically accepts every incoming bid, providers should incorporate their own decision-making logic to evaluate and respond to these bids.
+An [example client](https://github.com/primev/mev-commit/tree/main/p2p/examples/provideremulator) is implemented in the repository. This example showcases how to integrate a client into the provider's operational framework. While the sample client automatically accepts every incoming bid, providers should incorporate their own decision-making logic to evaluate and respond to these bids.

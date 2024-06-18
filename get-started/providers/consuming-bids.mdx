@@ -16,8 +16,8 @@ Providers that have registered in the mev-commit registry will automatically sta
   2. Incorporate the generated client into your Go application as follows:
 
   ```go
-  import providerapiv1 "github.com/primev/mev-commit/gen/go/rpc/providerapi/v1"
-
+  import providerapiv1 "github.com/primev/mev-commit/p2p/gen/go/providerapi/v1"
+  
   conn, err = grpc.DialContext(
   	context.Background(),
   	"localhost:13524",
