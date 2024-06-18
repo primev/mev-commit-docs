@@ -37,13 +37,6 @@ i.e. a secure multisig governing the protocol treasury doesn't need to submit re
 
 ## Bridge Contracts
 
-### Whitelist Contract
-
-Since multiple bridges will connect to the mev-commit chain, only whitelisted (approved/active) bridging contracts should be able to mint/burn native ether.
-
-- **Managing Bridging Permissions**: A whitelist contract on the mev-commit chain manages addresses authorized to mint or burn sidechain ether as part of the bridging process. This contract is crucial for integrating various bridges and maintaining control over which contracts can perform critical functions.
-- **Mint/Burn Functionality**: The whitelist contract on the mev-commit chain is responsible for minting and burning native ether corresponding to bridging actions. This ensures that ether on the mev-commit chain accurately reflects locked collateral on L1.
-
 ### L1Gateway and SettlementGateway Contracts
 
 To bridge from L1 to the mev-commit chain, a user EOA first calls the `InitiateTransfer` function on the `L1Gateway` contract. This function accepts two parameters, a recipient account to receive funds on the counterparty chain, and an amount to transfer. The user must send (lock) the appropriate amount of ether in the `L1Gateway` contract as a part of the transaction that calls this function.
