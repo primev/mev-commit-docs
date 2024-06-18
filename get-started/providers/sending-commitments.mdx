@@ -32,7 +32,7 @@ To integrate bid processing in your system using the Provider API, follow these 
 
 #### 1. Implement the gRPC Service
 
-Implement the Provider service as outlined in the [providerapi.proto](https://github.com/primev/mev-commit/blob/main/rpc/providerapi/v1/providerapi.proto#L20). This requires setting up a server that can manage RPC methods, with a particular emphasis on the reception of bids and response of commitment authorizations.
+Implement the Provider service as outlined in the [providerapi.proto](https://github.com/primev/mev-commit/blob/main/p2p/rpc/providerapi/v1/providerapi.proto#L20). This requires setting up a server that can manage RPC methods, with a particular emphasis on the reception of bids and response of commitment authorizations.
 
 #### 2. Receive Bids
 
@@ -53,6 +53,8 @@ message Bid {
   string bid_amount = 2;
   int64 block_number = 3;
   bytes bid_digest = 4;
+  int64 decay_start_timestamp = 5;
+  int64 decay_end_timestamp = 6;
 };
 ```
 
@@ -97,6 +99,7 @@ message BidResponse {
         2
       ]
   }];
+  int64 dispatch_timestamp = 3;
 };
 ```
 
@@ -107,6 +110,7 @@ It contains the following fields:
    STATUS_UNSPECIFIED: The default value, indicating that the status has not been set or is unknown.
    STATUS_ACCEPTED: Indicates that the bid has been accepted by the provider.
    STATUS_REJECTED: Indicates that the bid has been rejected by the provider.
+3. dispatch_timestamp: Timestamp (int64 type) at which the commitment is accepted by provider and is used to compute the expected revenue from the preconfirmation.
   </Accordion>
 
 #### 5. Server Setup
@@ -119,8 +123,8 @@ Example Server Implementation in Go:
 import (
 	...
 
-	"github.com/primev/mev-commit/examples/provideremulator/client"
-	providerapiv1 "github.com/primev/mev-commit/gen/go/providerapi/v1"
+	"github.com/primev/mev-commit/p2p/examples/provideremulator/client"
+	providerapiv1 "github.com/primev/mev-commit/p2p/gen/go/providerapi/v1"
 )
 
 func ...() {
@@ -140,6 +144,7 @@ func ...() {
 			_ := providerClient.SendBidResponse(context.Background(), &providerapiv1.BidResponse{
 				BidDigest: bid.BidDigest,
 				Status:    providerapiv1.BidResponse_STATUS_ACCEPTED, // decide here if you want to accept or reject
+        DispatchTimestamp: time.Now().Unix(),
 			})
 		}
 	}
