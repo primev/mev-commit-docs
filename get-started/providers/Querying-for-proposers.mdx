@@ -6,7 +6,7 @@ sidebarTitle: Querying for Proposers
 
 ## Set of Opted-in Validators
 
-The validator registry contract maintains a set of validators who are opted in to the mev-commit protocol. This is achieved by requiring those validators to stake ether with the registry on behalf of their BLS public key.
+The validator registry contract deployed on Holesky maintains a set of validators who are opted in to the mev-commit protocol. This is achieved by requiring those validators to stake ether with the registry on behalf of their BLS public key.
 
 Anyone can query the full set of validator pubkeys who have opted in to mev-commit by calling the `getNumberOfStakedValidators` function in conjunction with `getStakedValidators` on the validator registry contract. See the following signatures:
 
@@ -30,7 +30,7 @@ The returned `stakedValsetVersion` is updated on-chain anytime the set of opted-
 
 That is, if all queries in a batch return the same `stakedValsetVersion`, the aggregate staked validator set is valid. Otherwise handling is left to the user (who will likely retry the batch query).
 
-Note geth supports [batched RPC requests](https://geth.ethereum.org/docs/interacting-with-geth/rpc/batch) which can be used to speed up this process.
+Try [batched RPC requests](https://geth.ethereum.org/docs/interacting-with-geth/rpc/batch) to speed up this process.
 
 ### Golang example
 
@@ -51,7 +51,9 @@ cd validator-registry/cmd/query
 go run main.go
 ```
 
-This script can act as a starting point for integrating validator registry queries into your own tooling. The contract's go binding is available [here](https://github.com/primev/validator-registry/blob/main/pkg/validatorregistry/ValidatorRegistry.go).
+This script can act as a starting point for integrating validator registry queries into your own tooling. The contract's go binding is available [here](https://github.com/primev/validator-registry/blob/main/pkg/validatorregistryv1/ValidatorRegistryV1.go).
+
+_Note the validator registry was recently migrated from the mev-commit chain to Holesky. When querying, use [this contract](https://holesky.etherscan.io/address/0x5d4fC7B5Aeea4CF4F0Ca6Be09A2F5AaDAd2F2803)._
 
 ## Upcoming Proposers
 
