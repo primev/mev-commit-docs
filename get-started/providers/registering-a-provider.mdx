@@ -29,24 +29,24 @@ You can use the provider API to stake and check your stake balance.
   }
   ```
 
-  - Get the account address of your node
+- Get the account address of your node
 
-    ```shell
-    > curl localhost:13523/topology | jq
-    {
-      "self": {
-        "Addresses": [
-          "/ip4/127.0.0.1/tcp/13522",
-          "/ip4/172.29.0.4/tcp/13522"
-        ],
-        "Ethereum Address": "0xB9286CB4782E43A202BfD426AbB72c8cb34f886c",
-        "Peer Type": "provider",
-        "Underlay": "16Uiu2HAmDWZb4DxZQkS9yseXNukBFe6MhZdimSKuZcHFeJrF3jC9"
-      },
-      "connected_peers": null,
-      "blocked_peers": null
-    }
-    ```
+  ```shell
+  > curl localhost:13523/topology | jq
+  {
+    "self": {
+      "Addresses": [
+        "/ip4/127.0.0.1/tcp/13522",
+        "/ip4/172.29.0.4/tcp/13522"
+      ],
+      "Ethereum Address": "0xB9286CB4782E43A202BfD426AbB72c8cb34f886c",
+      "Peer Type": "provider",
+      "Underlay": "16Uiu2HAmDWZb4DxZQkS9yseXNukBFe6MhZdimSKuZcHFeJrF3jC9"
+    },
+    "connected_peers": null,
+    "blocked_peers": null
+  }
+  ```
 
 - Check the minimum amount that can be staked, and consider staking more than the minimum. Bidders will only connect to providers which have stake higher than this minimum. The larger a provider's stake, the greater the credibility behind that provider's commitments. The amount is set in `wei`.
 
