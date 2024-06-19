@@ -6,7 +6,7 @@ The bid payload sent to the internal mev-commit API is as follows:
 |---------------|-------------------------------------------------------|
 | `txHashes`      | Array of transaction hashes as strings |
 | `amount`       | Bid amount in wei |
-| `blockNumber`  | Block number targeted for bid inclusion |
+| `blockNumber`  | L1 block number targeted for bid inclusion |
 | `decayStartTimestamp` | Start timestamp for bid decay (in Unix milliseconds) |
 | `decayEndTimestamp` | End timestamp for bid decay (in Unix milliseconds) |
 
@@ -44,7 +44,7 @@ Note that the deposit amount a bidder has set needs to be 10 times higher than t
 | -------- | ------------------------------------- |
 | txnHashes | Array of transaction hashes represented as strings |
 | amount  | Amount to bid in wei                  |
-| blockNumber | Target block to have bid included |
+| blockNumber | L1 target block to have bid included |
 | decayStartTimestamp | Start timestamp for bid decay (in Unix milliseconds) |
 | decayEndTimestamp | End timestamp for bid decay (in Unix milliseconds) |
 | bidDigest | Hash of the bid  |
