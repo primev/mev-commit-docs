@@ -27,7 +27,7 @@ curl -X POST http://localhost:13523/v1/bidder/deposit/1000000000000000000
 This tops up your account with `1000000000000000000 wei` (1 ETH) for the current [window](https://docs.primev.xyz/concepts/bidder-deposit), ensuring you're all set to send bids!
 The window is the number of L1 blocks in the round for which the bidder can post bids.
 
-If you want to deposit funds for a specific block number, which will be automatically converted to the corresponding window, use the following command:
+If you want to deposit funds for a specific L1 block number, which will be automatically converted to the corresponding window, use the following command:
 
 ```shell ❯_ terminal
 curl -X POST "http://localhost:13523/v1/bidder/deposit/1000000000000000000?block_number=<block_number>"
@@ -42,7 +42,7 @@ curl -X POST http://localhost:13523/v1/bidder/bid \
 -d '{
     "txHashes": ["0549fc7c57fffbdbfb2cf9d5e0de165fc68dadb5c27c42fdad0bdf506f4eacae"],
     "amount": "<amount in wei>",
-    "blockNumber": <integer blocknumber>,
+    "blockNumber": <integer l1blocknumber>,
     "decayStartTimestamp": <timestamp>,
     "decayEndTimestamp": <timestamp>
 }'
@@ -55,7 +55,7 @@ curl -X POST http://localhost:13523/v1/bidder/bid \
 -d '{
     "txHashes": ["0549fc7c57fffbdbfb2cf9d5e0de165fc68dadb5c27c42fdad0bdf506f4eacae", 22145ba31366d29a893ae3ffbc95c36c06e8819a289ac588594c9512d0a99810, 7e1506f266bc86c81ae46018053a274a3bd96a9eff17392930707bf8fa5ff6be],
     "amount": "<amount in wei>",
-    "blockNumber": <integer blocknumber>,
+    "blockNumber": <integer l1blocknumber>,
     "decayStartTimestamp": <timestamp>,
     "decayEndTimestamp": <timestamp>
 }'
@@ -65,4 +65,4 @@ curl -X POST http://localhost:13523/v1/bidder/bid \
 
 🎉 Congrats, you just sent your first L1 preconfirmation bid! You should be receiving commmitments near instantly.
 
-Make sure your bid amount is sufficiently high for the commitment you're requesting, and your target block number is accurate. It's up to the providers to commit to your bid, so try to ensure a commitment is feasible to your bid by its construction.
+Make sure your bid amount is sufficiently high for the commitment you're requesting, and your target L1 block number is accurate. It's up to the providers to commit to your bid, so try to ensure a commitment is feasible to your bid by its construction.
