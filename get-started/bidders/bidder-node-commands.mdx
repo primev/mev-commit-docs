@@ -5,12 +5,13 @@ sidebarTitle: Bidder Node Commands
 
 ## Interacting with the Bidder Node
 
-First, you can set the local environment variables to set your `KEY` and `ADDRESS`. Change directories to the one with your key (this should be the same folder as mev-commit). If you used the [Quickstart](/get-started/quickstart) command, your folder would be `$HOME/.mev-commit`.
+<Note>Ensure you have completed the [Quickstart](/get-started/quickstart) step in a separate terminal. This will set up your environment and place your key in the `$HOME/.mev-commit` directory, along with running the required bidder node.</Note>
 
-Setting these will make running the commands to interact with your account easier.
+Now that you've made sure we have a bidder node running, we can interact with it using the following commands:
 
 ```shell ❯_ terminal
-export KEY=$(cat key)
+cd $HOME/.mev-commit;
+export KEY=$(cat key);
 export ADDRESS=$(cast wallet address --private-key 0x$(cat key))
 ```
 
