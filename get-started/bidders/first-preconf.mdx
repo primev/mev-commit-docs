@@ -47,6 +47,18 @@ curl -X POST http://localhost:13523/v1/bidder/bid \
     "decayEndTimestamp": <timestamp>
 }'
 ```
+    <Accordion title="Detailed Bid Structure">
+
+        | Key           | Description                                           |
+        |---------------|-------------------------------------------------------|
+        | `txHashes`      | Array of transaction hashes as strings |
+        | `amount`       | Bid amount in wei |
+        | `blockNumber`  | L1 block number targeted for bid inclusion |
+        | `decayStartTimestamp` | Start timestamp for bid decay (in Unix milliseconds) |
+        | `decayEndTimestamp` | End timestamp for bid decay (in Unix milliseconds) |  
+
+        If you want to learn more about Bids and Bid Structure visit [Bids](/concepts/bids) section.
+    </Accordion>
 
 To include bundles of transactions, add them in the atomic sequence in which they exist in the bundle, as follows:
 
