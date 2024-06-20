@@ -66,6 +66,7 @@
         "concepts/bids",
 	"concepts/bid-decay-mechanism",
         "concepts/commitments",
+        "concepts/bundles",
         {
           "group": "mev-commit Chain",
           "pages": [
