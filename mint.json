@@ -66,9 +66,9 @@
 	{
           "group": "Bids",
           "pages": [
-            "concepts/mev-commit-chain/bid-structure",
-            "concepts/mev-commit-chain/bidder-deposit",
-            "concepts/mev-commit-chain/bid-decay-mechanism"
+            "concepts/bids/bid-structure",
+            "concepts/bids/bidder-deposit",
+            "concepts/bids/bid-decay-mechanism"
           ]
         },
         {
