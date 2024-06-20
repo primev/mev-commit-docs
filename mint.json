@@ -62,10 +62,15 @@
         "concepts/actors",
         "concepts/network-overview",
         "concepts/privacy",
-        "concepts/bidder-deposit",
-        "concepts/bids",
-	"concepts/bid-decay-mechanism",
         "concepts/commitments",
+	{
+          "group": "Bids",
+          "pages": [
+            "concepts/mev-commit-chain/bid-structure",
+            "concepts/mev-commit-chain/bidder-deposit",
+            "concepts/mev-commit-chain/bid-decay-mechanism"
+          ]
+        },
         {
           "group": "mev-commit Chain",
           "pages": [
