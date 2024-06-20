@@ -9,8 +9,17 @@ It is important to note that if a bidder deposits, for example, 1 ETH in a round
 
 After the auction round is over, the remaining funds of the bidder (if any) can be unlocked. The bidder can then withdraw the funds from the deposit.
 
+## Current window number
+
+Here is the formula for calculating the window number, where `blocksPerWindow` is equal to 10 and `blockNumber` is the L1 block number for which the bidder wants to bid:
+
+$$
+\frac{{\text{{blockNumber}} - 1}}{{\text{{blocksPerWindow}}}} + 1
+$$
+
 
 ## Minimum Deposit
+
 At a minimum, a bidder should deposit 10 times the amount for the window. The window is the number of L1 blocks in the round for which the bidder can post bids, and there are 10 L1 blocks in the window. After the window has passed and the commitment is settled, the bidder can withdraw the remaining amount from the deposit.
 
 ## Deposit/Withdrawal Flow
@@ -19,19 +28,19 @@ At a minimum, a bidder should deposit 10 times the amount for the window. The wi
     <img src="/images/bidder-deposit.png" />
 </Frame>
 
-This diagram illustrates the process and timeline of bidding, settlements, and withdrawals within mev-commit system, structured around a series of blocks.
+This diagram illustrates the process and timeline of bidding, settlements, and withdrawals within mev-commit system, structured around a series of windows.
 
 ### Diagram Description
 
 #### Timeline of Blocks
 
-- The horizontal axis represents a sequence of blockchain blocks.
-- Blocks are labeled as `n-1`, `n`, and `n+1`, indicating their position relative to the current block `n`.
+- The horizontal axis represents a sequence of windows.
+- Windows are labeled as `n-2`, `n-1`, `n` and `n+1`, indicating their position relative to the current window `n`.
 
 #### Current Window
 
 - The "Current Window" is the interval within which bidding occurs.
-- The window extends from the current block to a point two windows earlier (`Current Block - 2 * window`).
+- The window consists of 10 L1 blocks.
 
 #### Bidding Phase
 
