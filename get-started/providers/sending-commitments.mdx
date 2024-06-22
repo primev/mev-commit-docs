@@ -3,15 +3,9 @@ title: Sending Commitments
 sidebarTitle: Sending Commitments
 ---
 
-To send your first commitment, you will need to connect to the mev-commit Testnet.
-This will allow you to consume bids incoming to the network and submit commitments.
-Your first step is to set up a provider node. The following command will allow you to automatically set up a full provider mev-commit node:
+To send your first commitment, you will need to connect to the mev-commit Testnet. This will allow you to consume bids incoming to the network and submit commitments. To do this, you'll want to run an emulator to simulate accepting and rejecting bids. 
 
-```
-curl -L -o launchmevcommit launch.mev-commit.xyz && chmod +x launchmevcommit && ./launchmevcommit --node-type provider
-```
-
-Now you'll want to run an emulator to simulate the accepting and rejecting of bids. You can read more about the internal builder API [here](/api-reference/provider/sendprocessedbids).
+<Tip>You can read more about the internal builder API [here](/api-reference/provider/sendprocessedbids).</Tip>
 
 To get started with the emulator, open a new terminal and run the following command:
 
@@ -30,11 +24,13 @@ We can take a deeper look at how you can add custom logic to decision on the sen
 
 To integrate bid processing in your system using the Provider API, follow these steps to receive bid information and send back processed bids:
 
-#### 1. Implement the gRPC Service
+<Steps>
+<Step title="Implement the gRPC Service">
 
 Implement the Provider service as outlined in the [providerapi.proto](https://github.com/primev/mev-commit/blob/main/p2p/rpc/providerapi/v1/providerapi.proto#L20). This requires setting up a server that can manage RPC methods, with a particular emphasis on the reception of bids and response of commitment authorizations.
+</Step>
 
-#### 2. Receive Bids
+<Step title="Receive Bids">
 
 Utilize the ReceiveBids RPC method to listen for incoming bids from clients. This method streams bid messages to your server.
 The structure of the bid is as follows:
@@ -60,12 +56,12 @@ message Bid {
 
 Below is an image of the flow through which bids would be received through the gRPC API
 ![gRPC Flow for Getting Bids](/images/grpc-flow-getbids.png)
-
-#### 3. Process Bids
+</Step>
+<Step title="Process Bids">
 
 For each received bid, implement your custom logic to validate and process these bids. This could involve checking the bid's validity and feasibility based on orderflow, computing the effective gas price, and deciding whether to accept or reject the bid.
-
-#### 4. Send Processed Bid Responses (Accept/Reject)
+</Step>
+<Step title="Send Processed Bid Responses (Accept/Reject)">
 
 After processing each bid, construct a BidResponse message indicating the outcome. This message should include the bid's digest and a status indicating acceptance or rejection.
 At a high level, to commit to a bid, your code must send a `STATUS_ACCEPTED` with the bid digest specified, and correspondingly `STATUS_REJECTED` to reject the bid.
@@ -112,8 +108,8 @@ It contains the following fields:
    STATUS_REJECTED: Indicates that the bid has been rejected by the provider.
 3. dispatch_timestamp: Timestamp (int64 type) at which the commitment is accepted by provider and is used to compute the expected revenue from the preconfirmation.
   </Accordion>
-
-#### 5. Server Setup
+</Step>
+<Step title="Server Setup">
 
 Deploy your gRPC server on suitable infrastructure, ensuring it's accessible to clients. Configure necessary network settings for security and connectivity.
 Example Server Implementation in Go:
@@ -150,5 +146,6 @@ func ...() {
 	}
 }
 ```
-
-This should help you integrate bid processing into your system, allowing for the reception of bid information and sending back processed bids as commitments.
+</Step>
+</Steps>
+This should help you integrate bid processing into your system, allowing you to receive bid information and send back processed bids as commitments.
