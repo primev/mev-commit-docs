@@ -30,7 +30,14 @@
     {
       "group": "Get Started",
       "pages": [
-        "get-started/introduction",
+	{
+          "group": "Welcome",
+          "pages": [
+            "get-started/welcome/welcome-to-primev",
+            "get-started/welcome/what-is-mev-commit"
+          ],
+          "icon": "sailboat"
+        },
         "get-started/quickstart",
         "get-started/faucet",
         "get-started/validators",
@@ -72,7 +79,7 @@
           ]
         },
         {
-          "group": "mev-commit Chain",
+          "group": "Mev-commit Chain",
           "pages": [
             "concepts/mev-commit-chain/chain-details",
             "concepts/mev-commit-chain/differences-between-ethereum-and-mev-commit-chain",
