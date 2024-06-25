@@ -54,7 +54,7 @@
             "quickstart/providers/Querying-for-proposers"
           ],
           "icon": "network-wired"
-        }
+        },
         "quickstart/validators",
         "quickstart/relays"
       ]
