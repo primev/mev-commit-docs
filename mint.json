@@ -29,26 +29,31 @@
     {
       "group": "Get Started",
       "pages": [
-        "get-started/welcome-to-primev",
-        "get-started/quickstart",
-        "get-started/faucet",
-        "get-started/validators",
-        "get-started/relays",
+        "get-started/welcome-to-primev"
+      ]
+    },
+    {
+      "group": "Quickstart",
+      "pages": [
+        "quickstart/Set-up-mev-commit-node",
+        "quickstart/faucet",
+        "quickstart/validators",
+        "quickstart/relays",
         {
           "group": "Bidders",
           "pages": [
-            "get-started/bidders/first-preconf",
-            "get-started/bidders/bidder-node-commands"
+            "quickstart/bidders/first-preconf",
+            "quickstart/bidders/bidder-node-commands"
           ],
           "icon": "user-bounty-hunter"
         },
         {
           "group": "Providers",
           "pages": [
-            "get-started/providers/registering-a-provider",
-            "get-started/providers/consuming-bids",
-            "get-started/providers/sending-commitments",
-            "get-started/providers/Querying-for-proposers"
+            "quickstart/providers/registering-a-provider",
+            "quickstart/providers/consuming-bids",
+            "quickstart/providers/sending-commitments",
+            "quickstart/providers/Querying-for-proposers"
           ],
           "icon": "network-wired"
         }
