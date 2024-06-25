@@ -1,18 +1,18 @@
 ---
 title: Bid Decay Mechanism
 sidebarTitle: Bid Decay
-description: "Learn about how bids decay in value after they are issued."
+description: "Learn about how bids decay in value after they are issued"
 ---
 
 In the mev-commit auction for transaction bundles, bidders submit their bids to providers and their goal is to receive a confirmation that the bundle they bid for will be included in the next block produced by the provider. Bidders aim to receive confirmation for their bundle as soon as possible since early confirmations tend to be more valuable to the bidders. However, providers may want to wait until the last moment to issue confirmations in order to build the most valuable block possible without missing out on any late bids.
 
 Therefore, it's essential to have a mechanism that encourages providers to confirm bids as early as possible. This is where a bid decay mechanism comes into play, which reduces the value of a bid based on the time elapsed since it was issued.
 
-## Mechanism Description:
+## Mechanism Description
+
+Every bid has two timestamps attached to it: **(1)** a timestamp indicating the exact time of dispatch of the bid, and **(2)** an expiry timestamp, marking the moment when the decay for this bid reaches 100%—essentially, the point in time beyond which the bidder is unwilling to pay anything to a provider for a commitment. 
+
 <Note>The timestamp is specified in Unix milliseconds. For example, a timestamp of `1633046400000` represents `October 1, 2021 00:00:00 GMT`.</Note>
-
-
-Every bid has two timestamps attached to it: (1) a timestamp indicating the exact time of dispatch of the bid, and (2) an expiry timestamp, marking the moment when the decay for this bid reaches 100%—essentially, the point in time beyond which the bidder is unwilling to pay anything to a provider for a commitment. 
 
 When a provider decides to commit to the bid, they must issue a commitment and also assign a "commitment timestamp" to it. This commitment is then sent to the mev-commit chain for inclusion. The mev-commit chain will include the commitment into the chain, however the commitment will only be considered valid if the commitment timestamp supplied by the provider is not "too old" in comparison to the block timestamp where the commitment was included, or more formally, their difference is within some time interval $\Delta$.
 
@@ -42,7 +42,7 @@ In many network-based systems, including our decay mechanism, faster connections
 
 Our decay mechanism design achieves the following properties:
 
-**1. Predictability of Decay:** the providers can *accurately compute* how much their decay will be for a commitment.
+**1. Predictability of Decay:** The providers can *accurately compute* how much their decay will be for a commitment.
 
 **2. Public Verifiability of Decay**: The decay mechanism offers public verifiability, as the decay amount can be calculated using the public timestamps from the bid and the commitment.
 

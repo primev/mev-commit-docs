@@ -9,6 +9,18 @@ Mev-commit is a peer-to-peer (P2P) networking platform designed to facilitate re
   <img src="/images/mev-commit.png" />
 </Frame>
 
+## What are Bids?
+
+Within mev-commit, bids act as the foundational requests placed by bidders, signaling their need for specific transaction execution services. This process occurs within a peer-to-peer networking setup to streamline direct negotiations with execution service providers like block builders and rollup sequencers. Each bid, marked by the unique identifier of a transaction hash, enables a straightforward mechanism for providers across the network to recognize and respond to these requests.&#x20;
+
+Bids essentially convey a user's readiness to pay a certain fee for the execution of their transaction, proposing a price designed to motivate execution providers to give priority to their transaction.&#x20;
+
+## What are Commitments?
+
+Commitments within mev-commit represent the execution providers' affirmative responses to bids, confirming their agreement to execute the specified transactions at the proposed prices within designated blocks. These commitments are conveyed through cryptographic proofs or digital signatures, signifying the providers' acceptance of a bid.
+
+Commitments serve as the critical link that aligns the supply and demand dynamics of the network, facilitating an effective and streamlined process for transaction execution.&#x20;
+
 ## Actors
 
 Network actors' roles are defined based on their interactions with other ecosystem actors. The diagram below depicts a given mev actor's relative placement compared to others:
@@ -17,48 +29,24 @@ Network actors' roles are defined based on their interactions with other ecosyst
   <img src="/images/supply-chain.png" />
 </Frame>
 
-For example, a Searcher can be a bidder for a Sequencer; but that same Sequencer can be a bidder for a block builder. Thus it's best to think of actors' roles in mev-commit similar to their roles in the mev pipeline. To the left of the diagram are bidders, and to the right of the diagram are execution providers who can issue commitments against these bids.
+For example, a Searcher can be a bidder for a Sequencer, but that same Sequencer can be a bidder for a block builder. Thus, it's best to think of actors' roles in mev-commit as similar to their roles in the mev pipeline. To the left of the diagram are bidders, and to the right of the diagram are execution providers who can issue commitments against these bids.
 
 Under the Proposer Builder Separation (PBS) model, information only moves to the right among actors in the mev pipeline. With mev-commit, credible commitments for execution and bits of information flow from providers back to bidders, enabling them to effectively utilize block space. This two-way exchange of information and commitments within the mev-commit system enhances the dynamic utilization and management of block space, supporting a more interactive and responsive ecosystem.
 
 ### **Providers**
 
-Providers in the mev ecosystem include **Block Builders, Relays, Proposers, Rollup Sequencers, and even Solvers**. They are crucial for the delivery of commitments through their role in respective ecosystem or their sophistication. These providers receive bids and deliver transaction inclusion and execution, ensuring the efficient and effective use of block space.
+Providers in the mev ecosystem include **Block Builders, Relays, Proposers, Rollup Sequencers, and even Solvers**. They are crucial for the delivery of commitments through their role in the respective ecosystem or their sophistication. These providers receive bids and deliver transaction inclusion and execution, ensuring the efficient and effective use of block space.
 
 ### **Bidders**
 
-Bidders consist of **Searchers, Solvers, Blob Producers, AA Bundlers, Wallets and even End Users**. They bid for execution services, aiming to optimize their transactions within the block space. Their activities are fundamental to maintaining a competitive and efficient environment within the mev pipeline, facilitating a dynamic market for block space utilization.
+Bidders consist of **Searchers, Solvers, Blob Producers, AA Bundlers, Wallets, and even End Users**. They bid for execution services, aiming to optimize their transactions within the block space. Their activities are fundamental to maintaining a competitive and efficient environment within the mev pipeline, facilitating a dynamic market for block space utilization.
 
-For a deep-dive into these roles and their interactions, please visit the [Actors](/concepts/actors) section.
-
-## Bids
-
-Within mev-commit, bids act as the foundational requests placed by bidders, signaling their need for specific transaction execution services. This process occurs within a peer-to-peer networking setup to streamline direct negotiations with execution service providers like block builders and rollup sequencers. Each bid, marked by the unique identifier of a transaction hash, enables a straightforward mechanism for providers across the network to recognize and respond to these requests.&#x20;
-
-Bids essentially convey a user's readiness to pay a certain fee for the execution of their transaction, proposing a price designed to motivate execution providers to give priority to their transaction.&#x20;
-
-## Commitments
-
-Commitments within mev-commit represent the execution providers' affirmative responses to bids, confirming their agreement to execute the specified transactions at the proposed prices within designated blocks. These commitments are conveyed through cryptographic proofs or digital signatures, signifying the providers' acceptance of a bid.
-
-Commitments serve as the critical link that aligns the supply and demand dynamics of the network, facilitating an effective and streamlined process for transaction execution.&#x20;
-
-## mev-commit software components
-
-- [mev-commit p2p client](https://github.com/primev/mev-commit/tree/main/p2p)
-- [mev-commit-geth](https://github.com/primev/mev-commit-geth)
-- [contracts](https://github.com/primev/mev-commit/tree/main/contracts)
-- [mev-commit-oracle](https://github.com/primev/mev-commit/tree/main/oracle)
-- [mev-commit-bridge](https://github.com/primev/mev-commit/tree/main/bridge)
+For a detailed look at these roles and their interactions, please visit the [Actors](/concepts/actors) section.
 
 ## Why mev-commit?
 
 Through our experience developing products for the Ethereum and the broader crypto ecosystem, we’ve learned that users want to interact with networks as a whole as opposed to single actors that represent some percentage of the network, which is challenging to provide in decentralized systems that have goals beyond user needs.
 
-We've created mev-commit to address this and optimized it to solve for coordination inefficiencies across the actors of any blockchain network, which are sure to increase with decentralization and greater transaction complexity. Mev-commit's actor and chain agnostic credible commitment approach ensures that users are not only able to convey their needs to a blockchain network, but receive commitments from the executors of those needs in real time so they can confidently take actions based on their expectation being satisfied or not.
+We've created mev-commit to address this and optimized it to solve coordination inefficiencies across the actors of any blockchain network, which are sure to increase with decentralization and greater transaction complexity. Mev-commit's actor and chain agnostic credible commitment approach ensures that users are not only able to convey their needs to a blockchain network, but receive commitments from the executors of those needs in real time so they can confidently take actions based on their expectation being satisfied or not.
 
 We’re constructing mev-commit to be aligned with the ethos of the crypto ecosystem, specifically the vision being laid out by the Ethereum Foundation, and out of protocol services that supplement that vision such as the current mev pipeline largely introduced by Flashbots. We don’t aim to design a different mev pipeline, but create new avenues for efficiency in solving coordination problems between actors that can be used to have an expectation matching experience when engaging in the existing auctions and mev pipeline. We plan to continue supporting mev-commit’s evolution and adoption according to this mission as the existing landscape shifts and new paradigms are introduced.
-
-## Contribute
-
-Stay updated and engage with Primev through our social platforms. Follow us on [Twitter](https://twitter.com/primev_xyz) for the latest news and updates, and contribute to our open-source journey on [GitHub](https://github.com/primev/).

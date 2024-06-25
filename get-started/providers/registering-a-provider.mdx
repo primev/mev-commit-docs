@@ -5,13 +5,26 @@ sidebarTitle: Registering as a Provider
 
 To register on the mev-commit network, providers need to stake ETH in the provider registry contract. This adds credibility to issued commitments, as stake may be slashed in the event of a broken commitment, such as committing to a preconfirmation bid and not including the relevant transaction in a block.
 
-Once a provider is registered on the network, other nodes will connect to it and the provider node will see bids come in.
+Once a provider is registered on the network, other nodes will connect to it, and the provider node will receive bids.
 
 You can use the provider API to stake and check your stake balance.
 
-- Stake (make sure you've [funded your account on the mev-commit chain](/get-started/faucet) first).
+<Steps>
+  <Step title="Fund Account">
+    Make sure you've [funded your account on the mev-commit chain](/get-started/faucet) first.
+  </Step>
+  <Step title="Check Minimum Stake Amount">
+    Check the minimum amount that can be staked, and consider staking more than the minimum. Bidders will only connect to providers which have stake higher than this minimum. The larger a provider's stake, the greater the credibility behind that provider's commitments. The amount is set in `wei`.
 
-      ```shell
+  ```shell
+  > curl localhost:13523/v1/provider/get_min_stake | jq
+  {
+    "amount": "1000000000000000000"
+  }
+  ```
+  </Step>
+  <Step title="Stake">
+     ```shell
       > curl -X POST localhost:13523/v1/provider/register_stake/10000000000000000000 | jq
       {
         "amount": "10000000000000000000"
@@ -19,6 +32,13 @@ You can use the provider API to stake and check your stake balance.
       ```
 
   Once staked, peer connection logs should appear within a few minutes. You can check the `/topology` endpoint again to verify connected peers.
+
+ 
+  </Step>
+ 
+</Steps>
+
+Other commands that can be used are:
 
 - Check stake balance
 
@@ -48,13 +68,4 @@ You can use the provider API to stake and check your stake balance.
   }
   ```
 
-- Check the minimum amount that can be staked, and consider staking more than the minimum. Bidders will only connect to providers which have stake higher than this minimum. The larger a provider's stake, the greater the credibility behind that provider's commitments. The amount is set in `wei`.
-
-  ```shell
-  > curl localhost:13523/v1/provider/get_min_stake | jq
-  {
-    "amount": "1000000000000000000"
-  }
-  ```
-
-Congrats, your provider node is registered on mev-commit and you're ready to [consume bids](/get-started/providers/consuming-bids).
+ Congrats! Your provider node is registered on mev-commit, and you're ready to [consume bids](/get-started/providers/consuming-bids). 

@@ -3,28 +3,19 @@ title: "Receive your First Preconfirmation"
 sidebarTitle: "My First Preconf"
 ---
 
-## Pre-requisites
-
-Make sure you:
-
-1. Get a [mev-commit Bidder Node up and running](/get-started/quickstart).
-2. [Fund your node](/get-started/faucet) so you have the funds to submit bids.
-
-## Introduction
-
 Once you've funded your bidder node wallet, you're ready to start submitting bids to the network.
 It's crucial to verify that your bidder node is connected to at least one provider node.
 This connectivity can be confirmed via the [localhost:13523/topology](http://localhost:13523/topology) endpoint.
 
-### 💳 Deposit For Bids
-
-Run this command to load your account with funds to start bidding:
+<Steps>
+  <Step title="Deposit For Bids">
+    Run this command to load your account with funds to start bidding:
 
 ```shell ❯_ terminal
 curl -X POST http://localhost:13523/v1/bidder/deposit/1000000000000000000
 ```
 
-This tops up your account with `1000000000000000000 wei` (1 ETH) for the current [window](https://docs.primev.xyz/concepts/bidder-deposit), ensuring you're all set to send bids!
+This tops up your account with `1000000000000000000 wei` (1 ETH) for the current [window](/concepts/bids/bidder-deposit), ensuring you're all set to send bids!
 The window is the number of L1 blocks in the round for which the bidder can post bids.
 
 If you want to deposit funds for a specific L1 block number, which will be automatically converted to the corresponding window, use the following command:
@@ -32,10 +23,9 @@ If you want to deposit funds for a specific L1 block number, which will be autom
 ```shell ❯_ terminal
 curl -X POST "http://localhost:13523/v1/bidder/deposit/1000000000000000000?block_number=<block_number>"
 ```
-
-### Sending Bids
-
-Open a new terminal window. To send bids, we simply run the following command:
+  </Step>
+  <Step title="Sending Bids">
+    Open a new terminal window. To send bids, we simply run the following command:
 
 ```shell ❯_ example
 curl -X POST http://localhost:13523/v1/bidder/bid \
@@ -47,6 +37,8 @@ curl -X POST http://localhost:13523/v1/bidder/bid \
     "decayEndTimestamp": <timestamp milliseconds>
 }'
 ```
+
+<Warning>Make sure your bid amount is sufficiently high for the commitment you're requesting, and your target L1 block number is accurate. It's up to the providers to commit to your bid, so try to ensure a commitment is feasible to your bid by its construction.</Warning> 
     <Accordion title="Detailed Bid Structure">
 
         | Key           | Description                                           |
@@ -57,7 +49,7 @@ curl -X POST http://localhost:13523/v1/bidder/bid \
         | `decayStartTimestamp` | Start timestamp for bid decay (in Unix milliseconds) |
         | `decayEndTimestamp` | End timestamp for bid decay (in Unix milliseconds) |  
 
-        If you want to learn more about Bids and Bid Structure visit [Bids](/concepts/bids) section.
+        If you want to learn more about Bids and Bid Structure visit [Bid Structure](/concepts/bids/bid-structure) section.
     </Accordion>
 
 To include bundles of transactions, add them in the atomic sequence in which they exist in the bundle, as follows:
@@ -71,10 +63,9 @@ curl -X POST http://localhost:13523/v1/bidder/bid \
     "decayStartTimestamp": <timestamp milliseconds>,
     "decayEndTimestamp": <timestamp milliseconds>
 }'
-```
+```  
+<Tip>You can change the values in the fields txHashes, amount, blockNumber, decayStartTimestamp and decayEndTimestamp as desired.</Tip>
+  </Step>
+</Steps>
 
-💡You can change the values in the fields txHashes, amount, blockNumber, decayStartTimestamp and decayEndTimestamp as desired.
-
-🎉 Congrats, you just sent your first L1 preconfirmation bid! You should be receiving commmitments near instantly.
-
-Make sure your bid amount is sufficiently high for the commitment you're requesting, and your target L1 block number is accurate. It's up to the providers to commit to your bid, so try to ensure a commitment is feasible to your bid by its construction.
+<Check>Congrats, you just sent your first L1 preconfirmation bid! You should be receiving commitments nearly instantly.</Check>
