@@ -35,25 +35,30 @@
     {
       "group": "Quickstart",
       "pages": [
-        "quickstart/set-up-mev-commit-node",
-        "quickstart/faucet",
         {
-          "group": "Bidders",
+          "group": "Providers and Bidders",
           "pages": [
-            "quickstart/bidders/first-preconf",
-            "quickstart/bidders/bidder-node-commands"
-          ],
-          "icon": "user-bounty-hunter"
-        },
-        {
-          "group": "Providers",
-          "pages": [
-            "quickstart/providers/registering-a-provider",
-            "quickstart/providers/consuming-bids",
-            "quickstart/providers/sending-commitments",
-            "quickstart/providers/Querying-for-proposers"
-          ],
-          "icon": "network-wired"
+            "quickstart/set-up-mev-commit-node",
+            "quickstart/faucet",
+            {
+              "group": "Bidders",
+              "pages": [
+                "quickstart/bidders/first-preconf",
+                "quickstart/bidders/bidder-node-commands"
+              ],
+              "icon": "user-bounty-hunter"
+            },
+            {
+              "group": "Providers",
+              "pages": [
+                "quickstart/providers/registering-a-provider",
+                "quickstart/providers/consuming-bids",
+                "quickstart/providers/sending-commitments",
+                "quickstart/providers/Querying-for-proposers"
+              ],
+              "icon": "network-wired"
+            }
+          ]
         },
         "quickstart/validators",
         "quickstart/relays"
