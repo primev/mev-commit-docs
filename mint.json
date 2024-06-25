@@ -35,7 +35,7 @@
     {
       "group": "Quickstart",
       "pages": [
-        "quickstart/Set-up-mev-commit-node",
+        "quickstart/set-up-mev-commit-node",
         "quickstart/faucet",
         "quickstart/validators",
         "quickstart/relays",
