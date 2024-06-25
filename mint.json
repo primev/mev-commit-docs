@@ -31,13 +31,7 @@
       "group": "Get Started",
       "pages": [
 	{
-          "group": "Welcome",
-          "pages": [
-            "get-started/welcome/welcome-to-primev",
-            "get-started/welcome/what-is-mev-commit"
-          ],
-          "icon": "sailboat"
-        },
+        "get-started/welcome-to-primev",
         "get-started/quickstart",
         "get-started/faucet",
         "get-started/validators",
