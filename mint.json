@@ -15,7 +15,6 @@
       "to": "#E97D25"
     }
   },
-
   "tabs": [
     {
       "name": "API Reference",
@@ -30,7 +29,6 @@
     {
       "group": "Get Started",
       "pages": [
-	{
         "get-started/welcome-to-primev",
         "get-started/quickstart",
         "get-started/faucet",
@@ -64,7 +62,7 @@
         "concepts/network-overview",
         "concepts/privacy",
         "concepts/commitments",
-	{
+        {
           "group": "Bids",
           "pages": [
             "concepts/bids/bid-structure",
@@ -92,9 +90,9 @@
         "developers/system-requirements",
         "developers/provider-api",
         "developers/bidder-api",
-		    "developers/bidder-deposit",
-		    "developers/tools-for-bid-submission",
-		    "developers/stake-validator-keys-manually",
+        "developers/bidder-deposit",
+        "developers/tools-for-bid-submission",
+        "developers/stake-validator-keys-manually",
         "developers/contracts",
         "developers/debugging",
         "developers/manual-start-mev-commit",
