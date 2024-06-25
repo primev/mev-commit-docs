@@ -37,8 +37,6 @@
       "pages": [
         "quickstart/set-up-mev-commit-node",
         "quickstart/faucet",
-        "quickstart/validators",
-        "quickstart/relays",
         {
           "group": "Bidders",
           "pages": [
@@ -57,6 +55,8 @@
           ],
           "icon": "network-wired"
         }
+        "quickstart/validators",
+        "quickstart/relays"
       ]
     },
     {
