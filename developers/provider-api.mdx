@@ -35,7 +35,25 @@ rpc SendProcessedBids(stream BidResponse) returns (EmptyMessage) {}
 **Message Structures**
 
 ```protobuf
-message Bid {  string tx_hashes = 1;  string bid_amount = 2;  int64 block_number = 3;  bytes bid_digest = 4; int64 decay_start_timestamp; int64 decay_end_timestamp;}; message BidResponse {  bytes bid_digest = 1;  enum Status {    STATUS_UNSPECIFIED = 0;    STATUS_ACCEPTED = 1;    STATUS_REJECTED = 2;  }  Status status = 2; int64 dispatch_timestamp;};
+message Bid {
+  string tx_hashes = 1;
+  string bid_amount = 2;
+  int64 block_number = 3;
+  bytes bid_digest = 4;
+  int64 decay_start_timestamp;
+  int64 decay_end_timestamp;
+};
+
+message BidResponse {
+  bytes bid_digest = 1;
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_ACCEPTED = 1;
+    STATUS_REJECTED = 2;
+  }
+  Status status = 2;
+  int64 dispatch_timestamp;
+};
 ```
 
 ### **HTTP API**
