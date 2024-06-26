@@ -16,14 +16,14 @@
     }
   },
   "topbarLinks": [
-  {
-    "name": "Twitter",
-    "url": "https://twitter.com/youraccount"
-  },
-  {
-    "name": "GitHub",
-    "url": "https://github.com/yourorganization"
-  }
+    {
+      "name": "Twitter",
+      "url": "https://twitter.com/youraccount"
+    },
+    {
+      "name": "GitHub",
+      "url": "https://github.com/yourorganization"
+    }
   ],
   "tabs": [
     {
@@ -46,35 +46,35 @@
       "group": "Quickstart",
       "pages": [
         {
-          "group": "Providers&Bidders",
+          "group": "Providers & Bidders",
           "pages": [
-            "quickstart/Providers-and-Bidders/set-up-mev-commit-node",
-            "quickstart/Providers-and-Bidders/faucet",
+            "quickstart/providers-and-bidders/set-up-mev-commit-node",
+            "quickstart/providers-and-bidders/faucet",
             {
               "group": "Bidders",
               "pages": [
-                "quickstart/Providers-and-Bidders/bidders/first-preconf",
-                "quickstart/Providers-and-Bidders/bidders/bidder-node-commands",
-				"quickstart/Providers-and-Bidders/bidders/bidder-deposit"
+                "quickstart/providers-and-bidders/bidders/first-preconf",
+                "quickstart/providers-and-bidders/bidders/bidder-node-commands",
+                "quickstart/providers-and-bidders/bidders/bidder-deposit"
               ],
-			    "icon": "3"
+              "icon": "user-bounty-hunter"
             },
             {
               "group": "Providers",
               "pages": [
-                "quickstart/Providers-and-Bidders/providers/registering-a-provider",
-                "quickstart/Providers-and-Bidders/providers/consuming-bids",
-                "quickstart/Providers-and-Bidders/providers/sending-commitments",
-                "quickstart/Providers-and-Bidders/providers/Querying-for-proposers"
+                "quickstart/providers-and-bidders/providers/registering-a-provider",
+                "quickstart/providers-and-bidders/providers/consuming-bids",
+                "quickstart/providers-and-bidders/providers/sending-commitments",
+                "quickstart/providers-and-bidders/providers/querying-for-proposers"
               ],
-			  "icon": "3"
+              "icon": "network-wired"
             }
           ]
         },
         "quickstart/validators",
         "quickstart/relays"
-      ]
-	  "icon": "arrow-right-arrow-left"
+      ],
+      "icon": "arrow-right-arrow-left"
     },
     {
       "group": "Concepts",
@@ -110,8 +110,8 @@
       "pages": [
         "developers/testnet",
         "developers/system-requirements",
-		"developers/contracts",
-	    "developers/debugging",
+        "developers/contracts",
+        "developers/debugging",
         "developers/tools-for-bid-submission",
         "developers/stake-validator-keys-manually",
         "developers/manual-start-mev-commit",
@@ -132,28 +132,26 @@
     {
       "group": "API Reference",
       "pages": [
-	  "api-reference/introduction",
-	  "api-reference/provider-api",
-      "api-reference/bidder-api"
-	  ]
-    },
-    {
-      "group": "Provider",
-      "pages": [
-        "api-reference/provider/receivebids",
-        "api-reference/provider/sendprocessedbids",
-        "api-reference/provider/registerstake",
-        "api-reference/provider/getminstake",
-        "api-reference/provider/getstake"
-      ]
-    },
-    {
-      "group": "Bidder",
-      "pages": [
-        "api-reference/bidder/sendbid",
-        "api-reference/bidder/getdeposit",
-        "api-reference/bidder/getmindeposit",
-        "api-reference/bidder/deposit"
+        "api-reference/introduction",
+        {
+          "group": "Provider API",
+          "pages": [
+            "api-reference/provider/receivebids",
+            "api-reference/provider/sendprocessedbids",
+            "api-reference/provider/registerstake",
+            "api-reference/provider/getminstake",
+            "api-reference/provider/getstake"
+          ]
+        },
+        {
+          "group": "Bidder API",
+          "pages": [
+            "api-reference/bidder/sendbid",
+            "api-reference/bidder/getdeposit",
+            "api-reference/bidder/getmindeposit",
+            "api-reference/bidder/deposit"
+          ]
+        }
       ]
     }
   ],
