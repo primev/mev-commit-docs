@@ -24,7 +24,7 @@
       "name": "GitHub",
       "url": "https://github.com/primev/mev-commit"
     },
-	{
+    {
       "name": "Mirror",
       "url": "https://github.com/primev/mev-commit"
     }
@@ -60,7 +60,7 @@
                 "quickstart/providers-and-bidders/bidders/first-preconf",
                 "quickstart/providers-and-bidders/bidders/bidder-node-commands",
                 "quickstart/providers-and-bidders/bidders/bidder-deposit"
-              ],
+              ]
             },
             {
               "group": "Providers",
@@ -69,13 +69,14 @@
                 "quickstart/providers-and-bidders/providers/consuming-bids",
                 "quickstart/providers-and-bidders/providers/sending-commitments",
                 "quickstart/providers-and-bidders/providers/querying-for-proposers"
-              ],
+              ]
             }
-          ]
+          ],
+          "icon": "arrow-right-arrow-left"
         },
         "quickstart/validators",
         "quickstart/relays"
-      ],
+      ]
     },
     {
       "group": "Concepts",
@@ -134,6 +135,8 @@
       "group": "API Reference",
       "pages": [
         "api-reference/introduction",
+		"api-reference/provider-api",
+		"api-reference/bidder-api",
         {
           "group": "Provider API",
           "pages": [
