@@ -18,11 +18,18 @@
   "topbarLinks": [
     {
       "name": "Twitter",
-      "url": "https://twitter.com/youraccount"
+      "url": "https://twitter.com/primev_xyz"
+	  "icon": "x-twitter"
     },
     {
       "name": "GitHub",
-      "url": "https://github.com/yourorganization"
+      "url": "https://github.com/primev/mev-commit"
+	  "icon": "github"
+    },
+	 {
+      "name": "Mirror",
+      "url": "https://github.com/primev/mev-commit"
+	  "icon": "newspaper"
     }
   ],
   "tabs": [
