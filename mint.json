@@ -17,18 +17,19 @@
   },
   "topbarLinks": [
     {
-      "name": "Twitter",
+      "name": "Follow",
       "url": "https://twitter.com/primev_xyz"
     },
     {
       "name": "GitHub",
       "url": "https://github.com/primev/mev-commit"
-    },
-    {
-      "name": "Mirror",
-      "url": "https://github.com/primev/mev-commit"
     }
   ],
+  "topbarCtaButton": {
+  "type": "link",
+  "url": "https://mirror.xyz/preconf.eth",
+  "name": "Writings"
+},
   "tabs": [
     {
       "name": "API Reference",
@@ -52,8 +53,8 @@
         {
           "group": "Providers & Bidders",
           "pages": [
-            "quickstart/Providers-and-Bidders/set-up-mev-commit-node",
-            "quickstart/Providers-and-Bidders/faucet",
+            "quickstart/providers-and-bidders/set-up-mev-commit-node",
+            "quickstart/providers-and-bidders/faucet",
             {
               "group": "Bidders",
               "pages": [
@@ -71,7 +72,8 @@
                 "quickstart/providers-and-bidders/providers/querying-for-proposers"
               ]
             }
-          ]
+          ],
+          "icon": "arrow-right-arrow-left"
         },
         "quickstart/validators",
         "quickstart/relays"
