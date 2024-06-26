@@ -15,6 +15,16 @@
       "to": "#E97D25"
     }
   },
+  "topbarLinks": [
+  {
+    "name": "Twitter",
+    "url": "https://twitter.com/youraccount"
+  },
+  {
+    "name": "GitHub",
+    "url": "https://github.com/yourorganization"
+  }
+  ],
   "tabs": [
     {
       "name": "API Reference",
@@ -36,7 +46,7 @@
       "group": "Quickstart",
       "pages": [
         {
-          "group": "Providers and Bidders",
+          "group": "Providers&Bidders",
           "pages": [
             "quickstart/Providers-and-Bidders/set-up-mev-commit-node",
             "quickstart/Providers-and-Bidders/faucet",
@@ -44,9 +54,10 @@
               "group": "Bidders",
               "pages": [
                 "quickstart/Providers-and-Bidders/bidders/first-preconf",
-                "quickstart/Providers-and-Bidders/bidders/bidder-node-commands"
+                "quickstart/Providers-and-Bidders/bidders/bidder-node-commands",
+				"quickstart/Providers-and-Bidders/bidders/bidder-deposit"
               ],
-              "icon": "user-bounty-hunter"
+			    "icon": "3"
             },
             {
               "group": "Providers",
@@ -56,13 +67,14 @@
                 "quickstart/Providers-and-Bidders/providers/sending-commitments",
                 "quickstart/Providers-and-Bidders/providers/Querying-for-proposers"
               ],
-              "icon": "network-wired"
+			  "icon": "3"
             }
           ]
         },
         "quickstart/validators",
         "quickstart/relays"
       ]
+	  "icon": "arrow-right-arrow-left"
     },
     {
       "group": "Concepts",
@@ -98,13 +110,10 @@
       "pages": [
         "developers/testnet",
         "developers/system-requirements",
-        "developers/provider-api",
-        "developers/bidder-api",
-        "developers/bidder-deposit",
+		"developers/contracts",
+	    "developers/debugging",
         "developers/tools-for-bid-submission",
         "developers/stake-validator-keys-manually",
-        "developers/contracts",
-        "developers/debugging",
         "developers/manual-start-mev-commit",
         "developers/run-mev-commit-chain-node"
       ]
@@ -122,7 +131,11 @@
     },
     {
       "group": "API Reference",
-      "pages": ["api-reference/introduction"]
+      "pages": [
+	  "api-reference/introduction",
+	  "api-reference/provider-api",
+      "api-reference/bidder-api"
+	  ]
     },
     {
       "group": "Provider",
