@@ -71,7 +71,7 @@
                 "quickstart/providers-and-bidders/providers/querying-for-proposers"
               ]
             }
-          ],
+          ]
         },
         "quickstart/validators",
         "quickstart/relays"
