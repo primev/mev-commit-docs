@@ -52,8 +52,8 @@
         {
           "group": "Providers & Bidders",
           "pages": [
-            "quickstart/providers-and-bidders/set-up-mev-commit-node",
-            "quickstart/providers-and-bidders/faucet",
+            "quickstart/Providers-and-Bidders/set-up-mev-commit-node",
+            "quickstart/Providers-and-Bidders/faucet",
             {
               "group": "Bidders",
               "pages": [
