@@ -27,7 +27,7 @@ sidebarTitle: Managing Your Bidder Deposit
   First, retrieve the Ethereum account address of your node:
 
     ```shell
-    > curl localhost:13523/topology | jq
+    > curl localhost:13523/v1/debug/topology | jq
     {
       "self": {
         "Addresses": [
