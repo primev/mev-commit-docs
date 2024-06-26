@@ -61,7 +61,6 @@
                 "quickstart/providers-and-bidders/bidders/bidder-node-commands",
                 "quickstart/providers-and-bidders/bidders/bidder-deposit"
               ],
-              "icon": "user-bounty-hunter"
             },
             {
               "group": "Providers",
@@ -71,14 +70,12 @@
                 "quickstart/providers-and-bidders/providers/sending-commitments",
                 "quickstart/providers-and-bidders/providers/querying-for-proposers"
               ],
-              "icon": "network-wired"
             }
           ]
         },
         "quickstart/validators",
         "quickstart/relays"
       ],
-      "icon": "arrow-right-arrow-left"
     },
     {
       "group": "Concepts",
