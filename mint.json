@@ -26,7 +26,6 @@
     }
   ],
   "topbarCtaButton": {
-  "type": "link",
   "url": "https://mirror.xyz/preconf.eth",
   "name": "Writings"
 },
