@@ -50,7 +50,7 @@
       "group": "Quickstart",
       "pages": [
         {
-          "group": "Providers and Bidders",
+          "group": "Providers & Bidders",
           "pages": [
             "quickstart/providers-and-bidders/set-up-mev-commit-node",
             "quickstart/providers-and-bidders/faucet",
@@ -73,7 +73,7 @@
               ],
               "icon": "network-wired"
             }
-          ]
+          ],
         },
         "quickstart/validators",
         "quickstart/relays"
