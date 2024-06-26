@@ -72,7 +72,6 @@
               ]
             }
           ],
-          "icon": "arrow-right-arrow-left"
         },
         "quickstart/validators",
         "quickstart/relays"
