@@ -27,8 +27,7 @@
   ],
   "topbarCtaButton": {
     "type": "github",
-    "url": "https://github.com/primev/mev-commit",
-    "name": "Github"
+    "url": "https://github.com/primev/mev-commit"
   },
   "tabs": [
     {
