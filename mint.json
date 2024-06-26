@@ -26,6 +26,7 @@
     }
   ],
   "topbarCtaButton": {
+  "type": "github"	  
   "url": "https://mirror.xyz/preconf.eth",
   "name": "Writings"
 },
@@ -85,11 +86,11 @@
         "concepts/actors",
         "concepts/network-overview",
         "concepts/privacy",
-        "concepts/commitments",
         {
-          "group": "Bids",
+          "group": "Bids & Commitments",
           "pages": [
             "concepts/bids/bid-structure",
+			"concepts/bids/commitments",
             "concepts/bids/bidder-deposit",
             "concepts/bids/bid-decay-mechanism"
           ]
