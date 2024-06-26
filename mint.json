@@ -21,15 +21,15 @@
       "url": "https://twitter.com/primev_xyz"
     },
     {
-      "name": "GitHub",
-      "url": "https://github.com/primev/mev-commit"
+      "name": "Writings",
+      "url": "https://mirror.xyz/preconf.eth"
     }
   ],
   "topbarCtaButton": {
-  "type": "github",  
-  "url": "https://mirror.xyz/preconf.eth",
-  "name": "Writings"
-},
+    "type": "github",
+    "url": "https://github.com/primev/mev-commit",
+    "name": "Github"
+  },
   "tabs": [
     {
       "name": "API Reference",
@@ -90,7 +90,7 @@
           "group": "Bids & Commitments",
           "pages": [
             "concepts/bids/bid-structure",
-			"concepts/bids/commitments",
+            "concepts/bids/commitments",
             "concepts/bids/bidder-deposit",
             "concepts/bids/bid-decay-mechanism"
           ]
@@ -136,27 +136,27 @@
       "group": "API Reference",
       "pages": [
         "api-reference/introduction",
-		"api-reference/provider-api",
-		"api-reference/bidder-api",
-        {
-          "group": "Provider API",
-          "pages": [
-            "api-reference/provider/receivebids",
-            "api-reference/provider/sendprocessedbids",
-            "api-reference/provider/registerstake",
-            "api-reference/provider/getminstake",
-            "api-reference/provider/getstake"
-          ]
-        },
-        {
-          "group": "Bidder API",
-          "pages": [
-            "api-reference/bidder/sendbid",
-            "api-reference/bidder/getdeposit",
-            "api-reference/bidder/getmindeposit",
-            "api-reference/bidder/deposit"
-          ]
-        }
+        "api-reference/provider-api",
+        "api-reference/bidder-api"
+      ]
+    },
+    {
+      "group": "Provider",
+      "pages": [
+        "api-reference/provider/receivebids",
+        "api-reference/provider/sendprocessedbids",
+        "api-reference/provider/registerstake",
+        "api-reference/provider/getminstake",
+        "api-reference/provider/getstake"
+      ]
+    },
+    {
+      "group": "Bidder",
+      "pages": [
+        "api-reference/bidder/sendbid",
+        "api-reference/bidder/getdeposit",
+        "api-reference/bidder/getmindeposit",
+        "api-reference/bidder/deposit"
       ]
     }
   ],
