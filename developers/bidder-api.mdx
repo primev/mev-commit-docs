@@ -24,7 +24,27 @@ Users can find the protobuf file in the [repository](https://github.com/primev/m
 **Message Definitions**
 
 ```protobuf
-message Bid {  string tx_hash = 1;  int64 amount = 2;  int64 block_number = 3; int64 decay_start_timestamp = 4; int64 decay_end_timestamp = 5}; message PreConfirmation {  string tx_hashes = 1;  int64 amount = 2;  int64 block_number = 3;  string received_bid_digest = 4;  string received_bid_signature = 5;  string commitment_digest = 6;  string commitment_signature = 7; string provider_address = 8; int64 decay_start_timestamp = 9; int64 decay_end_timestamp = 10; int64 dispatch_timestamp = 11};
+message Bid {
+  string tx_hash = 1;
+  int64 amount = 2;
+  int64 block_number = 3;
+  int64 decay_start_timestamp = 4;
+  int64 decay_end_timestamp = 5
+};
+
+message PreConfirmation {
+  string tx_hashes = 1;
+  int64 amount = 2;
+  int64 block_number = 3;
+  string received_bid_digest = 4;
+  string received_bid_signature = 5;
+  string commitment_digest = 6;
+  string commitment_signature = 7;
+  string provider_address = 8;
+  int64 decay_start_timestamp = 9;
+  int64 decay_end_timestamp = 10;
+  int64 dispatch_timestamp = 11
+};
 ```
 
 ### **HTTP API**
