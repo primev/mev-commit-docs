@@ -130,8 +130,13 @@
       "pages": [
         "api-reference/bidder/sendbid",
         "api-reference/bidder/getdeposit",
-        "api-reference/bidder/getmindeposit",
-        "api-reference/bidder/deposit"
+        "api-reference/bidder/deposit",
+        "api-reference/bidder/withdraw",
+        "api-reference/bidder/withdrawspecwindows",
+        "api-reference/bidder/autodeposit",
+        "api-reference/bidder/autodepositstatus",
+        "api-reference/bidder/cancelautodeposit",
+        "api-reference/bidder/cancelandwithdrawad"
       ]
     }
   ],
