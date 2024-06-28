@@ -37,8 +37,72 @@ This command will allow you to withdraw funds from the specific [window](https:/
 Window number is the number where the bidder deposited funds.
 
 ```shell ❯_ terminal
-cast send 0x7ffa86fF89489Bca72Fec2a978e33f9870B2Bd25 "withdrawBidderAmountFromWindow(address,uint256)" $ADDRESS <window_number> \
---rpc-url https://chainrpc.testnet.mev-commit.xyz --private-key $KEY
+curl -X POST http://localhost:13523/v1/bidder/withdraw?windowNumber=1 \
+```
+
+## Autodeposit Funds
+
+The auto deposit feature allows you to automate the process of depositing funds for multiple windows ahead. This is useful for ensuring your bidder account always has funds available for future windows.
+
+Autodeposit will split the initial deposit amount across the specified number of windows. The deposit amount is the total amount to be deposited across all windows. Currently default amount of windows is 3.
+
+By setting up auto deposit, you can deposit funds for a specific window and automate the process for subsequent windows, reducing the need for manual intervention.
+
+The withdrawal functionality allows you to withdraw deposited funds from specific windows. This can be useful if you need to reclaim funds that were previously deposited.
+
+## Start Auto Deposit
+
+To start the auto deposit process:
+
+```shell ❯_ terminal
+curl -X POST http://localhost:13523/v1/bidder/auto_deposit \
+  -H "Content-Type: application/json" \
+  -d '{
+        "amount": "1000000000000000000",
+        "windowNumber": 3
+      }'
+```
+
+## Get Auto Deposit Status
+
+To get the status of the auto deposit process:
+
+```shell ❯_ terminal
+curl -s http://localhost:13523/v1/bidder/auto_deposit_status
+```
+
+## Cancel Auto Deposit
+
+To cancel the auto deposit process:
+
+```shell ❯_ terminal
+curl -X POST http://localhost:13523/v1/bidder/cancel_auto_deposit
+```
+
+This will stop the ongoing auto deposit process.
+
+## Cancel And Withdraw Auto Deposit
+
+To cancel the auto deposit process and withdraw the funds:
+
+```shell ❯_ terminal
+curl -X POST http://localhost:13523/v1/bidder/cancel_and_withdraw_auto_deposit
+```
+
+This will stop the ongoing auto deposit process and withdraw the funds deposited for the current windows.
+
+The funds will be withdrawn when the current window is greater than the last window for which funds were deposited.
+
+## Withdraw Funds
+
+To withdraw funds from the several windows, you can use the following command:
+
+```shell ❯_ terminal
+curl -X POST http://localhost:13523/v1/bidder/withdraw_from_specific_windows
+    -H "Content-Type: application/json" \
+    -d '{
+          "windows": [1, 2, 3]
+        }'
 ```
 
 ## Checking the Balance of your Wallet
