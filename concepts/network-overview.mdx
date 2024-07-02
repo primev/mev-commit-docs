@@ -11,9 +11,9 @@ Mev-commit is designed as an out of protocol layer to systems like mev-boost, fa
 
 Bids are received and evaluated by providers, who run decisioning logic in their own environment and may decide to issue a cryptographic commitment against whatever the bid is for. In the preconfirmation case, the minimum a commitment can be made is for inclusion of the referred transaction hash(es) in the bid on the target L1 block number specified.
 
-### Commitment Settlements
+### Settling Commitments
 
-Once the commitment is recorded on the mev-commit chain, an oracle will check the target L1 block number as it gets confirmed to see if the commitment is satisfied by the committing actor. If so, the bid amount will be rewarded to the provider. If not, the provider stake will be slashed.
+Commitments are simultaneously sent to bidders and the mev-commit chain in hash format. This ensures the network can operate with end-to-end pre-execution privacy and low latency. Once the commitment is revealed by either of the participating parties at the end of a slot, an oracle will check the target L1 block number as it gets confirmed to see if the commitment is delivered. If so, the bid amount will be rewarded to the provider. If not, the provider stake will be slashed.
 
 ### Rewards and Slashing
 
