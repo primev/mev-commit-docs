@@ -3,20 +3,19 @@ title: "Receive your First Preconfirmation"
 sidebarTitle: "My First Preconf"
 ---
 
-Once you've funded your bidder node wallet, you're ready to start submitting bids to the network.
-It's crucial to verify that your bidder node is connected to at least one provider node.
-This connectivity can be confirmed via the [localhost:13523/topology](http://localhost:13523/topology) endpoint.
+You're ready to start submitting bids to the network once you've completed [Quickstart](/get=started/Quickstart) and funded your bidder node wallet.
+Make sure to verify that your bidder node is connected to at least one provider node, which can be confirmed via the [localhost:13523/topology](http://localhost:13523/topology) endpoint.
 
 <Steps>
   <Step title="Deposit For Bids">
-    Run this command to load your account with funds to start bidding:
+    Run this command to deposit funds and start bidding:
 
 ```shell ❯_ terminal
 curl -X POST http://localhost:13523/v1/bidder/deposit/1000000000000000000
 ```
 
-This tops up your account with `1000000000000000000 wei` (1 ETH) for the current [window](/concepts/bids/bidder-deposit), ensuring you're all set to send bids!
-The window is the number of L1 blocks in the round for which the bidder can post bids.
+This tops up your account with `1000000000000000000 wei` (1 ETH) for the current [window](/concepts/bids/bidder-deposit) to bid with.
+The window is the number of L1 blocks in the round (for L1 it's 10 blocks) for which the bidder can post bids.
 
 If you want to deposit funds for a specific L1 block number, which will be automatically converted to the corresponding window, use the following command:
 
