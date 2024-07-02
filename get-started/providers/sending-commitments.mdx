@@ -11,9 +11,9 @@ Your first step is to set up a provider node. The following command will allow y
 curl -L -o launchmevcommit launch.mev-commit.xyz && chmod +x launchmevcommit && ./launchmevcommit --node-type provider
 ```
 
-Now you'll want to run an emulator to simulate the accepting and rejecting of bids. You can read more about the internal builder API [here](/api-reference/provider/sendprocessedbids).
+Now you'll want to connect a decisioning system that will accept and reject bids based on custom criteria. You can read more about the API to open a gRPC stream [here](/api-reference/provider/sendprocessedbids).
 
-To get started with the emulator, open a new terminal and run the following command:
+If you want to get started quickly with a dummy emulator, you can open a new terminal and run the following command:
 
 <Warning>You require Go Version 1.21.1 to run the example emulator</Warning>
 ``` 
@@ -23,7 +23,6 @@ git checkout v0.3.0 && cd p2p/examples/provideremulator && go run .
 
 ## Configuring custom logic to process bids and send Commitments
 
-Now you have a running instance of both an emulator that will auto-accept incoming bids and a provider node that will submit commitments on your behalf.
 We can take a deeper look at how you can add custom logic to decision on the sending of commitments.
 
 ### Integrating Bid Processing in Your System
