@@ -12,7 +12,7 @@ You can use the provider API to stake and check your stake balance.
 - Stake (make sure you've [funded your account on the mev-commit chain](/get-started/faucet) first).
 
       ```shell
-      > curl -X POST localhost/v1/provider/register_stake/10000000000000000000 | jq
+      > curl -X POST localhost:13523/v1/provider/register_stake/10000000000000000000 | jq
       {
         "amount": "10000000000000000000"
       }
@@ -29,24 +29,24 @@ You can use the provider API to stake and check your stake balance.
   }
   ```
 
-  - Get the account address of your node
+- Get the account address of your node
 
-    ```shell
-    > curl localhost:13523/topology | jq
-    {
-      "self": {
-        "Addresses": [
-          "/ip4/127.0.0.1/tcp/13522",
-          "/ip4/172.29.0.4/tcp/13522"
-        ],
-        "Ethereum Address": "0xB9286CB4782E43A202BfD426AbB72c8cb34f886c",
-        "Peer Type": "provider",
-        "Underlay": "16Uiu2HAmDWZb4DxZQkS9yseXNukBFe6MhZdimSKuZcHFeJrF3jC9"
-      },
-      "connected_peers": null,
-      "blocked_peers": null
-    }
-    ```
+  ```shell
+  > curl localhost:13523/v1/debug/topology | jq
+  {
+    "self": {
+      "Addresses": [
+        "/ip4/127.0.0.1/tcp/13522",
+        "/ip4/172.29.0.4/tcp/13522"
+      ],
+      "Ethereum Address": "0xB9286CB4782E43A202BfD426AbB72c8cb34f886c",
+      "Peer Type": "provider",
+      "Underlay": "16Uiu2HAmDWZb4DxZQkS9yseXNukBFe6MhZdimSKuZcHFeJrF3jC9"
+    },
+    "connected_peers": null,
+    "blocked_peers": null
+  }
+  ```
 
 - Check the minimum amount that can be staked, and consider staking more than the minimum. Bidders will only connect to providers which have stake higher than this minimum. The larger a provider's stake, the greater the credibility behind that provider's commitments. The amount is set in `wei`.
 
@@ -56,5 +56,7 @@ You can use the provider API to stake and check your stake balance.
     "amount": "1000000000000000000"
   }
   ```
+
+- The mev-commit settlements rely on the ExtraData field in the block header to attribute the winning providers. Providers need to register their node's ethereum address against the unique ExtraData field they use while building blocks. This registeration is currently done manually by the Primev team. So once the node is setup, users need to contact the team to register these details. Once the registeration is done, the settlement chain will be able to correctly attribute the winning providers on L1. This will be automated in future.
 
 Congrats, your provider node is registered on mev-commit and you're ready to [consume bids](/get-started/providers/consuming-bids).

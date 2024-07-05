@@ -5,29 +5,39 @@ sidebarTitle: Bidder Node Commands
 
 ## Interacting with the Bidder Node
 
-First, you can set the local environment variables to set your `KEY` and `ADDRESS`. Change directories to the one with your key (this should be the same folder as mev-commit). If you used the [Quickstart](/get-started/quickstart) command, your folder would be `$HOME/.mev-commit`.
+<Note>Ensure you have completed the [Quickstart](/get-started/quickstart) step in a separate terminal. This will set up your environment and place your key in the `$HOME/.mev-commit` directory, along with running the required bidder node.</Note>
 
-Setting these will make running the commands to interact with your account easier.
+Now that you've made sure we have a bidder node running, we can interact with it using the following commands:
 
 ```shell ❯_ terminal
-export KEY=$(cat key)
+cd $HOME/.mev-commit;
+export KEY=$(cat key);
 export ADDRESS=$(cast wallet address --private-key 0x$(cat key))
 ```
 
-## Getting Allowance
+## Getting Deposit
 
-To get the current deposit balance in the contract:
+To get the current deposit balance in the contract for the current [window](https://docs.primev.xyz/concepts/bidder-deposit):
 
 ```shell ❯_ terminal
-curl -s http://localhost:13523/v1/bidder/get_allowance
+curl -s http://localhost:13523/v1/bidder/get_deposit
 ```
 
-💡Allowance represents the funds in the bidder's account that can be used to submit bids on the mev-commit p2p-network and settled on-chain.
+To get the current deposit balance in the contract for a specific [window](https://docs.primev.xyz/concepts/bidder-deposit):
+
+```shell ❯_ terminal
+curl -s http://localhost:13523/v1/bidder/get_deposit?windowNumber=1
+```
+
+💡Deposit represents the funds in the bidder's account that can be used to submit bids on the mev-commit p2p-network and settled on-chain.
 
 ## Withdraw Deposited Funds
 
+This command will allow you to withdraw funds from the specific [window](https://docs.primev.xyz/concepts/bidder-deposit). 
+Window number is the number where the bidder deposited funds.
+
 ```shell ❯_ terminal
-cast send 0xa86a41b57Fb73f9118F84847574517258d29eAD0 "withdrawPrepayedAmount(address)" $ADDRESS \
+cast send 0x7ffa86fF89489Bca72Fec2a978e33f9870B2Bd25 "withdrawBidderAmountFromWindow(address,uint256)" $ADDRESS <window_number> \
 --rpc-url https://chainrpc.testnet.mev-commit.xyz --private-key $KEY
 ```
 
@@ -42,13 +52,13 @@ cast b $ADDRESS --rpc-url https://chainrpc.testnet.mev-commit.xyz
 ## Check Total Value Locked in Contracts
 
 ```shell ❯_ terminal
-python3 -c "print($(cast b 0xa86a41b57Fb73f9118F84847574517258d29eAD0 \
---rpc-url https://chainrpc.testnet.mev-commit.xyz) + $(cast b 0x5960774AD41D03DAB4916a30bD2190f8b3b3b4b2 \
+python3 -c "print($(cast b 0x7ffa86fF89489Bca72Fec2a978e33f9870B2Bd25 \
+--rpc-url https://chainrpc.testnet.mev-commit.xyz) + $(cast b 0x4FC9b98e1A0Ff10de4c2cf294656854F1d5B207D \
 --rpc-url https://chainrpc.testnet.mev-commit.xyz))"
 ```
 
 ## Topology
 
 ```shell ❯_ terminal
-curl http://localhost:13523/topology
+curl http://localhost:13523/v1/debug/topology
 ```

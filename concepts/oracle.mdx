@@ -2,8 +2,8 @@
 
 The oracle consists of two parts:
 
-- A smart contract component [here](https://github.com/primev/contracts/blob/main/contracts/Oracle.sol).
-- A microservice [here](https://github.com/primev/mev-commit-oracle).
+- A smart contract component [here](https://github.com/primev/mev-commit/blob/main/contracts/contracts/Oracle.sol).
+- A microservice [here](https://github.com/primev/mev-commit/tree/main/oracle).
 
 <Frame>
   <img src="/images/oracle-detailed-overview.png" />
@@ -23,20 +23,17 @@ Before the oracle can be engaged according to the protocol's intended sequence o
   <img src="/images/oracle-before.png" />
 </Frame>
 
-**1a.** A bidder sends their raw transaction to a provider, such as a block builder, or to the public mempool.
-
-**1b.** Simultaneously, the bidder issues a bid via the mev-commit peer-to-peer network.
+**1a.** Simultaneously, the bidder issues an encrypted bid via the mev-commit peer-to-peer network.
 
 _After the bidder's actions, the provider proceeds to:_
 
-**2a.** Retrieve the bid from the mev-commit network.
+**2a.** Retrieve the encrypted bid from the mev-commit network.
 
-**2b.** Issue a commitment for the transaction mentioned in the bid.
+**2b.** Issue an encrypted commitment for the transaction mentioned in the bid.
 
 ## Oracle Happy Path Flow
 
-When a bid for a transaction (txnj) is circulated through the mev-commit p2p network and the provider has made a commitment, the oracle is activated to verify whether the provider has honored this commitment.
-
+When a bid for a transaction (txnj) is circulated through the mev-commit p2p network, and the provider has made an encrypted commitment and then opened it after the L1 block was created, the oracle is activated to verify whether the provider has honored this commitment.
 <Frame>
   <img src="/images/oracle.png" />
 </Frame>
@@ -46,7 +43,7 @@ The process is as follows:
 1. The provider assembles the complete L1 block, incorporating txnj, to which it previously committed. **Note: If the provider doesn’t get selected to construct the L1 block, the oracle flow does not get triggered.**
 2. The oracle microservice fetches the block from the L1 chain and verifies the presence of txnj.
 3. Upon confirmation that txnj is included, the microservice notifies the oracle smart contract of the commitment's fulfillment.
-4. The oracle smart contract then initiates the transfer of funds from the bidder's prepaid balance to the provider's account.
+4. The oracle smart contract then initiates the transfer of funds from the bidder's deposited balance to the provider's account.
 
 ## Oracle Slashing Path
 

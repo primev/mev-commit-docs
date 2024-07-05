@@ -5,11 +5,11 @@ sidebarTitle: "Stake Validators Keys Manually"
 
 ## Staking with registry
 
-The [validator registry contract](http://explorer.testnet.mev-commit.xyz/address/0xF263483500e849Bd8d452c9A0F075B606ee64087) is deployed to the mev-commit chain at address `0xF263483500e849Bd8d452c9A0F075B606ee64087`, with a minimum stake requirement of 3 ETH, and a 7000 block unstaking period. This unstaking period corresponds to 23.3 minutes, assuming a 200ms mev-commit chain block time. This period allows two L1 epochs (L1 finalization period) plus a settlement buffer, to pass between validator unstake initiation and withdrawal.
+The [validator registry contract](https://holesky.etherscan.io/address/0x5d4fC7B5Aeea4CF4F0Ca6Be09A2F5AaDAd2F2803) is deployed to Holesky at address `0x5d4fC7B5Aeea4CF4F0Ca6Be09A2F5AaDAd2F2803`, with a minimum stake requirement of 0.0001 ETH, and a 96 block unstaking period. This unstaking period corresponds to 19.2 minutes, assuming a 12 sec Holesky block time. This period allows two L1 epochs (L1 finalization period) plus a settlement buffer, to pass between validator unstake initiation and withdrawal.
 
 The registry strictly accepts BLS public keys as the validator opt-in identifier. Any EOA can stake on behalf of a validator pub key, and only that EOA has the ability to withdraw in the future.
 
-To stake with the mev-commit validator registry, first use the [testnet faucet](/get-started/faucet) to fund an account on the mev-commit chain.
+To stake with the mev-commit validator registry, first use an available Holesky faucet to fund an account.
 
 To `stake` with the contract, see the following function signature, where ether sent with the transaction is split evenly among the specified validator pub keys:
 
@@ -52,6 +52,8 @@ To stake one or more validator BLS public keys, refer to [this example script](h
     This script will attempt to stake `3.1` ETH on behalf of each validator BLS public key in `keys_example.txt`.
   </Step>
 </Steps>
+
+_Note these scripts are not actively maintained and should only be used as a starting point for staking validator pub keys manually._ 
 
 ## Withdrawing
 

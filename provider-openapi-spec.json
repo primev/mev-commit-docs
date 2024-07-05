@@ -2,53 +2,13 @@
   "openapi": "3.0.0",
   "info": {
     "title": "Provider API",
-    "version": "1.0.0-alpha",
+    "version": "1.0.0-alpha-oas3",
     "license": {
       "name": "Business Source License 1.1",
       "url": "https://github.com/primev/mev-commit/blob/main/LICENSE"
     }
   },
   "paths": {
-    "/v1/provider/cancel_transaction/{txHash}": {
-      "post": {
-        "summary": "CancelTransaction",
-        "description": "CancelTransaction is called by the provider to cancel a transaction sent from this wallet.",
-        "operationId": "Provider_CancelTransaction",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/v1CancelResponse"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/googlerpcStatus"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "txHash",
-            "description": "Hex string encoding of the hash of the transaction that the bidder wants to cancel.",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
-      }
-    },
     "/v1/provider/get_min_stake": {
       "get": {
         "summary": "GetMinStake",
@@ -61,35 +21,6 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/v1StakeResponse"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/googlerpcStatus"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/provider/get_pending_txns": {
-      "get": {
-        "summary": "GetPendingTxns",
-        "description": "GetPendingTxns is called by the provider to get the pending transactions for the wallet.",
-        "operationId": "Provider_GetPendingTxns",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/v1PendingTxnsResponse"
                 }
               }
             }
@@ -150,13 +81,13 @@
                   "type": "object",
                   "properties": {
                     "result": {
-                      "$ref": "#/components/schemas/rpcproviderapiv1Bid"
+                      "$ref": "#/components/schemas/providerapiv1Bid"
                     },
                     "error": {
                       "$ref": "#/components/schemas/googlerpcStatus"
                     }
                   },
-                  "title": "Stream result of rpcproviderapiv1Bid"
+                  "title": "Stream result of providerapiv1Bid"
                 }
               }
             }
@@ -204,6 +135,7 @@
         "parameters": [
           {
             "name": "amount",
+            "description": "Amount of ETH to stake in the provider provider_registry.",
             "in": "path",
             "required": true,
             "schema": {
@@ -224,7 +156,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/rpcproviderapiv1EmptyMessage"
+                  "$ref": "#/components/schemas/providerapiv1EmptyMessage"
                 }
               }
             }
@@ -283,24 +215,30 @@
         },
         "additionalProperties": {}
       },
-      "rpcproviderapiv1Bid": {
+      "providerapiv1Bid": {
         "type": "object",
         "example": {
-          "bidAmount": 1000000000000000000,
+          "amount": "1000000000000000000",
           "bidDigest": "9dJinwL+FZ6B1xsIQQo8t8B0ZXJubJwY86l/Yu7yAH159QrPHU0qj2P+YFj+llbuI1ZygdxGsX8+P3byMEA5ig==",
           "blockNumber": 123456,
-          "txHash": "91a89B633194c0D86C539A1A5B14DCCacfD47094"
+          "txHashes": [
+            "fe4cb47db3630551beedfbd02a71ecc69fd59758e2ba699606e2d5c74284ffa7",
+            "71c1348f2d7ff7e814f9c3617983703435ea7446de420aeac488bf1de35737e8"
+          ]
         },
         "properties": {
-          "txHash": {
-            "type": "string",
-            "description": "Hex string encoding of the hash of the transaction that the bidder wants to include in the block.",
-            "pattern": "[a-fA-F0-9]{40}"
+          "txHashes": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "[a-fA-F0-9]{64}"
+            },
+            "description": "Hex string encoding of the hashes of the transactions that the bidder wants to include in the block."
           },
           "bidAmount": {
             "type": "string",
-            "format": "int64",
-            "description": "Amount of ETH that the bidder is willing to pay to the provider for including the transaction in the block."
+            "description": "Amount of ETH that the bidder is willing to pay to the provider for including the transaction in the block.",
+            "pattern": "[0-9]+"
           },
           "blockNumber": {
             "type": "string",
@@ -311,19 +249,30 @@
             "type": "string",
             "format": "byte",
             "description": "Digest of the bid message signed by the bidder."
+          },
+          "decayStartTimestamp": {
+            "type": "string",
+            "format": "int64",
+            "description": "Timestamp at which the bid starts decaying."
+          },
+          "decayEndTimestamp": {
+            "type": "string",
+            "format": "int64",
+            "description": "Timestamp at which the bid ends decaying."
           }
         },
         "description": "Signed bid message from bidders to the provider.",
         "title": "Bid message",
-        "required": ["txHash", "bidAmount", "blockNumber", "bidDigest"]
+        "required": ["txHashes", "bidAmount", "blockNumber", "bidDigest"]
       },
-      "rpcproviderapiv1EmptyMessage": {
+      "providerapiv1EmptyMessage": {
         "type": "object"
       },
       "v1BidResponse": {
         "type": "object",
         "example": {
           "bidDigest": "9dJinwL+FZ6B1xsIQQo8t8B0ZXJubJwY86l/Yu7yAH159QrPHU0qj2P+YFj+llbuI1ZygdxGsX8+P3byMEA5ig==",
+          "decayDispatchTimestamp": 1234567890,
           "status": "STATUS_ACCEPTED"
         },
         "properties": {
@@ -334,46 +283,20 @@
           },
           "status": {
             "$ref": "#/components/schemas/v1BidResponseStatus"
+          },
+          "dispatchTimestamp": {
+            "type": "string",
+            "format": "int64",
+            "description": "Timestamp at which the commitment is accepted by provider and is used to compute the expected revenue from the preconfirmation"
           }
         },
         "description": "Response sent by the provider with the decision on the bid received.",
         "title": "Bid response",
-        "required": ["bidDigest", "status"]
+        "required": ["bidDigest", "status", "decayDispatchTimestamp"]
       },
       "v1BidResponseStatus": {
         "type": "string",
         "enum": ["STATUS_ACCEPTED", "STATUS_REJECTED"]
-      },
-      "v1CancelResponse": {
-        "type": "object",
-        "example": {
-          "txHash": "91a89B633194c0D86C539A1A5B14DCCacfD47094"
-        },
-        "properties": {
-          "txHash": {
-            "type": "string",
-            "description": "Hex string encoding of the hash of the transaction that the bidder wants to cancel.",
-            "pattern": "[a-fA-F0-9]{40}"
-          }
-        },
-        "description": "Hash of the cancellation transaction request.",
-        "title": "Cancel response",
-        "required": ["txHash"]
-      },
-      "v1PendingTxnsResponse": {
-        "type": "object",
-        "properties": {
-          "pendingTxns": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/v1TransactionInfo"
-            },
-            "description": "List of pending transactions in the provider provider_registry."
-          }
-        },
-        "description": "Transaction info returned by the provider.",
-        "title": "Pending transactions list",
-        "required": ["pendingTxns"]
       },
       "v1StakeResponse": {
         "type": "object",
@@ -387,33 +310,6 @@
         },
         "description": "Get staked amount for provider in the provider provider_registry.",
         "title": "Stake response"
-      },
-      "v1TransactionInfo": {
-        "type": "object",
-        "example": {
-          "created": "2009-11-10 23:00:00 +0000 UTC m=+0.000000001",
-          "nonce": 1234,
-          "txHash": "91a89B633194c0D86C539A1A5B14DCCacfD47094"
-        },
-        "properties": {
-          "txHash": {
-            "type": "string",
-            "description": "Hex string encoding of the hash of the transaction that the bidder wants to include in the block.",
-            "pattern": "[a-fA-F0-9]{40}"
-          },
-          "nonce": {
-            "type": "string",
-            "format": "int64",
-            "description": "Nonce used for the transaction."
-          },
-          "created": {
-            "type": "string",
-            "description": "Time when the transaction was created."
-          }
-        },
-        "description": "Transaction info returned by the provider.",
-        "title": "Transaction info",
-        "required": ["txHash", "nonce", "created"]
       }
     }
   }

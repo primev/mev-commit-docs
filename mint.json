@@ -32,9 +32,9 @@
       "pages": [
         "get-started/introduction",
         "get-started/quickstart",
-		"get-started/faucet",
+        "get-started/faucet",
         "get-started/validators",
-		"get-started/relays",
+        "get-started/relays",
         {
           "group": "Bidders",
           "pages": [
@@ -49,7 +49,7 @@
             "get-started/providers/registering-a-provider",
             "get-started/providers/consuming-bids",
             "get-started/providers/sending-commitments",
-			"get-started/providers/Querying-for-proposers"
+            "get-started/providers/Querying-for-proposers"
           ],
           "icon": "network-wired"
         }
@@ -62,9 +62,15 @@
         "concepts/actors",
         "concepts/network-overview",
         "concepts/privacy",
-        "concepts/bids",
-	"concepts/bid-decay-mechanism",
         "concepts/commitments",
+	{
+          "group": "Bids",
+          "pages": [
+            "concepts/bids/bid-structure",
+            "concepts/bids/bidder-deposit",
+            "concepts/bids/bid-decay-mechanism"
+          ]
+        },
         {
           "group": "mev-commit Chain",
           "pages": [
@@ -81,13 +87,13 @@
     {
       "group": "Developers",
       "pages": [
-	    "developers/testnet",
+        "developers/testnet",
         "developers/system-requirements",
         "developers/provider-api",
         "developers/bidder-api",
-		"developers/bidder-deposit",
-		"developers/tools-for-bid-submission",
-		"developers/stake-validator-keys-manually",
+		    "developers/bidder-deposit",
+		    "developers/tools-for-bid-submission",
+		    "developers/stake-validator-keys-manually",
         "developers/contracts",
         "developers/debugging",
         "developers/manual-start-mev-commit",
@@ -98,7 +104,7 @@
       "group": "Knowledge Base",
       "pages": [
         "knowledge-base/introduction",
-        "knowledge-base/what-is-prepay-amount",
+        "knowledge-base/what-is-deposit-amount",
         "knowledge-base/how-do-i-fix-the-error-failed-to-read-msg-stream-reset",
         "knowledge-base/what-is-foundry",
         "knowledge-base/why-is-cast-necessary-for-mev-commit-chain-interactions",
@@ -116,18 +122,16 @@
         "api-reference/provider/sendprocessedbids",
         "api-reference/provider/registerstake",
         "api-reference/provider/getminstake",
-        "api-reference/provider/getstake",
-        "api-reference/provider/getpendingtxns",
-        "api-reference/provider/canceltransaction"
+        "api-reference/provider/getstake"
       ]
     },
     {
       "group": "Bidder",
       "pages": [
         "api-reference/bidder/sendbid",
-        "api-reference/bidder/getallowance",
-        "api-reference/bidder/getminallowance",
-        "api-reference/bidder/prepayallowance"
+        "api-reference/bidder/getdeposit",
+        "api-reference/bidder/getmindeposit",
+        "api-reference/bidder/deposit"
       ]
     }
   ],

@@ -10,14 +10,14 @@ Providers that have registered in the mev-commit registry will automatically sta
   1. Install the mev-commit package:
 
   ```bash ❯_ terminal
-  go get github.com/primev/mev-commit
+  go install github.com/primev/mev-commit@latest
   ```
 
   2. Incorporate the generated client into your Go application as follows:
 
   ```go
-  import providerapiv1 "github.com/primev/mev-commit/gen/go/rpc/providerapi/v1"
-
+  import providerapiv1 "github.com/primev/mev-commit/p2p/gen/go/providerapi/v1"
+  
   conn, err = grpc.DialContext(
   	context.Background(),
   	"localhost:13524",
@@ -71,7 +71,7 @@ Providers that have registered in the mev-commit registry will automatically sta
   }
   ```
 
-  There is an [example implementation](https://github.com/primev/mev-commit/tree/main/examples/provideremulator) of a dummy provider client which blindly accepts all the bids it sees from its mev-commit node. This could be a good starting point for providers implementing their commitment decision logic in golang.
+  There is an [example implementation](https://github.com/primev/mev-commit/tree/main/p2p/examples/provideremulator) of a dummy provider client which blindly accepts all the bids it sees from its mev-commit node. This could be a good starting point for providers implementing their commitment decision logic in golang.
 
 ### Alternative Methods
 

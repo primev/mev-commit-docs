@@ -1,23 +1,26 @@
 # Introduction
 
-The [mev-commit contracts](https://github.com/primev/contracts) verify and manage the movement of funds as a response to bid and commitment activities that occur on our p2p network.
+The [mev-commit contracts](https://github.com/primev/mev-commit/tree/main/contracts) verify and manage the movement of funds as a response to bid and commitment activities that occur on our p2p network.
 
 For mev-commit testnet contract addresses please refer to [Testnet](/developers/testnet) section.
 
 ## Core Contract Architecture and Functionality
 
-The mev-commit protocol uses 4 core contracts:
+The mev-commit protocol uses 5 core contracts:
 
 - **Preconfirmations Contract**
   - This will persist details about the commitments that have been made into contract storage.
 - **Bidder Registry Contract**
   - This will be where the bulk of monetary transfer occurs.
-  - Bidders prepay for bids into this contract.
+  - Bidders deposit for bids into this contract.
   - The payment gets processed into a provider-allocated section that a provider can later retrieve.
 - **Provider Registry Contract**
   - This contract stores the stake a provider bounds to ensure it doesn't break its promises under preconfirmations.
 - **Oracle Contract**
   - This simply retrieves details on which commitments to process for rewarding or slashing.
+  - Access to the functions on this contract is restricted to the owner of the Oracle key.
+- **Block Tracker Contract**
+  - This will track Ethereum blocks and their winners, so commitments could be rewarded or slashed
   - Access to the functions on this contract is restricted to the owner of the Oracle key.
 
 ## Fee Vault Contract
@@ -31,25 +34,6 @@ The contract owner can invoke transfers of the accumulated fees from the sidecha
 Since the treasury address is immutable, the contract owner only has the power to initiate transfers.
 The separation between the contract owner and treasury accounts is useful because key management can be separate;
 i.e. a secure multisig governing the protocol treasury doesn't need to submit regular transfer transactions.
-
-## Bridge Contracts
-
-### Whitelist Contract
-
-Since multiple bridges will connect to the mev-commit chain, only whitelisted (approved/active) bridging contracts should be able to mint/burn native ether.
-
-- **Managing Bridging Permissions**: A whitelist contract on the mev-commit chain manages addresses authorized to mint or burn sidechain ether as part of the bridging process. This contract is crucial for integrating various bridges and maintaining control over which contracts can perform critical functions.
-- **Mint/Burn Functionality**: The whitelist contract on the mev-commit chain is responsible for minting and burning native ether corresponding to bridging actions. This ensures that ether on the mev-commit chain accurately reflects locked collateral on L1.
-
-### L1Gateway and SettlementGateway Contracts
-
-To bridge from L1 to the mev-commit chain, a user EOA first calls the `InitiateTransfer` function on the `L1Gateway` contract. This function accepts two parameters, a recipient account to receive funds on the counterparty chain, and an amount to transfer. The user must send (lock) the appropriate amount of ether in the `L1Gateway` contract as a part of the transaction that calls this function.
-
-During the `InitiateTransfer` transaction, an event is emitted from L1. The relayer continuously monitors for these L1 events from finalized blocks. Once the L1 event is observed by the relayer, it calls the `FinalizeTransfer` function on the bridge gateway contract residing on the mev-commit chain, the `SettlementGateway` contract. This transaction mints native ether to the recipient EOA, with an appropriate amount of wei.
-
-To bridge ether from the mev-commit chain back to L1, a user follows the same pattern as described above, as the relayer monitors both chains for transfer events.
-
-Note the destination gateway contract enforces a flat fee on the destination address. This is a constant fee paid to the relayer during the transfer finalization transaction. It currently serves as a simple 1 wei placeholder. In production, this fee must be greater on average than the gas cost of transfer finalization transactions sent from the relayer.
 
 ## Deploying Custom Contracts
 
