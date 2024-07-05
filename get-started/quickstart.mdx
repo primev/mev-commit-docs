@@ -4,27 +4,65 @@ description: "Step into the Primev ecosystem with ease. This guide covers everyt
 sidebarTitle: Quickstart
 icon: "gear"
 ---
+<Note>Please select either the Bidder or Provider tab below to proceed with the setup instructions specific to your role.</Note>
+<Tabs>
+  <Tab title="Bidder">
 
-# Quickstart
-
-Ready to get your node up and running? This streamlined process will guide you through launching either a bidder or provider node on the mev-commit network.
-  
-
-    <CodeGroup>
-        ```bash ❯_ bidder
+<Steps>
+  <Step title="Launch mev-commit Node">
+            ```bash ❯_ bidder
          curl -L -o launchmevcommit launch.mev-commit.xyz; chmod +x launchmevcommit; ./launchmevcommit --node-type bidder
         ```
+<Accordion title="🤔 What does the script do?">
 
+    ## Script Overview
+
+    This script automates the setup and initialization of your Primev node, catering to both bidder and provider roles. Below is a detailed breakdown of the script's operations:
+
+    ### 1. Initialization
+    - Sets up essential variables like the RPC URL (`https://chainrpc.testnet.mev-commit.xyz) for network communication and the node type (either `bidder` or `provider`).
+    - Establishes the root directory (`$HOME/.mev-commit`) where the mev-commit node will be installed.
+
+    ### 2. Download
+    - Fetches the appropriate mev-commit binary for your system from the [Primev GitHub releases page](https://github.com/primev/mev-commit/releases/latest), considering your operating system and architecture.
+
+    ### 3. Installation
+    - Extracts the downloaded binary into the specified root directory, ensuring all necessary executables are correctly placed for the node's operation.
+
+    ### 4. Configuration
+    - Initializes the mev-commit node with your specified settings, including the node type and the RPC endpoint, along with necessary contract addresses for the node's functionality.
+
+    ### 5. Wallet Setup
+    - Generates a new private key and wallet address for your node.
+
+    ### 6. Node Startup
+    - Launches the mev-commit node in the background tailored to the specified role, enabling it to begin its operations within the Primev network.
+
+    ### 7. Cleanup
+    - Includes a cleanup function to ensure the node is properly shut down when the script exits, preventing any residual processes.
+
+</Accordion>
+
+  </Step>
+  <Step title="Fund Your Account">
+    To fund your account, please visit our [Testnet Faucet](/get-started/faucet). Details about the account address will be displayed after running the command above.
+  </Step>
+  <Step title="Get Your First Preconf">
+    Visit [My First Preconf](/get-started/bidders/first-preconf) page to submit bids on the network and start receiving preconfirmations.  
+
+Make sure to check [System Requirements](/developers/system-requirements) to better understand what is needed to run mev-commit without any interruptions.	
+<Info>If you want to perform a manual setup with detailed steps, please skip to the [manual start mev-commit](/developers/manual-start-mev-commit) section.</Info>
+  </Step>
+</Steps>
+
+  </Tab>
+  <Tab title="Provider">
+   <Tip>Make sure to check [System Requirements](/developers/system-requirements) to better understand what is needed to run mev-commit without any interruptions.</Tip>
+<Steps>
+  <Step title="Launch mev-commit Node">
         ```bash ❯_ provider
          curl -L -o launchmevcommit launch.mev-commit.xyz; chmod +x launchmevcommit; ./launchmevcommit --node-type provider
         ```
-
-    </CodeGroup>  
-<Note>
-        To fund your account, please visit <a href="http://faucet.testnet.mev-commit.xyz/">http://faucet.testnet.mev-commit.xyz/</a>. Details about the account address will be displayed after running the commands below.
-</Note>
-<br></br>
-
 <Accordion title="🤔 What does the script do?">
 
     ## Script Overview
@@ -55,24 +93,17 @@ Ready to get your node up and running? This streamlined process will guide you t
 
 </Accordion>
 
-If you want to perform a manual setup with detailed steps, please skip to the [manual start mev-commit](/developers/manual-start-mev-commit) section.
+  </Step>
+  <Step title="Fund Your Account">
+    To fund your account, please visit our [Testnet Faucet](/get-started/faucet). Details about the account address will be displayed after running the command above.
+  </Step>
+  <Step title="Register as a Provider">
+    Visit [Register as a Provider](/get-started/providers/registering-a-provider) page to register yourself as a provider on mev-commit network and follow the steps to start sending commitments.  
 
-# What's next?  
+Make sure to check [System Requirements](/developers/system-requirements) to better understand what is needed to run mev-commit without any interruptions.
+<Info>If you want to perform a manual setup with detailed steps, please skip to the [manual start mev-commit](/developers/manual-start-mev-commit) section.</Info>
+  </Step>
+</Steps>
+  </Tab>
+</Tabs>
 
-<CardGroup cols={2}>
-  <div className="inline-card-header">
-    <Card title="Bidders" icon="user-bounty-hunter">
-      <br />
-      <br />
-      Once your node is funded, you can move on to [My First Preconf](/get-started/bidders/first-preconf) to start sending bids.
-    </Card>
-  </div>
-  <div className="inline-card-header">
-    <Card title="Providers" icon="network-wired">
-      <br />
-      <br />
-      In order to register as a provider, please go through the [registration
-      process](/get-started/providers/registering-a-provider).
-    </Card>
-  </div>
-</CardGroup>
