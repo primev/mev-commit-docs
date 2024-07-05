@@ -5,9 +5,11 @@ sidebarTitle: Sending Commitments
 
 To send your first commitment, you will need to connect to the mev-commit Testnet. This will allow you to consume bids incoming to the network and submit commitments. To do this, you'll want to run an emulator to simulate accepting and rejecting bids. 
 
-<Tip>You can read more about the internal builder API [here](/api-reference/provider/sendprocessedbids).</Tip>
 
-To get started with the emulator, open a new terminal and run the following command:
+<Tip>You may want to connect to a decisioning system that will accept and reject bids based on custom criteria. You can read more about the API to open a gRPC stream [here](/api-reference/provider/sendprocessedbids).</Tip>
+
+
+As an example, a dummy decisioning system is implemented in the repository. This dummy system accepts all the bids it gets. To try it, you can open a new terminal and run the following command:
 
 <Warning>You require Go Version 1.21.1 to run the example emulator</Warning>
 ``` 
@@ -17,7 +19,6 @@ git checkout v0.3.0 && cd p2p/examples/provideremulator && go run .
 
 ## Configuring custom logic to process bids and send Commitments
 
-Now you have a running instance of both an emulator that will auto-accept incoming bids and a provider node that will submit commitments on your behalf.
 We can take a deeper look at how you can add custom logic to decision on the sending of commitments.
 
 ### Integrating Bid Processing in Your System

@@ -33,7 +33,7 @@ You can use the provider API to stake and check your stake balance.
 
   Once staked, peer connection logs should appear within a few minutes. You can check the `/topology` endpoint again to verify connected peers.
 
- 
+<Info>The mev-commit settlements rely on the ExtraData field in the block header to attribute the winning providers. Providers need to register their node's ethereum address against the unique ExtraData field they use while building blocks. This registeration is currently done manually by the Primev team. So once the node is setup, users need to contact the team to register these details. Once the registeration is done, the settlement chain will be able to correctly attribute the winning providers on L1. This will be automated in future.</Info>
   </Step>
  
 </Steps>
@@ -52,7 +52,7 @@ Other commands that can be used are:
 - Get the account address of your node
 
   ```shell
-  > curl localhost:13523/topology | jq
+  > curl localhost:13523/v1/debug/topology | jq
   {
     "self": {
       "Addresses": [
@@ -68,4 +68,6 @@ Other commands that can be used are:
   }
   ```
 
- Congrats! Your provider node is registered on mev-commit, and you're ready to [consume bids](/get-started/providers/consuming-bids). 
+
+<Check>Congrats, your provider node is registered on mev-commit and you're ready to [consume bids](/get-started/providers/consuming-bids).</Check>
+
