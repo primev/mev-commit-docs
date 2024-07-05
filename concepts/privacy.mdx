@@ -13,7 +13,7 @@ ARUBE is the primitive that allows bidders in the mev-commit protocol to private
 
 ## Providers
 
-A provider who receives a bid can make a commitment to it, which they also sign for authentication. The signed commitment binds the provider to the bid. Furthermore, the process is executed in such a way that only the bidder who issued the bid can identify a commitment as being related to their bid. This approach ensures a high level of privacy for the providers, as the commitments they issue are not associated with a specific bid throughout the auction round. Moreover, if the provider refuses to open a commtiment at the end of the round, the bidder can independently open the commitment without needing assistance from the provider. This functionality is provided by the novel notion of dual-phase commitments.
+A provider who receives a bid can make a commitment to it, which they also sign for authentication. The signed commitment binds the provider to the bid. Furthermore, the process is executed in such a way that only the bidder who issued the bid can identify a commitment as being related to their bid. This approach ensures a high level of privacy for the providers, as the commitments they issue are not linkable to a specific bid throughout the auction round. Moreover, if the provider refuses to open a commtiment at the end of the round, the bidder can independently open the commitment without needing assistance from the provider. This functionality is provided by the novel notion of dual-phase commitments.
 
 ### Dual-Phase Commitment (DPCOM)
 
