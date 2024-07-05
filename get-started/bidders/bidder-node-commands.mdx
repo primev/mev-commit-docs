@@ -17,23 +17,23 @@ export ADDRESS=$(cast wallet address --private-key 0x$(cat key))
 
 ## Getting Deposit
 
-To get the current deposit balance in the contract for the current [window](https://docs.primev.xyz/concepts/bidder-deposit):
+To get the current deposit balance in the contract for the current [window](/concepts/bids/bidder-deposit):
 
 ```shell ❯_ terminal
 curl -s http://localhost:13523/v1/bidder/get_deposit
 ```
 
-To get the current deposit balance in the contract for a specific [window](https://docs.primev.xyz/concepts/bidder-deposit):
+To get the current deposit balance in the contract for a specific [window](/concepts/bids/bidder-deposit):
 
 ```shell ❯_ terminal
 curl -s http://localhost:13523/v1/bidder/get_deposit?windowNumber=1
 ```
 
-💡Deposit represents the funds in the bidder's account that can be used to submit bids on the mev-commit p2p-network and settled on-chain.
+<Tip>Deposit represents the funds in the bidder's account that can be used to submit bids on the mev-commit p2p-network and settled on-chain.</Tip>
 
 ## Withdraw Deposited Funds
 
-This command will allow you to withdraw funds from the specific [window](https://docs.primev.xyz/concepts/bidder-deposit). 
+This command will allow you to withdraw funds from the specific [window](/concepts/bids/bidder-deposit). 
 Window number is the number where the bidder deposited funds.
 
 ```shell ❯_ terminal
