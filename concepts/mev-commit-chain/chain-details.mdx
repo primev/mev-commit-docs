@@ -3,15 +3,15 @@ title: "Chain Details"
 sidebarTitle: Chain Details
 ---
 
-Mev-commit chain mainnet is set to launch soon. In the meantime, join the testnet and get familiar with its functionalities at the [Testnet](/developers/testnet) section.
+The mev-commit chain mainnet is set to launch soon. In the meantime, join the testnet and get familiar with its functionalities at the [Testnet](/developers/testnet) section.
 
-## **Design**
+## Design
 
 Mev-commit chain is currently built out as an Ethereum sidechain run with [go-ethereum’s Clique proof-of-authority consensus mechanism](https://geth.ethereum.org/docs/tools/clef/clique-signing). It's not a generalized chain for everyone to launch dapps on, but only for specific execution service applications, such as preconfirmations, top of block, bottom of block, or other services.
 
 Source code for the geth fork which runs the mev-commit chain can be found in the [mev-commit-geth repo](https://github.com/primev/mev-commit-geth).
 
-## **Progressive decentralization**
+## Progressive decentralization
 
 Today, most or arguably all Ethereum scaling solutions rely on centralized bridging and sequencing. Mev-commit components rely on existing tech, and consequently inherit this property. However anyone can permissionlessly validate correct execution, and operation of chain infrastructure. Moreover, because the mev-commit p2p network is decentralized and commitments are cryptographic, actors can theoretically settle commitments without the mev-commit chain.
 
@@ -19,17 +19,17 @@ At this point of the network's inception, Primev entities will run all validatin
 
 The mev-commit chain will continue to evolve. We have ongoing research into consensus algorithms we can employ to decentralize the mev-commit chain without compromising on speed. Open source scaling solutions that prove to be practical, decentralized, and meet security thresholds will be considered to decentralize the mev-commit chain.
 
-## **POA geth nodes**
+## POA geth nodes
 
 Primev currently maintains a mev-commit-geth bootnode which doesn’t participate in consensus, and a set of full-node POA signers that run consensus. These signers take turns proposing the next block by utilizing a waiting period.
 
 The current target block period is 200ms, meaning about 60 mev-commit chain blocks will be committed for every Ethereum mainnet block. The block time will likely change as enhancements are added and chain state grows.
 
-## **Fee Mechanism**
+## Fee Mechanism
 
 **Non-inflationary Approach**: The fee mechanism on the mev-commit chain is designed to be non-inflationary, maintaining a strict 1:1 peg between the sidechain ether and the L1 escrowed ether. This is achieved through a variation of EIP-1559, where base fees are accumulated in a treasury and priority fees are allocated to block signers.
 
-## **Smart Contracts**
+## Smart Contracts
 
 Smart Contracts are deployed on the mev-commit chain to enable use cases, follow bid and commitment states, and invoke rewards or slashing as needed. Anyone can deploy contracts on the mev-commit chain, however there'll be additional integration work needed with mev-commit off-chain components to fully enable the use case under the current design. Thus we first recommend getting in touch with the Primev team to enable a use case at this stage of the network.
 
@@ -40,7 +40,7 @@ Currently deployed contracts are designed as follows:
 - An oracle contract receives L1 payloads from the oracle service. It currently operates by checking confirmed Holesky blocks, and will transition to Mainnet as mev-commit migrates to Mainnet.
 - An block tracker contract which designed to track Ethereum blocks and their respective winners.
 
-## **Oracle service**
+## Oracle service
 
 The oracle service is an off-chain process that interacts with the oracle contract as needed. This service monitors and extracts the winning builder and corresponding transaction hash list from each L1 block, and submits this data to the oracle contract residing on the mev-commit chain.
 

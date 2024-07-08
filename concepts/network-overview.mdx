@@ -3,13 +3,23 @@ title: Understanding mev-commit
 sidebarTitle: Network Overview
 ---
 
+### Overview
+
 Mev-commit is designed as an out of protocol layer to systems like mev-boost, facilitating the exchange of execution bids and commitments between mev actors, solving for coordination inefficiencies. This design ensures that only necessary parts of this faciliation happen on mev-commit (bids, commitments, settlement) and not the transaction flow itself. This design achieves chain abstraction by its nature, as any transaction hash on any chain can be referred to in a mev-commit bid, and be paid in eth. Bids and commitments on mev-commit also do not rely on blockchain bottlenecks and are real-time.
+
+### Bids and Commitments
 
 Bids are received and evaluated by providers, who run decisioning logic in their own environment and may decide to issue a cryptographic commitment against whatever the bid is for. In the preconfirmation case, the minimum a commitment can be made is for inclusion of the referred transaction hash(es) in the bid on the target L1 block number specified.
 
-Once the commitment is recorded on the mev-commit chain, an oracle will check the target L1 block number as it gets confirmed to see if the commitment is satisfied by the committing actor. If so, the bid amount will be rewarded to the provider. If not, the provider stake will be slashed.
+### Settling Commitments
+
+Commitments are simultaneously sent to bidders and the mev-commit chain in hash format. This ensures the network can operate with end-to-end pre-execution privacy and low latency. Once the commitment is revealed by either of the participating parties at the end of a slot, an oracle will check the target L1 block number as it gets confirmed to see if the commitment is delivered. If so, the bid amount will be rewarded to the provider. If not, the provider stake will be slashed.
+
+### Rewards and Slashing
 
 _Only the actors who participated in the block's confirmation are considered for rewards or slashing._ This means if Block Builder A and Block Builder B commit to a bid and the target block is built by Block Builder A, the oracle will reward or slash Block Builder A.
+
+### Network Architechture
 
 The architecture of the mev-commit peer-to-peer (P2P) network is designed to support instantaneous communication among network participants. The diagram below depicts how mev-commit acts as a layer on bidder and provider operations, that are external to the mev-commit network by its nature:
 
