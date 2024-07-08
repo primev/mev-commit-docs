@@ -64,6 +64,7 @@
         "concepts/privacy",
         "concepts/commitments",
         "concepts/solvers",
+
 	{
           "group": "Bids",
           "pages": [
