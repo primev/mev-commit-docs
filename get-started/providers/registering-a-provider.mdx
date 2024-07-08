@@ -23,17 +23,18 @@ You can use the provider API to stake and check your stake balance.
   }
   ```
   </Step>
-  <Step title="Stake">
+  <Step title="Register Stake with BLS PubKey">
      ```shell
-      > curl -X POST localhost:13523/v1/provider/register_stake/10000000000000000000 | jq
+      > curl -X POST "http://localhost:13523/v1/provider/register_stake/1000000000000000000?blsPublicKey=0xpk" | jq
       {
-        "amount": "10000000000000000000"
+        "amount": "10000000000000000000", 
+        "blsPublicKey": "0xpk"
       }
       ```
 
   Once staked, peer connection logs should appear within a few minutes. You can check the `/topology` endpoint again to verify connected peers.
 
-<Info>The mev-commit settlements rely on the `extra-data` field in the block header to attribute the winning providers. Providers need to register their node's Ethereum address against the unique `extra-data` field they use while building blocks. This registration is currently done manually by the Primev team. So once the node is setup, users need to contact the team to register these details. Once the registeration is done, the settlement chain will be able to correctly attribute the winning providers on L1. This will be automated in future.</Info>
+<Info>The mev-commit settlements rely on the `extra-data` field in the block header to attribute the winning providers. Providers need to register their node's Ethereum address and BLS public key against the unique `extra-data` field they use while building blocks. This registration is currently done manually by the Primev team. So once the node is setup, users need to contact the team to register these details. Once the registration is done, the settlement chain will be able to correctly attribute the winning providers on L1. This will be automated in future.</Info>
   </Step>
  
 </Steps>
