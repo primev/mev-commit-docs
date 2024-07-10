@@ -33,7 +33,8 @@ curl -X POST http://localhost:13523/v1/bidder/bid \
     "amount": "<amount in wei>",
     "blockNumber": <integer l1blocknumber>,
     "decayStartTimestamp": <timestamp milliseconds>,
-    "decayEndTimestamp": <timestamp milliseconds>
+    "decayEndTimestamp": <timestamp milliseconds>,
+    "revertingTxHashes": [""]
 }'
 ```
 
@@ -46,7 +47,8 @@ curl -X POST http://localhost:13523/v1/bidder/bid \
         | `amount`       | Bid amount in wei |
         | `blockNumber`  | L1 block number targeted for bid inclusion |
         | `decayStartTimestamp` | Start timestamp for bid decay (in Unix milliseconds) |
-        | `decayEndTimestamp` | End timestamp for bid decay (in Unix milliseconds) |  
+        | `decayEndTimestamp` | End timestamp for bid decay (in Unix milliseconds) |
+        | `revertingTxHashes` | Array of transaction hashes as strings that can revert |
 
     </Accordion>
 
@@ -59,7 +61,8 @@ curl -X POST http://localhost:13523/v1/bidder/bid \
     "amount": "<amount in wei>",
     "blockNumber": <integer l1blocknumber>,
     "decayStartTimestamp": <timestamp milliseconds>,
-    "decayEndTimestamp": <timestamp milliseconds>
+    "decayEndTimestamp": <timestamp milliseconds>,
+    "revertingTxHashes": ["22145ba31366d29a893ae3ffbc95c36c06e8819a289ac588594c9512d0a99810"]
 }'
 ```  
 <Tip>You can change the values in the fields txHashes, amount, blockNumber, decayStartTimestamp and decayEndTimestamp as desired.</Tip>

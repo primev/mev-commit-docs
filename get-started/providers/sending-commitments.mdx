@@ -52,6 +52,7 @@ message Bid {
   bytes bid_digest = 4;
   int64 decay_start_timestamp = 5;
   int64 decay_end_timestamp = 6;
+  repeated string reverting_tx_hashes = 7;
 };
 ```
 
