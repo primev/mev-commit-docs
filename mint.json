@@ -63,7 +63,7 @@
         "concepts/network-overview",
         "concepts/privacy",
         "concepts/commitments",
-	{
+        {
           "group": "Bids",
           "pages": [
             "concepts/bids/bid-structure",
@@ -91,9 +91,9 @@
         "developers/system-requirements",
         "developers/provider-api",
         "developers/bidder-api",
-		    "developers/bidder-deposit",
-		    "developers/tools-for-bid-submission",
-		    "developers/stake-validator-keys-manually",
+        "developers/bidder-deposit",
+        "developers/tools-for-bid-submission",
+        "developers/stake-validator-keys-manually",
         "developers/contracts",
         "developers/debugging",
         "developers/manual-start-mev-commit",
