@@ -68,12 +68,7 @@ mev-commit --keystore-path ~/.mev-commit \
 Another option to enable this is using the Bidder API.
 
 ```shell ❯_ terminal
-curl -X POST http://localhost:13523/v1/bidder/auto_deposit \
-  -H "Content-Type: application/json" \
-  -d '{
-        "amount": "1000000000000000000",
-        "windowNumber": 3
-      }'
+curl -X POST http://localhost:13523/v1/bidder/auto_deposit?amount=1000000000000000000
 ```
 
 ## Get Auto Deposit Status
@@ -89,11 +84,7 @@ curl -s http://localhost:13523/v1/bidder/auto_deposit_status
 To cancel the auto deposit process:
 
 ```shell ❯_ terminal
-curl -X POST http://localhost:13523/v1/bidder/cancel_auto_deposit \
-  -H "Content-Type: application/json" \
-  -d '{
-        "withdraw": true
-      }'
+curl -X POST http://localhost:13523/v1/bidder/cancel_auto_deposit?withdraw=true
 ```
 
 This will stop the ongoing auto deposit process.
@@ -105,11 +96,7 @@ This will stop the ongoing auto deposit process.
 To withdraw funds from the several windows, you can use the following command:
 
 ```shell ❯_ terminal
-curl -X POST http://localhost:13523/v1/bidder/withdraw_from_windows
-    -H "Content-Type: application/json" \
-    -d '{
-          "windows": [1, 2, 3]
-        }'
+curl -X POST http://localhost:13523/v1/bidder/withdraw_from_windows?windowNumbers=1&windowNumbers=2&windowNumbers=3
 ```
 
 ## Checking the Balance of your Wallet
