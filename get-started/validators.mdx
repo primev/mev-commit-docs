@@ -21,7 +21,7 @@ Participation of L1 validators in the mev-commit protocol is crucial as it enhan
 
 By opting-in to the mev-commit protocol as a Holesky validator, you agree to the following:
 
-* Your mev-boost client should ONLY connect to mev-commit opted in relays to avoid being slashed by proposing a block that doesn't deliver commitments. The Titan Holesky relay is the only supporting relay at this time as shown in the list below. This list will be updated as more relays support the network.  
+* Your mev-boost client should ONLY connect to mev-commit opted in relays to avoid being slashed by proposing a block that doesn't deliver commitments. The Titan Holesky relay is the only supporting relay at this time as shown in the list below. This list will be updated as more relays support the network.
   
 **Supporting Relays:**  
 
@@ -40,7 +40,9 @@ By opting-in to the mev-commit protocol as a Holesky validator, you agree to the
   </tbody>
 </table>
 
-If you are a relay looking to join mev-commit network please visit our [Relays page](/get-started/relays) to get more information.
+If you are a relay looking to join the mev-commit network please visit our [Relays page](/get-started/relays) to get more information.
+
+Proposers who fallback to local block production, from either a fault in the mev-boost software or a lack of economically viable block bids, **will not be slashed**. See [flashbots docs](https://docs.flashbots.net/flashbots-mev-boost/architecture-overview/risks#liveness-and-local-fallback) for more on this scenario. The protocol may in the future slash for abuse of this local fallback mechanism.
   
 0.0001 ETH must be staked with the registry contract on Holesky for each validator pubkey. Below are a few options for obtaining this testnet ETH:
 

@@ -15,7 +15,6 @@
       "to": "#E97D25"
     }
   },
-
   "tabs": [
     {
       "name": "API Reference",
@@ -30,7 +29,7 @@
     {
       "group": "Get Started",
       "pages": [
-        "get-started/introduction",
+        "get-started/welcome-to-primev",
         "get-started/quickstart",
         "get-started/faucet",
         "get-started/validators",
@@ -63,6 +62,7 @@
         "concepts/network-overview",
         "concepts/privacy",
         "concepts/commitments",
+        "concepts/execution-preconfs",
         {
           "group": "Bids",
           "pages": [
@@ -72,7 +72,7 @@
           ]
         },
         {
-          "group": "mev-commit Chain",
+          "group": "Mev-commit Chain",
           "pages": [
             "concepts/mev-commit-chain/chain-details",
             "concepts/mev-commit-chain/differences-between-ethereum-and-mev-commit-chain",

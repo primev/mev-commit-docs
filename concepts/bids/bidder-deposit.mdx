@@ -22,6 +22,10 @@ $$
 
 Since deposits are split across $\text{blocksPerWindow} = 10$ L1 blocks, bidders have to deposit at least 10 times the amount they want to bid for a single block.
 
+## Withdrawal Time
+
+The earliest withdrawal time can be calculated as the withdrawal start time, n-2 windows which is 30 L1 blocks (360 seconds) and oracle lag which is 20 L1 blocks (240 seconds) totalling 600 seconds, or 10 minutes. Therefore, the total time before funds can be withdrawn is approximately 50 blocks (10 minutes) from the initial deposit.
+
 ## Deposit/Withdrawal Flow
 
 <Frame>

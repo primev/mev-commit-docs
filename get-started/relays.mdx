@@ -13,7 +13,7 @@ Opting into mev-commit as a relay means that you sign up to deliver mev-boost bi
   <img src="/images/relay-filtering.png" />
 </Frame>
 
-Information about the providers (entities like builders who commit on our network) is stored in our provider registry. You can interact with the registry at the contract address at {ProviderRegistryAddress}. 
+Information about the providers (entities like builders who commit on our network) is stored the provider registry hosted on the mev-commit chain. You can interact with the registry contract at address: {ProviderRegistryAddress}. 
 <AccordionGroup>
   <Accordion title="How to retrieve all connected providers">
     You can retrieve all connected providers using the following script:
@@ -28,7 +28,7 @@ Information about the providers (entities like builders who commit on our networ
     // Define the contract address and ABI
     const providerRegistryAddress = "0x4FC9b98e1A0Ff10de4c2cf294656854F1d5B207D";
     const abi = [
-        "event ProviderRegistered(address indexed provider, uint256 stakedAmount)"
+        "event ProviderRegistered(address indexed provider, uint256 stakedAmount, bytes blsPublicKey)"
     ];
 
     // Create a new contract instance
@@ -42,8 +42,8 @@ Information about the providers (entities like builders who commit on our networ
         // Query the contract for the ProviderRegistered events
         const events = await contract.queryFilter(filter);
 
-        // Map the events to get the list of provider addresses
-        const providers = events.map(event => event.args.provider);
+        // Map the events to get the list of provider bls public keys
+        const providers = events.map(event => event.args.blsPublicKey);
 
         return providers;
     }
@@ -59,31 +59,20 @@ Information about the providers (entities like builders who commit on our networ
   </Accordion>
   
   <Accordion title="Expected Output">
-    The output will be a list of addresses that have registered with mev-commit.
+    The output will be a list of providers, identified by their BLS pubkey, that have registered with mev-commit.
 
     ```bash ❯_ terminal
     Registered Providers: [
-    '0xa47C8AdfFc62FE17fC39e23267B774879b0ABE6b',
-    '0x73Ed2ff15e848589B752a64aBa0f3B8B4bEdd6DD',
-    '0xf956071E0e58cd9cb68fA0e4CC86aEc7C8bEd586',
-    '0xb0B7858789393CE5A1B739359310D784f400bFFE',
-    '0x380307325EFf7137dC96431F45599EBfc4E2A6e9',
-    '0x2C4a6d656d9756E5D21082C5317ED93464B370Fb',
-    '0xc260620078801de0019877138f85eC0e30B9c643',
-    '0x6E25039D4B24630c40010934cFf94443eC939C8b',
-    '0x539077C1A1C0f489Fc6F23305750990341B664AF',
-    '0x2E6bC387a850397c0496Cd70355d7B87Ac9A76e0',
-    '0xB56700fc7f1Cc45dea6f575e7014bb2EE8CEEC1F',
-    '0x028677f17372b4B19C49Cfa74A92654d18eDfe49',
-    '0x051f91FeC4421bfDC5A4504E123ABb73C7790Ed1',
-    '0x762bba6B80dcFaf65f9F91A6a6ed60559f4F003c',
-    ...
+      '0x4e9c5b21bb1df120a7000fac8e3b1978bc308d28b54bbeae76eff010d8d8f83d785adc4141faf179715f550088becd7f',
+      '0x2e6b986435137b88685d8a2783c46ec9a68958bbb3f50b09a538954942c0f9066493d35b3e341a059a507d66d4545c23',
+      '0x43c615787576375f2c7db9c03c8899bab545881e373a963873b0f10c00faa3da57c7c7ecc1915809c651bb40c055b22e',
+      ...
     ]
     ```
   </Accordion>
 
   <Accordion title="Additional Information">
-    Check out the [Provider Registry Explorer](http://explorer.testnet.mev-commit.xyz/address/0x5960774AD41D03DAB4916a30bD2190f8b3b3b4b2) for more details on registered providers.
+    Check out the [Provider Registry Explorer](http://explorer.testnet.mev-commit.xyz/contracts/0x4FC9b98e1A0Ff10de4c2cf294656854F1d5B207D) for more details on registered providers.
   </Accordion>
 
 </AccordionGroup>
