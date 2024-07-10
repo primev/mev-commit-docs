@@ -55,12 +55,7 @@ The withdrawal functionality allows you to withdraw deposited funds from specifi
 To start the auto deposit process:
 
 ```shell ❯_ terminal
-curl -X POST http://localhost:13523/v1/bidder/auto_deposit \
-  -H "Content-Type: application/json" \
-  -d '{
-        "amount": "1000000000000000000",
-        "windowNumber": 3
-      }'
+curl -X POST http://localhost:13523/v1/bidder/auto_deposit/{amount}
 ```
 
 ## Get Auto Deposit Status
@@ -76,7 +71,7 @@ curl -s http://localhost:13523/v1/bidder/auto_deposit_status
 To cancel the auto deposit process:
 
 ```shell ❯_ terminal
-curl -X POST http://localhost:13523/v1/bidder/cancel_auto_deposit
+curl -X POST http://localhost:13523/v1/bidder/cancel_auto_deposit?withdraw=true
 ```
 
 This will stop the ongoing auto deposit process.
