@@ -96,7 +96,9 @@ This will stop the ongoing auto deposit process.
 To withdraw funds from the several windows, you can use the following command:
 
 ```shell ❯_ terminal
-curl -X POST http://localhost:13523/v1/bidder/withdraw_from_windows?windowNumbers=1&windowNumbers=2&windowNumbers=3
+curl -X POST http://localhost:13523/v1/bidder/withdraw_from_windows \
+-H "Content-Type: application/json" \
+-d '{"windowNumbers": [1, 2, 3]}'
 ```
 
 ## Checking the Balance of your Wallet
