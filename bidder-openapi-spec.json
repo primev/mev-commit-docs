@@ -45,28 +45,18 @@
             "schema": {
               "type": "string"
             }
-          },
-          {
-            "name": "windowNumber",
-            "description": "Optional window number for querying deposit. If not specified, the current block number is used.",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "format": "uint64"
-            }
-          },
-          {
-            "name": "blockNumber",
-            "description": "Optional block number for querying deposit. If specified, calculate window based on this block number.",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "format": "uint64"
-            }
           }
-        ]
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/v1BidderAutoDepositBody"
+              }
+            }
+          },
+          "required": true
+        }
       }
     },
     "/v1/bidder/auto_deposit_status": {
@@ -174,16 +164,17 @@
             }
           }
         },
-        "parameters": [
-          {
-            "name": "withdraw",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "boolean"
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/v1CancelAutoDepositRequest"
+              }
             }
-          }
-        ]
+          },
+          "description": "Request to cancel AutoDeposit.",
+          "required": true
+        }
       }
     },
     "/v1/bidder/deposit/{amount}": {
@@ -355,22 +346,17 @@
             }
           }
         },
-        "parameters": [
-          {
-            "name": "windowNumbers",
-            "description": "Window numbers for withdrawing deposits.",
-            "in": "query",
-            "required": true,
-            "explode": true,
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "string",
-                "format": "uint64"
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/v1WithdrawFromWindowsRequest"
               }
             }
-          }
-        ]
+          },
+          "description": "Withdraw deposit from the bidder registry.",
+          "required": true
+        }
       }
     }
   },
@@ -380,11 +366,27 @@
         "type": "object",
         "properties": {
           "amount": {
-            "type": "string"
+            "type": "string",
+            "description": "Deposited amount of ETH in wei."
           },
           "windowNumber": {
             "type": "string",
-            "format": "uint64"
+            "format": "uint64",
+            "description": "Window number for the deposit."
+          },
+          "isCurrent": {
+            "type": "boolean",
+            "description": "Indicates if the window is the current window."
+          },
+          "startBlockNumber": {
+            "type": "string",
+            "format": "uint64",
+            "description": "The initial L1 block number for the window."
+          },
+          "endBlockNumber": {
+            "type": "string",
+            "format": "uint64",
+            "description": "The final L1 block number for the window."
           }
         }
       },
@@ -470,10 +472,10 @@
         "type": "object",
         "example": {
           "amount_per_window": "1000000000000000000",
-          "start_block_number": "1"
+          "start_window_number": "1"
         },
         "properties": {
-          "startBlockNumber": {
+          "startWindowNumber": {
             "type": "string",
             "format": "uint64"
           },
@@ -516,6 +518,37 @@
         },
         "description": "AutoDeposit status from the bidder registry.",
         "title": "AutoDeposit status response"
+      },
+      "v1BidderAutoDepositBody": {
+        "type": "object",
+        "example": {
+          "amount": "1000000000000000000",
+          "window_number": 1
+        },
+        "properties": {
+          "windowNumber": {
+            "type": "string",
+            "format": "uint64",
+            "description": "Optional window number for querying deposit. If not specified, the current block number is used."
+          },
+          "blockNumber": {
+            "type": "string",
+            "format": "uint64",
+            "description": "Optional block number for querying deposit. If specified, calculate window based on this block number."
+          }
+        },
+        "description": "Deposit for bids to be issued by the bidder in wei.",
+        "title": "Deposit request"
+      },
+      "v1CancelAutoDepositRequest": {
+        "type": "object",
+        "properties": {
+          "withdraw": {
+            "type": "boolean"
+          }
+        },
+        "description": "Request to cancel AutoDeposit.",
+        "title": "CancelAutoDeposit request"
       },
       "v1CancelAutoDepositResponse": {
         "type": "object",
@@ -615,6 +648,25 @@
         },
         "description": "Get deposit for bidder in the bidder registry.",
         "title": "Deposit response"
+      },
+      "v1WithdrawFromWindowsRequest": {
+        "type": "object",
+        "example": {
+          "window_numbers": [1, 2, 3]
+        },
+        "properties": {
+          "windowNumbers": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uint64"
+            },
+            "description": "Window numbers for withdrawing deposits."
+          }
+        },
+        "description": "Withdraw deposit from the bidder registry.",
+        "title": "Withdraw from multiple windows request",
+        "required": ["windowNumbers"]
       },
       "v1WithdrawFromWindowsResponse": {
         "type": "object",
