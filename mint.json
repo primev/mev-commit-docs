@@ -62,7 +62,6 @@
         "concepts/network-overview",
         "concepts/privacy",
         "concepts/commitments",
-        "concepts/execution-preconfs",
         {
           "group": "Bids",
           "pages": [
@@ -108,7 +107,8 @@
         "knowledge-base/how-do-i-fix-the-error-failed-to-read-msg-stream-reset",
         "knowledge-base/what-is-foundry",
         "knowledge-base/why-is-cast-necessary-for-mev-commit-chain-interactions",
-        "knowledge-base/why-do-i-receive-the-same-commitment-when-resending-a-bid"
+        "knowledge-base/why-do-i-receive-the-same-commitment-when-resending-a-bid",
+		"knowledge-base/what-is-execution-preconfirmations"
       ]
     },
     {
