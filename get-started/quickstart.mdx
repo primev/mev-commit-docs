@@ -47,11 +47,38 @@ icon: "gear"
   <Step title="Fund Your Account">
     To fund your account, please visit our [Testnet Faucet](/get-started/faucet). Details about the account address will be displayed after running the command above.
   </Step>
-  <Step title="Get Your First Preconf">
-    Visit [My First Preconf](/get-started/bidders/first-preconf) page to submit bids on the network and start receiving preconfirmations.  
+  <Step title="Send a Bid">
+    Open a new terminal window to send a bid and receive commitments from providers. Run the following command:
 
-<Note>Make sure to check [System Requirements](/developers/system-requirements) to better understand what is needed to run mev-commit without any interruptions.</Note>
-<Info>If you want to perform a manual setup with detailed steps, please skip to the [manual start mev-commit](/developers/manual-start-mev-commit) section.</Info>
+```shell ❯_ example
+curl -X POST http://localhost:13523/v1/bidder/bid \
+-d '{
+    "txHashes": ["0549fc7c57fffbdbfb2cf9d5e0de165fc68dadb5c27c42fdad0bdf506f4eacae"],
+    "amount": "<amount in wei>",
+    "blockNumber": <integer l1blocknumber>,
+    "decayStartTimestamp": <timestamp milliseconds>,
+    "decayEndTimestamp": <timestamp milliseconds>,
+    "revertingTxHashes": []
+}'
+```
+<Check>Congrats, you just sent your first L1 preconfirmation bid! You should be receiving commitments nearly instantly.</Check>
+
+<Note>Make sure your bid amount is sufficiently high for the commitment you're requesting, and your target L1 block number is accurate. It's up to the providers to commit to your bid, so try to ensure a commitment is feasible to your bid by its construction.</Note>
+
+    <Accordion title="Detailed Bid Structure">
+
+        | Key           | Description                                           |
+        |---------------|-------------------------------------------------------|
+        | `txHashes`      | Array of transaction hashes as strings |
+        | `amount`       | Bid amount in wei |
+        | `blockNumber`  | L1 block number targeted for bid inclusion |
+        | `decayStartTimestamp` | Start timestamp for bid decay (in Unix milliseconds) |
+        | `decayEndTimestamp` | End timestamp for bid decay (in Unix milliseconds) |
+        | `revertingTxHashes` | Array of transaction hashes as strings that can revert |
+
+    </Accordion>
+
+<Info> Make sure to check [System Requirements](/developers/system-requirements) to better understand what is needed to run mev-commit without any interruptions.  If you want to perform a manual setup and learn details, please skip to the [manual start mev-commit](/developers/manual-start-mev-commit) section.</Info>
   </Step>
 </Steps>
 
