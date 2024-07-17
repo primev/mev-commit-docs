@@ -61,11 +61,7 @@ curl -X POST http://localhost:13523/v1/bidder/bid \
     "revertingTxHashes": []
 }'
 ```
-<Check>Congrats, you just sent your first L1 preconfirmation bid! You should be receiving commitments nearly instantly.</Check>
-
-<Note>Make sure your bid amount is sufficiently high for the commitment you're requesting, and your target L1 block number is accurate. It's up to the providers to commit to your bid, so try to ensure a commitment is feasible to your bid by its construction.</Note>
-
-    <Accordion title="Detailed Bid Structure">
+    <Accordion title="Bid Structure Details">
 
         | Key           | Description                                           |
         |---------------|-------------------------------------------------------|
@@ -77,6 +73,12 @@ curl -X POST http://localhost:13523/v1/bidder/bid \
         | `revertingTxHashes` | Array of transaction hashes as strings that can revert |
 
     </Accordion>
+
+You can change the values in the fields `txHashes`, `amount`, `blockNumber`, `decayStartTimestamp` and `decayEndTimestamp` as desired.
+
+Make sure your bid amount is sufficiently high for the commitment you're requesting, and your target L1 block number is accurate. It's up to the providers to commit to your bid, so try to ensure a commitment is feasible to your bid by its construction.
+
+<Check>Congrats, you just sent your first L1 preconfirmation bid! You should be receiving commitments nearly instantly.</Check>
 
 <Info> Make sure to check [System Requirements](/developers/system-requirements) to better understand what is needed to run mev-commit without any interruptions.  If you want to perform a manual setup and learn details, please skip to the [manual start mev-commit](/developers/manual-start-mev-commit) section.</Info>
   </Step>
