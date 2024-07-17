@@ -23,10 +23,29 @@ curl -X POST http://localhost:13523/v1/bidder/bid \
 }'
 ```  
 <Tip>You can change the values in the fields txHashes, amount, blockNumber, decayStartTimestamp and decayEndTimestamp as desired.</Tip>
-  </Step>
-</Steps>
 
-<Check>Congrats, you just sent your first L1 preconfirmation bid! You should be receiving commitments nearly instantly.</Check>
+## Provider RPCs
+
+Below is a table of Provider RPCs to send your transactions to. You may already be sending transactions to these providers if you have existing transaction operations.
+
+<table>
+  <thead>
+    <tr>
+      <th width="350">Provider</th>
+      <th width="350">RPC Endpoint</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Preconf Builder</td>
+      <td>[http://52.11.201.67:8545/](http://52.11.201.67:8545/)</td>
+    </tr>
+    <tr>
+      <td>Titan</td>
+      <td>[rpc.titanbuilder.xyz](https://www.titanbuilder.xyz/)</td>
+    </tr>
+  </tbody>
+</table>
 
 ## Bidder Funds
 
