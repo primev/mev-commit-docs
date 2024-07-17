@@ -37,7 +37,7 @@
         {
           "group": "Bidders",
           "pages": [
-            "get-started/bidders/first-preconf",
+            "get-started/bidders/best-practices",
             "get-started/bidders/bidder-node-commands"
           ],
           "icon": "user-bounty-hunter"
