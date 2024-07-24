@@ -22,6 +22,14 @@ There are four possible outcomes after a commitment is made by a provider and an
 ## Validators/Proposers
 A validator that opts into mev-commit makes an implicit commitment to include a block from a mev-commit registered block builder in L1 whenever they become the proposer of the slot. Upon successfully including a block built by mev-commit providers in L1, the proposer is paid by the provider/builder through the mev-boost auction. An important observation here is that due to the preconf commitments, the total value of the block is expected to be higher than without preconfs. Thus, the proposer is expected to get a higher value for the block than just by using mev-boost alone.
 
+### Proposer Rewards
+
+1. a bidder sends a bid, and receives a commitment from a provider
+2. The provider now has this additional bid amount to bid in the mev-boost auction, driving up the average mev-boost bid value that a proposer can get. mev-commit bids act similarly to net-new order flow for PBS actors, and increase potential revenue
+3. The Proposer proposes a block that delivers the commitments the provider has made, and inherently receives the value through the mev-boost auction
+
+Next, we dive into proposer slashing cases:
+
 ### Missed block. 
 A proposer can completely miss its slot and not include any block in L1. This can happen either due to network issues by the proposer, due to the relay not delivering the block's contents on time, or due to chain reorgs. In any case, mev-commit does not slash the proposer for missing a block as the proposer does not profit from omitting a block and it is potentially out of their control.
 
