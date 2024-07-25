@@ -20,10 +20,10 @@ We discuss each case in more detail below.
 
 ### Rewards 
 
-#### Successful Commitment
 Upon successfully fulfilling a commitment, a provider will be rewarded the bid amount, minus a 2% fee (this fee accumulates in the mev-commit protocol treasury). This reward is paid by the mev-commit oracle to the provider’s account after the corresponding slot is settled by the oracle according to the block included in L1.
 
 ### Slashing
+In this section we discuss the provider's slashing cases.
 
 #### Broken Commitment
 Upon breaking a commitment, a provider will be slashed from their stake equal to the bid amount they committed to (taking into account the bid decay), including a 5% penalty fee. The principal slash amount will be transferred to the bidder for the broken commitment, and the penalty fee will be transferred to the mev-commit protocol treasury.
@@ -41,11 +41,12 @@ A validator that opts into mev-commit makes an implicit commitment to include a 
 ### Rewards
 Upon successfully including a block built by mev-commit providers in L1, the proposer is paid by the provider/builder through the mev-boost auction. 
 
-<Tip>An important observation here is that due to the preconf commitments, the total value of the block is expected to be higher than without preconfs. Thus, the proposer is expected to get a higher value for the block than just by using mev-boost alone.</Tip>
+<Note>An important observation here is that due to the preconf commitments, the total value of the block is expected to be higher than without preconfs. Thus, the proposer is expected to get a higher value for the block than just by using mev-boost alone.</Note>
 
 
 
 ### Slashing
+In this section we discuss the proposer's slashing cases.
 
 #### Missed Block
 A proposer can completely miss its slot and not include any block in L1. This can happen either due to network issues by the proposer, due to the relay not delivering the block's contents on time, or due to chain reorgs. In any case, mev-commit does not slash the proposer for missing a block as the proposer does not profit from omitting a block and it is potentially out of their control.
