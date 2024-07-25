@@ -63,11 +63,10 @@ Case (2) should only happen very rarely when the value of the block it receives 
 
 Currently, the restaking case with Eigenlayer only allows the stake to be frozen for an undetermined period of time and not slashed permanently (i.e., burned). While the stake is frozen, the proposer is not able to participate in mev-commit. The proposer can pay a fee to unfreeze its stake. This is a limitation of the current Eigenlayer implementation, and it is expected to be resolved. 
 
-## Attribution
+## Builder Attribution
 
 The current methodology for identifying the provider responsible for building the L1 block relies on the **`extra_data`** field within the block's execution payload for block builders. We correlate this information with the corresponding address registered in the mev-commit protocol. We plan to upgrade this with a cryptographically secure method of attribution and are actively championing the availability of robust builder identity in Ethereum.
-For proposers the attribution method is simpler as the proposer is recognized within the Ethereum protocol. For relays, we run a leader election auction and the winning relay is known by mev-commit for any attribution.
-
+For proposers the attribution method is simpler as the proposer is recognized within the Ethereum protocol.
 
 
 
