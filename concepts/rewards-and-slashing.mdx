@@ -41,8 +41,7 @@ A validator that opts into mev-commit makes an implicit commitment to include a 
 ### Rewards
 Upon successfully including a block built by mev-commit providers in L1, the proposer is paid by the provider/builder through the mev-boost auction. 
 
-<Note>An important observation here is that due to the preconf commitments, the total value of the block is expected to be higher than without preconfs. Thus, the proposer is expected to get a higher value for the block than just by using mev-boost alone.</Note>
-
+<Note>An important observation here is that due to the preconf commitments the provider will have additional value to bid in the mev-boost auction, thus driving up the total revenue a proposer will get, in contrast to just using mev-boost alone.</Note>
 
 
 ### Slashing
@@ -68,8 +67,5 @@ Currently, the restaking case with Eigenlayer only allows the stake to be frozen
 
 The current methodology for identifying the provider responsible for building the L1 block relies on the **`extra_data`** field within the block's execution payload for block builders. We correlate this information with the corresponding address registered in the mev-commit protocol. We plan to upgrade this with a cryptographically secure method of attribution and are actively championing the availability of robust builder identity in Ethereum.
 For proposers the attribution method is simpler as the proposer is recognized within the Ethereum protocol.
-
-
-
 
 
