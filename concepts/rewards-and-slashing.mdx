@@ -41,7 +41,7 @@ A validator that opts into mev-commit makes an implicit commitment to include a 
 ### Rewards
 Upon successfully including a block built by mev-commit providers in L1, the proposer is paid by the provider/builder through the mev-boost auction. 
 
-<Note>An important observation here is that due to the preconf commitments the provider will have additional value to bid in the mev-boost auction, thus driving up the total revenue a proposer will get, in contrast to just using mev-boost alone.</Note>
+<Note>An important observation here is that proposers opting in increases the credibility of the preconfs and consequently their value. Due to the increased preconf values, the providers have additional value to bid in the mev-boost auction, thus driving up the total revenue a proposer will get.</Note>
 
 
 ### Slashing
