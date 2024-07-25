@@ -10,20 +10,25 @@ In addition to being able to stake directly on the mev-commit chain, validators 
 ## Providers
 There are four possible outcomes after a commitment is made by a provider and an Ethereum block is proposed:
 
-1- The bid amount is rewarded to the provider for fulfilling the commitment.  
-2- The provider stake is slashed for breaking the commitment.  
-3- The provider is slashed if the commitment is not opened by either the provider or the bidder.  
-4- Nothing happens as the provider was not the winning execution provider for the Ethereum block.  
+1. The bid amount is rewarded to the provider for fulfilling the commitment.  
+2. The provider stake is slashed for breaking the commitment.  
+3. The provider is slashed if the commitment is not opened by either the provider or the bidder.  
+4. Nothing happens as the provider was not the winning execution provider for the Ethereum block.  
 
 We discuss each case in more detail below.
 
-### Successful Commitment
+
+### Rewards 
+
 Upon successfully fulfilling a commitment, a provider will be rewarded the bid amount, minus a 2% fee (this fee accumulates in the mev-commit protocol treasury). This reward is paid by the mev-commit oracle to the provider’s account after the corresponding slot is settled by the oracle according to the block included in L1.
 
-### Broken Commitment
+### Slashing
+In this section we discuss the provider's slashing cases.
+
+#### Broken Commitment
 Upon breaking a commitment, a provider will be slashed from their stake equal to the bid amount they committed to (taking into account the bid decay), including a 5% penalty fee. The principal slash amount will be transferred to the bidder for the broken commitment, and the penalty fee will be transferred to the mev-commit protocol treasury.
 
-### Unopened Commitment
+#### Unopened Commitment
 If a commitment is not opened by either the provider or the bidder within 24 hours from the time of inclusion of the commitment in the mev-commit chain then the provider is penalized by the fixed amount of 1 ETH. The penalized amount from the provider goes to the mev-commit treasury, not to the bidder. This is because the bidder is not known in this case and to discourage the bidder from omitting the opening of the commitment based on the bid amount.
 
 ### Neutral Outcome
@@ -31,44 +36,36 @@ The protocol will not take action in the event of a commitment being made and th
 
 
 ## Validators/Proposers
-A validator that opts into mev-commit makes an implicit commitment to include a block from a mev-commit registered block builder in L1 whenever they become the proposer of the slot. Upon successfully including a block built by mev-commit providers in L1, the proposer is paid by the provider/builder through the mev-boost auction. An important observation here is that due to the preconf commitments, the total value of the block is expected to be higher than without preconfs. Thus, the proposer is expected to get a higher value for the block than just by using mev-boost alone.
+A validator that opts into mev-commit makes an implicit commitment to include a block from a mev-commit registered block builder in L1 whenever they become the proposer of the slot. 
 
-### Proposer Rewards
+### Rewards
+Upon successfully including a block built by mev-commit providers in L1, the proposer is paid by the provider/builder through the mev-boost auction. 
 
-1. A bidder sends a bid, and receives a commitment from a provider
-2. The provider now has this additional bid amount to bid in the mev-boost auction, driving up the average mev-boost bid value that a proposer can get. mev-commit bids act similarly to net-new order flow for PBS actors, and increase potential revenue
-3. The Proposer proposes a block that delivers the commitments the provider has made, and inherently receives the value through the mev-boost auction
+<Note>An important observation here is that proposers opting in increases the credibility of the preconfs and consequently their value. Due to the increased preconf values, the providers have additional value to bid in the mev-boost auction, thus driving up the total revenue a proposer will get.</Note>
 
-Next, we dive into proposer slashing cases:
 
-### Missed Block
+### Slashing
+In this section we discuss the proposer's slashing cases.
+
+#### Missed Block
 A proposer can completely miss its slot and not include any block in L1. This can happen either due to network issues by the proposer, due to the relay not delivering the block's contents on time, or due to chain reorgs. In any case, mev-commit does not slash the proposer for missing a block as the proposer does not profit from omitting a block and it is potentially out of their control.
 
-### Included Block Not Built by mev-commit Provider
+#### Included Block Not Built by mev-commit Provider
  A proposer can include a block in L1 that was not produced by a mev-commit provider. This can happen for the following reasons:
 
-    1 - The proposer includes a block from a builder that is not participating in the mev-commit protocol. This can be due to a malicious behavior by the proposer or due to the proposer using a relay that is not compatible with mev-commit (and thus delivering blocks not built by mev-commit providers).
+    1. The proposer includes a block from a builder that is not participating in the mev-commit protocol. This can be due to a malicious behavior by the proposer or due to the proposer using a relay that is not compatible with mev-commit (and thus delivering blocks not built by mev-commit providers).
 
-    2 - The proposer includes a block that was built by itself.
+    2. The proposer includes a block that was built by itself.
     
-Case (1) is considered non-compliant behavior and thus the proposer will be slashed from their stake the fixed amount of 10 ETH.  
+Case (1) is considered non-compliant behavior and thus the proposer will be slashed from their stake the fixed amount of 1 ETH.  
   
 Case (2) should only happen very rarely when the value of the block it receives from the relay is too low, and mev-commit will not slash proposers in this case. However, due to the lack of a robust mechanism for builder attribution of a block in Ethereum's PBS, we will monitor how often proposers choose to build their own blocks, and if needed we will revisit this decision to discourage misbehavior by the proposers.
 
 Currently, the restaking case with Eigenlayer only allows the stake to be frozen for an undetermined period of time and not slashed permanently (i.e., burned). While the stake is frozen, the proposer is not able to participate in mev-commit. The proposer can pay a fee to unfreeze its stake. This is a limitation of the current Eigenlayer implementation, and it is expected to be resolved. 
 
-## Attribution
+## Builder and Proposer Attribution
 
 The current methodology for identifying the provider responsible for building the L1 block relies on the **`extra_data`** field within the block's execution payload for block builders. We correlate this information with the corresponding address registered in the mev-commit protocol. We plan to upgrade this with a cryptographically secure method of attribution and are actively championing the availability of robust builder identity in Ethereum.
-For proposers the attribution method is simpler as the proposer is recognized within the Ethereum protocol. For relays, we run a leader election auction and the winning relay is known by mev-commit for any attribution.
-
-## Minimum Deposit
-
-❗ The Bidder needs to have 10 times the size of their largest bid in order for their bid to be considered valid and to receive commitments. Providers must also ensure that they have a stake that is 10 times greater than the bid amount to commit to a bid.
-
-
-
-
-
+For proposers the attribution method is simpler as the proposer is recognized within the Ethereum protocol.
 
 
