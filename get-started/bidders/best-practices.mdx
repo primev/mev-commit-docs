@@ -1,0 +1,78 @@
+---
+title: "Bidder Best Practices"
+sidebarTitle: "Best Practices"
+---
+
+### Bidder Node Topology
+
+Make sure to verify that your bidder node is connected to at least one provider node, which can be confirmed via the [localhost:13523/topology](http://localhost:13523/topology) endpoint.
+
+### Bundles
+
+To include bundles of transactions, add them in the atomic sequence in which they exist in the bundle:
+
+```shell ❯_ example
+curl -X POST http://localhost:13523/v1/bidder/bid \
+-d '{
+    "txHashes": ["0549fc7c57fffbdbfb2cf9d5e0de165fc68dadb5c27c42fdad0bdf506f4eacae", "22145ba31366d29a893ae3ffbc95c36c06e8819a289ac588594c9512d0a99810", "7e1506f266bc86c81ae46018053a274a3bd96a9eff17392930707bf8fa5ff6be"],
+    "amount": "<amount in wei>",
+    "blockNumber": <integer l1blocknumber>,
+    "decayStartTimestamp": <timestamp milliseconds>,
+    "decayEndTimestamp": <timestamp milliseconds>,
+    "revertingTxHashes": ["22145ba31366d29a893ae3ffbc95c36c06e8819a289ac588594c9512d0a99810"]
+}'
+```  
+You can change the values in the fields `txHashes`, `amount`, `blockNumber`, `decayStartTimestamp` and `decayEndTimestamp` as desired.
+
+## Provider RPCs
+
+Below is a table of Provider RPCs to send your transactions to. You may already be sending transactions to these providers if you have existing transaction operations.
+
+<table>
+  <thead>
+    <tr>
+      <th width="350">Provider</th>
+      <th width="350">RPC Endpoint</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Preconf Builder</td>
+      <td>[http://52.11.201.67:8545/](http://52.11.201.67:8545/)</td>
+    </tr>
+    <tr>
+      <td>Titan</td>
+      <td>[rpc.titanbuilder.xyz](https://www.titanbuilder.xyz/)</td>
+    </tr>
+  </tbody>
+</table>
+
+## Bidder Funds
+
+Bidders on mev-commit need funds available in their account to submit bids, which can be obtained via bridging to your wallet address and then depositing to your node address. For testnet, you can obtain funds by using the faucet.
+
+Bidders will start receiving commitments instantly in most cases. If you're having trouble receiving commitments, check your bid parameters and ensure your bid is high enough for the commitment you're requesting.
+
+### Depositing For Bid Windows
+
+To submit bids, you need to have a deposit in your bidder account. After completing Quickstart and using `launchmevcommit` to start your bidder node, [autodeposit](https://docs.primev.xyz/get-started/bidders/bidder-node-commands#autodeposit-funds) should be enabled by default. 
+This will automatically deposit funds into your account for the next 4 [windows](/concepts/bids/bidder-deposit) to bid. 
+A window is the number of L1 blocks in the round (for L1, it’s 10 blocks) during which the bidder can post bids. Unused funds will automatically transfer into upcoming windows for bidding.
+
+If you want to check your autodeposit status, run the following command:
+
+```shell ❯_ terminal
+curl -s http://localhost:13523/v1/bidder/auto_deposit_status
+```
+
+<Accordion title="Understanding Credible and General Commitments">
+  <p>In the context of the mev-commit network, commitments play a crucial role in the bidding process. You can receive <strong>credible</strong> and <strong>general</strong> commitments; if the proposer for the slot is opted-in to mev-commit, provider commitments are ultimately credible.</p>
+  
+  <p><strong>Credible Commitments:</strong> These are guarantees provided by actors within the network that have complete control over the fullfilment or delivery of your bid, this could be a block builder, proposer, or a sequencer.</p>
+  
+  <p><strong>General Commitments:</strong> These commitments are also promises made by network participants but with a lower level of assurance compared to credible commitments. These can be used to have similar guarantees as credible commitments if aggregated among a range of providers, e.g. all block builders submitting mev-boost bids for a mev-boost enabled validator.</p>  
+  
+  <p>As a bidder, understanding the difference between these two types of commitments will help you maximize your utility from the network.</p>
+</Accordion>
+
+If you want to learn more about Bids and Bid Structure visit the [Bid Structure](/concepts/bids/bid-structure) page under Concepts section.

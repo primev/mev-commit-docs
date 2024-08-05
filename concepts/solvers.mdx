@@ -1,0 +1,25 @@
+---
+title: "Solvers"
+sidebarTitle: "Solvers"
+---
+
+
+# Preconfirmations through Solvers
+
+Entities that specialize in solving specific problems are often denoted as "Solvers". In this context, we define a solver to be an entity that utilizes mev-commit to provide preconfirmations to regular users. Solvers aim to abstract the details mentioned above from the end-users, who may lack the expertise to make these decisions on their own. The rest of this document discusses how solvers can help end-users secure pre-confirmations for their transaction bundles.
+
+## Issuing and Sourcing Preconfs
+
+Preconfirmations serve various purposes. They can benefit a user seeking to profit from an arbitrage opportunity or simply wanting early confirmation of a payment. Requesting a preconfirmation can be difficult without the sophistication to interact with mev-commit providers and estimate the correct price for a preconfirmation bid. 
+
+1. The solver accumulates the preconfirmations it receives for each bid and it only sends a preconfirmation to the user if/when it manages to source preconfirmations from all the providers for a bid. In this case, the preconfirmation is 100% guaranteed as it was issued by all the providers.
+2. The solver relays back to the user all the preconfirmations that it receives from the providers. In this case the preconfirmations the user gets are “weak” in the sense that they are tied to specific providers, and not from all the providers as is the case above.
+3.  The solver can immediately send a preconfirmation to the user (if it chooses to do so) even before getting preconfirmations from the providers. In this case, the solver is the one issuing the preconfirmation to the user, and the solver is responsible for sourcing a credible preconfirmation from the providers. In case the solver cannot source the preconfirmation from the providers then it may get penalized by slashing of its collateral.
+
+For each slot in the L1 chain, a single solver (called the leader) is responsible for sourcing or issuing preconfirmations for users. The solver acts as a middle layer between end-users and the mev-commit network. On a high level, whenever a user wishes to obtain a preconfirmation, e.g., for a payment, it will express this intention to the solver, which will then create a mev-commit bid and send it to the mev-commit providers. Below, we discuss the various approaches that solvers can take regarding preconfirmations received for a user’s bid.
+
+The approaches mentioned above would most likely differ in the economical aspects and should be priced differently by the solver. An interesting future direction is to analyze the game-theoretical aspects that each approach encompasses. For instance, understanding the strategies and trade-offs a solver must consider when deciding how to manage their bids and preconfirmations, or how different pricing models might affect the user experience and the overall efficiency of the preconfirmation process.
+
+<Frame>
+  <img src="/images/Solver.png" />
+</Frame>

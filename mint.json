@@ -37,7 +37,7 @@
         {
           "group": "Bidders",
           "pages": [
-            "get-started/bidders/first-preconf",
+            "get-started/bidders/best-practices",
             "get-started/bidders/bidder-node-commands"
           ],
           "icon": "user-bounty-hunter"
@@ -62,7 +62,7 @@
         "concepts/network-overview",
         "concepts/privacy",
         "concepts/commitments",
-        "concepts/execution-preconfs",
+        "concepts/solvers",
         {
           "group": "Bids",
           "pages": [
@@ -109,6 +109,7 @@
         "knowledge-base/what-is-foundry",
         "knowledge-base/why-is-cast-necessary-for-mev-commit-chain-interactions",
         "knowledge-base/why-do-i-receive-the-same-commitment-when-resending-a-bid",
+		    "knowledge-base/what-is-execution-preconfirmations",
         "knowledge-base/eigenlayer-operator-registration"
       ]
     },
