@@ -74,7 +74,7 @@ curl -X POST http://localhost:13523/v1/bidder/bid \
 
     </Accordion>
 
-You can change the values in the fields `txHashes`, `amount`, `blockNumber`, `decayStartTimestamp` and `decayEndTimestamp` as desired.
+You can change the values in the fields `txHashes`, `amount`, `blockNumber`, `decayStartTimestamp`, `decayEndTimestamp` and `revertingTxHashes` as desired.
 
 Make sure your bid amount is sufficiently high for the commitment you're requesting, and your target L1 block number is accurate. It's up to the providers to commit to your bid, so try to ensure a commitment is feasible to your bid by its construction.
 
