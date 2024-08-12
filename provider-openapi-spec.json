@@ -135,11 +135,21 @@
         "parameters": [
           {
             "name": "amount",
-            "description": "Amount of ETH to stake in the provider provider_registry.",
+            "description": "Amount of ETH to stake in the provider registry.",
             "in": "path",
             "required": true,
             "schema": {
               "type": "string"
+            }
+          },
+          {
+            "name": "blsPublicKey",
+            "description": "BLS public key of the provider.",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^(0x)?[a-fA-F0-9]{96}$"
             }
           }
         ]
@@ -182,6 +192,64 @@
           },
           "description": "Response sent by the provider with the decision on the bid received. (streaming inputs)",
           "required": true
+        }
+      }
+    },
+    "/v1/provider/unstake": {
+      "post": {
+        "summary": "Unstake",
+        "description": "Unstake is called by the provider to request a unstake from the provider registry.",
+        "operationId": "Provider_Unstake",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/providerapiv1EmptyMessage"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/googlerpcStatus"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/provider/withdraw_stake": {
+      "post": {
+        "summary": "WithdrawStake",
+        "description": "WithdrawStake is called by the provider to withdraw its stake from the provider registry.",
+        "operationId": "Provider_WithdrawStake",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/v1WithdrawalResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/googlerpcStatus"
+                }
+              }
+            }
+          }
         }
       }
     }
@@ -259,6 +327,13 @@
             "type": "string",
             "format": "int64",
             "description": "Timestamp at which the bid ends decaying."
+          },
+          "revertingTxHashes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Optional array of tx hashes that are allowed to revert or be discarded."
           }
         },
         "description": "Signed bid message from bidders to the provider.",
@@ -301,6 +376,23 @@
       "v1StakeResponse": {
         "type": "object",
         "example": {
+          "amount": "1000000000000000000",
+          "bls_public_key": "80000cddeec66a80e00b0ccbb62f12298073603f5209e812abbac7e870482e488dd1bbe533a9d4497ba8b756e1e82b"
+        },
+        "properties": {
+          "amount": {
+            "type": "string"
+          },
+          "blsPublicKey": {
+            "type": "string"
+          }
+        },
+        "description": "Get staked amount for provider in the provider registry.",
+        "title": "Stake response"
+      },
+      "v1WithdrawalResponse": {
+        "type": "object",
+        "example": {
           "amount": "1000000000000000000"
         },
         "properties": {
@@ -308,8 +400,8 @@
             "type": "string"
           }
         },
-        "description": "Get staked amount for provider in the provider provider_registry.",
-        "title": "Stake response"
+        "description": "Withdrawal amount for provider in the provider registry.",
+        "title": "Withdrawal response"
       }
     }
   }
