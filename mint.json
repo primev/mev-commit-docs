@@ -48,7 +48,8 @@
             "get-started/providers/registering-a-provider",
             "get-started/providers/consuming-bids",
             "get-started/providers/sending-commitments",
-            "get-started/providers/Querying-for-proposers"
+            "get-started/providers/Querying-for-proposers",
+            "get-started/providers/withdraw"
           ],
           "icon": "network-wired"
         }
@@ -109,7 +110,7 @@
         "knowledge-base/what-is-foundry",
         "knowledge-base/why-is-cast-necessary-for-mev-commit-chain-interactions",
         "knowledge-base/why-do-i-receive-the-same-commitment-when-resending-a-bid",
-		"knowledge-base/what-is-execution-preconfirmations"
+        "knowledge-base/what-is-execution-preconfirmations"
       ]
     },
     {
@@ -123,7 +124,9 @@
         "api-reference/provider/sendprocessedbids",
         "api-reference/provider/registerstake",
         "api-reference/provider/getminstake",
-        "api-reference/provider/getstake"
+        "api-reference/provider/getstake",
+        "api-reference/provider/unstake",
+        "api-reference/provider/withdraw_stake"
       ]
     },
     {
