@@ -64,6 +64,7 @@
         "concepts/privacy",
         "concepts/commitments",
         "concepts/solvers",
+        "concepts/reverting-txns",
         {
           "group": "Bids",
           "pages": [
