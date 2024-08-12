@@ -1,0 +1,7 @@
+## Reverting Transactions
+
+Transactions are by default execution commitments when put in the bid payload. The `revertingTxHashes` field is used to describe transactions that you would like to allow to not need to be executed.
+
+When you include transaction hashes in the `revertingTxHashes` array, you are indicating that these transactions can be reverted if necessary. This can be useful in scenarios where certain transactions are optional or conditional, and their execution is not strictly required for the bid to be valid.
+
+Here is an example of how to include reverting transactions in your bid payload:
