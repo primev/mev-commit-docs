@@ -48,7 +48,8 @@
             "get-started/providers/registering-a-provider",
             "get-started/providers/consuming-bids",
             "get-started/providers/sending-commitments",
-            "get-started/providers/Querying-for-proposers"
+            "get-started/providers/Querying-for-proposers",
+            "get-started/providers/withdraw"
           ],
           "icon": "network-wired"
         }
@@ -63,6 +64,7 @@
         "concepts/privacy",
         "concepts/commitments",
         "concepts/solvers",
+        "concepts/reverting-txns",
         {
           "group": "Bids",
           "pages": [
@@ -124,7 +126,9 @@
         "api-reference/provider/sendprocessedbids",
         "api-reference/provider/registerstake",
         "api-reference/provider/getminstake",
-        "api-reference/provider/getstake"
+        "api-reference/provider/getstake",
+        "api-reference/provider/unstake",
+        "api-reference/provider/withdraw_stake"
       ]
     },
     {
