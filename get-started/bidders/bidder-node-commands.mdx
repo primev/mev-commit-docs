@@ -123,6 +123,26 @@ python3 -c "print($(cast b 0x7ffa86fF89489Bca72Fec2a978e33f9870B2Bd25 \
 curl http://localhost:13523/v1/debug/topology
 ```
 
+## Validator API
+
+To enable this API, the following environment variables should be set when launching a bidder client:
+
+- `MEV_COMMIT_VALIDATOR_ROUTER_ADDR`
+- `MEV_COMMIT_BEACON_API_URL`
+- `MEV_COMMIT_L1_RPC_URL`
+
+To get the information on whether validators for a specific epoch are opted in to mev-commit:
+
+```shell ❯_ terminal
+curl http://localhost:13523/v1/validator/get_validators?epoch=1
+```
+
+To get the information on whether validators for a latest epoch are opted in to mev-commit:
+
+```shell ❯_ terminal
+curl http://localhost:13523/v1/validator/get_validators
+```
+
 ## Configuring custom provider sets
 
 Users can also set-up a specific subset of provider nodes in order to send their bids. By default the mev-commit bidder node will send bids to all the available and staked providers. However, if the user wants only a specific subset of providers to be able to see their bids, the can use the `--provider-whitelist` option to set it up. The list should contain the ethereum wallet addresses of the provider nodes.

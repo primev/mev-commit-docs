@@ -141,7 +141,8 @@
         "api-reference/bidder/withdrawfromwindows",
         "api-reference/bidder/autodeposit",
         "api-reference/bidder/autodepositstatus",
-        "api-reference/bidder/cancelautodeposit"
+        "api-reference/bidder/cancelautodeposit",
+        "api-reference/validator/getvalidators"
       ]
     },
     {
