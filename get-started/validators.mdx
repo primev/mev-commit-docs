@@ -52,7 +52,7 @@ Otherwise, an individual validator entity can delegate to an existing registered
 
 A native-restaking enabled validator opting in to mev-commit requires two high level steps:
 
-1. The validator must delegate (via eigenlayer core) their native stake to an Operator who's registered with the mev-commit AVS. These can be found on the mev-commit AVS [Eigenlayer dashboard](https://holesky.eigenlayer.xyz/avs/0xcae2d8c15c603683c862f57850ef8ae550280432). If your existing delegated operator is not registered with mev-commit, you have the option to [change your delegation](https://docs.eigenlayer.xyz/eigenlayer/restaking-guides/restaking-user-guide/restaker-delegation/redelegation-process). 
+1. The validator must delegate (via eigenlayer core) their native stake to an Operator who's registered with the mev-commit AVS. These can be found on the mev-commit AVS [Eigenlayer dashboard](https://holesky.eigenlayer.xyz/avs/0xededb8ed37a43fd399108a44646b85b780d85dd4). If your existing delegated operator is not registered with mev-commit, you have the option to [change your delegation](https://docs.eigenlayer.xyz/eigenlayer/restaking-guides/restaking-user-guide/restaker-delegation/redelegation-process). 
 2. The validator must separately be *registered* with the mev-commit AVS, confirming their attestation to follow the rules of the protocol.
 
 Step 2 will be facilitated by the `MevCommitAVS.registerValidatorsByPodOwners` function. Frontend instructions are coming soon.
