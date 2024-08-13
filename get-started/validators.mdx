@@ -5,21 +5,21 @@ description: 'Opt into mev-commit with ease. This guide covers everything you ne
 icon: 'list-check'
 ---
 
-## Opting-in as a Validator
+# Opting-in as a Validator
 
-Participation of L1 validators in the mev-commit protocol is crucial as it enhances the integrity of commitments and ensures their enforcement. This document details the steps required to join the mev-commit testnet as a Holesky validator. Future updates will introduce a restaking feature via Eigenlayer.
+Participation of L1 validators in the mev-commit protocol is crucial as it enhances the integrity of commitments and ensures their enforcement. This document details the steps required to join mev-commit as a Holesky validator.
 
-**Prerequisites:**
+Validators are able to _opt-in to mev-commit_ in any of the following ways:
 
-1. An operational Holesky validator node. 
-2. An operational mev-boost sidecar or equivalent.
-3. Associated validator key(s).
+1. Eigenlayer enabled native restaking with the `MevCommitAVS`.
+2. Symbiotic enabled restaking (WIP).
+3. "Simple staking" ETH with an L1 registry contract.
 
 <Warning>As a Holesky validator opting into the mev-commit protocol, ensure your mev-boost client connects only to mev-commit relays to avoid slashing for proposing blocks without delivering commitments.</Warning>
 
 ### Requirements
 
-By opting-in to the mev-commit protocol as a Holesky validator, you agree to the following:
+By opting-in to the mev-commit protocol as a Holesky validator **in any of the three forms described**, you agree to the following:
 
 * Your mev-boost client should ONLY connect to mev-commit opted in relays to avoid being slashed by proposing a block that doesn't deliver commitments. The Titan Holesky relay is the only supporting relay at this time as shown in the list below. This list will be updated as more relays support the network.
   
@@ -43,14 +43,41 @@ By opting-in to the mev-commit protocol as a Holesky validator, you agree to the
 If you are a relay looking to join the mev-commit network please visit our [Relays page](/get-started/relays) to get more information.
 
 Proposers who fallback to local block production, from either a fault in the mev-boost software or a lack of economically viable block bids, **will not be slashed**. See [flashbots docs](https://docs.flashbots.net/flashbots-mev-boost/architecture-overview/risks#liveness-and-local-fallback) for more on this scenario. The protocol may in the future slash for abuse of this local fallback mechanism.
+
+## Eigenlayer restaking option
+
+If you plan to bulk opt-in a large number of validators, check out the [Eigenlayer Operator Registration](/knowledge-base/eigenlayer-operator-registration) guide.
+
+Otherwise, an individual validator entity can delegate to an existing registered Operator.
+
+A native-restaking enabled validator opting in to mev-commit requires two high level steps:
+
+1. The validator must delegate (via eigenlayer core) their native stake to an Operator who's registered with the mev-commit AVS. These can be found on the mev-commit AVS [Eigenlayer dashboard](https://holesky.eigenlayer.xyz/avs/0xcae2d8c15c603683c862f57850ef8ae550280432). If your existing delegated operator is not registered with mev-commit, you have the option to [change your delegation](https://docs.eigenlayer.xyz/eigenlayer/restaking-guides/restaking-user-guide/restaker-delegation/redelegation-process). 
+2. The validator must separately be *registered* with the mev-commit AVS, confirming their attestation to follow the rules of the protocol.
+
+Step 2 will be facilitated by the `MevCommitAVS.registerValidatorsByPodOwners` function. Frontend instructions are coming soon.
+
+## Symbiotic restaking option
+
+This method of validator opt-in is being actively developed. 
+
+## Simple Staking Option
+
+Validators are able to _opt-in to mev-commit_ by staking ETH directly with an L1 contract. This stake is separate from a validator's 32 ETH already staked with the beacon chain. To avoid the extra capital requirement, see restaking options.
+
+**Prerequisites:**
+
+1. An operational Holesky validator node.
+2. An operational mev-boost sidecar or equivalent.
+3. An ethereum account funded with the required stake amount + funds for gas.
   
-0.0001 ETH must be staked with the registry contract on Holesky for each validator pubkey. Below are a few options for obtaining this testnet ETH:
+0.0001 ETH must be staked with the registry contract on Holesky for each validator pubkey (mainnet will require 1 ETH). Below are a few options for obtaining testnet ETH:
 
 * [Holesky PoW Faucet](https://holesky-faucet.pk910.de/)
 * [Quicknode Faucet](https://faucet.quicknode.com/ethereum/holesky)
 * [Automata Faucet](https://www.holeskyfaucet.io/)
 
-## Staking Your Validator Keys
+### Staking Your Validator Keys
 
 <Steps titleSize="h3">
 
