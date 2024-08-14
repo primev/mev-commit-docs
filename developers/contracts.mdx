@@ -6,9 +6,9 @@ For mev-commit testnet contract addresses please refer to [Testnet](/developers/
 
 ## Core Contract Architecture and Functionality
 
-The mev-commit protocol uses 5 core contracts:
+The mev-commit protocol uses 6 core contracts. Only the validator contract is on L1, the other contracts are on `mev-commit` chain:
 
-- **Preconfirmations Contract**
+- **Preconfirmation Storage**
 
   This contract is responsible for storing details about the commitments made by bidders into the contract's storage. Commitments can be either opened or unopened, depending on whether they have been revealed or not. The contract also handles signature verification to ensure the validity of the commitments. Events from the contract are:
     - OpenedCommitmentStored: Emitted when a commitment is revealed and stored as an opened commitment.
@@ -16,7 +16,7 @@ The mev-commit protocol uses 5 core contracts:
     - SignatureVerified: Emitted after a commitment's signature has been successfully verified.
 
 
-- **Bidder Registry Contract**
+- **Bidder Registry**
 
   This contract manages the monetary aspects of the protocol. Bidders deposit funds into this contract to participate in the bidding process. The contract also handles the retrieval of funds by bidders and processes payments to providers. Events from the contract:
     - BidderRegistered: Emitted when a new bidder registers with the protocol.
@@ -25,10 +25,7 @@ The mev-commit protocol uses 5 core contracts:
     - BidderWithdrawal: Emitted when a bidder withdraws their stake or funds from the contract.
     - ProtocolFeeRecipientUpdated: Emitted when the recipient of protocol fees is updated.
 
-
-
-
-- **Provider Registry Contract**
+- **Provider Registry**
   
   This contract stores the stake that providers bind to ensure they fulfill their commitments under the preconfirmation process. It handles the registration of providers, the deposit of funds, slashing for failing to meet commitments, and the withdrawal of funds. Events from the contract:
     - ProviderRegistered: Emitted when a new provider registers with the protocol.
@@ -40,20 +37,32 @@ The mev-commit protocol uses 5 core contracts:
     - PenaltyFeeRecipientUpdated: Emitted when the recipient of penalty fees is updated.
     - FeePayoutPeriodBlocksUpdated: Emitted when the payout period for fees in terms of block count is updated.
 
-
-- **Oracle Contract**
+- **Oracle**
 
     The Oracle contract retrieves and processes details about which commitments should be rewarded or slashed. Access to its functions is restricted to the owner of the Oracle     key, ensuring that only authorized entities can trigger these critical operations. Events from the contract:
     - OracleAccountSet: Emitted when the Oracle account is set or updated.
     - CommitmentProcessed: Emitted when a commitment has been processed by the Oracle, indicating whether it should be rewarded or slashed.
 
-
-- **Block Tracker Contract**
+- **Block Tracker**
 
   This contract tracks Ethereum blocks and the winners of those blocks. The data collected here is crucial for determining the outcomes of commitments and deciding on rewards or   slashes. Access to the functions on this contract is also restricted to the Oracle key owner. Events from the contract:
     - NewL1Block: Emitted when a new Layer 1 block is detected and tracked.
     - NewWindow: Emitted when a new tracking window (a specific period of blocks) is initiated.
     - OracleAccountSet: Emitted when the Oracle account responsible for this contract is set or updated.
+
+- **Validator Registry**
+
+    This contract manages the registration and staking of validators within the mev-commit protocol and is deployed on mainnet. It allows for the staking, adding to stakes, unstaking, and withdrawal of ETH on behalf of validators using their BLS public keys. Additionally, it includes mechanisms for slashing stakes if validators fail to meet certain conditions. Parameters like minimum stake, slash amount, and unstake periods can be adjusted by the contract owner. Events from the contract:
+    - Staked: Emitted when a validator is staked with a specified withdrawal address and amount.
+    - StakeAdded: Emitted when additional ETH is added to the staked balance of a validator.
+    - Unstaked: Emitted when a validator is unstaked, indicating the amount unstaked.
+    - StakeWithdrawn: Emitted when a validator's staked ETH is withdrawn.
+    - Slashed: Emitted when a validator's stake is slashed, specifying the slash receiver and amount.
+    - MinStakeSet: Emitted when the minimum stake requirement is updated.
+    - SlashAmountSet: Emitted when the slash amount parameter is updated.
+    - SlashOracleSet: Emitted when the slash oracle address is set or updated.
+    - SlashReceiverSet: Emitted when the slash receiver address is set or updated.
+    - UnstakePeriodBlocksSet: Emitted when the unstake period (in blocks) is updated.
 
 
 ## Fee Vault Contract
