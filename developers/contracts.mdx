@@ -9,19 +9,52 @@ For mev-commit testnet contract addresses please refer to [Testnet](/developers/
 The mev-commit protocol uses 5 core contracts:
 
 - **Preconfirmations Contract**
-  - This will persist details about the commitments that have been made into contract storage.
+
+  This contract is responsible for storing details about the commitments made by bidders into the contract's storage. Commitments can be either opened or unopened, depending on whether they have been revealed or not. The contract also handles signature verification to ensure the validity of the commitments. Events from the contract are:
+    - OpenedCommitmentStored: Emitted when a commitment is revealed and stored as an opened commitment.
+    - UnopenedCommitmentStored: Emitted when a commitment is stored but remains unopened.
+    - SignatureVerified: Emitted after a commitment's signature has been successfully verified.
+
+
 - **Bidder Registry Contract**
-  - This will be where the bulk of monetary transfer occurs.
-  - Bidders deposit for bids into this contract.
-  - The payment gets processed into a provider-allocated section that a provider can later retrieve.
+
+  This contract manages the monetary aspects of the protocol. Bidders deposit funds into this contract to participate in the bidding process. The contract also handles the retrieval of funds by bidders and processes payments to providers. Events from the contract:
+    - BidderRegistered: Emitted when a new bidder registers with the protocol.
+    - FundsRetrieved: Emitted when a bidder successfully retrieves their funds.
+    - FundsRewarded: Emitted when funds are transferred as a reward to a provider.
+    - BidderWithdrawal: Emitted when a bidder withdraws their stake or funds from the contract.
+    - ProtocolFeeRecipientUpdated: Emitted when the recipient of protocol fees is updated.
+
+
+
+
 - **Provider Registry Contract**
-  - This contract stores the stake a provider bounds to ensure it doesn't break its promises under preconfirmations.
+  
+  This contract stores the stake that providers bind to ensure they fulfill their commitments under the preconfirmation process. It handles the registration of providers, the deposit of funds, slashing for failing to meet commitments, and the withdrawal of funds. Events from the contract:
+    - ProviderRegistered: Emitted when a new provider registers with the protocol.
+    - FundsDeposited: Emitted when a provider deposits funds into the contract as a stake.
+    - FundsSlashed: Emitted when a provider’s funds are slashed due to a failure to meet their commitments.
+    - Unstake: Emitted when a provider begins the unstaking process.
+    - Withdraw: Emitted when a provider withdraws their funds after unstaking.
+    - WithdrawalDelayUpdated: Emitted when the delay period for withdrawals is updated.
+    - PenaltyFeeRecipientUpdated: Emitted when the recipient of penalty fees is updated.
+    - FeePayoutPeriodBlocksUpdated: Emitted when the payout period for fees in terms of block count is updated.
+
+
 - **Oracle Contract**
-  - This simply retrieves details on which commitments to process for rewarding or slashing.
-  - Access to the functions on this contract is restricted to the owner of the Oracle key.
+
+    The Oracle contract retrieves and processes details about which commitments should be rewarded or slashed. Access to its functions is restricted to the owner of the Oracle     key, ensuring that only authorized entities can trigger these critical operations. Events from the contract:
+    - OracleAccountSet: Emitted when the Oracle account is set or updated.
+    - CommitmentProcessed: Emitted when a commitment has been processed by the Oracle, indicating whether it should be rewarded or slashed.
+
+
 - **Block Tracker Contract**
-  - This will track Ethereum blocks and their winners, so commitments could be rewarded or slashed
-  - Access to the functions on this contract is restricted to the owner of the Oracle key.
+
+  This contract tracks Ethereum blocks and the winners of those blocks. The data collected here is crucial for determining the outcomes of commitments and deciding on rewards or   slashes. Access to the functions on this contract is also restricted to the Oracle key owner. Events from the contract:
+    - NewL1Block: Emitted when a new Layer 1 block is detected and tracked.
+    - NewWindow: Emitted when a new tracking window (a specific period of blocks) is initiated.
+    - OracleAccountSet: Emitted when the Oracle account responsible for this contract is set or updated.
+
 
 ## Fee Vault Contract
 
