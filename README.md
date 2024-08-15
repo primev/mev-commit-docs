@@ -2,7 +2,7 @@ This is the open source documentation repository for [mev-commit](https://github
 
 # What is mev-commit?
 
-mev-commit is P2P software that creates a network of execution providers and bidders. Bidders can broadcast bids to providers and receive commitments from them. A high throughput POA EVM chain settles the bids at the end of a block slot.
+mev-commit is P2P software that creates a network of execution providers and bidders. Bidders can broadcast bids receive commitments from providers. A high throughput POA EVM chain settles the bids at the end of a block slot.
 
 # Contribution Guidelines
 
