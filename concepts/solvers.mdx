@@ -4,27 +4,23 @@ sidebarTitle: "Solvers"
 ---
 
 
+This article explains how third parties, referred to as solvers, can use mev-commit as a tool to offer commitment services to users. By offering commitments, solvers can fulfill a range of user requests, from basic operations such as a preconfirmation for a fast bundle inclusion in the chain to complex operations involving multiple chains. Solvers aim to abstract these detailed processes from end-users, who may lack the expertise to perform these operations independently. Here we discuss how solvers can help users secure commitments for their transaction bundle.
 
-# Preconfirmations through Solvers
-
-This article explains how third parties, referred to as solvers, can use mev-commit as a tool to offer preconfirmation services to users. By issuing preconfirmations, solvers can fulfill a range of user requests, from basic intents such as fast bundle inclusion in the chain to complex operations involving multiple chains. Solvers aim to abstract these detailed processes from end-users, who may lack the expertise to perform these operations independently. Here we discuss how solvers can help users secure preconfirmations for their transaction bundles.
-
-Preconfirmations serve various purposes. They can benefit a searcher looking to profit from an arbitrage opportunity or a regular user wanting to sell assets on Ethereum while buying assets on Solana at the same time. This can be a daunting task for users who lack the expertise to interact directly with mev-commit to request and acquire the necessary preconfirmations from providers.
+Commitments serve various purposes. They can benefit a searcher looking to profit from an arbitrage opportunity by getting a preconfirmation or a regular user wanting to sell assets on Ethereum while buying assets on Solana at the same time. It can be a daunting task for users who lack the expertise to interact directly with mev-commit to request and acquire the necessary commitments from providers to fulfil their needs.
 
 <Note>We assume there is a single solver (called the "leader") performing operations on behalf of the users. The leader can be selected in various ways, such as through an auction or a lottery.</Note>
 
-The reason for considering a single solver is that if a user requests the same intent from multiple solvers, it requires coordination between them to fulfill the intent profitably. For example, if two solvers are trying to fulfil an intent that involves transactions on two separate chains, one solver might manage to source preconfirmations from both chains while the other solver only sources one. In this case, both solvers will have to pay for the preconfirmations to the providers, but only one solver will actually fulfil the user's intent and get paid by the user. Coordination between solvers is out of scope of the mev-commit protocol, as it depends exclusively on third-parties.
 
-## Sourcing and Handling Preconfirmations
+## Sourcing and Handling Commitments
 
-The solver leader interacts with its user and the mev-commit protocol by receiving user intents and transforming them into mev-commit bids. The solver then tries to source preconfirmations for the bid on the mev-commit protocol. Once preconfirmations are successfully acquired, there are three main ways the solver can handle them. We describe each of them next.
+The solver leader interacts with its users and the mev-commit protocol by receiving user's messages and transforming them into mev-commit bids. The solver then tries to source commitments for the bid on the mev-commit protocol. Once the commitments are successfully acquired, there are three main ways the solver can handle them. We describe each of them next.
 
-1. The solver accumulates the preconfirmations it receives for each bid and it only sends a preconfirmation to the user if/when it manages to source preconfirmations from all the providers for a bid. In this case, the preconfirmation is  100% guaranteed, as it was issued by all the providers in mev-commit.
-2. The solver relays all the preconfirmations it receives from the providers back to the user. In this case, the preconfirmations the user gets are "weak" because they are tied to specific providers, unlike the comprehensive preconfirmations mentioned above.
-3. The solver can immediately send a preconfirmation to the user (if it chooses to) even before getting preconfirmations from the providers. In this case, the solver issues the preconfirmation to the user and is responsible for sourcing a credible preconfirmation from the providers. If the solver cannot source the preconfirmation from the providers, it may be penalized by having its collateral slashed.
+1. The solver accumulates the commitments it receives for each bid and it only sends a commitment to the user if/when it manages to source commitments from all the providers for a bid. In this case, we say the commitment is credible as it was issued by all the providers in mev-commit.
+2. The solver relays all the commitments it receives from the providers back to the user. In this case, the commitments the user gets are "weak commitments" because they are tied to specific providers, unlike the credible commitment from above.
+3. The solver can immediately send a credible commitment to the user (if it chooses to) even before getting commitments from the providers. In this case, the solver issues a credible commitment to the user and is responsible for sourcing the commitments from all the providers. If the solver cannot source the commitments from the providers, it may be penalized by having its collateral slashed.
 
-The approaches mentioned above would most likely differ in the economical aspects and should be priced differently by the solver. An interesting future direction is to analyze the game-theoretical aspects that each approach encompasses. For instance, understanding the strategies and trade-offs a solver must consider when deciding how to manage their bids and preconfirmations, or how different pricing models might affect the user experience and the overall efficiency of the preconfirmation process.
+The approaches mentioned above would most likely differ in the economical aspects and should be priced differently by the solver. An interesting future direction is to analyze the game-theoretical aspects that each approach encompasses. For instance, understanding the strategies and trade-offs a solver must consider when deciding how to manage their bids and commitments, or how different pricing models might affect the user experience and the overall efficiency of the process.
 
-<Frame caption ="The solver acts as a “middle layer” between users and the mev-commit network. Users express their intent to the solver which then creates mev-commit bids based on these intents and work towards sourcing the corresponding preconfirmations from the providers on the mev-commit protocol.">
+<Frame caption ="The solver acts as a “middle layer” between users and the mev-commit network. Users express their intention to the solver which then creates mev-commit bids based on these intentions and work towards sourcing the corresponding commitments from the providers on the mev-commit protocol.">
   <img src="/images/Solver.png" />
 </Frame>
