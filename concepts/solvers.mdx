@@ -6,10 +6,9 @@ sidebarTitle: "Solvers"
 
 This article explains how third parties, referred to as solvers, can use mev-commit as a tool to offer commitment services to users. By offering commitments, solvers can fulfill a range of user requests, from basic operations such as a preconfirmation for a fast bundle inclusion in the chain to complex operations involving multiple chains. Solvers aim to abstract these detailed processes from end-users, who may lack the expertise to perform these operations independently. Here we discuss how solvers can help users secure commitments for their transaction bundle.
 
-Commitments serve various purposes. They can benefit a searcher looking to profit from an arbitrage opportunity by getting a preconfirmation or a regular user wanting to sell assets on Ethereum while buying assets on Solana at the same time. It can be a daunting task for users who lack the expertise to interact directly with mev-commit to request and acquire the necessary commitments from providers to fulfil their needs.
+Commitments serve various purposes. They can benefit a searcher looking to profit from an arbitrage opportunity by getting a preconfirmation or a regular user wanting to sell assets on Ethereum while buying assets on Solana at the same time. We anticipate sophisticated actors to interact directly with mev-commit to request and acquire the necessary commitments from providers to fulfill their needs, abstracting the commitment bidding and receiving process from end users.
 
 <Note>We assume there is a single solver (called the "leader") performing operations on behalf of the users. The leader can be selected in various ways, such as through an auction or a lottery.</Note>
-
 
 ## Sourcing and Handling Commitments
 
