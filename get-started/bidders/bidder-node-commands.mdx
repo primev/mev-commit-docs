@@ -123,7 +123,7 @@ python3 -c "print($(cast b 0x7ffa86fF89489Bca72Fec2a978e33f9870B2Bd25 \
 curl http://localhost:13523/v1/debug/topology
 ```
 
-## Validator API
+## Querying for Proposers API
 
 To enable this API, the following environment variables should be set when launching a bidder client:
 
@@ -146,6 +146,8 @@ To get the information on whether validators for a latest epoch are opted in to 
 ```shell ❯_ terminal
 curl http://localhost:13523/v1/validator/get_validators
 ```
+
+Note proposer selection is only stable within the context of the current epoch, and must be checked during the epoch in question. See specification [here](https://github.com/ethereum/consensus-specs/blob/dev/specs/phase0/validator.md#validator-assignments) and [here](https://github.com/ethereum/consensus-specs/blob/dev/specs/phase0/validator.md#lookahead). 
 
 ## Configuring custom provider sets
 
