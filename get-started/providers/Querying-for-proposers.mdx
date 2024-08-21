@@ -4,63 +4,8 @@ description: Use the pointers below to determine whether an upcoming proposer ha
 sidebarTitle: Querying for Proposers
 ---
 
-## Set of Opted-in Validators
+## Querying for Proposers API
 
-The validator registry contract deployed on Holesky maintains a set of validators who are opted in to the mev-commit protocol. This is achieved by requiring those validators to stake ether with the registry on behalf of their BLS public key.
+Although querying for proposers may be more appropriate for bidders, provider nodes still have the ability to access this API.
 
-Anyone can query the full set of validator pubkeys who have opted in to mev-commit by calling the `getNumberOfStakedValidators` function in conjunction with `getStakedValidators` on the validator registry contract. See the following signatures:
-
-```solidity
-/// @return numStakedValidators uint number of currently staked validators. 
-/// @return stakedValsetVersion uint version of the staked valset at the time of query.
-function getNumberOfStakedValidators() external view returns (uint256, uint256);
-
-/// @dev Returns an array of staked validator BLS pubkeys within the specified range. Ordering is unspecified.
-/// We require users to query in batches, with knowledge from getNumberOfStakedValidators().
-///
-/// Note Only 1000 validator pubkeys can be queried per batch, as an application-level rate limiting 
-/// mechanism preventing a user from overwhelming a node with a large query.
-///
-/// @return set of staked validator BLS pubkeys.
-/// @return stakedValsetVersion uint version of the staked valset at the time of query.
-function getStakedValidators(uint256 start, uint256 end) external view returns (bytes[] memory, uint256);
-```
-
-The returned `stakedValsetVersion` is updated on-chain anytime the set of opted-in validators changes. This value can be used for debugging and/or as an [optimistic locking](https://www.ibm.com/docs/en/db2/11.5?topic=overview-optimistic-locking) mechanism to ensure the set of validators hasn't changed during a batch query.
-
-That is, if all queries in a batch return the same `stakedValsetVersion`, the aggregate staked validator set is valid. Otherwise handling is left to the user (who will likely retry the batch query).
-
-Try [batched RPC requests](https://geth.ethereum.org/docs/interacting-with-geth/rpc/batch) to speed up this process.
-
-### Golang example
-
-You can programmatically query the validator registry via [golang scripts](https://github.com/primev/validator-registry).
-
-For example, to query the full set of staked validators, use [this example script](https://github.com/primev/validator-registry/blob/main/cmd/query/main.go) as described below.
-
-First clone the validator-registry repo:
-
-```bash ❯_ terminal
-git clone https://github.com/primev/validator-registry.git
-```
-
-Then cd into the repo and run the query script:
-
-```bash ❯_ terminal
-cd validator-registry/cmd/query
-go run main.go
-```
-
-This script can act as a starting point for integrating validator registry queries into your own tooling. The contract's go binding is available [here](https://github.com/primev/validator-registry/blob/main/pkg/validatorregistryv1/ValidatorRegistryV1.go).
-
-_Note the validator registry was recently migrated from the mev-commit chain to Holesky. When querying, use [this contract](https://holesky.etherscan.io/address/0x5d4fC7B5Aeea4CF4F0Ca6Be09A2F5AaDAd2F2803)._
-
-## Upcoming Proposers
-
-To determine whether the proposer for a certain L1 slot has opted in to mev-commit, you can cross-check the full set of opted-in validators, with knowledge of proposer selection on the beacon chain.
-
-Note proposer selection is only stable within the context of the current epoch, and must be checked during the epoch in question. See specification [here](https://github.com/ethereum/consensus-specs/blob/dev/specs/phase0/validator.md#validator-assignments) and [here](https://github.com/ethereum/consensus-specs/blob/dev/specs/phase0/validator.md#lookahead). 
-
-To query proposer selection on the beacon chain, use the [getProposerDuties endpoint](https://ethereum.github.io/beacon-APIs/#/Validator/getProposerDuties).
-
-The mev-commit-oracle will streamline this process by updating a contract on the mev-commit chain with opted-in proposers for the current L1 epoch.
+See [Querying for Proposers API](/bidder-node-commands#querying-for-proposers-api) for more information.
