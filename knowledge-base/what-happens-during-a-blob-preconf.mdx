@@ -1,0 +1,60 @@
+---
+title: What Happens During A Blob Preconfirmation?
+sidebarTitle: What Happens During A Blob Preconf?
+description: "Learn about what happens behind the scenes during a blob preconfirmation."
+---
+
+## Background
+
+EIP-4844 introduced blob-carrying transactions to Ethereum, providing a more cost-effective data availability solution for Layer 2 rollups. Blobs are ~125 KB data containers using KZG commitments, stored off-chain for approximately 18 days. The blob space operates on a separate fee market from regular gas, using a blob base fee that adjusts based on demand, similar to EIP-1559.
+
+## The Problem
+
+The fixed (large) size of blobs creates unique challenges:
+- Limited flexibility compared to regular transactions
+- Potential for extreme price volatility
+- Uncertainty in inclusion for time-sensitive L2 operations
+- Vulnerability to censorship by block builders
+
+These factors can lead to suboptimal mev extraction opportunities and unpredictable L2 state updates.
+
+## Using a Blob Preconfirmation
+
+Blob preconfirmations on mev-commit provide a way to secure blob inclusion in advance, which reduces uncertainty and volatility in the blob market. Here’s how:
+
+<Steps>
+        <Step title="Bid Preparation and Submission">
+
+Bidders create a blob transaction (containing up to 6 blobs) and submit a bid on mev-commit including:
+- Transaction hash
+- Target slot (typically N+1)
+- Bid amount
+- Bid Evaluation
+
+Preconf providers analyze bids considering things like:
+- Bid amount
+- Potential impact on block propagation
+- Available space in the target block
+- Possible mev opportunities within the blob data
+
+</Step>
+<Step title="Commitment Issuance">
+
+If a bid is accepted, the provider generates a commitment. This commitment is sent back to the bidder, typically within milliseconds
+
+</Step>
+<Step title="Execution">
+
+The bidder's node automatically verifies the received commitment, and the blob is now guaranteed to be included in the specified block as per the preconfirmation terms
+
+</Step>
+</Steps>
+## Benefits
+
+Blob preconfirmations offer significant advantages for mev searchers, rollups themselves, and the broader Ethereum ecosystem, particularly:
+- By providing advanced knowledge of future blob content, preconfirmations enable mev searchers to develop more sophisticated cross-domain strategies that span multiple blocks, both between L2s and between L2s and L1.
+- The reduced uncertainty from preconfirmations allows for tighter latency optimization in mev extraction. Searchers can more accurately time their strategies because they know when specific blobs will be included.
+- With guaranteed inclusion, Layer-2 sequencers can adopt more aggressive strategies, which in turn  may lead to new forms of mev specific to L2 systems.
+- Preconfirmations allow for collaborative building of type3 blockspace, which creates a pricing basis for a robust futures market. Such a market offers more reliable inclusion and price stability for rollups and other blob posters.
+- These benefits collectively contribute to a more efficient, predictable, and opportunity-rich environment for mev extraction, while also supporting the overall stability and functionality of Layer-2s.
+
