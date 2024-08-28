@@ -4,7 +4,7 @@ sidebarTitle: What Happens During A Preconf?
 description: "Learn about what happens behind the scenes during an execution preconfirmation."
 ---
 
-Let's say you're a searcher or solver looking to execute a complex MEV strategy on Ethereum involving multiple DeFi protocols.
+Let's say you're a searcher or solver looking to execute a complex mev strategy on Ethereum involving multiple DeFi protocols.
 
 ## Problem
 
@@ -16,7 +16,7 @@ Currently, when you send a transaction bundle:
 During this time, you have no guarantee that:
 - Your entire bundle will be included in the next block.
 - The transactions won't revert due to changing conditions.
-- Other MEV actors won't push your transaction toward your slippage limit
+- Other mev actors won't push your transaction toward your slippage limit
 
 As a result of these factors:
 - You might miss your target prices.
@@ -28,30 +28,29 @@ As a result of these factors:
 <img height="200" src="/images/preconf-process.svg" />
 
 Instead of blindly sending your transaction, you can use an execution preconf. Here's how:
+<Steps>
+<Step title="Setting up your mev-commit bidder node">
 
-**Note**: In the near future, you'll be able to add your transaction payload directly to your bid, which streamlines the process even further.
+   - Follow the [Quickstart guide](/get-started/quickstart) to set up your mev-commit bidder node and fund your account.
+</Step>
+<Step title="Prepare your transaction">
 
-1. Setting up your mev-commit bidder node
+   - Identify your mev opportunity. Craft your bundle and send the signed transaction to block builders as per usual.
+</Step>
+<Step title="Submit a preconf bid">
 
-   - Follow the Quickstart guide to set up your mev-commit bidder node and fund your account.
-
-2. Prepare your transaction
-
-   - Identify your MEV opportunity. Craft your bundle and send the signed transaction to block builders as per usual.
-
-3. Submit a preconf bid
-
-   - Create and submit a bid for the transaction from your mev-commit bidder node (following the bid structure here), supplying the hash of the transaction you just sent.
+   - Create and submit a bid for the transaction from your mev-commit bidder node (following the [bid structure here](concepts/bids/bid-structure)), supplying the hash of the transaction you just sent.
    - When you submit a bid, it goes to multiple providers by default.
    - If a provider accepts your bid, it will generate a cryptographic commitment to execute your transaction. These are typically sent in milliseconds.
    - Your bidder node automatically verifies each commitment it receives.
    - Aim to receive commitments from all registered providers. If you don’t, consider increasing your bid amount to make it more attractive to all providers.
-
-4. Execution
+</Step>
+<Step title="Execution">
 
    - Your transaction is now guaranteed to be executed as per the preconf terms for that provider (or else that provider will be slashed).
    - The transaction will execute in the specified block.
-
+</Step>
+</Steps>
 **Benefits**
 
         - Real-time confirmation of future execution, translating to reduced risk for transacting
@@ -60,8 +59,8 @@ Instead of blindly sending your transaction, you can use an execution preconf. H
         - Instant transaction UX for searchers
         - Predictable gas costs
 
-By using a preconf, you've eliminated the uncertainty of the 12-second wait, secured your execution parameters, and protected yourself against potential MEV exploitation, all in real-time. 
+By using a preconf, you've eliminated the uncertainty of the 12-second wait, secured your execution parameters, and protected yourself against potential mev exploitation, all in real-time. 
 
-Unlike simple inclusion preconfirmations (which might still result in reverted transactions), execution preconfs ensure your bundle executes as intended. This leaderless, multi-provider approach offers superior guarantees that improve your chances to capture time-sensitive MEV opportunities.
+Unlike simple inclusion preconfirmations (which might still result in reverted transactions), execution preconfs ensure your bundle executes as intended. This leaderless, multi-provider approach offers superior guarantees that improve your chances to capture time-sensitive mev opportunities.
 
 

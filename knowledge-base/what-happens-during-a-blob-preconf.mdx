@@ -16,7 +16,7 @@ The fixed (large) size of blobs creates unique challenges:
 - Uncertainty in inclusion for time-sensitive L2 operations
 - Vulnerability to censorship by block builders
 
-These factors can lead to suboptimal MEV extraction opportunities and unpredictable L2 state updates.
+These factors can lead to suboptimal mev extraction opportunities and unpredictable L2 state updates.
 
 ## Using a Blob Preconfirmation
 
@@ -35,7 +35,7 @@ Preconf providers analyze bids considering things like:
 - Bid amount
 - Potential impact on block propagation
 - Available space in the target block
-- Possible MEV opportunities within the blob data
+- Possible mev opportunities within the blob data
 
 </Step>
 <Step title="Commitment Issuance">
@@ -51,10 +51,10 @@ The bidder's node automatically verifies the received commitment, and the blob i
 </Steps>
 ## Benefits
 
-Blob preconfirmations offer significant advantages for MEV searchers, rollups themselves, and the broader Ethereum ecosystem, particularly:
-- By providing advanced knowledge of future blob content, preconfirmations enable MEV searchers to develop more sophisticated cross-domain strategies that span multiple blocks, both between L2s and between L2s and L1.
-- The reduced uncertainty from preconfirmations allows for tighter latency optimization in MEV extraction. Searchers can more accurately time their strategies because they know when specific blobs will be included.
-- With guaranteed inclusion, Layer-2 sequencers can adopt more aggressive strategies, which in turn  may lead to new forms of MEV specific to L2 systems.
+Blob preconfirmations offer significant advantages for mev searchers, rollups themselves, and the broader Ethereum ecosystem, particularly:
+- By providing advanced knowledge of future blob content, preconfirmations enable mev searchers to develop more sophisticated cross-domain strategies that span multiple blocks, both between L2s and between L2s and L1.
+- The reduced uncertainty from preconfirmations allows for tighter latency optimization in mev extraction. Searchers can more accurately time their strategies because they know when specific blobs will be included.
+- With guaranteed inclusion, Layer-2 sequencers can adopt more aggressive strategies, which in turn  may lead to new forms of mev specific to L2 systems.
 - Preconfirmations allow for collaborative building of type3 blockspace, which creates a pricing basis for a robust futures market. Such a market offers more reliable inclusion and price stability for rollups and other blob posters.
-- These benefits collectively contribute to a more efficient, predictable, and opportunity-rich environment for MEV extraction, while also supporting the overall stability and functionality of Layer-2s.
+- These benefits collectively contribute to a more efficient, predictable, and opportunity-rich environment for mev extraction, while also supporting the overall stability and functionality of Layer-2s.
 
