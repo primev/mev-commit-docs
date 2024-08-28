@@ -112,7 +112,8 @@
         "knowledge-base/why-is-cast-necessary-for-mev-commit-chain-interactions",
         "knowledge-base/why-do-i-receive-the-same-commitment-when-resending-a-bid",
 		    "knowledge-base/what-is-execution-preconfirmations",
-        "knowledge-base/eigenlayer-operator-registration"
+          "knowledge-base/eigenlayer-operator-registration",
+          "knowledge-base/how-to-price-a-bid"
       ]
     },
     {
