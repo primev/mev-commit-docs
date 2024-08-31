@@ -113,6 +113,7 @@
         "knowledge-base/why-do-i-receive-the-same-commitment-when-resending-a-bid",
 	"knowledge-base/what-is-execution-preconfirmations",
         "knowledge-base/what-happens-during-an-execution-preconf",
+        "knowledge-base/how-do-preconfs-work",  
         "knowledge-base/eigenlayer-operator-registration"
       ]
     },
