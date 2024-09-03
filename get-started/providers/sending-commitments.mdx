@@ -53,8 +53,10 @@ message Bid {
   int64 decay_start_timestamp = 5;
   int64 decay_end_timestamp = 6;
   repeated string reverting_tx_hashes = 7;
+  repeated string rawTransactions = 8;
 };
 ```
+The raw transactions are optionally provided by the bidder. If provided the order of the transaction hashes in `txHashes` will be the same as the order or the corresponding `rawTransactions`.
 
 Below is an image of the flow through which bids would be received through the gRPC API
 ![gRPC Flow for Getting Bids](/images/grpc-flow-getbids.png)

@@ -24,6 +24,20 @@ curl -X POST http://localhost:13523/v1/bidder/bid \
 ```  
 You can change the values in the fields `txHashes`, `amount`, `blockNumber`, `decayStartTimestamp`, `decayEndTimestamp` and `revertingTxHashes` as desired.
 
+Similarly if you are including the raw transaction payloads, they need to be in the atomic sequence in which they need to be placed in the block.
+
+```shell ❯_ example
+curl -X POST http://localhost:13523/v1/bidder/bid \
+-d '{
+    "rawTransactions": ["0x02f8db82426882010c8410433624841043362f8303425094ea593b730d745fb5fe01b6d20e6603915252c6bf87016e03ce313800b864ce0b63ce0000000000000000000000000e94804eaa3c4c5355992086647f683f6f41ef1f000000000000000000000000000000000000000000000000000150e0786cc000000000000000000000000000000000000000000000000000000000000004e378c001a0ece6d13b20247abdc07d669c9186ee5a1ac9601db8c98a3323024ab299cb6662a01c20680efe4e0bb48a3a936b5ab27c741819f0ac567b12b34b230004b20b78a0", "0x02f8748242682c841043362684104336318252089412b141665da4a5f617c759ad996ef91ad806a9c0880de0b6b3a764000080c001a0806552ed846808580eb896994825f07e73de2f42e2d3554f228284ecfaa89d9ca046d58b62ba565982fb07a64b436dd7a6c210b2f59c4fb2aee2cdd150ccf8bfaa"],
+    "amount": "<amount in wei>",
+    "blockNumber": <integer l1blocknumber>,
+    "decayStartTimestamp": <timestamp milliseconds>,
+    "decayEndTimestamp": <timestamp milliseconds>,
+    "revertingTxHashes": ["7ca16add2aa1b1ef718006b791cb48a6ad729d22f5d2a0b294705320e4825abb"]
+}'
+```
+
 ## Provider RPCs
 
 Below is a table of Provider RPCs to send your transactions to. You may already be sending transactions to these providers if you have existing transaction operations.

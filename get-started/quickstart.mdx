@@ -71,12 +71,27 @@ curl -X POST http://localhost:13523/v1/bidder/bid \
         | `decayStartTimestamp` | Start timestamp for bid decay (in Unix milliseconds) |
         | `decayEndTimestamp` | End timestamp for bid decay (in Unix milliseconds) |
         | `revertingTxHashes` | Array of transaction hashes as strings that can revert |
+        | `rawTransactions` | Array of hexadecimal encoded raw signed transaction payloads |
 
     </Accordion>
 
 You can change the values in the fields `txHashes`, `amount`, `blockNumber`, `decayStartTimestamp`, `decayEndTimestamp` and `revertingTxHashes` as desired.
 
 Make sure your bid amount is sufficiently high for the commitment you're requesting, and your target L1 block number is accurate. It's up to the providers to commit to your bid, so try to ensure a commitment is feasible to your bid by its construction.
+
+You can also send the raw transaction payloads in the bid. The `rawTransactions` field contains hexadecimal string of the RLP encoded raw transaction payloads. Only one out of `txHashes` or `rawTransactions` need to be sent in a bid.
+
+```shell ❯_ example
+curl -X POST http://localhost:13523/v1/bidder/bid \
+-d '{
+    "rawTransactions": ["0x02f8db82426882010c8410433624841043362f8303425094ea593b730d745fb5fe01b6d20e6603915252c6bf87016e03ce313800b864ce0b63ce0000000000000000000000000e94804eaa3c4c5355992086647f683f6f41ef1f000000000000000000000000000000000000000000000000000150e0786cc000000000000000000000000000000000000000000000000000000000000004e378c001a0ece6d13b20247abdc07d669c9186ee5a1ac9601db8c98a3323024ab299cb6662a01c20680efe4e0bb48a3a936b5ab27c741819f0ac567b12b34b230004b20b78a0"],
+    "amount": "<amount in wei>",
+    "blockNumber": <integer l1blocknumber>,
+    "decayStartTimestamp": <timestamp milliseconds>,
+    "decayEndTimestamp": <timestamp milliseconds>,
+    "revertingTxHashes": []
+}'
+```
 
 <Check>Congrats, you just sent your first L1 preconfirmation bid! You should be receiving commitments nearly instantly.</Check>
 
