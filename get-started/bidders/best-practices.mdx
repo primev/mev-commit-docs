@@ -3,10 +3,16 @@ title: "Bidder Best Practices"
 sidebarTitle: "Best Practices"
 ---
 
-### Bundles
+### Submit Bundles
+To include bundles of transactions, submit them in the exact atomic sequence they appear in the bundle. Bundles can be submitted as either:
+* An array of transaction hashes.
+* An array of transaction payloads.
 
-To include bundles of transactions, add them in the atomic sequence in which they exist in the bundle:
+Submitting raw transaction payloads is more efficient for providers, as it eliminates the extra step of looking up the payload based on a transaction hash when matching transactions with preconfirmation bids. This allows providers to be able to send preconfirmation commitments back to the bidder faster as well. 
 
+Bidders will start receiving commitments instantly in most cases. If you're having trouble receiving commitments, check your bid parameters and ensure your bid is high enough for the commitment you're requesting. Additionally check that you are connected to providers (via the [topology endpoint](https://docs.primev.xyz/get-started/bidders/bidder-node-commands#topology)) and that you are receiving mev-commit events (via the [health endpoint](https://docs.primev.xyz/get-started/bidders/bidder-node-commands#health)).
+
+#### Transaction Hash
 ```shell ❯_ example
 curl -X POST http://localhost:13523/v1/bidder/bid \
 -d '{
@@ -20,6 +26,7 @@ curl -X POST http://localhost:13523/v1/bidder/bid \
 ```  
 You can change the values in the fields `txHashes`, `amount`, `blockNumber`, `decayStartTimestamp`, `decayEndTimestamp` and `revertingTxHashes` as desired.
 
+#### Transaction Payload
 Similarly if you are including the raw transaction payloads, they need to be in the atomic sequence in which they need to be placed in the block.
 
 ```shell ❯_ example
@@ -59,9 +66,7 @@ Below is a table of Provider RPCs to send your transactions to. You may already 
 
 ## Bidder Funds
 
-Bidders on mev-commit need funds available in their account to submit bids, which can be obtained via bridging to your wallet address and then depositing to your node address. For testnet, you can obtain funds by using the faucet.
-
-Bidders will start receiving commitments instantly in most cases. If you're having trouble receiving commitments, check your bid parameters and ensure your bid is high enough for the commitment you're requesting.
+Bidders on mev-commit need funds available in their account to submit bids, which can be obtained via bridging to your wallet address and then depositing to your node address. For testnet, you can obtain funds by using the [faucet](https://faucet.testnet.mev-commit.xyz/).
 
 ### Depositing For Bid Windows
 
