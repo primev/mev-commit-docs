@@ -47,7 +47,7 @@ curl -X POST http://localhost:13523/v1/bidder/bid \
 }'
 ```
 
-### Troubleshooting
+## Troubleshooting
 Bidders will start receiving commitments instantly in most cases. If you're having trouble receiving commitments, check your bid parameters and ensure your bid is high enough for the commitment you're requesting. Additionally check that you are connected to providers (via the [topology endpoint](https://docs.primev.xyz/get-started/bidders/bidder-node-commands#topology)) and that you are receiving mev-commit events (via the [health endpoint](https://docs.primev.xyz/get-started/bidders/bidder-node-commands#health)).
 
 ## Provider RPCs
@@ -73,20 +73,8 @@ Below is a table of Provider RPCs to send your transactions to on testnet. You m
   </tbody>
 </table>
 
-## Bidder Funds
+## Bidder Funds and Autodeposit Window
 
-Bidders on mev-commit need funds available in their account to submit bids, which can be obtained via bridging to your wallet address and then depositing to your node address. For testnet, you can obtain funds by using the [faucet](https://faucet.testnet.mev-commit.xyz/).
-
-### Depositing For Bid Windows
-
-To submit bids, you need to have a deposit in your bidder account. After completing Quickstart and using `launchmevcommit` to start your bidder node, [autodeposit](https://docs.primev.xyz/get-started/bidders/bidder-node-commands#autodeposit-funds) should be enabled by default. 
-This will automatically deposit funds into your account for the next 3 [windows](/concepts/bids/bidder-deposit) to bid. 
-A window is the number of L1 blocks in the round (for L1, it’s 10 blocks) during which the bidder can post bids. Unused funds will automatically transfer into upcoming windows for bidding.
-
-If you want to check your autodeposit status, run the following command:
-
-```shell ❯_ terminal
-curl -s http://localhost:13523/v1/bidder/auto_deposit_status
-```
+Bidders on mev-commit need funds available in their account to submit bids, which can be obtained via bridging to your wallet address and then depositing to your node address. For testnet, you can obtain funds by using the [faucet](https://faucet.testnet.mev-commit.xyz/). Once funds are deposited, the auto deposit function will automatically deposit funds into your account for the next 3 [windows](/concepts/bids/bidder-deposit) to bid. Unused funds will automatically transfer into upcoming windows for bidding. You can read more about the auto deposit feature [here](https://docs.primev.xyz/get-started/bidders/bidder-node-commands#autodeposit-funds).
 
 
