@@ -3,14 +3,20 @@ title: "Bidder Best Practices"
 sidebarTitle: "Best Practices"
 ---
 
-### Submit Bundles
+## Understanding Credible and General Commitments
+In the mev-commit network, commitments are essential to the bidding process. You may receive two types of commitments: credible and general. If the slot proposer is opted-in to mev-commit, provider commitments become credible. Understanding the difference between these two types of commitments will help you, as a bidder, optimize your interactions with the network and maximize your utility.
+
+**Credible Commitments** - Credible commitments are guarantees made by network participants who have direct control over fulfilling your bid. This could include block builders, proposers, or sequencers. These commitments offer the highest level of assurance that your bid will be delivered as promised.
+
+**General Commitments** - General commitments are also promises made by network participants, but they offer a lower level of assurance compared to credible commitments. However, general commitments can approach the reliability of credible commitments when aggregated across multiple providers, such as all block builders submitting mev-boost bids for a mev-boost-enabled validator.
+
+
+## Submit Bundles
 To include bundles of transactions, submit them in the exact atomic sequence they appear in the bundle. Bundles can be submitted as either:
 * An array of transaction hashes.
 * An array of transaction payloads.
 
-Submitting raw transaction payloads is more efficient for providers, as it eliminates the extra step of looking up the payload based on a transaction hash when matching transactions with preconfirmation bids. This allows providers to be able to send preconfirmation commitments back to the bidder faster as well. 
-
-Bidders will start receiving commitments instantly in most cases. If you're having trouble receiving commitments, check your bid parameters and ensure your bid is high enough for the commitment you're requesting. Additionally check that you are connected to providers (via the [topology endpoint](https://docs.primev.xyz/get-started/bidders/bidder-node-commands#topology)) and that you are receiving mev-commit events (via the [health endpoint](https://docs.primev.xyz/get-started/bidders/bidder-node-commands#health)).
+Submitting raw transaction payloads is more efficient for providers, as it eliminates the extra step of looking up the payload based on a transaction hash when matching transactions with preconfirmation bids. This allows providers to be able to send preconfirmation commitments back to the bidder faster as well. You can learn more about bid structure [here](https://docs.primev.xyz/concepts/bids/bid-structure).
 
 #### Transaction Hash
 ```shell ❯_ example
@@ -41,9 +47,12 @@ curl -X POST http://localhost:13523/v1/bidder/bid \
 }'
 ```
 
+### Troubleshooting
+Bidders will start receiving commitments instantly in most cases. If you're having trouble receiving commitments, check your bid parameters and ensure your bid is high enough for the commitment you're requesting. Additionally check that you are connected to providers (via the [topology endpoint](https://docs.primev.xyz/get-started/bidders/bidder-node-commands#topology)) and that you are receiving mev-commit events (via the [health endpoint](https://docs.primev.xyz/get-started/bidders/bidder-node-commands#health)).
+
 ## Provider RPCs
 
-Below is a table of Provider RPCs to send your transactions to. You may already be sending transactions to these providers if you have existing transaction operations. To check which providers you are connected to, you can use the [topology endpoint](https://docs.primev.xyz/get-started/bidders/bidder-node-commands#topology).
+Below is a table of Provider RPCs to send your transactions to on testnet. You may already be sending transactions to these providers if you have existing transaction operations. 
 
 <table>
   <thead>
@@ -80,14 +89,4 @@ If you want to check your autodeposit status, run the following command:
 curl -s http://localhost:13523/v1/bidder/auto_deposit_status
 ```
 
-<Accordion title="Understanding Credible and General Commitments">
-  <p>In the context of the mev-commit network, commitments play a crucial role in the bidding process. You can receive <strong>credible</strong> and <strong>general</strong> commitments; if the proposer for the slot is opted-in to mev-commit, provider commitments are ultimately credible.</p>
-  
-  <p><strong>Credible Commitments:</strong> These are guarantees provided by actors within the network that have complete control over the fullfilment or delivery of your bid, this could be a block builder, proposer, or a sequencer.</p>
-  
-  <p><strong>General Commitments:</strong> These commitments are also promises made by network participants but with a lower level of assurance compared to credible commitments. These can be used to have similar guarantees as credible commitments if aggregated among a range of providers, e.g. all block builders submitting mev-boost bids for a mev-boost enabled validator.</p>  
-  
-  <p>As a bidder, understanding the difference between these two types of commitments will help you maximize your utility from the network.</p>
-</Accordion>
 
-If you want to learn more about Bids and Bid Structure visit the [Bid Structure](/concepts/bids/bid-structure) page under Concepts section.
