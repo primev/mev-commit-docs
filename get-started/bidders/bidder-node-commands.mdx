@@ -117,6 +117,12 @@ python3 -c "print($(cast b 0x7ffa86fF89489Bca72Fec2a978e33f9870B2Bd25 \
 --rpc-url https://chainrpc.testnet.mev-commit.xyz))"
 ```
 
+## Health
+The health endpoint checks whether the bidder node is receiving events from mev-commit chain. This command is useful to determine whether the bidder node has become out of sync (e.g. can't find the window balance).
+```shell ❯_ terminal
+curl http://localhost:13523/health
+```
+
 ## Topology
 The topology endpoint can be used to check which provider nodes the bidder node is connected to. 
 ```shell ❯_ terminal
