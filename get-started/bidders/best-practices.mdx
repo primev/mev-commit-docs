@@ -18,7 +18,7 @@ To include bundles of transactions, submit them in the exact atomic sequence the
 
 Submitting raw transaction payloads is more efficient for providers, as it eliminates the extra step of looking up the payload based on a transaction hash when matching transactions with preconfirmation bids. This allows providers to be able to send preconfirmation commitments back to the bidder faster as well. You can learn more about bid structure [here](https://docs.primev.xyz/concepts/bids/bid-structure).
 
-#### Transaction Hash
+### Transaction Hash
 ```shell ❯_ example
 curl -X POST http://localhost:13523/v1/bidder/bid \
 -d '{
@@ -32,7 +32,7 @@ curl -X POST http://localhost:13523/v1/bidder/bid \
 ```  
 You can change the values in the fields `txHashes`, `amount`, `blockNumber`, `decayStartTimestamp`, `decayEndTimestamp` and `revertingTxHashes` as desired.
 
-#### Transaction Payload
+### Transaction Payload
 Similarly if you are including the raw transaction payloads, they need to be in the atomic sequence in which they need to be placed in the block.
 
 ```shell ❯_ example
@@ -46,6 +46,10 @@ curl -X POST http://localhost:13523/v1/bidder/bid \
     "revertingTxHashes": ["7ca16add2aa1b1ef718006b791cb48a6ad729d22f5d2a0b294705320e4825abb"]
 }'
 ```
+### Bid Decay
+The `decayStartTimestamp` and `decayEndTimestamp` are important components for how sensitive the [price of a preconfirmation](https://docs.primev.xyz/knowledge-base/how-to-price-a-bid) will be. More details can be found about it [here](https://docs.primev.xyz/concepts/bids/bid-structure#details-on-decay-parameters).
+
+
 
 ## Troubleshooting
 Bidders will start receiving commitments instantly in most cases. If you're having trouble receiving commitments, check your bid parameters and ensure your bid is high enough for the commitment you're requesting. Additionally check that you are connected to providers (via the [topology endpoint](https://docs.primev.xyz/get-started/bidders/bidder-node-commands#topology)) and that you are receiving mev-commit events (via the [health endpoint](https://docs.primev.xyz/get-started/bidders/bidder-node-commands#health)).
