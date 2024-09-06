@@ -66,13 +66,6 @@ Due to inherent network delays, preconfirmation times can range between 50 to 25
 However, setting this delay is not mandatory and should be adjusted based on your strategic preferences for bid timing and pricing.
 For more detailed information about the decay mechanism, refer to the [Bid Decay Page].
 
-
-### Details on Decay Parameters  
-
-The `decayStartTimestamp` and `decayEndTimestamp` allow the bidder to set the range over which their bid decays. 
- 
-You can find more details about the purpose and internal workings of the decay mechanism under the [Bid Decay Page](/concepts/bids/bid-decay-mechanism).
-
 ### Details on Encrypted Bid Structure
 The bid structure is encrypted using an AES key, which the bidder P2P node generates at the start, and is then sent to the provider.
 ```json
