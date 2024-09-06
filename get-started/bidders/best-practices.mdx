@@ -3,10 +3,6 @@ title: "Bidder Best Practices"
 sidebarTitle: "Best Practices"
 ---
 
-### Bidder Node Topology
-
-Make sure to verify that your bidder node is connected to at least one provider node, which can be confirmed via the [localhost:13523/topology](http://localhost:13523/topology) endpoint.
-
 ### Bundles
 
 To include bundles of transactions, add them in the atomic sequence in which they exist in the bundle:
@@ -40,7 +36,7 @@ curl -X POST http://localhost:13523/v1/bidder/bid \
 
 ## Provider RPCs
 
-Below is a table of Provider RPCs to send your transactions to. You may already be sending transactions to these providers if you have existing transaction operations.
+Below is a table of Provider RPCs to send your transactions to. You may already be sending transactions to these providers if you have existing transaction operations. To check which providers you are connected to, you can use the [topology endpoint](https://docs.primev.xyz/get-started/bidders/bidder-node-commands#topology).
 
 <table>
   <thead>
