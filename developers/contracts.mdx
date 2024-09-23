@@ -4,40 +4,39 @@ The [mev-commit contracts](https://github.com/primev/mev-commit/tree/main/contra
 
 For mev-commit testnet contract addresses please refer to [Testnet](/developers/testnet) section.
 
-## Core Contract Architecture and Functionality
+## Core Contracts
 
-The mev-commit protocol uses 5 core contracts:
+The mev-commit protocol has 5 **core contracts**, which are all deployed on the mev-commit chain:
 
-- **Preconfirmations Contract**
+- **Preconf Manager**
   - This will persist details about the commitments that have been made into contract storage.
-- **Bidder Registry Contract**
+- **Bidder Registry**
   - This will be where the bulk of monetary transfer occurs.
   - Bidders deposit for bids into this contract.
   - The payment gets processed into a provider-allocated section that a provider can later retrieve.
-- **Provider Registry Contract**
+- **Provider Registry**
   - This contract stores the stake a provider bounds to ensure it doesn't break its promises under preconfirmations.
-- **Oracle Contract**
+- **Oracle**
   - This simply retrieves details on which commitments to process for rewarding or slashing.
   - Access to the functions on this contract is restricted to the owner of the Oracle key.
-- **Block Tracker Contract**
+- **Block Tracker**
   - This will track Ethereum blocks and their winners, so commitments could be rewarded or slashed
   - Access to the functions on this contract is restricted to the owner of the Oracle key.
 
-## Fee Vault Contract
+## Validator Registry Contracts
 
-The mev-commit chain implements a fee mechanism where all base fees accumulate to a "fee vault" contract.
-The predetermined address for such a contract is hardcoded into mev-commit-geth.
+The validator registry contracts are deployed on L1, and enable three methods of validator opt-in:
 
-The fee vault contract is initiated with an immutable treasury address.
-The contract owner can invoke transfers of the accumulated fees from the sidechain contract, to the treasury address on L1, including bridging.
+- **Vanilla Registry**
+  - VanillaRegistry allows validators to opt-in to mev-commit by staking native ETH directly with the contract.
+  - This stake is separate from a validator's 32 ETH already staked with the beacon chain.
+- **Mev-commit AVS**
+  - MevCommitAVS acts as a tie-in to Eigenlayer core contracts, enabling validators to opt-in to the mev-commit protocol via native restaking.
+- **Mev-commit middleware**
+  - MevCommitMiddleware serves as tie-in to Symbiotic core contracts, enabling validators to opt-in to the mev-commit protocol via restaking ERC20 tokens with vaults.
 
-Since the treasury address is immutable, the contract owner only has the power to initiate transfers.
-The separation between the contract owner and treasury accounts is useful because key management can be separate;
-i.e. a secure multisig governing the protocol treasury doesn't need to submit regular transfer transactions.
+A `ValidatorOptInRouter` contract is also deployed on L1, enabling actors to query whether a validator is opted-in to the mev-commit protocol from any of the three methods.
 
 ## Deploying Custom Contracts
 
-You can deploy your own custom contracts on our mev-commit chain.
-To do so, simply set your **Chain ID to 17864** and RPC Url to `https://chainrpc.testnet.mev-commit.xyz`.
-Now you can deploy any EVM compatible contracts to the mev-commit chain.
-Feel free to use Foundry, Hardhat, or any other smart-contract development and deployment framework.
+you can deploy any EVM compatible contracts to the mev-commit chain, simply set your **Chain ID to 17864** and RPC Url to `https://chainrpc.testnet.mev-commit.xyz`.

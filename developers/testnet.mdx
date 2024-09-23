@@ -16,7 +16,7 @@ Live on Holesky Testnet, mev-commit allows bidders and providers to engage in ex
 | Block explorer    | [http://explorer.testnet.mev-commit.xyz](http://explorer.testnet.mev-commit.xyz) |
 | Faucet            | [http://faucet.testnet.mev-commit.xyz/](http://faucet.testnet.mev-commit.xyz/)                 |
 
-### **Contract Addresses**
+### **Core Contract Addresses**
 
 import { BidderRegistryAddress, ProviderRegistryAddress, PreconfManagerAddress, OracleAddress, BlockTrackerAddress } from '/snippets/testnet-addresses.mdx';
 
@@ -47,6 +47,33 @@ import { BidderRegistryAddress, ProviderRegistryAddress, PreconfManagerAddress, 
     <tr>
       <td>BlockTracker</td>
       <td>{BlockTrackerAddress}</td>
+    </tr>
+  </tbody>
+</table>
+
+### **Validator Registry Contract Addresses (Holesky)**
+
+import { VanillaRegistryAddress, MevCommitAVSAddress, MevCommitMiddlewareAddress } from '/snippets/testnet-addresses.mdx';
+
+<table>
+  <thead>
+    <tr>
+      <th width="299">Contract</th>
+      <th>Address</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>VanillaRegistry</td>
+      <td>{VanillaRegistryAddress}</td>
+    </tr>
+    <tr>
+      <td>MevCommitAVS</td>
+      <td>{MevCommitAVSAddress}</td>
+    </tr>
+    <tr>
+      <td>MevCommitMiddleware</td>
+      <td>{MevCommitMiddlewareAddress}</td>
     </tr>
   </tbody>
 </table>

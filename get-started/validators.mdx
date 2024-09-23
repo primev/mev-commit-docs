@@ -9,11 +9,13 @@ icon: 'list-check'
 
 Participation of L1 validators in the mev-commit protocol is crucial as it enhances the integrity of commitments and ensures their enforcement. This document details the steps required to join mev-commit as a Holesky validator.
 
-Validators are able to _opt-in to mev-commit_ in any of the following ways:
+Validators are able to _opt-in to mev-commit_ on L1 in any of the following ways:
 
 1. Eigenlayer enabled native restaking with the `MevCommitAVS`.
-2. Symbiotic enabled restaking (WIP).
-3. "Simple staking" ETH with an L1 registry contract.
+2. Symbiotic enabled ERC20 restaking with the `MevCommitMiddleware`.
+3. "Vanilla" staking ETH with the `VanillaRegistry`.
+
+Relevant contract addresses can be found on the [testnet page](/developers/testnet).
 
 <Warning>As a Holesky validator opting into the mev-commit protocol, ensure your mev-boost client connects only to mev-commit relays to avoid slashing for proposing blocks without delivering commitments.</Warning>
 
@@ -59,7 +61,7 @@ Step 2 will be facilitated by the `MevCommitAVS.registerValidatorsByPodOwners` f
 
 ## Symbiotic restaking option
 
-This method of validator opt-in is being actively developed.
+This method of validator opt-in is being actively developed. Refer to [repo](https://github.com/primev/mev-commit/blob/main/contracts/contracts/validator-registry/middleware/README.md).
 
 ## Simple Staking Option
 
