@@ -27,6 +27,8 @@ The mev-commit protocol has 5 **core contracts**, which are all deployed on the 
 
 The validator registry contracts are deployed on L1, and enable three methods of validator opt-in:
 
+- **Validator Opt-In Router**
+  - ValidatorOptInRouter enables actors to query whether a validator is opted-in to the mev-commit protocol from any of the below three methods.
 - **Vanilla Registry**
   - VanillaRegistry allows validators to opt-in to mev-commit by staking native ETH directly with the contract.
   - This stake is separate from a validator's 32 ETH already staked with the beacon chain.
@@ -34,8 +36,6 @@ The validator registry contracts are deployed on L1, and enable three methods of
   - MevCommitAVS acts as a tie-in to Eigenlayer core contracts, enabling validators to opt-in to the mev-commit protocol via native restaking.
 - **Mev-commit middleware**
   - MevCommitMiddleware serves as tie-in to Symbiotic core contracts, enabling validators to opt-in to the mev-commit protocol via restaking ERC20 tokens with vaults.
-
-A `ValidatorOptInRouter` contract is also deployed on L1, enabling actors to query whether a validator is opted-in to the mev-commit protocol from any of the three methods.
 
 ## Deploying Custom Contracts
 
