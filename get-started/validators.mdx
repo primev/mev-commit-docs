@@ -59,6 +59,10 @@ A native-restaking enabled validator opting in to mev-commit requires two high l
 
 Step 2 will be facilitated by the `MevCommitAVS.registerValidatorsByPodOwners` function. Frontend instructions are coming soon.
 
+### Eigenlayer LST restaking
+
+For validator entities to opt-in to mev-commit through Eigenlayer, they must follow the above steps involving native restaking. In addition to this, any LST restaker is able to over-collateralize validators who've already registered with the MevCommitAVS. Rewards and/or points for this method of over-collateralization are TBD. See more [here](https://github.com/primev/mev-commit/tree/main/contracts/contracts/validator-registry/avs#lst-restaker-registration).
+
 ## Symbiotic restaking option
 
 This method of validator opt-in is being actively developed. Refer to [repo](https://github.com/primev/mev-commit/blob/main/contracts/contracts/validator-registry/middleware/README.md).
