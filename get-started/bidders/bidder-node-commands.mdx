@@ -131,7 +131,7 @@ curl http://localhost:13523/v1/debug/topology
 
 ## Querying for Proposers API
 
-To enable this API, the following environment variables should be set when launching a bidder client:
+This API is enabled by default, the following environment variables could be set when launching a mev-commit client:
 
 - `MEV_COMMIT_VALIDATOR_ROUTER_ADDR`
 - `MEV_COMMIT_BEACON_API_URL`
@@ -139,7 +139,7 @@ To enable this API, the following environment variables should be set when launc
 
 Current address for the ValidatorOptInRouter contract is `0xCae46e1013D33587180Db5933Abd75D977c2d7ab`.
 
-URLs for the beacon chain and L1 RPC are `https://ethereum-holesky-beacon-api.publicnode.com` and `https://ethereum-holesky-rpc.publicnode.com` respectively.
+The default URLs for the Beacon Chain and L1 RPC are https://ethereum-holesky-beacon-api.publicnode.com and https://ethereum-holesky-rpc.publicnode.com, respectively, but you can set your own URLs.
 
 To get the information on whether validators for a specific epoch are opted in to mev-commit:
 
