@@ -26,7 +26,9 @@ Upon successfully fulfilling a commitment, a provider will be rewarded the bid a
 In this section we discuss the provider's slashing cases.
 
 #### Broken Commitment
-Upon breaking a commitment, a provider will be slashed from their stake equal to the bid amount they committed to (taking into account the bid decay), including a 5% penalty fee. The principal slash amount will be transferred to the bidder for the broken commitment, and the penalty fee will be transferred to the mev-commit protocol treasury.
+Upon breaking a commitment, a provider will be slashed from their stake equal to the bid amount they committed to (taking into account the bid decay), including a 5% penalty fee. The principal slash amount will be transferred to the bidder for the broken commitment, and the penalty fee will be transferred to the mev-commit protocol treasury. 
+If the provider does not have enough stake left to cover the entirety of the slashing penalty and the bid amount, the maximal amount of the bid amount that can be slashed will be slashed and given to the bidder. Any remaining funds in the provider's stake will go towards maximally paying the 5% slashing penalty to the treasury. 
+The precedence means the bid amount slashing that goes to the bidder will be prioritized first, and only after that will the treasury be compensated for as much of the 5% slashing penalty as possible.
 
 #### Unopened Commitment
 If a commitment is not opened by either the provider or the bidder within 24 hours from the time of inclusion of the commitment in the mev-commit chain then the provider is penalized by the fixed amount of 1 ETH. The penalized amount from the provider goes to the mev-commit treasury, not to the bidder. This is because the bidder is not known in this case and to discourage the bidder from omitting the opening of the commitment based on the bid amount.
