@@ -11,7 +11,7 @@ You can use the provider API to stake and check your stake balance.
 
 <Steps>
   <Step title="Launch mev-commit Node">
-    Make sure you've [launched a mev-commit node](/get-started/quickstart) first.
+    Make sure you've [launched a mev-commit node](/developers/manual-start-mev-commit) first.
   </Step>
   <Step title="Fund Account">
     Make sure you've also [funded your account on the mev-commit chain](/get-started/faucet).
@@ -36,11 +36,13 @@ You can use the provider API to stake and check your stake balance.
       ```
 
   Once staked, peer connection logs should appear within a few minutes. You can check the `/topology` endpoint again to verify connected peers.
-
-<Info>The mev-commit settlements rely on the `extra-data` field in the block header to attribute the winning providers. Providers need to register their node's Ethereum address and BLS public key against the unique `extra-data` field they use while building blocks. This registration is currently done manually by the Primev team. So once the node is setup, users need to contact the team to register these details. Once the registration is done, the settlement chain will be able to correctly attribute the winning providers on L1. This will be automated in future.</Info>
   </Step>
- 
 </Steps>
+
+<Check>Congrats, your provider node is registered on mev-commit and you're ready to [consume bids](/get-started/providers/consuming-bids).</Check>
+
+<Info>Rewards on mev-commit rely on the `extra-data` field in the block header to attribute the winning providers. Providers need to register their node's Ethereum address and BLS public key against the unique `extra-data` field they use while building blocks. This registration is currently done manually by the Primev team, please contact us to register these details. Once the registration is done, the settlement chain will be able to correctly attribute the winning providers on L1. This will be automated in future.</Info>
+
 
 Other commands that can be used are:
 
@@ -72,6 +74,4 @@ Other commands that can be used are:
   }
   ```
 
-<Check>Congrats, your provider node is registered on mev-commit and you're ready to [consume bids](/get-started/providers/consuming-bids).</Check>
-
-
+We recommend reading the [consuming bids](/get-started/providers/consuming-bids) section next to consume bids effectively.
