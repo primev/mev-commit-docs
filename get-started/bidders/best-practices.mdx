@@ -19,7 +19,7 @@ To include bundles of transactions, submit them in the exact atomic sequence the
 Submitting raw transaction payloads is more efficient for providers, as it eliminates the extra step of looking up the payload based on a transaction hash when matching transactions with preconfirmation bids. This allows providers to be able to send preconfirmation commitments back to the bidder faster as well. You can learn more about bid structure [here](https://docs.primev.xyz/concepts/bids/bid-structure).
 
 ### Transaction Payload
-Similarly if you are including the raw transaction payloads, they need to be in the atomic sequence in which they need to be placed in the block.
+Include the raw transaction payloads in your bid in the atomic sequence in which they need to be placed in the block.
 
 ```shell ❯_ example
 curl -X POST http://localhost:13523/v1/bidder/bid \
@@ -33,6 +33,8 @@ curl -X POST http://localhost:13523/v1/bidder/bid \
 }'
 ```
 ### Transaction Hash
+Alternatively, you may refer to transactions that providers may already have through their RPCs or the public mempool by using transaction hashes. Note that not all providers may support this feature, and we encourage the use of the transaction payload option for optimal results.
+
 ```shell ❯_ example
 curl -X POST http://localhost:13523/v1/bidder/bid \
 -d '{
