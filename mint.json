@@ -73,7 +73,7 @@
           "group": "Bids",
           "pages": [
             "concepts/bids/bid-structure",
-	    "concepts/reverting-txns",
+	    "concepts/bids/reverting-txns",
             "concepts/bids/bidder-deposit",
             "concepts/bids/bid-decay-mechanism"
           ]
