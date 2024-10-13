@@ -69,11 +69,11 @@
         "concepts/privacy",
         "concepts/commitments",
         "concepts/solvers",
-        "concepts/reverting-txns",
         {
           "group": "Bids",
           "pages": [
             "concepts/bids/bid-structure",
+	    "concepts/reverting-txns",
             "concepts/bids/bidder-deposit",
             "concepts/bids/bid-decay-mechanism"
           ]
