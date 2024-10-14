@@ -1,0 +1,127 @@
+# **Docker Container for Bidder Node**
+
+The MEV-Commit Bidder setup leverages Docker to deploy a bidder node service within a single container, the repository [can be found here](https://github.com/primev/bidder_node_docker) . This bidder node connects to the MEV-Commit testnet, enabling users to submit bids seamlessly. 
+By containerizing the service, you ensure a consistent and reproducible environment, simplifying deployment and scaling.
+
+# Prerequisites
+Before you begin, ensure you have the following:
+
+- Docker: Install Docker on your machine. You can download it from the official Docker website.
+- Docker Compose: Ensure Docker Compose is installed. It typically comes bundled with Docker Desktop, but you can verify by running docker-compose --version.
+- Afunded MEV-Commit address.
+- A valid Holesky private key for authentication. If you need funds, use the MEV-Commit [faucet](https://faucet.testnet.mev-commit.xyz/).
+
+                                                                                                 
+# Setup Instructions
+Follow these steps to set up and run your MEV-Commit bidder node.
+
+1. Clone the Repository
+Begin by cloning the repository to your local machine:
+
+```bash
+Copy code
+git clone https://github.com/your-repo/mev-commit-bidder-docker.git
+cd mev-commit-bidder-docker```
+                                                                                                 
+2. Configure Environment Variables
+Create a .env file in the root directory of the repository to store your environment variables securely.
+
+Create the .env file:
+
+```bash
+Copy code
+touch .env```
+Define the required variables:
+
+Open the .env file in your preferred text editor and add the following:
+
+```env
+Copy code
+PRIVATE_KEY_BIDDER=your_private_key_here
+DOMAIN=testnet.mev-commit.xyz
+```
+Replace your_private_key_here with your actual private key.
+The DOMAIN variable defaults to testnet.mev-commit.xyz, but you can modify it if needed.
+3. Build and Run Docker Containers
+With the environment configured, proceed to build and run the Docker containers.
+
+# Build and start the services:
+
+```bash
+Copy code
+docker-compose up --build```
+This command performs the following actions:
+
+Builds the Docker image based on Ubuntu 20.04.
+Installs necessary dependencies such as curl and jq.
+Downloads and installs the latest MEV-Commit binary from the official repository.
+Starts the bidder node service within the container.
+
+# Access the Service:
+
+Once the container is running, your bidder node should be operational and connected to the MEV-Commit testnet. You can begin submitting bids through the network.
+
+# Customization
+Tailor the bidder node to fit your specific needs by adjusting environment variables or modifying the startup script.
+
+# Environment Variables
+You can customize several environment variables to configure the bidder node:
+
+PRIVATE_KEY_BIDDER: Your private key for authenticating the node with the testnet.
+DOMAIN: The MEV-Commit testnet domain. Defaults to testnet.mev-commit.xyz.
+To modify these variables, update the .env file accordingly:
+
+```env
+Copy code
+PRIVATE_KEY_BIDDER=your_new_private_key
+DOMAIN=custom-domain.mev-commit.xyz```
+
+# Modifying the Entry Point
+The container uses an entrypoint.sh script to initiate the bidder service. If you need to alter the startup sequence:
+
+Edit the entrypoint.sh script:
+
+Locate and open the entrypoint.sh file in the repository. Make your desired changes to customize the startup behavior.
+
+Rebuild the Docker Image:
+
+After modifying the script, rebuild the Docker image to apply the changes:
+
+```bash
+Copy code
+docker-compose up --build```
+                                                                                                 
+# Networking with Other Repositories
+Integrate the MEV-Commit bidder node with other Docker services to create a cohesive application ecosystem.
+
+Why a Docker Network Is Needed
+A shared Docker network allows multiple containers to communicate seamlessly using container names instead of hardcoded IP addresses. This setup is essential for services like bidding scripts or Geth containers to interact with the MEV-Commit bidder node.
+
+Creating the Network
+Before deploying your containers, create a shared Docker network:
+
+```bash
+Copy code
+docker network create app-network```
+                                                                                                 
+This network, named app-network, facilitates communication between the bidder node and other services.
+
+# Using the Network with Other Containers
+To enable other Docker services to communicate with the MEV-Commit bidder node, ensure they reference the same app-network. Here's how to configure another repository's docker-compose.yml to join the network:
+
+```yaml
+Copy code
+version: '3'
+services:
+  bid-sender:
+    image: your-bid-sender-image
+    networks:
+      - app-network
+    environment:
+      - RPC_ENDPOINT=http://mev-commit-bidder:13524
+
+networks:
+  app-network:
+    external: true
+```        
+                                                                                                 
