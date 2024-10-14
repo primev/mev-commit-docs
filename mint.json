@@ -99,6 +99,7 @@
         "developers/provider-api",
         "developers/bidder-api",
         "developers/bidder-deposit",
+        "developers/docker-bidder",
         "developers/tools-for-bid-submission",
         "developers/stake-validator-keys-manually",
         "developers/contracts",
