@@ -10,28 +10,22 @@ icon: 'list-check'
 Participation of L1 validators in the mev-commit protocol is crucial as it enhances the integrity of commitments and ensures their enforcement. This document details the steps required to join mev-commit as a Holesky validator.
 
 <Warning>
-As a Holesky validator opting into the mev-commit protocol, ensure your mev-boost client connects only to mev-commit relays to avoid slashing for proposing blocks without delivering commitments.
+As a Holesky validator opting into the mev-commit protocol, ensure your mev-boost client only connects to mev-commit opted-in relays to avoid slashing for proposing blocks without delivering commitments.
 </Warning>
 
 ## Requirements
-
-<AccordionGroup>
-  <Accordion title="Validator Requirements">
-    By opting-in to the mev-commit protocol as a Holesky validator **in any of the three forms described**, you agree to the following:
-
-    * Your mev-boost client should ONLY connect to mev-commit opted in relays to avoid being slashed by proposing a block that doesn't deliver commitments. The Titan Holesky relay is the only supporting relay at this time as shown in the list below. This list will be updated as more relays support the network.
+    By opting-in to the mev-commit protocol as a Holesky validator **in any of the three forms described**, you agree to use the opted-in relays who will filter block builder bids to the addresses that have registered with mev-commit provider registry so they can be slashed in case of protocol violation. This allows validators to passively opt-in to mev-commit and let block builders and relays do the work.
     
     **Supporting Relays:**  
 
     | Relay | Docs |
     |-------|------|
     | Titan | [docs.titanrelay.xyz](https://docs.titanrelay.xyz/) |
+    | Aestus| [holesky.aestus.live](https://holesky.aestus.live/) |
 
-    If you are a relay looking to join the mev-commit network please visit our [Relays page](/get-started/relays) to get more information.
+    We expect all known relays to support opting-in to mev-commit within a few months of being live on mainnet. If you are a relay looking to join the mev-commit network please visit our [Relays page](/get-started/relays) to get more information.
 
     Proposers who fallback to local block production, from either a fault in the mev-boost software or a lack of economically viable block bids, **will not be slashed**. See [flashbots docs](https://docs.flashbots.net/flashbots-mev-boost/architecture-overview/risks#liveness-and-local-fallback) for more on this scenario. The protocol may in the future slash for abuse of this local fallback mechanism.
-  </Accordion>
-</AccordionGroup>
 
 ## Choose Your Opt-In Method
 
