@@ -1,78 +1,151 @@
 ---
-title: Relay Guide
+title: Relay Integration Guide
 sidebarTitle: Relays
 icon: 'arrow-right-arrow-left'
 ---
 import { ProviderRegistryAddress } from '/snippets/testnet-addresses.mdx';
 
-Relays play an important role in the mev-commit ecosystem to uphold validator commitments. Validators are passively opting in to the network, and configuring their mev-boost relays to the ones that have opted in to mev-commit.
+## Overview
 
-Opting into mev-commit as a relay means that you sign up to deliver mev-boost bids only from builder addresses that have registered with mev-commit. This is necessary as it acts as a sybil resistance mechanism, disallowing block builders from making commitments but building a block under a different builder key that mev-commit would not be able to penalize. In this context, 'filtering' refers to the relay's role in screening and validating builder addresses, ensuring that only those registered with mev-commit are allowed to submit bids, following the protocol.
+Relays play a critical role in the mev-commit ecosystem by:
+- Enabling validators to passively participate in the network
+- Delivering blocks that honor validator commitments
+- Filtering block builder bids to ensure only registered builders can participate
+
+This guide will walk you through integrating your relay with mev-commit.
+
+## Requirements
+
+To integrate with mev-commit, your relay must:
+- Filter block builder bids to only accept those from registered builders
+- Track which validators have opted into mev-commit
+- Only deliver mev-commit compliant blocks to opted-in validators
+- Monitor the mev-commit provider registry for updates
 
 <Frame>
-  <img src="/images/relay-filtering.png" />
+  <img src="/images/relay-filtering.png" alt="Relay filtering diagram" />
 </Frame>
 
-Information about the providers (entities like builders who commit on our network) is stored the provider registry hosted on the mev-commit chain. You can interact with the registry contract at address: {ProviderRegistryAddress}. 
-<AccordionGroup>
-  <Accordion title="How to retrieve all connected providers">
-    You can retrieve all connected providers using the following script:
+## Integration Steps
 
-    ```javascript
-    // Import the ethers library
-    const ethers = require("ethers");
+<Steps>
+  <Step title="Provider Registry Integration">
+    The mev-commit provider registry contract maintains the list of authorized providers such as block builders. Your relay must query this contract to validate builder addresses.
 
-    // Define the provider using the RPC URL
-    const provider = new ethers.JsonRpcProvider("https://chainrpc.testnet.mev-commit.xyz/");
+    **Contract Details:**
+    - Network: mev-commit
+    - Address: {ProviderRegistryAddress} 
 
-    // Define the contract address and ABI
-    const providerRegistryAddress = "0xf4F10e18244d836311508917A3B04694D88999Dd";
-    const abi = [
-        "event ProviderRegistered(address indexed provider, uint256 stakedAmount, bytes blsPublicKey)"
-    ];
+    <AccordionGroup>
+      <Accordion title="How to query the registry for connected providers">
+        You can retrieve all connected providers using the following script:
 
-    // Create a new contract instance
-    const contract = new ethers.Contract(providerRegistryAddress, abi, provider);
+        ```javascript
+        // Import the ethers library
+        const ethers = require("ethers");
 
-    // Function to retrieve the list of registered providers
-    async function getRegisteredProviders() {
-        // Create a filter for the ProviderRegistered event
-        const filter = contract.filters.ProviderRegistered();
+        // Define the provider using the RPC URL
+        const provider = new ethers.JsonRpcProvider("https://chainrpc.testnet.mev-commit.xyz/");
 
-        // Query the contract for the ProviderRegistered events
-        const events = await contract.queryFilter(filter);
+        // Define the contract address and ABI
+        const providerRegistryAddress = "0xf4F10e18244d836311508917A3B04694D88999Dd";
+        const abi = [
+          "event ProviderRegistered(address indexed provider, uint256 stakedAmount, bytes blsPublicKey)"
+        ];
 
-        // Map the events to get the list of provider bls public keys
-        const providers = events.map(event => event.args.blsPublicKey);
+        // Create a new contract instance
+        const contract = new ethers.Contract(providerRegistryAddress, abi, provider);
 
-        return providers;
-    }
+        // Function to retrieve the list of registered providers
+        async function getRegisteredProviders() {
+          // Create a filter for the ProviderRegistered event
+          const filter = contract.filters.ProviderRegistered();
 
-    // Call the function and log the result
-    getRegisteredProviders().then(providers => {
-        console.log("Registered Providers:", providers);
-    }).catch(error => {
-        console.error("Error:", error);
-    });
-    ```
+          // Query the contract for the ProviderRegistered events
+          const events = await contract.queryFilter(filter);
 
-  </Accordion>
+          // Map the events to get the list of provider bls public keys
+          const providers = events.map(event => event.args.blsPublicKey);
+
+          return providers;
+        }
+
+        // Call the function and log the result
+        getRegisteredProviders().then(providers => {
+          console.log("Registered Providers:", providers);
+        }).catch(error => {
+          console.error("Error:", error);
+        });
+        ```
+      </Accordion>
   
-  <Accordion title="Expected Output">
-    The output will be a list of providers, identified by their BLS pubkey, that have registered with mev-commit.
+      <Accordion title="Expected Output">
+        The output will be a list of providers, identified by their BLS pubkey, that have registered with mev-commit.
 
-    ```bash ❯_ terminal
-    Registered Providers: [
-      '0x4e9c5b21bb1df120a7000fac8e3b1978bc308d28b54bbeae76eff010d8d8f83d785adc4141faf179715f550088becd7f',
-      '0x2e6b986435137b88685d8a2783c46ec9a68958bbb3f50b09a538954942c0f9066493d35b3e341a059a507d66d4545c23',
-      '0x43c615787576375f2c7db9c03c8899bab545881e373a963873b0f10c00faa3da57c7c7ecc1915809c651bb40c055b22e',
-      ...
-    ]
-    ```
-  </Accordion>
+        ```bash
+        Registered Providers: [
+          '0x4e9c5b21bb1df120a7000fac8e3b1978bc308d28b54bbeae76eff010d8d8f83d785adc4141faf179715f550088becd7f',
+          '0x2e6b986435137b88685d8a2783c46ec9a68958bbb3f50b09a538954942c0f9066493d35b3e341a059a507d66d4545c23',
+          '0x43c615787576375f2c7db9c03c8899bab545881e373a963873b0f10c00faa3da57c7c7ecc1915809c651bb40c055b22e',
+          ...
+        ]
+        ```
+      </Accordion>
+    </AccordionGroup>
+  </Step>
 
-</AccordionGroup>
+  <Step title="Validator Opt-in Detection">
+    Your relay needs to track which validators have opted into mev-commit. There are two ways to do this:
 
-Relays need to look out for mev-commit opted-in proposer addresses, and only deliver block builder bids from builder addresses that are registered with mev-commit when it's that proposer's turn. See [Querying for Proposers](/get-started/providers/Querying-for-proposers) to see how you can check whether an upcoming proposer is opted in to mev-commit or not.
+    <Tabs>
+      <Tab title="API Query">
+        [API Reference](https://docs.primev.xyz/get-started/bidders/bidder-node-commands#querying-for-proposers-api)
 
-Once you've configured your relay to deliver blocks with mev-commit commitments, create a PR to this [docs repo](https://github.com/primev/mev-commit-docs/blob/main/get-started/validators.mdx) to add your relay to the supporting relays list. This will let validators know that they can add your relay as they opt-in to mev-commit. You should also let the Primev team know so we can further engage with validators to make sure they use your relay as well.
+        ```bash
+        # Get validators for specific epoch
+        curl http://localhost:13523/v1/validator/get_validators?epoch=1
+
+        # Get validators for latest epoch
+        curl http://localhost:13523/v1/validator/get_validators
+        ```
+      </Tab>
+
+      <Tab title="Contract Events">
+        Monitor the validator registry contracts for opt-in/out events. There are three possible registration methods:
+        - Native Restaking: MevCommitAVS contract
+        - ERC20 Restaking: MevCommitMiddleware contract
+        - Direct Staking: VanillaRegistry contract
+      </Tab>
+    </Tabs>
+  </Step>
+
+  <Step title="Configure Bid Filtering">
+    When receiving bids from builders:
+
+    <Steps>
+      <Step>Check if target validator has opted into mev-commit</Step>
+      <Step>For opted-in validators, verify builder registration status</Step>
+      <Step>Only forward bids that satisfy both conditions</Step>
+    </Steps>
+  </Step>
+  
+  <Step title="Test Your Integration">
+    <Note>
+      We recommend testing your integration on the Holesky testnet:
+
+      - Register a test builder
+      - Submit test bids
+      - Verify filtering behavior
+      - Test with opted-in and non-opted-in validators
+    </Note>
+  </Step>
+
+  <Step title="Register">
+    Once your integration is complete:
+
+    1. Submit PR to add your relay to our [supporting relays list](https://github.com/primev/mev-commit-docs/blob/main/get-started/validators.mdx)
+    2. Contact the Primev team to coordinate validator outreach
+    3. Provide documentation for validators on how to configure your relay
+  </Step>
+</Steps>
+
