@@ -7,19 +7,12 @@ import { ProviderRegistryAddress } from '/snippets/testnet-addresses.mdx';
 
 ## Overview
 
-Relays play a critical role in the mev-commit ecosystem by:
-- Enabling validators to passively participate in the network
-- Delivering blocks that honor validator commitments
-- Filtering block builder bids to ensure only registered builders can participate
-
 This guide will walk you through integrating your relay with mev-commit.
 
 <Note>
 Once integrated, your relay will automatically:
 - Track which validators have opted into mev-commit
-- Filter block builder bids to only accept those from registered builders
-- Only deliver mev-commit compliant blocks to opted-in validators
-- Stay synchronized with the mev-commit provider registry
+- Only deliver mev-commit compliant blocks when opted-in validators are due to propose.
 </Note>
 
 <Frame>
