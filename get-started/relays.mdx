@@ -14,23 +14,52 @@ Relays play a critical role in the mev-commit ecosystem by:
 
 This guide will walk you through integrating your relay with mev-commit.
 
-## Requirements
-
-To integrate with mev-commit, your relay must:
-- Filter block builder bids to only accept those from registered builders
+<Note>
+Once integrated, your relay will automatically:
 - Track which validators have opted into mev-commit
+- Filter block builder bids to only accept those from registered builders
 - Only deliver mev-commit compliant blocks to opted-in validators
-- Monitor the mev-commit provider registry for updates
+- Stay synchronized with the mev-commit provider registry
+</Note>
 
 <Frame>
   <img src="/images/relay-filtering.png" alt="Relay filtering diagram" />
 </Frame>
 
-## Integration Steps
+## Quick Start
 
 <Steps>
-  <Step title="Provider Registry Integration">
-    The mev-commit provider registry contract maintains the list of authorized providers such as block builders. Your relay must query this contract to validate builder addresses.
+  <Step title="View the Example Implementation">
+   - Check out this [mev-commit relay integration](https://github.com/flashbots/mev-boost-relay/pull/657)
+   - Add required environment variables:
+
+<CodeBlock>
+MEV_COMMIT_RPC=wss://chainrpc-wss.testnet.mev-commit.xyz
+PROVIDER_REGISTRY_ADDR={ProviderRegistryAddress}
+</CodeBlock>
+  </Step>
+
+  <Step title="Test and Deploy">
+    Test filtering behavior on Holesky:
+    - Register a [test builder](/get-started/quickstart)
+    - Submit [test bids](/bidders/best-practices#submit-bundles)
+    - Verify correct block filtering 
+  </Step>
+
+  <Step title="Register Your Relay">
+    1. Add your relay to our [supporting relays list](https://github.com/primev/mev-commit-docs/blob/main/get-started/validators.mdx)
+    2. Provide connection details for validators
+    3. Contact the Primev team to coordinate validator outreach
+  </Step>
+</Steps>
+
+You have now successfully integrated your relay with mev-commit.
+
+## Implementation Details
+
+### How to Query the Provider Registry
+
+    The mev-commit provider registry contract maintains the list of authorized providers such as block builders. You can query this contract to validate builder addresses.
 
     **Contract Details:**
     - Network: mev-commit
@@ -92,60 +121,22 @@ To integrate with mev-commit, your relay must:
         ```
       </Accordion>
     </AccordionGroup>
-  </Step>
 
-  <Step title="Validator Opt-in Detection">
-    Your relay needs to track which validators have opted into mev-commit. There are two ways to do this:
+### What Contracts to Monitor
 
-    <Tabs>
-      <Tab title="API Query">
-        [API Reference](https://docs.primev.xyz/get-started/bidders/bidder-node-commands#querying-for-proposers-api)
+To track which validators have opted into mev-commit monitor the appropriate validator registry contracts:
 
-        ```bash
-        # Get validators for specific epoch
-        curl http://localhost:13523/v1/validator/get_validators?epoch=1
-
-        # Get validators for latest epoch
-        curl http://localhost:13523/v1/validator/get_validators
-        ```
-      </Tab>
-
-      <Tab title="Contract Events">
-        Monitor the validator registry contracts for opt-in/out events. There are three possible registration methods:
         - Native Restaking: MevCommitAVS contract
         - ERC20 Restaking: MevCommitMiddleware contract
         - Direct Staking: VanillaRegistry contract
-      </Tab>
-    </Tabs>
-  </Step>
 
-  <Step title="Configure Bid Filtering">
-    When receiving bids from builders:
+### About Bid Filtering
 
-    <Steps>
-      <Step>Check if target validator has opted into mev-commit</Step>
-      <Step>For opted-in validators, verify builder registration status</Step>
-      <Step>Only forward bids that satisfy both conditions</Step>
-    </Steps>
-  </Step>
+When receiving bids from builders:
+
+First, check if target validator has opted into mev-commit. For opted-in validators, verify the submitting builder:
+- Ensure builder is registered on mev-commit, OR
+- Builder is on the relay's registered builder list
+Only forward bids that satisfy one of these conditions.
   
-  <Step title="Test Your Integration">
-    <Note>
-      We recommend testing your integration on the Holesky testnet:
-
-      - Register a test builder
-      - Submit test bids
-      - Verify filtering behavior
-      - Test with opted-in and non-opted-in validators
-    </Note>
-  </Step>
-
-  <Step title="Register">
-    Once your integration is complete:
-
-    1. Submit PR to add your relay to our [supporting relays list](https://github.com/primev/mev-commit-docs/blob/main/get-started/validators.mdx)
-    2. Contact the Primev team to coordinate validator outreach
-    3. Provide documentation for validators on how to configure your relay
-  </Step>
-</Steps>
 
