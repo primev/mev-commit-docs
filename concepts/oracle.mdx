@@ -58,3 +58,10 @@ In the event that a provider fails to include a committed transaction (txnj) in 
 3. The oracle communicates that txnj was not seen in the oracle contract.
 4. The oracle contract, upon receiving this information, initiates the slashing procedure. This involves penalizing the provider by triggering a slash event, which results in the forfeiture of the stake held by the provider contract as a guarantee of honest behavior.
 5. The confiscated stake is subsequently allocated to the bidder as compensation for the provider's failure to include the committed transaction, thereby ensuring that the bidder is recompensed for the provider's breach of trust.
+
+## Funds Locking
+We offer a mechanism for locking and unlocking funds associated with a pre-confirmed bid.
+
+Funds movement involves locking the bid amount in escrow when a commitment is processed. This occurs only once per bid, meaning if there are multiple commitments for the same bid, the funds will be locked only once.
+
+The funds are released when the Oracle resolves the commitment. If the provider is slashed, the locked funds are unlocked and returned to the bidder.
