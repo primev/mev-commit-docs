@@ -69,6 +69,7 @@
         "concepts/privacy",
         "concepts/commitments",
         "concepts/solvers",
+        "concepts/builder-attribution",
         {
           "group": "Bids",
           "pages": [
