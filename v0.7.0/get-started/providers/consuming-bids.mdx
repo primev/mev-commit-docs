@@ -1,0 +1,83 @@
+---
+title: Consuming Bids from mev-commit
+sidebarTitle: Consuming Bids
+---
+
+Providers that have registered in the mev-commit registry will automatically start receiving bids on the mev-commit p2p network from bidders. In order to see incoming bids, providers need to communicate with their mev-commit node:
+
+Use the official go RPC client to communicate with your mev-commit node. Go get the mev-commit package and then import the generated client as below:
+
+<Steps>
+
+ <Step title="Install the mev-commit package">
+
+  ```bash ❯_ terminal
+  go install github.com/primev/mev-commit@latest
+  ```
+ </Step>
+  <Step title="Incorporate the generated client into your Go application as follows">
+
+  ```go
+  import providerapiv1 "github.com/primev/mev-commit/p2p/gen/go/providerapi/v1"
+  
+  conn, err = grpc.DialContext(
+  	context.Background(),
+  	"localhost:13524",
+  	grpc.WithBlock(),
+  	grpc.WithTransportCredentials(insecure.NewCredentials()),
+  )
+
+  if err != nil {
+  	// handle error
+  }
+
+  client := providerapiv1.NewProviderClient(conn)
+
+  bidStream, err := client.ReceiveBids(context.Background(), &providerapiv1.EmptyMessage{})
+  if err != nil {
+  	// handle error
+  }
+
+  bidC := make(chan *providerapiv1.Bid)
+  go func() {
+  	defer close(bidC)
+  	for {
+  		bid, err := bidStream.Recv()
+  		if err != nil {
+  			// handle error
+  		}
+  		select {
+  		case <-bidStream.Context().Done():
+  		case bidC <- bid:
+  		}
+  	}
+  }()
+
+  stream, err := client.SendProcessedBids(context.Background())
+  if err != nil {
+  	// handle error
+  }
+
+  for bid := range bidS {
+  	// check the bid details and communicate with the block-building
+  	// infrastructure to make a decision
+  	status := getDecision(bid)
+
+  	err := stream.Send(&providerapiv1.BidResponse{
+  			BidDigest: bid.BidDigest,
+  			Status:    status,
+  	})
+  	if err != nil {
+  		// handle error
+  	}
+  }
+  ```
+
+  There is an [example implementation](https://github.com/primev/mev-commit/tree/main/p2p/examples/provideremulator) of a dummy provider client which blindly accepts all the bids it sees from its mev-commit node. This could be a good starting point for providers implementing their commitment decision logic in golang.
+</Step>
+</Steps>
+### Alternative Methods
+
+1. Use [https://github.com/fullstorydev/grpcurl](https://github.com/fullstorydev/grpcurl) or [https://github.com/bloomrpc/bloomrpc](https://github.com/bloomrpc/bloomrpc) or other GUI clients like [Postman](https://www.postman.com). Relevant protobuf files are available in the [mev-commit repository](https://github.com/primev/mev-commit).
+2. Check the [API docs](/api-reference/introduction) to use the REST APIs. The RPC APIs are also available on the HTTP server.
+3. Users can use the protobuf files to generate a client in language of their choice.
