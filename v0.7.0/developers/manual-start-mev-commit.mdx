@@ -1,0 +1,222 @@
+---
+title: "Manual Node Setup"
+sidebarTitle: Manual Node Setup
+---
+
+Below, you'll find a guide tailored for those who prefer a more customized installation approach.
+
+<Steps titleSize="h3">
+
+  <Step title="Install cast">
+  
+  We use the [cast](https://book.getfoundry.sh/cast/) CLI tool for making Ethereum RPC calls.
+  If it's not already installed on your system, you can set up the entire Foundry toolchain, including `cast`, with the following command:
+
+    ```bash ❯_ terminal
+    curl -L https://foundry.paradigm.xyz | bash
+    ```
+
+    After installation, execute `foundryup` to update to the latest versions of Foundry's suite of tools:
+     `forge`, `cast`, `anvil`, and `chisel`:
+
+
+    ```bash ❯_ terminal
+    foundryup
+    ```
+
+    For detailed guidance, refer to the official [Foundry Book](https://book.getfoundry.sh/getting-started/installation) installation instructions.
+
+  </Step>
+
+  <Step title="Check your CPU architecture">
+
+    Run the following command which will identify your OS, and chip architecture:
+
+    ```bash  ❯_ terminal
+    uname -sm
+    ```
+
+    This command will output something like `Linux x86_64` or `Darwin arm64`, depending on your system.
+
+  </Step>
+  <Step title="Get the mev-commit binary">
+
+    Navigate to the [mev-commit repo](https://github.com/primev/mev-commit/releases/latest)
+    and select the mev-commit binary tailored to your system.
+    For example, if `uname -sm` yields `Linux x86_64`, opt for `mev-commit_Linux_x86_64.tar.gz`.
+    Download, then extract the binary into your preferred root directory to continue with setup.
+
+    You can use the following command which automatically downloads and extracts the appropriate
+    mev-commit binary for your system into your home directory:
+
+    ```bash  ❯_ terminal
+    FILENAME="mev-commit_$(uname -s)_$(uname -m).tar.gz"
+    curl -L \
+    "https://github.com/primev/mev-commit/releases/download/v0.5.0/$FILENAME" \
+    | tar -xz -C $HOME
+    ```
+
+    <Accordion title="🕵️‍♂️ Recommended: Verify the checksum">
+
+    Before executing any code downloaded from the internet, it's recommended to verify the checksum,
+    a practice that ensures the file's integrity and authenticity. Checksums, provided with each release on GitHub,
+    serve as a safeguard, allowing you to confirm that the downloaded binary has not been compromised or altered,
+    thus protecting your system from potential security risks.
+
+    To verify the checksum of the mev-commit binary, you can follow these simplified steps (assumes binary is the home directory):
+
+    <Steps>
+
+      <Step title="Grab the checksum">
+
+        Set the binary's name based on your system and retrieve the corresponding checksum:
+
+        ```bash ❯_ terminal
+        FILENAME="mev-commit_$(uname -s)_$(uname -m).tar.gz"
+        CHECKSUM=$(curl -L \
+        "https://github.com/primev/mev-commit/releases/download/v0.5.0/mev-commit_v0.5.0_checksums.txt" \
+        | awk "/$FILENAME/ {print \$1}")
+        ```
+      </Step>
+
+      <Step title="Verify">
+
+        Verify the binary's checksum by running the following:
+
+        <CodeGroup>
+
+        ```bash linux
+        echo "$CHECKSUM $HOME/$FILENAME" | sha256sum -c -
+        ```
+
+        ```bash macOs (Darwin)
+        echo "$CHECKSUM $HOME/$FILENAME" | shasum -a 256 -c -
+        ```
+
+        </CodeGroup>
+
+       ✅ **Success**
+
+        If the output resembles the following, you may confidently proceed to the next steps:
+
+        ```bash ❯_ bidder
+        filename.tar.gz: OK
+        ```
+
+        ❌ **Failure**
+
+        Should the output indicate a failure, as shown below, re-download the file and attempt verification once more.
+
+        ```bash
+        filename.tar.gz: FAILED
+        shasum: WARNING: 1 computed checksum did NOT match
+        ```
+
+        If checksum verification continues to fail after multiple attempts, reach out to Primev for support.
+      </Step>
+
+    </Steps>
+
+    </Accordion>
+
+  </Step>
+
+</Steps>
+
+## Starting up your Node
+
+Execute the script to initiate your node, selecting either a bidder or provider configuration based on your role in the network.
+
+<CodeGroup>
+
+```bash ❯_ provider
+mev-commit \
+	--peer-type provider \
+	--keystore-path ~/.mev-commit \
+	--keystore-password <PASSWORD> \
+	--bootnodes /dnsaddr/bootnode.testnet.mev-commit.xyz \
+	--settlement-ws-rpc-endpoint wss://chainrpc-wss.testnet.mev-commit.xyz
+```
+
+```bash ❯_ bidder
+mev-commit \
+	--keystore-path ~/.mev-commit \
+	--keystore-password <PASSWORD> \
+	--bootnodes /dnsaddr/bootnode.testnet.mev-commit.xyz \
+	--settlement-ws-rpc-endpoint wss://chainrpc-wss.testnet.mev-commit.xyz
+```
+
+</CodeGroup>
+
+<CardGroup cols={2}>
+  <div className="inline-card-header">
+    <Card title="Bidders" icon="user-bounty-hunter">
+      <br />
+      <br />
+      Once the node is started you can go through the [funding
+      process](/developers/bidder-deposit) to start sending bids.
+    </Card>
+  </div>
+  <div className="inline-card-header">
+    <Card title="Providers" icon="network-wired">
+      <br />
+      <br />
+      In order to register as a provider please go through the [registration
+      process](/get-started/providers/registering-a-provider).
+    </Card>
+  </div>
+</CardGroup>
+
+- `--bootnodes` This should point to the bootnode for the Primev testnet network.
+- `--settlement-rpc-endpoint` This should point to the Primev Settlement Chain RPC endpoint. At present this is managed by the Primev team.
+
+❗ The `--peer-type` flag can be used to run a `provider` or `bidder` node.
+
+❗ The default contract addresses point to the Primev testnet at the moment. All the options can be provided using a YAML config file or environment variables as described in the above help output.
+
+❗ The mev-commit node, when started for the first time will create a private key for the node at `~/.mev-commit/key`. This is a plain-text key. In order to store encrypted keys, users need to use the keystore. This can be configured using the `--keystore-path` and `--keystore-password`.
+
+❗ In order to run a provider node, the machine needs to be publicly accessible. Also, the mev-commit node will have to be configured with the public IP of the node using the `nat-addr` parameter.
+
+## CLI Reference
+
+```shell
+NAME:
+   mev-commit - Start mev-commit node
+
+USAGE:
+   mev-commit [global options] command [command options]
+
+VERSION:
+   v0.5.0
+
+COMMANDS:
+   help, h  Shows a list of commands or help for one command
+
+GLOBAL OPTIONS:
+   --config value                           path to config file [$MEV_COMMIT_CONFIG]
+   --peer-type value                        peer type to use, options are 'bidder', 'provider' or 'bootnode' (default: "bidder") [$MEV_COMMIT_PEER_TYPE]
+   --priv-key-file value                    path to private key file (default: "~/.mev-commit/key") [$MEV_COMMIT_PRIVKEY_FILE]
+   --keystore-password value                use to access keystore [$MEV_COMMIT_KEYSTORE_PASSWORD]
+   --keystore-path value                    path to keystore location (default: "~/.mev-commit/keystore") [$MEV_COMMIT_KEYSTORE_PATH]
+   --p2p-port value                         port to listen for p2p connections (default: 13522) [$MEV_COMMIT_P2P_PORT]
+   --p2p-addr value                         address to bind for p2p connections (default: "0.0.0.0") [$MEV_COMMIT_P2P_ADDR]
+   --http-port value                        port to listen for http connections (default: 13523) [$MEV_COMMIT_HTTP_PORT]
+   --http-addr value                        address to bind for http connections [$MEV_COMMIT_HTTP_ADDR]
+   --rpc-port value                         port to listen for rpc connections (default: 13524) [$MEV_COMMIT_RPC_PORT]
+   --rpc-addr value                         address to bind for RPC connections [$MEV_COMMIT_RPC_ADDR]
+   --bootnodes value [ --bootnodes value ]  list of bootnodes to connect to [$MEV_COMMIT_BOOTNODES]
+   --secret value                           secret to use for signing (default: "secret") [$MEV_COMMIT_SECRET]
+   --log-fmt value                          log format to use, options are 'text' or 'json' (default: "text") [$MEV_COMMIT_LOG_FMT]
+   --log-level value                        log level to use, options are 'debug', 'info', 'warn', 'error' (default: "info") [$MEV_COMMIT_LOG_LEVEL]
+   --bidder-registry-contract value         address of the bidder registry contract (default: "0x401B3287364f95694c43ACA3252831cAc02e5C41") [$MEV_COMMIT_BIDDER_REGISTRY_ADDR]
+   --provider-registry-contract value       address of the provider registry contract (default: "0xf4F10e18244d836311508917A3B04694D88999Dd") [$MEV_COMMIT_PROVIDER_REGISTRY_ADDR]
+   --preconf-contract value                 address of the preconfirmation commitment store contract (default: "0x9433bCD9e89F923ce587f7FA7E39e120E93eb84D") [$MEV_COMMIT_PRECONF_ADDR]
+   --settlement-rpc-endpoint value          rpc endpoint of the settlement layer (default: "http://localhost:8545") [$MEV_COMMIT_SETTLEMENT_RPC_ENDPOINT]
+   --nat-addr value                         external address of the node [$MEV_COMMIT_NAT_ADDR]
+   --nat-port value                         externally mapped port for the node (default: 13522) [$MEV_COMMIT_NAT_PORT]
+   --server-tls-certificate value           Path to the server TLS certificate [$MEV_COMMIT_SERVER_TLS_CERTIFICATE]
+   --server-tls-private-key value           Path to the server TLS private key [$MEV_COMMIT_SERVER_TLS_PRIVATE_KEY]
+   --help, -h                               show help
+   --version, -v                            print the version
+```
