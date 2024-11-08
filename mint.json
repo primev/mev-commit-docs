@@ -198,7 +198,8 @@
         "v0.7.0/developers/contracts",
         "v0.7.0/developers/debugging",
         "v0.7.0/developers/manual-start-mev-commit",
-        "v0.7.0/developers/run-mev-commit-chain-node"
+        "v0.7.0/developers/run-mev-commit-chain-node",
+        "v0.7.0/developers/eigenlayer-operator-registration"
       ]
     },
     {
@@ -219,20 +220,19 @@
       ]
     },
     {
-      "group": "Knowledge Base",
+      "group": "FAQ",
       "version": "v0.7.0",
       "pages": [
-        "v0.7.0/knowledge-base/introduction",
-        "v0.7.0/knowledge-base/what-is-deposit-amount",
-        "v0.7.0/knowledge-base/how-do-i-fix-the-error-failed-to-read-msg-stream-reset",
-        "v0.7.0/knowledge-base/what-is-foundry",
-        "v0.7.0/knowledge-base/why-is-cast-necessary-for-mev-commit-chain-interactions",
-        "v0.7.0/knowledge-base/why-do-i-receive-the-same-commitment-when-resending-a-bid",
-        "v0.7.0/knowledge-base/what-is-execution-preconfirmations",
-        "v0.7.0/knowledge-base/how-to-price-a-bid",
-        "v0.7.0/knowledge-base/what-happens-during-an-execution-preconf",
-        "v0.7.0/knowledge-base/how-do-preconfs-work",  
-        "v0.7.0/knowledge-base/eigenlayer-operator-registration"
+        "v0.7.0/faq/introduction",
+        "v0.7.0/faq/what-is-deposit-amount",
+        "v0.7.0/faq/how-do-i-fix-the-error-failed-to-read-msg-stream-reset",
+        "v0.7.0/faq/what-is-foundry",
+        "v0.7.0/faq/why-is-cast-necessary-for-mev-commit-chain-interactions",
+        "v0.7.0/faq/why-do-i-receive-the-same-commitment-when-resending-a-bid",
+        "v0.7.0/faq/what-is-execution-preconfirmations",
+        "v0.7.0/faq/how-to-price-a-bid",
+        "v0.7.0/faq/what-happens-during-an-execution-preconf",
+        "v0.7.0/faq/how-do-preconfs-work"
       ]
     },
     {
