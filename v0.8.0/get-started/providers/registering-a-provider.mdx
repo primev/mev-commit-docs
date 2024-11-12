@@ -11,10 +11,10 @@ You can use the provider API to stake and check your stake balance.
 
 <Steps>
   <Step title="Launch mev-commit Node">
-    Make sure you've [launched a mev-commit node](/developers/manual-start-mev-commit) first.
+    Make sure you've [launched a mev-commit node](/v0.8.0/developers/manual-start-mev-commit) first.
   </Step>
   <Step title="Fund Account">
-    Make sure you've also [funded your account on the mev-commit chain](/get-started/faucet).
+    Make sure you've also [funded your account on the mev-commit chain](/v0.8.0/get-started/faucet).
   </Step>
   <Step title="Check Minimum Stake Amount">
     Check the minimum amount that can be staked, and consider staking more than the minimum. Bidders will only connect to providers which have stake higher than this minimum. The larger a provider's stake, the greater the credibility behind that provider's commitments. The amount is set in `wei`.
@@ -39,7 +39,7 @@ You can use the provider API to stake and check your stake balance.
   </Step>
 </Steps>
 
-<Check>Congrats, your provider node is registered on mev-commit and you're ready to [consume bids](/get-started/providers/consuming-bids).</Check>
+<Check>Congrats, your provider node is registered on mev-commit and you're ready to [consume bids](/v0.8.0/get-started/providers/consuming-bids).</Check>
 
 <Info>Rewards on mev-commit rely on the `extra-data` field in the block header to attribute the winning providers. Providers need to register their node's Ethereum address and BLS public key against the unique `extra-data` field they use while building blocks. This registration is currently done manually by the Primev team, please contact us to register these details. Once the registration is done, the settlement chain will be able to correctly attribute the winning providers on L1. This will be automated in future.</Info>
 
@@ -74,4 +74,4 @@ Other commands that can be used are:
   }
   ```
 
-We recommend reading the [consuming bids](/get-started/providers/consuming-bids) section next to consume bids effectively.
+We recommend reading the [consuming bids](/v0.8.0/get-started/providers/consuming-bids) section next to consume bids effectively.
