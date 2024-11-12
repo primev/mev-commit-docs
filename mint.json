@@ -30,7 +30,7 @@
       "url": "v0.6.3/knowledge-base"
     }
   ],
-  "versions": ["v0.8.0", "v0.6.3"],
+  "versions": ["v0.6.3", "v0.8.0"],
   "navigation": [
     {
       "group": "Get Started",
