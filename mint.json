@@ -220,19 +220,19 @@
       ]
     },
     {
-      "group": "FAQ",
+      "group": "Knowledge Base",
       "version": "v0.8.0",
       "pages": [
-        "v0.8.0/faq/introduction",
-        "v0.8.0/faq/what-is-deposit-amount",
-        "v0.8.0/faq/how-do-i-fix-the-error-failed-to-read-msg-stream-reset",
-        "v0.8.0/faq/what-is-foundry",
-        "v0.8.0/faq/why-is-cast-necessary-for-mev-commit-chain-interactions",
-        "v0.8.0/faq/why-do-i-receive-the-same-commitment-when-resending-a-bid",
-        "v0.8.0/faq/what-is-execution-preconfirmations",
-        "v0.8.0/faq/how-to-price-a-bid",
-        "v0.8.0/faq/what-happens-during-an-execution-preconf",
-        "v0.8.0/faq/how-do-preconfs-work"
+        "v0.8.0/knowledge-base/introduction",
+        "v0.8.0/knowledge-base/what-is-deposit-amount",
+        "v0.8.0/knowledge-base/how-do-i-fix-the-error-failed-to-read-msg-stream-reset",
+        "v0.8.0/knowledge-base/what-is-foundry",
+        "v0.8.0/knowledge-base/why-is-cast-necessary-for-mev-commit-chain-interactions",
+        "v0.8.0/knowledge-base/why-do-i-receive-the-same-commitment-when-resending-a-bid",
+        "v0.8.0/knowledge-base/what-is-execution-preconfirmations",
+        "v0.8.0/knowledge-base/how-to-price-a-bid",
+        "v0.8.0/knowledge-base/what-happens-during-an-execution-preconf",
+        "v0.8.0/knowledge-base/how-do-preconfs-work"
       ]
     },
     {
