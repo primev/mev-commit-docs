@@ -23,11 +23,11 @@
   "tabs": [
     {
       "name": "API Reference",
-      "url": "v0.6.3/api-reference"
+      "url": "{version}/api-reference"
     },
     {
       "name": "Knowledge Base",
-      "url": "v0.6.3/knowledge-base"
+      "url": "{version}/knowledge-base"
     }
   ],
   "versions": ["v0.6.3", "v0.8.0"],
