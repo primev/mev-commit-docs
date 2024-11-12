@@ -17,13 +17,13 @@ export ADDRESS=$(cast wallet address --private-key 0x$(cat key))
 
 ## Getting Deposit
 
-To get the current deposit balance in the contract for the current [window](/concepts/bids/bidder-deposit):
+To get the current deposit balance in the contract for the current [window](/v0.6.3/concepts/bids/bidder-deposit):
 
 ```shell ❯_ terminal
 curl -s http://localhost:13523/v1/bidder/get_deposit
 ```
 
-To get the current deposit balance in the contract for a specific [window](/concepts/bids/bidder-deposit):
+To get the current deposit balance in the contract for a specific [window](/v0.6.3/concepts/bids/bidder-deposit):
 
 ```shell ❯_ terminal
 curl -s http://localhost:13523/v1/bidder/get_deposit?windowNumber=1
@@ -33,7 +33,7 @@ curl -s http://localhost:13523/v1/bidder/get_deposit?windowNumber=1
 
 ## Withdraw Deposited Funds
 
-This command will allow you to withdraw funds from the specific [window](/concepts/bids/bidder-deposit). 
+This command will allow you to withdraw funds from the specific [window](/v0.6.3/concepts/bids/bidder-deposit). 
 Window number is the number where the bidder deposited funds.
 
 ```shell ❯_ terminal

@@ -39,7 +39,7 @@ Instead of blindly sending your transaction, you can use an execution preconf. H
 </Step>
 <Step title="Submit a preconf bid">
 
-   - Create and submit a bid for the transaction from your mev-commit bidder node (following the [bid structure here](concepts/bids/bid-structure)), supplying the hash of the transaction you just sent.
+   - Create and submit a bid for the transaction from your mev-commit bidder node (following the [bid structure here](/v0.6.3/concepts/bids/bid-structure)), supplying the hash of the transaction you just sent.
    - When you submit a bid, it goes to multiple providers by default.
    - If a provider accepts your bid, it will generate a cryptographic commitment to execute your transaction. These are typically sent in milliseconds.
    - Your bidder node automatically verifies each commitment it receives.
