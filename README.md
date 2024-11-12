@@ -16,7 +16,7 @@ This repository contains the source code for our documentation website. If you'd
 ## Standards and conventions
 
 ### Links
-- Ensure all links that reference the documentation is linking using an absolute path. For example, to reference fund node page, you do as follows: `[fund node](/get-started/bidders/fund-node)`.
+- Ensure all links that reference the documentation use an absolute path starting with version number. For example, to reference fund node page, you do as follows: `[fund node](/v0.8.0/get-started/bidders/fund-node)`.
 
 ### New Files
 - Ensure all files are in lowercase.
