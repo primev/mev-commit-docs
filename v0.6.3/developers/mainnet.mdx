@@ -18,18 +18,22 @@ import {
   <thead>
     <tr>
       <th>Contract</th>
-      <th>Proxy Address</th>
-      <th>Implementation Address</th>
+      <th>Address Type</th>
+      <th>Address</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>VanillaRegistry</td>
+      <td rowspan="2">VanillaRegistry</td>
+      <td>Proxy Address</td>
       <td>
         <a href={`https://etherscan.io/address/${VanillaRegistryProxyAddress}`} target="_blank" rel="noopener noreferrer">
           {VanillaRegistryProxyAddress}
         </a>
       </td>
+    </tr>
+    <tr>
+      <td>Implementation Address</td>
       <td>
         <a href={`https://etherscan.io/address/${VanillaRegistryImplementationAddress}`} target="_blank" rel="noopener noreferrer">
           {VanillaRegistryImplementationAddress}
@@ -37,12 +41,16 @@ import {
       </td>
     </tr>
     <tr>
-      <td>MevCommitAVS</td>
+      <td rowspan="2">MevCommitAVS</td>
+      <td>Proxy Address</td>
       <td>
         <a href={`https://etherscan.io/address/${MevCommitAVSProxyAddress}`} target="_blank" rel="noopener noreferrer">
           {MevCommitAVSProxyAddress}
         </a>
       </td>
+    </tr>
+    <tr>
+      <td>Implementation Address</td>
       <td>
         <a href={`https://etherscan.io/address/${MevCommitAVSImplementationAddress}`} target="_blank" rel="noopener noreferrer">
           {MevCommitAVSImplementationAddress}
