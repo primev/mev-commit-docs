@@ -14,7 +14,7 @@ import {
   MevCommitAVSImplementationAddress 
 } from '/snippets/mainnet-addresses.mdx';
 
-<table>
+<table style={{ width: "100%", tableLayout: "fixed", wordWrap: "break-word" }}>
   <thead>
     <tr>
       <th>Contract</th>
@@ -26,12 +26,22 @@ import {
     <tr>
       <td>VanillaRegistry</td>
       <td>
-        <a href={`https://etherscan.io/address/${VanillaRegistryProxyAddress}`} target="_blank" rel="noopener noreferrer">
+        <a 
+          href={`https://etherscan.io/address/${VanillaRegistryProxyAddress}`} 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          style={{ display: "inline-block", maxWidth: "250px", overflowWrap: "break-word" }}
+        >
           {VanillaRegistryProxyAddress}
         </a>
       </td>
       <td>
-        <a href={`https://etherscan.io/address/${VanillaRegistryImplementationAddress}`} target="_blank" rel="noopener noreferrer">
+        <a 
+          href={`https://etherscan.io/address/${VanillaRegistryImplementationAddress}`} 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          style={{ display: "inline-block", maxWidth: "250px", overflowWrap: "break-word" }}
+        >
           {VanillaRegistryImplementationAddress}
         </a>
       </td>
@@ -39,15 +49,25 @@ import {
     <tr>
       <td>MevCommitAVS</td>
       <td>
-        <a href={`https://etherscan.io/address/${MevCommitAVSProxyAddress}`} target="_blank" rel="noopener noreferrer">
+        <a 
+          href={`https://etherscan.io/address/${MevCommitAVSProxyAddress}`} 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          style={{ display: "inline-block", maxWidth: "250px", overflowWrap: "break-word" }}
+        >
           {MevCommitAVSProxyAddress}
         </a>
       </td>
       <td>
-        <a href={`https://etherscan.io/address/${MevCommitAVSImplementationAddress}`} target="_blank" rel="noopener noreferrer">
+        <a 
+          href={`https://etherscan.io/address/${MevCommitAVSImplementationAddress}`} 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          style={{ display: "inline-block", maxWidth: "250px", overflowWrap: "break-word" }}
+        >
           {MevCommitAVSImplementationAddress}
         </a>
       </td>
     </tr>
   </tbody>
-</table> 
+</table>
