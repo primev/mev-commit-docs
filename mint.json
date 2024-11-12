@@ -169,6 +169,7 @@
       "group": "Developers",
       "version": "v0.6.3",
       "pages": [
+        "v0.6.3/developers/mainnet",
         "v0.6.3/developers/testnet",
         "v0.6.3/developers/system-requirements",
         "v0.6.3/developers/provider-api",
@@ -187,6 +188,7 @@
       "group": "Developers",
       "version": "v0.8.0",
       "pages": [
+        "v0.8.0/developers/mainnet",
         "v0.8.0/developers/testnet",
         "v0.8.0/developers/system-requirements",
         "v0.8.0/developers/provider-api",

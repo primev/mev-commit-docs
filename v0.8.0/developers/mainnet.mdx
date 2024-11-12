@@ -1,0 +1,45 @@
+---
+title: Mev-commit Mainnet
+sidebarTitle: Mainnet
+---
+
+Mev-commit is rolling out support for Ethereum mainnet in the coming weeks! Below is what's been deployed so far.
+
+### **Validator Registry Contract Addresses (Mainnet)**
+
+import { 
+  VanillaRegistryProxyAddress, 
+  VanillaRegistryImplementationAddress, 
+  MevCommitAVSProxyAddress, 
+  MevCommitAVSImplementationAddress 
+} from '/snippets/mainnet-addresses.mdx';
+
+<table>
+  <thead>
+    <tr>
+      <th>Contract</th>
+      <th>Proxy Address</th>
+      <th>Implementation Address</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>VanillaRegistry</td>
+      <td>
+        [VanillaRegistry Proxy]({`https://etherscan.io/address/${VanillaRegistryProxyAddress}`})
+      </td>
+      <td>
+        [VanillaRegistry Implementation]({`https://etherscan.io/address/${VanillaRegistryImplementationAddress}`})
+      </td>
+    </tr>
+    <tr>
+      <td>MevCommitAVS</td>
+      <td>
+        [MevCommitAVS Proxy]({`https://etherscan.io/address/${MevCommitAVSProxyAddress}`})
+      </td>
+      <td>
+        [MevCommitAVS Implementation]({`https://etherscan.io/address/${MevCommitAVSImplementationAddress}`})
+      </td>
+    </tr>
+  </tbody>
+</table> 
