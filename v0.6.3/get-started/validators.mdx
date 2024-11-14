@@ -25,7 +25,7 @@ See [mainnet](/v0.6.3/developers/mainnet#l1-validator-registries) and [testnet](
 As a validator opting into the mev-commit protocol, ensure your mev-boost client only connects to mev-commit opted-in relays to avoid slashing for proposing blocks without delivering commitments.
 </Warning>
 
-By opting-in to the mev-commit protocol as a validator **in any of the three forms described**, you agree to use the opted-in relays who will filter block builder bids to the addresses that have registered with mev-commit provider registry so they can be slashed in case of protocol violation. This allows validators to passively opt-in to mev-commit and let block builders and relays do the work.
+By opting-in to the mev-commit protocol as a validator **in any of the three forms described**, you agree to only use **opted-in relays**. These opted-in relays will only forward mev-boost bids from addresses that have registered with the mev-commit provider registry, such that any provider can be slashed in case of a protocol violation. This allows validators to passively opt-in to mev-commit, letting block builders and relays do the work.
 
 **Supporting Relays:**  
 
