@@ -39,7 +39,17 @@
         "v0.6.3/get-started/welcome-to-primev",
         "v0.6.3/get-started/quickstart",
         "v0.6.3/get-started/faucet",
-        "v0.6.3/get-started/validators",
+        {
+          "group": "Validators",
+          "version": "v0.6.3",
+          "pages": [
+            "v0.6.3/get-started/validators/overview",
+            "v0.6.3/get-started/validators/eigenlayer",
+            "v0.6.3/get-started/validators/symbiotic",
+            "v0.6.3/get-started/validators/vanilla"
+          ],
+          "icon": "list-check"
+        },
         "v0.6.3/get-started/relays",
         {
           "group": "Bidders",
@@ -71,7 +81,17 @@
         "v0.8.0/get-started/welcome-to-primev",
         "v0.8.0/get-started/quickstart",
         "v0.8.0/get-started/faucet",
-        "v0.8.0/get-started/validators",
+        {
+          "group": "Validators",
+          "version": "v0.8.0",
+          "pages": [
+            "v0.8.0/get-started/validators/overview",
+            "v0.8.0/get-started/validators/eigenlayer",
+            "v0.8.0/get-started/validators/symbiotic",
+            "v0.8.0/get-started/validators/vanilla"
+          ],
+          "icon": "list-check"
+        },
         "v0.8.0/get-started/relays",
         {
           "group": "Bidders",

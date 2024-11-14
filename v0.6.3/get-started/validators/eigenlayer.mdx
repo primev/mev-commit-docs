@@ -1,0 +1,20 @@
+---
+title: Eigenlayer Opt-in
+sidebarTitle: Eigenlayer Opt-in
+description: 'Opt into mev-commit by natively restaking to our AVS.'
+---
+
+## Eigenlayer Restaking Option
+
+If you plan to bulk opt-in a large number of validators, check out the [Eigenlayer Operator Registration](/v0.6.3/knowledge-base/eigenlayer-operator-registration) guide.
+
+Otherwise, individual validator entities (represented by a pod owner) can delegate to an existing registered Operator.
+
+A native-restaking enabled validator opting in to mev-commit requires two high level steps:
+
+1. The validator's pod owner must delegate (via eigenlayer core) their native stake to an Operator who's registered with the mev-commit AVS. For Holesky, these can be found on the mev-commit AVS [Eigenlayer dashboard](https://holesky.eigenlayer.xyz/avs/0xededb8ed37a43fd399108a44646b85b780d85dd4). Mainnet link coming soon. If your existing delegated operator is not registered with mev-commit, you have the option to [change your delegation](https://docs.eigenlayer.xyz/eigenlayer/restaking-guides/restaking-user-guide/restaker-delegation/redelegation-process).
+2. The validator must separately be *registered* with the mev-commit AVS, confirming their attestation to follow the relay selection rule mentioned above.
+
+Step 2 will be facilitated the [validator dashboard](https://validators.mev-commit.xyz/dashboard) interface to the `MevCommitAVS.registerValidatorsByPodOwners` function.
+
+Note the connected metamask account must be the delegated operator, or pod owner, of the validators that are being registered.

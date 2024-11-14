@@ -1,0 +1,62 @@
+---
+title: Validator Guide
+sidebarTitle: Validator Guide
+description: 'Opt into mev-commit with ease. This guide covers everything you need to do to passively opt-in to mev-commit as an L1 validator.'
+---
+
+## Why Participate?
+
+Participation of L1 validators in the mev-commit protocol is crucial as it enhances the integrity of commitments and ensures their enforcement.
+
+## Supported Networks
+
+Both Holesky and Mainnet L1 validators are able to opt-in to mev-commit. The opt-in process is initiated from the chain the validator is staked on.
+
+See [mainnet](/v0.8.0/developers/mainnet#l1-validator-registries) and [testnet](/v0.8.0/developers/testnet#validator-registry-contract-addresses-holesky) for relevant contract addresses.
+
+## Requirements
+
+1. An operational L1 validator node for either mainnet or Holesky.
+2. An operational mev-boost sidecar.
+3. Capital requirements as described further below.
+
+<Warning>
+As a validator opting into the mev-commit protocol, ensure your mev-boost client only connects to mev-commit opted-in relays to avoid slashing for proposing blocks without delivering commitments.
+</Warning>
+
+By opting-in to the mev-commit protocol as a validator **in any of the three forms described**, you agree to only use **opted-in relays**. These opted-in relays will only forward mev-boost bids from addresses that have registered with the mev-commit provider registry, such that any provider can be slashed in case of a protocol violation. This allows validators to passively opt-in to mev-commit, letting block builders and relays do the work.
+
+**Supporting Relays:**  
+
+| Relay | Docs |
+|-------|------|
+| Titan | [docs.titanrelay.xyz](https://docs.titanrelay.xyz/) |
+| Aestus| [holesky.aestus.live](https://holesky.aestus.live/) |
+
+We expect all known relays to support opting-in to mev-commit within a few months of being live on mainnet. If you are a relay looking to join the mev-commit network please visit our [Relays page](/v0.8.0/get-started/relays) to get more information.
+
+Proposers who fallback to local block production, from either a fault in the mev-boost software or a lack of economically viable block bids, **will not be slashed**. See [flashbots docs](https://docs.flashbots.net/flashbots-mev-boost/architecture-overview/risks#liveness-and-local-fallback) for more on this scenario. The protocol may in the future slash for abuse of this local fallback mechanism.
+
+## Choose Your Opt-In Method
+
+<CardGroup cols={3}>
+  <Card title="Eigenlayer Restaking" icon="coins">
+    [Click here](/v0.8.0/get-started/validators/eigenlayer) for more information on native restaking with mev-commit's AVS
+  </Card>
+  <Card title="Symbiotic Restaking" icon="coins">
+    [Click here](/v0.8.0/get-started/validators/symbiotic) for more information on ERC20 restaking with mev-commit's middleware contract
+  </Card>
+  <Card title="Simple Staking" icon="layer-group">
+    [Click here](/v0.8.0/get-started/validators/vanilla) for more information on "vanilla" staking with mev-commit
+  </Card>
+</CardGroup>
+
+## Protocol Design
+
+To learn more about the protocol design for any of the registries, see their respective READMEs:
+
+* [MevCommitMiddleware](https://github.com/primev/mev-commit/tree/main/contracts/contracts/validator-registry/middleware#readme)
+* [MevCommitAVS](https://github.com/primev/mev-commit/blob/main/contracts/contracts/validator-registry/avs/README.md)
+* [VanillaRegistry](https://github.com/primev/mev-commit/tree/main/contracts/contracts/validator-registry#vanilla-registry---simple-staking-solution)
+
+To query the on-chain parameters of any registry (on mainnet or Holesky), run an example forge script like [this](https://github.com/primev/mev-commit/blob/main/contracts/scripts/validator-registry/GetParams.s.sol).
