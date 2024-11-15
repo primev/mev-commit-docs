@@ -76,3 +76,9 @@ Finally, `MevCommitMiddleware.registerVaults` must be called by the network addr
 Now that setup is complete, the operator can register validators to the vault, so long as enough slashable collateral is allocated to the operator from previous steps.
 
 This is done through the [validator dashboard](https://validators.mev-commit.xyz/).
+
+Validator deregistration is also done through this dashboard, and requires waiting a deregistration period.
+
+## How to Maintain Validators Stay Opted-In
+
+It's an operator's responsibility to monitor vault collateral, and make sure all registered validators are also slashable. This means if vault collateral is reduced to a value that does not define all validators as slashable (considering `slashAmount`), the operator must deregister validators of its choice, or implicitly accept that some quasi-random validators will no longer be "opted-in".
