@@ -4,61 +4,28 @@ sidebarTitle: Vanilla Opt-in
 description: 'Opt into mev-commit by simply staking ETH.'
 ---
 
-## Simple Staking Option
+## Why use this method?
 
-Validators are able to _opt-in to mev-commit_ by _vanilla_ staking ETH directly with the `vanillaRegistry` contract. This stake is separate from a validator's 32 ETH already staked with the beacon chain.
+Simple staking (aka vanilla staking) is the most straightforward method to opt-in to mev-commit and requires minimal setup. The vanilla registry allows validators to be opted-in directly by staking native ETH.
 
-The registry strictly accepts BLS public keys as the validator opt-in identifier. Any EOA can stake on behalf of a validator pub key, and only that EOA has the ability to withdraw in the future.
+On the other hand, this method of opt-in is not as capital efficient as using Symbiotic or Eigenlayer. As the ETH used to opt-in validators is completely separate from a validator's 32 ETH already staked with the beacon chain and cannot be restaked.
+
+## Getting Started
+
+Validators are able to _opt-in to mev-commit_ by _vanilla_ staking ETH directly with the `vanillaRegistry` contract.
+
+This action confirms a validator’s attestation to follow the relay selection rule mentioned in the [Validator Guide](/v0.6.3/get-started/validators/validator-guide#relay-selection).
+
+The vanilla registry strictly accepts BLS public keys as the validator opt-in identifier. Any account can stake on behalf of validator pubkey(s), and only that account has the ability to unstake in the future.
 
 <Warning>
-EOAs must only register pubkeys for which they control or otherwise manage. If an EOA registers a pubkey for which they do not own/manage (think “griefing”), the relevant stake amount may be slashed.
+Accounts must only register pubkeys for which they control or otherwise manage. If an account registers a pubkey for which they do not own/manage (think “griefing”), their relevant stake amount may be slashed.
 </Warning>
 
-The `minStake` parameter represents how much ETH must be staked per validator pubkey to define that validator as opted-in to mev-commit. On mainnet, `minStake` is 1 ETH, while on Holesky it's 0.0001 ETH.
+The `VanillaRegistry.minStake` parameter represents how much ETH must be staked per validator pubkey to define that validator as opted-in to mev-commit. On mainnet, `minStake` is 1 ETH, while on Holesky it's 0.0001 ETH.
 
-<Note> For large groups of validators, it is recommended to stake in batches of 10-20 public keys at a time to ensure transaction success without hitting gas limits. This process can be tested on Holesky. </Note>
+For large groups of validators, it is recommended to stake in batches of 10-20 public keys at a time to ensure transaction success without hitting gas limits. This process can be tested on Holesky.
     
-### Staking Your Validator Keys
+### Staking validator keys
 
-<Steps>
-  <Step title="Visit the Validator Dashboard">
-    - Navigate to mev-commit [Validator Dashboard](https://validators.mev-commit.xyz/).
-    - Press the "Opt-in to mev-commit" button to connect your wallet.
-
-    <Frame>
-      <img src="/v0.6.3/images/opt-in.gif" />
-    </Frame>
-  </Step>
-
-  <Step title="ETH">   
-    - Ensure that you have at least `minStake` amount of ETH per validator pubkey to stake.
-  </Step>
-
-  <Step title="Stake Your Validator Keys"> 
-    - Click the Stake(lock icon) button on the top right of the dashboard to initiate staking.
-    - You can either upload a .txt file containing your keys separated by commas or line breaks, or you can copy and right-click paste the keys directly into the field provided.
-
-    <Frame>
-      <img src="/v0.6.3/images/upload-keys.gif" />
-    </Frame>
-  </Step>
-
-  <Step title="Enter Stake Amounts">  
-    - Enter the amount of ETH you wish to stake for each key.
-    - Press "Stake" and confirm the transaction on your wallet to finalize the staking of your keys.
-
-    <Frame>
-      <img src="/v0.6.3/images/stake.gif" />
-    </Frame>
-  </Step>
-
-  <Step title="Manage Your Staked Keys"> 
-    - After staking, you can view your staked keys by clicking on "Manage Stake".
-    - To unstake your keys, you can multi-select the keys or use the meatball(3-dots) menu to unstake them.
-    - After unstaking, you will need to wait for the unstaking period to pass before you can withdraw your ETH. The required waiting period will be displayed for each key on the "Withdraw" column.
-
-    <Frame>
-      <img src="/v0.6.3/images/unstake.gif" />
-    </Frame>
-  </Step>
-</Steps> 
+To vanilla stake validator pubkeys, navigate to the [validator dashboard](https://validators.mev-commit.xyz/dashboard). Choose "Opt-in", confirm the relevant validator's relays have been correctly configured as specified in the [Validator Guide](/v0.6.3/get-started/validators/validator-guide#requirements), then choose the "Simple" staking route.
