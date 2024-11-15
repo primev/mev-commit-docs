@@ -6,4 +6,73 @@ description: 'Opt into mev-commit by ERC20 restaking with the MevCommitMiddlewar
 
 ## Symbiotic Restaking Option
 
-This method of validator opt-in is currently being audited and will be available here shortly. Refer to [repo](https://github.com/primev/mev-commit/blob/main/contracts/contracts/validator-registry/middleware/README.md).
+Prior to opt-in through Symbiotic, it's worth familiarizing yourself with their [documentation](https://docs.symbiotic.fi/) on Networks, Vaults, and Operators. This method of validator opt-in requires competency in vault and operator curation.
+
+## Who is this for?
+
+Mev-commit is flexible in the type of entities that use Symbiotic to restake, and secure validators with our protocol. Any combination of Operator and Vault entities can be used, whether each are from the same organization or not.
+
+Most importantly, For L1 validators to be opted-in to mev-commit, some collateral stake must be slashable for each validator, in case that validator acts against its protocol commitments. In the context of Symbiotic, Vaults allocate slashable ERC20 collateral to Operators that are registered with the mev-commit network. This collateral may be slashable by other Symbiotic networks, hence it is restaked.
+
+Operators for the mev-commit network are responsible for bulk registering groups of L1 validator pubkeys to an associated vault. Every registered validator is represented by restaked collateral from a single Vault and Operator. Each Vault’s total collateral can be split up to secure/represent many validators in groups.
+
+<Frame>
+  <img src="/v0.8.0/images/symbiotic.png" alt="Diagram showing the relationship between Vaults, Operators, Network Middleware, and the mev-commit Oracle" />
+</Frame>
+
+## Setup
+
+The following setup steps will reference various Symbiotic core contracts. Refer to their [deployments page](https://docs.symbiotic.fi/category/deployments) and [core source code](https://github.com/symbioticfi/core).
+
+### Initial Network Setup
+
+The Network in this context is mev-commit. Our network is represented by a network address, and a middleware contract. Both of which can be found on the [testnet](/v0.8.0/developers/testnet) page. Mainnet support is coming soon.
+
+Initially, the network address calls `NetworkRegistry.registerNetwork` to register with Symbiotic. Then `NetworkMiddlewareService.setMiddleware` to configure our middleware contract. This stage is completed by the mev-commit team (Primev).
+
+### Vault Configuration
+
+A vault contract must be deployed and configured with slashable ERC20 `collateral`. Mev-commit will accept most forms of ERC20 collateral, unless they present significant risk of losing value. For non ETH denominated assets, overcollateralization may be required compared to their ETH denominated counterparts.
+
+In general vault configuration is immutable, and thus important to get right. See [Symbiotic's vault configuration docs](https://docs.symbiotic.fi/handbooks/vaults-handbook#vault-configuration). Mev-commit requires the following vault configuration:
+
+1. The `burner` address must be set to a specialized "burner router" contract. This is a WIP from the Symbiotic team. Essentially, funds slashed specifically by the mev-commit protocol must routed to a mev-commit address. For now on Holesky, this requirement can be ignored.
+2. The delegator module for the vault must be the `NetworkRestakeDelegator` type. `FullRestakeDelegator` is not supported.
+3. The slasher module must be set, and can be either a `Slasher` or `VetoSlasher` type.
+
+Finally, vaults with instant slashers must have an `epochDuration` greater than `slashPeriodSeconds` to register with our middleware contract, ensuring collateral is slashable during the full slashing period. 
+
+Vaults with veto slashers:
+
+* must have an `epochDuration` greater than `slashPeriodSeconds` + `vetoDuration`, where `vetoDuration` is specified by the slasher. 
+* require the resolver to be disabled via `address(0)`, since a permissioned oracle account invokes slashing, requiring only the most basic slashing interface.
+
+### Operator Actions
+
+Next, a Symbiotic operator can be setup as an EOA or a contract. The Operator must be registered with Symbiotic via `OperatorRegistry.registerOperator()`.
+
+The operator must then opt-in to the any vault which will secure validators via `VaultOptInService.optIn(vaultAddress)`.
+
+The operator then opts-in to the mev-commit network via `NetworkOptInService.optIn(networkAddress)`. Do not confuse the mev-commit network address with the middleware contract address.
+
+### Vault Actions
+
+Next the vault curator address must make some calls. `INetworkRestakeDelegator.setNetworkLimit(bytes32 subnetwork, uint256 amount)` should be called on the delegator module of the vault. This sets the total amount of collateral the vault would like to restake to the mev-commit network. The `subnetwork` argument can be computed using Symbiotic's `Subnetwork` library, where the subnetwork id will always be `1`.
+
+The vault curator must then call `INetworkRestakeDelegator.setOperatorNetworkShares(bytes32 subnetwork, address operator, uint256 shares)` on the delegator module of the vault. This sets what portion of the mev-commit allocated stake the vault curator is allocating to the operator.
+
+### Network Finishes Setup
+
+The final steps are completed by the network address, ie. the mev-commit team. Please reach out to us over twitter or telegram if you need this step to be completed.
+
+The network address must set a max network limit for the vault's delegator module, `IBaseDelegator.setMaxNetworkLimit(uint96 identifier, uint256 amount)` (subnetwork id = 1 in our case). This is the maximum amount of collateral that will be accepted by the network from the vault.
+
+The relevant operator must be registered with the middleware contract via `MevCommitMiddleware.registerOperators`, this is only callable by the network address.
+
+Finally, `MevCommitMiddleware.registerVaults` must be called by the network address to register the vault with the middleware contract. A `slashAmount` is set during this step for each vault. This slash amount depends on the underlying erc20 collateral type, and may be updated if/when token prices deviate on-chain.
+
+## Setup Complete - Register Validators
+
+Now that setup is complete, the operator can register validators to the vault, so long as enough slashable collateral is allocated to the operator from previous steps.
+
+This is done through the [validator dashboard](https://validators.mev-commit.xyz/).
