@@ -11,30 +11,22 @@ Validators have three methods to opt-in to mev-commit, as described in the [vali
 There are four possible outcomes after a commitment is made by a provider and an Ethereum block is proposed:
 
 1. The bid amount is rewarded to the provider for fulfilling the commitment.  
-2. The provider stake is slashed for breaking the commitment.  
-3. The provider is slashed if the commitment is not opened by either the provider or the bidder.  
-4. Nothing happens as the provider was not the winning execution provider for the Ethereum block.  
+2. The provider stake is slashed for breaking the commitment.   
+3. Nothing happens as neither the provider nor the bidder opened the commitment.
 
 We discuss each case in more detail below.
 
 
-### Rewards 
-
+### Rewards
 Upon successfully fulfilling a commitment, a provider will be rewarded the bid amount, minus a 2% fee (this fee accumulates in the mev-commit protocol treasury). This reward is paid by the mev-commit oracle to the provider’s account after the corresponding slot is settled by the oracle according to the block included in L1.
 
-### Slashing
-In this section we discuss the provider's slashing cases.
-
-#### Broken Commitment
+### Slashing for Broken Commitment
 Upon breaking a commitment, a provider will be slashed from their stake equal to the bid amount they committed to (taking into account the bid decay), including a 5% penalty fee. The principal slash amount will be transferred to the bidder for the broken commitment, and the penalty fee will be transferred to the mev-commit protocol treasury. 
 If the provider does not have enough stake left to cover the entirety of the slashing penalty and the bid amount, the maximal amount of the bid amount that can be slashed will be slashed and given to the bidder. Any remaining funds in the provider's stake will go towards maximally paying the 5% slashing penalty to the treasury. 
 The precedence means the bid amount slashing that goes to the bidder will be prioritized first, and only after that will the treasury be compensated for as much of the 5% slashing penalty as possible.
 
-#### Unopened Commitment
-If a commitment is not opened by either the provider or the bidder within 24 hours from the time of inclusion of the commitment in the mev-commit chain then the provider is penalized by the fixed amount of 1 ETH. The penalized amount from the provider goes to the mev-commit treasury, not to the bidder. This is because the bidder is not known in this case and to discourage the bidder from omitting the opening of the commitment based on the bid amount.
-
 ### Neutral Outcome
-The protocol will not take action in the event of a commitment being made and the provider not being the execution provider for the winning block. However, the network will be monitored to see how these neutral outcomes affect the mev-commit protocol, and a reputation scoring system can be employed in the future to quantify the credibility of a provider’s commitment. Providers with a higher reputation score can then have lower staking requirements, and vice versa.
+The protocol does not take action on commitments that are not opened by the provider or the bidder. This happens if the commitment provider is not the execution provider for the corresponding winning block, in which case there is no point in opening the commitment.
 
 
 ## Validators/Proposers
