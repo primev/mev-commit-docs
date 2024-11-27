@@ -188,35 +188,75 @@ USAGE:
    mev-commit [global options] command [command options]
 
 VERSION:
-   v0.5.0
+   v0.7.0
 
 COMMANDS:
    help, h  Shows a list of commands or help for one command
 
 GLOBAL OPTIONS:
-   --config value                           path to config file [$MEV_COMMIT_CONFIG]
-   --peer-type value                        peer type to use, options are 'bidder', 'provider' or 'bootnode' (default: "bidder") [$MEV_COMMIT_PEER_TYPE]
-   --priv-key-file value                    path to private key file (default: "~/.mev-commit/key") [$MEV_COMMIT_PRIVKEY_FILE]
-   --keystore-password value                use to access keystore [$MEV_COMMIT_KEYSTORE_PASSWORD]
-   --keystore-path value                    path to keystore location (default: "~/.mev-commit/keystore") [$MEV_COMMIT_KEYSTORE_PATH]
-   --p2p-port value                         port to listen for p2p connections (default: 13522) [$MEV_COMMIT_P2P_PORT]
-   --p2p-addr value                         address to bind for p2p connections (default: "0.0.0.0") [$MEV_COMMIT_P2P_ADDR]
-   --http-port value                        port to listen for http connections (default: 13523) [$MEV_COMMIT_HTTP_PORT]
-   --http-addr value                        address to bind for http connections [$MEV_COMMIT_HTTP_ADDR]
-   --rpc-port value                         port to listen for rpc connections (default: 13524) [$MEV_COMMIT_RPC_PORT]
-   --rpc-addr value                         address to bind for RPC connections [$MEV_COMMIT_RPC_ADDR]
-   --bootnodes value [ --bootnodes value ]  list of bootnodes to connect to [$MEV_COMMIT_BOOTNODES]
-   --secret value                           secret to use for signing (default: "secret") [$MEV_COMMIT_SECRET]
-   --log-fmt value                          log format to use, options are 'text' or 'json' (default: "text") [$MEV_COMMIT_LOG_FMT]
-   --log-level value                        log level to use, options are 'debug', 'info', 'warn', 'error' (default: "info") [$MEV_COMMIT_LOG_LEVEL]
-   --bidder-registry-contract value         address of the bidder registry contract (default: "0x401B3287364f95694c43ACA3252831cAc02e5C41") [$MEV_COMMIT_BIDDER_REGISTRY_ADDR]
-   --provider-registry-contract value       address of the provider registry contract (default: "0xf4F10e18244d836311508917A3B04694D88999Dd") [$MEV_COMMIT_PROVIDER_REGISTRY_ADDR]
-   --preconf-contract value                 address of the preconfirmation commitment store contract (default: "0x9433bCD9e89F923ce587f7FA7E39e120E93eb84D") [$MEV_COMMIT_PRECONF_ADDR]
-   --settlement-rpc-endpoint value          rpc endpoint of the settlement layer (default: "http://localhost:8545") [$MEV_COMMIT_SETTLEMENT_RPC_ENDPOINT]
-   --nat-addr value                         external address of the node [$MEV_COMMIT_NAT_ADDR]
-   --nat-port value                         externally mapped port for the node (default: 13522) [$MEV_COMMIT_NAT_PORT]
-   --server-tls-certificate value           Path to the server TLS certificate [$MEV_COMMIT_SERVER_TLS_CERTIFICATE]
-   --server-tls-private-key value           Path to the server TLS private key [$MEV_COMMIT_SERVER_TLS_PRIVATE_KEY]
-   --help, -h                               show help
-   --version, -v                            print the version
+   --help, -h     show help
+   --version, -v  print the version
+
+   API options
+
+   --http-addr value               Address to bind for http connections [$MEV_COMMIT_HTTP_ADDR]
+   --http-port value               Port to listen for http connections (default: 13523) [$MEV_COMMIT_HTTP_PORT]
+   --rpc-addr value                Address to bind for RPC connections [$MEV_COMMIT_RPC_ADDR]
+   --rpc-port value                Port to listen for rpc connections (default: 13524) [$MEV_COMMIT_RPC_PORT]
+   --server-tls-certificate value  Path to the server TLS certificate [$MEV_COMMIT_SERVER_TLS_CERTIFICATE]
+   --server-tls-private-key value  Path to the server TLS private key [$MEV_COMMIT_SERVER_TLS_PRIVATE_KEY]
+
+   Bidder options
+
+   --autodeposit-amount value                                 Amount to auto deposit in each window in wei [$MEV_COMMIT_AUTODEPOSIT_AMOUNT]
+   --autodeposit-enabled                                      Enable auto deposit (default: false) [$MEV_COMMIT_AUTODEPOSIT_ENABLED]
+   --bidder-bid-timeout value                                 Timeout to use on bidder node to wait for preconfirmations after submitting bids (default: 30s) [$MEV_COMMIT_BIDDER_BID_TIMEOUT]
+   --provider-whitelist value [ --provider-whitelist value ]  List of provider addresses to whitelist for bids [$MEV_COMMIT_PROVIDER_WHITELIST]
+
+   Contracts
+
+   --bidder-registry-contract value    Address of the bidder registry contract (default: "0x401B3287364f95694c43ACA3252831cAc02e5C41") [$MEV_COMMIT_BIDDER_REGISTRY_ADDR]
+   --block-tracker-contract value      Address of the block tracker contract (default: "0x7538F3AaA07dA1990486De21A0B438F55e9639e4") [$MEV_COMMIT_BLOCK_TRACKER_ADDR]
+   --preconf-contract value            Address of the preconfirmation commitment store contract (default: "0x9433bCD9e89F923ce587f7FA7E39e120E93eb84D") [$MEV_COMMIT_PRECONF_ADDR]
+   --provider-registry-contract value  Address of the provider registry contract (default: "0xf4F10e18244d836311508917A3B04694D88999Dd") [$MEV_COMMIT_PROVIDER_REGISTRY_ADDR]
+   --validator-router-contract value   Address of the validator router contract (default: "0x251Fbc993f58cBfDA8Ad7b0278084F915aCE7fc3") [$MEV_COMMIT_VALIDATOR_ROUTER_ADDR]
+
+   Debug options
+
+   --log-fmt value                      Log format to use, options are 'text' or 'json' (default: "text") [$MEV_COMMIT_LOG_FMT]
+   --log-level value                    Log level to use, options are 'debug', 'info', 'warn', 'error' (default: "info") [$MEV_COMMIT_LOG_LEVEL]
+   --log-tags value                     Log tags is a comma-separated list of <name:value> pairs that will be inserted into each log line [$MEV_COMMIT_LOG_TAGS]
+   --otel-collector-endpoint-url value  URL for OpenTelemetry collector endpoint [$MEV_COMMIT_OTEL_COLLECTOR_ENDPOINT_URL]
+
+   Ethereum RPC options
+
+   --beacon-api-url value              URL of the beacon chain API (default: "https://ethereum-holesky-beacon-api.publicnode.com") [$MEV_COMMIT_BEACON_API_URL]
+   --l1-rpc-url value                  URL for L1 RPC (default: "https://ethereum-holesky-rpc.publicnode.com") [$MEV_COMMIT_L1_RPC_URL]
+   --settlement-rpc-endpoint value     RPC endpoint of the settlement layer (default: "http://localhost:8545") [$MEV_COMMIT_SETTLEMENT_RPC_ENDPOINT]
+   --settlement-ws-rpc-endpoint value  WebSocket RPC endpoint of the settlement layer [$MEV_COMMIT_SETTLEMENT_WS_RPC_ENDPOINT]
+
+   Global options
+
+   --config value             Path to configuration file [$MEV_COMMIT_CONFIG]
+   --data-dir value           Path to data directory (default: "~/.mev-commit/db") [$MEV_COMMIT_DATA_DIR]
+   --gas-fee-cap value        Use predefined gas fee cap for transactions (default: "2000000000") [$MEV_COMMIT_GAS_FEE_CAP]
+   --gas-limit value          Use predefined gas limit for transactions (default: 2000000) [$MEV_COMMIT_GAS_LIMIT]
+   --gas-tip-cap value        Use predefined gas tip cap for transactions (default: "1000000000") [$MEV_COMMIT_GAS_TIP_CAP]
+   --keystore-password value  Password to use to access keystore [$MEV_COMMIT_KEYSTORE_PASSWORD]
+   --keystore-path value      Path to keystore location (default: "~/.mev-commit/keystore") [$MEV_COMMIT_KEYSTORE_PATH]
+   --peer-type value          Peer type to use, options are 'bidder', 'provider' or 'bootnode' (default: "bidder") [$MEV_COMMIT_PEER_TYPE]
+   --priv-key-file value      Path to private key file (default: "~/.mev-commit/key") [$MEV_COMMIT_PRIVKEY_FILE]
+
+   P2P options
+
+   --bootnodes value [ --bootnodes value ]  List of bootnodes to connect to [$MEV_COMMIT_BOOTNODES]
+   --nat-addr value                         External address of the node to advertise to other peers [$MEV_COMMIT_NAT_ADDR]
+   --nat-port value                         Externally mapped port for the node (default: 13522) [$MEV_COMMIT_NAT_PORT]
+   --p2p-addr value                         Address to bind for p2p connections (default: "0.0.0.0") [$MEV_COMMIT_P2P_ADDR]
+   --p2p-port value                         Port to listen for p2p connections (default: 13522) [$MEV_COMMIT_P2P_PORT]
+   --secret value                           Secret to use for authenticating node in the p2p network (default: "secret") [$MEV_COMMIT_SECRET]
+
+   Provider options
+
+   --provider-decision-timeout value  Timeout to use on provider node to allow for preconfirmation decision logic after receiving bids (default: 30s) [$MEV_COMMIT_PROVIDER_DECISION_TIMEOUT]
 ```
