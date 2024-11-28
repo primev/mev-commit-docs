@@ -105,53 +105,6 @@
         }
       }
     },
-    "/v1/provider/register_stake/{amount}" : {
-      "post" : {
-        "summary" : "RegisterStake",
-        "description" : "RegisterStake is called by the provider to register its stake in the provider registry.",
-        "operationId" : "Provider_RegisterStake",
-        "responses" : {
-          "200" : {
-            "description" : "A successful response.",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/v1StakeResponse"
-                }
-              }
-            }
-          },
-          "default" : {
-            "description" : "An unexpected error response.",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/googlerpcStatus"
-                }
-              }
-            }
-          }
-        },
-        "parameters" : [ {
-          "name" : "amount",
-          "description" : "Amount of ETH to stake in the provider registry.",
-          "in" : "path",
-          "required" : true,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "blsPublicKey",
-          "description" : "BLS public key of the provider.",
-          "in" : "query",
-          "required" : true,
-          "schema" : {
-            "type" : "string",
-            "pattern" : "^(0x)?[a-fA-F0-9]{96}$"
-          }
-        } ]
-      }
-    },
     "/v1/provider/send_processed_bids" : {
       "post" : {
         "summary" : "SendProcessedBids",
@@ -190,6 +143,57 @@
           "description" : "Response sent by the provider with the decision on the bid received. (streaming inputs)",
           "required" : true
         }
+      }
+    },
+    "/v1/provider/stake/{amount}" : {
+      "post" : {
+        "summary" : "Stake",
+        "description" : "Stake is called by the provider to register or add to its stake in the provider registry.",
+        "operationId" : "Provider_Stake",
+        "responses" : {
+          "200" : {
+            "description" : "A successful response.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/v1StakeResponse"
+                }
+              }
+            }
+          },
+          "default" : {
+            "description" : "An unexpected error response.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/googlerpcStatus"
+                }
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "name" : "amount",
+          "description" : "Amount of ETH to stake in the provider registry.",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "blsPublicKeys",
+          "description" : "BLS public keys of the provider.",
+          "in" : "query",
+          "required" : false,
+          "explode" : true,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string",
+              "pattern" : "^(0x)?[a-fA-F0-9]{96}$"
+            }
+          }
+        } ]
       }
     },
     "/v1/provider/unstake" : {
@@ -380,15 +384,18 @@
       "v1StakeResponse" : {
         "type" : "object",
         "example" : {
-          "amount" : "1000000000000000000",
-          "bls_public_key" : "80000cddeec66a80e00b0ccbb62f12298073603f5209e812abbac7e870482e488dd1bbe533a9d4497ba8b756e1e82b"
+          "amount" : "2000000000000000000",
+          "bls_public_keys" : [ "90000cddeec66a80e00b0ccbb62f12298073603f5209e812abbac7e870482e488dd1bbe533a9d4497ba8b756e1e82b", "80000cddeec66a80e00b0ccbb62f12298073603f5209e812abbac7e870482e488dd1bbe533a9d4497ba8b756e1e82b" ]
         },
         "properties" : {
           "amount" : {
             "type" : "string"
           },
-          "blsPublicKey" : {
-            "type" : "string"
+          "blsPublicKeys" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
           }
         },
         "description" : "Get staked amount for provider in the provider registry.",
