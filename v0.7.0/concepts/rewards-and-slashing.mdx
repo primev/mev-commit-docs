@@ -59,6 +59,4 @@ Currently, the restaking case with Eigenlayer only allows the stake to be frozen
 
 ## Builder and Proposer Attribution
 
-The current methodology for identifying the provider responsible for building the L1 block relies on the **`extra_data`** field within the block's execution payload for block builders. The builder must post its EOA address registered with the mev-commit provider registry, in the `extra_data` field. This correlates an L1 block built by a mev-commit provider to its corresponding EOA registered with the mev-commit protocol.
-
-We plan to upgrade this with a cryptographically secure method of attribution and are actively championing the availability of robust builder identity in Ethereum. For proposers the attribution method is simpler as proposers are recognized within the Ethereum protocol.
+We rely on the BLS key used to submit to the relay to do attribution and determine the block builder for a particular block.

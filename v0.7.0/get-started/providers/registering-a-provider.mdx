@@ -26,12 +26,12 @@ You can use the provider API to stake and check your stake balance.
   }
   ```
   </Step>
-  <Step title="Register Stake with BLS PubKey">
+  <Step title="Register Stake with BLS PubKeys">
      ```shell
       > curl -X POST "http://localhost:13523/v1/provider/register_stake/1000000000000000000?blsPublicKey=0xpk" | jq
       {
         "amount": "10000000000000000000", 
-        "blsPublicKey": "0xpk"
+        "blsPublicKey": "0xpk1,0xpk2"
       }
       ```
 
@@ -41,7 +41,7 @@ You can use the provider API to stake and check your stake balance.
 
 <Check>Congrats, your provider node is registered on mev-commit and you're ready to [consume bids](/v0.7.0/get-started/providers/consuming-bids).</Check>
 
-<Info>Rewards on mev-commit rely on the `extra-data` field in the block header to attribute the winning providers. Providers need to register their node's Ethereum address and BLS public key against the unique `extra-data` field they use while building blocks. This registration is currently done manually by the Primev team, please contact us to register these details. Once the registration is done, the settlement chain will be able to correctly attribute the winning providers on L1. This will be automated in future.</Info>
+<Info>Rewards on mev-commit now rely on the BLS key found in the relay and are then tied to the BLS key registered. The BLS key that is sending messages to the relay should be registered. This registration can now be done automatically without manual intervention. Once the registration is done, the settlement chain will be able to correctly attribute the winning providers on L1.</Info>
 
 
 Other commands that can be used are:
