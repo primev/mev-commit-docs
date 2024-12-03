@@ -22,16 +22,6 @@
   },
   "tabs": [
     {
-      "version": "v0.6.3",
-      "name": "API Reference",
-      "url": "v0.6.3/api-reference"
-    },
-    {
-      "version": "v0.6.3",
-      "name": "Knowledge Base",
-      "url": "v0.6.3/knowledge-base"
-    },
-    {
       "version": "v0.7.0",
       "name": "API Reference",
       "url": "v0.7.0/api-reference"
@@ -40,52 +30,20 @@
       "version": "v0.7.0",
       "name": "Knowledge Base",
       "url": "v0.7.0/knowledge-base"
+    },
+    {
+      "version": "v0.6.3",
+      "name": "API Reference",
+      "url": "v0.6.3/api-reference"
+    },
+    {
+      "version": "v0.6.3",
+      "name": "Knowledge Base",
+      "url": "v0.6.3/knowledge-base"
     }
   ],
   "versions": ["v0.7.0", "v0.6.3"],
   "navigation": [
-    {
-      "group": "Get Started",
-      "version": "v0.6.3",
-      "pages": [
-        "v0.6.3/get-started/welcome-to-primev",
-        "v0.6.3/get-started/quickstart",
-        "v0.6.3/get-started/faucet",
-        {
-          "group": "Validators",
-          "version": "v0.6.3",
-          "pages": [
-            "v0.6.3/get-started/validators/validator-guide",
-            "v0.6.3/get-started/validators/eigenlayer",
-            "v0.6.3/get-started/validators/symbiotic",
-            "v0.6.3/get-started/validators/vanilla"
-          ],
-          "icon": "list-check"
-        },
-        "v0.6.3/get-started/relays",
-        {
-          "group": "Bidders",
-          "version": "v0.6.3",
-          "pages": [
-            "v0.6.3/get-started/bidders/best-practices",
-            "v0.6.3/get-started/bidders/bidder-node-commands"
-          ],
-          "icon": "user-bounty-hunter"
-        },
-        {
-          "group": "Providers",
-          "version": "v0.6.3",
-          "pages": [
-            "v0.6.3/get-started/providers/registering-a-provider",
-            "v0.6.3/get-started/providers/consuming-bids",
-            "v0.6.3/get-started/providers/sending-commitments",
-            "v0.6.3/get-started/providers/Querying-for-proposers",
-            "v0.6.3/get-started/providers/withdraw"
-          ],
-          "icon": "network-wired"
-        }
-      ]
-    },
     {
       "group": "Get Started",
       "version": "v0.7.0",
@@ -129,37 +87,45 @@
       ]
     },
     {
-      "group": "Concepts",
+      "group": "Get Started",
       "version": "v0.6.3",
       "pages": [
-        "v0.6.3/concepts/what-is-mev-commit",
-        "v0.6.3/concepts/actors",
-        "v0.6.3/concepts/network-overview",
-        "v0.6.3/concepts/privacy",
-        "v0.6.3/concepts/commitments",
-        "v0.6.3/concepts/solvers",
+        "v0.6.3/get-started/welcome-to-primev",
+        "v0.6.3/get-started/quickstart",
+        "v0.6.3/get-started/faucet",
         {
-          "group": "Bids",
+          "group": "Validators",
           "version": "v0.6.3",
           "pages": [
-            "v0.6.3/concepts/bids/bid-structure",
-            "v0.6.3/concepts/bids/reverting-txns",
-            "v0.6.3/concepts/bids/bidder-deposit",
-            "v0.6.3/concepts/bids/bid-decay-mechanism"
-          ]
+            "v0.6.3/get-started/validators/validator-guide",
+            "v0.6.3/get-started/validators/eigenlayer",
+            "v0.6.3/get-started/validators/symbiotic",
+            "v0.6.3/get-started/validators/vanilla"
+          ],
+          "icon": "list-check"
         },
+        "v0.6.3/get-started/relays",
         {
-          "group": "Mev-commit Chain",
+          "group": "Bidders",
           "version": "v0.6.3",
           "pages": [
-            "v0.6.3/concepts/mev-commit-chain/chain-details",
-            "v0.6.3/concepts/mev-commit-chain/differences-between-ethereum-and-mev-commit-chain",
-            "v0.6.3/concepts/mev-commit-chain/bridging-details"
-          ]
+            "v0.6.3/get-started/bidders/best-practices",
+            "v0.6.3/get-started/bidders/bidder-node-commands"
+          ],
+          "icon": "user-bounty-hunter"
         },
-        "v0.6.3/concepts/rewards-and-slashing",
-        "v0.6.3/concepts/oracle",
-        "v0.6.3/concepts/validator-considerations"
+        {
+          "group": "Providers",
+          "version": "v0.6.3",
+          "pages": [
+            "v0.6.3/get-started/providers/registering-a-provider",
+            "v0.6.3/get-started/providers/consuming-bids",
+            "v0.6.3/get-started/providers/sending-commitments",
+            "v0.6.3/get-started/providers/Querying-for-proposers",
+            "v0.6.3/get-started/providers/withdraw"
+          ],
+          "icon": "network-wired"
+        }
       ]
     },
     {
@@ -198,21 +164,37 @@
       ]
     },
     {
-      "group": "Developers",
+      "group": "Concepts",
       "version": "v0.6.3",
       "pages": [
-        "v0.6.3/developers/mainnet",
-        "v0.6.3/developers/testnet",
-        "v0.6.3/developers/system-requirements",
-        "v0.6.3/developers/provider-api",
-        "v0.6.3/developers/bidder-api",
-        "v0.6.3/developers/bidder-deposit",
-        "v0.6.3/developers/docker-bidder",
-        "v0.6.3/developers/tools-for-bid-submission",
-        "v0.6.3/developers/contracts",
-        "v0.6.3/developers/debugging",
-        "v0.6.3/developers/manual-start-mev-commit",
-        "v0.6.3/developers/run-mev-commit-chain-node"
+        "v0.6.3/concepts/what-is-mev-commit",
+        "v0.6.3/concepts/actors",
+        "v0.6.3/concepts/network-overview",
+        "v0.6.3/concepts/privacy",
+        "v0.6.3/concepts/commitments",
+        "v0.6.3/concepts/solvers",
+        {
+          "group": "Bids",
+          "version": "v0.6.3",
+          "pages": [
+            "v0.6.3/concepts/bids/bid-structure",
+            "v0.6.3/concepts/bids/reverting-txns",
+            "v0.6.3/concepts/bids/bidder-deposit",
+            "v0.6.3/concepts/bids/bid-decay-mechanism"
+          ]
+        },
+        {
+          "group": "Mev-commit Chain",
+          "version": "v0.6.3",
+          "pages": [
+            "v0.6.3/concepts/mev-commit-chain/chain-details",
+            "v0.6.3/concepts/mev-commit-chain/differences-between-ethereum-and-mev-commit-chain",
+            "v0.6.3/concepts/mev-commit-chain/bridging-details"
+          ]
+        },
+        "v0.6.3/concepts/rewards-and-slashing",
+        "v0.6.3/concepts/oracle",
+        "v0.6.3/concepts/validator-considerations"
       ]
     },
     {
@@ -234,20 +216,21 @@
       ]
     },
     {
-      "group": "Knowledge Base",
+      "group": "Developers",
       "version": "v0.6.3",
       "pages": [
-        "v0.6.3/knowledge-base/introduction",
-        "v0.6.3/knowledge-base/what-is-deposit-amount",
-        "v0.6.3/knowledge-base/how-do-i-fix-the-error-failed-to-read-msg-stream-reset",
-        "v0.6.3/knowledge-base/what-is-foundry",
-        "v0.6.3/knowledge-base/why-is-cast-necessary-for-mev-commit-chain-interactions",
-        "v0.6.3/knowledge-base/why-do-i-receive-the-same-commitment-when-resending-a-bid",
-        "v0.6.3/knowledge-base/what-is-execution-preconfirmations",
-        "v0.6.3/knowledge-base/how-to-price-a-bid",
-        "v0.6.3/knowledge-base/what-happens-during-an-execution-preconf",
-        "v0.6.3/knowledge-base/how-do-preconfs-work",  
-        "v0.6.3/knowledge-base/eigenlayer-operator-registration"
+        "v0.6.3/developers/mainnet",
+        "v0.6.3/developers/testnet",
+        "v0.6.3/developers/system-requirements",
+        "v0.6.3/developers/provider-api",
+        "v0.6.3/developers/bidder-api",
+        "v0.6.3/developers/bidder-deposit",
+        "v0.6.3/developers/docker-bidder",
+        "v0.6.3/developers/tools-for-bid-submission",
+        "v0.6.3/developers/contracts",
+        "v0.6.3/developers/debugging",
+        "v0.6.3/developers/manual-start-mev-commit",
+        "v0.6.3/developers/run-mev-commit-chain-node"
       ]
     },
     {
@@ -268,6 +251,23 @@
       ]
     },
     {
+      "group": "Knowledge Base",
+      "version": "v0.6.3",
+      "pages": [
+        "v0.6.3/knowledge-base/introduction",
+        "v0.6.3/knowledge-base/what-is-deposit-amount",
+        "v0.6.3/knowledge-base/how-do-i-fix-the-error-failed-to-read-msg-stream-reset",
+        "v0.6.3/knowledge-base/what-is-foundry",
+        "v0.6.3/knowledge-base/why-is-cast-necessary-for-mev-commit-chain-interactions",
+        "v0.6.3/knowledge-base/why-do-i-receive-the-same-commitment-when-resending-a-bid",
+        "v0.6.3/knowledge-base/what-is-execution-preconfirmations",
+        "v0.6.3/knowledge-base/how-to-price-a-bid",
+        "v0.6.3/knowledge-base/what-happens-during-an-execution-preconf",
+        "v0.6.3/knowledge-base/how-do-preconfs-work",  
+        "v0.6.3/knowledge-base/eigenlayer-operator-registration"
+      ]
+    },
+    {
       "group": "FAQ",
       "version": "v0.7.0",
       "pages": [
@@ -285,26 +285,13 @@
     },
     {
       "group": "API Reference",
-      "version": "v0.6.3",
-      "pages": ["v0.6.3/api-reference/introduction"]
-    },
-    {
-      "group": "API Reference",
       "version": "v0.7.0",
       "pages": ["v0.7.0/api-reference/introduction"]
     },
     {
-      "group": "Provider",
+      "group": "API Reference",
       "version": "v0.6.3",
-      "pages": [
-        "v0.6.3/api-reference/provider/receivebids",
-        "v0.6.3/api-reference/provider/sendprocessedbids",
-        "v0.6.3/api-reference/provider/registerstake",
-        "v0.6.3/api-reference/provider/getminstake",
-        "v0.6.3/api-reference/provider/getstake",
-        "v0.6.3/api-reference/provider/unstake",
-        "v0.6.3/api-reference/provider/withdraw_stake"
-      ]
+      "pages": ["v0.6.3/api-reference/introduction"]
     },
     {
       "group": "Provider",
@@ -320,18 +307,16 @@
       ]
     },
     {
-      "group": "Bidder",
+      "group": "Provider",
       "version": "v0.6.3",
       "pages": [
-        "v0.6.3/api-reference/bidder/sendbid",
-        "v0.6.3/api-reference/bidder/getdeposit",
-        "v0.6.3/api-reference/bidder/deposit",
-        "v0.6.3/api-reference/bidder/withdraw",
-        "v0.6.3/api-reference/bidder/withdrawfromwindows",
-        "v0.6.3/api-reference/bidder/autodeposit",
-        "v0.6.3/api-reference/bidder/autodepositstatus",
-        "v0.6.3/api-reference/bidder/cancelautodeposit",
-        "v0.6.3/api-reference/validator/getvalidators"
+        "v0.6.3/api-reference/provider/receivebids",
+        "v0.6.3/api-reference/provider/sendprocessedbids",
+        "v0.6.3/api-reference/provider/registerstake",
+        "v0.6.3/api-reference/provider/getminstake",
+        "v0.6.3/api-reference/provider/getstake",
+        "v0.6.3/api-reference/provider/unstake",
+        "v0.6.3/api-reference/provider/withdraw_stake"
       ]
     },
     {
@@ -350,12 +335,18 @@
       ]
     },
     {
-      "group": "Debug",
+      "group": "Bidder",
       "version": "v0.6.3",
       "pages": [
-        "v0.6.3/api-reference/debug/canceltx",
-        "v0.6.3/api-reference/debug/pendingtxs",
-        "v0.6.3/api-reference/debug/topology"
+        "v0.6.3/api-reference/bidder/sendbid",
+        "v0.6.3/api-reference/bidder/getdeposit",
+        "v0.6.3/api-reference/bidder/deposit",
+        "v0.6.3/api-reference/bidder/withdraw",
+        "v0.6.3/api-reference/bidder/withdrawfromwindows",
+        "v0.6.3/api-reference/bidder/autodeposit",
+        "v0.6.3/api-reference/bidder/autodepositstatus",
+        "v0.6.3/api-reference/bidder/cancelautodeposit",
+        "v0.6.3/api-reference/validator/getvalidators"
       ]
     },
     {
@@ -365,6 +356,15 @@
         "v0.7.0/api-reference/debug/canceltx",
         "v0.7.0/api-reference/debug/pendingtxs",
         "v0.7.0/api-reference/debug/topology"
+      ]
+    },
+    {
+      "group": "Debug",
+      "version": "v0.6.3",
+      "pages": [
+        "v0.6.3/api-reference/debug/canceltx",
+        "v0.6.3/api-reference/debug/pendingtxs",
+        "v0.6.3/api-reference/debug/topology"
       ]
     }
   ],
