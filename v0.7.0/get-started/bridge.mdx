@@ -1,0 +1,75 @@
+---
+title: "Bridge"
+sidebarTitle: Bridge
+icon: "bridge"
+---
+
+<p> The mev-commit chain uses the native ETH tokens that need to be bridged from L1. We use a very basic lock and mint bridge. There is a user CLI application which can be downloaded from the [releases page](https://github.com/primev/mev-commit/releases/latest). </p>
+
+<Note>In order to bridge funds, users need to have an account which is funded with Holesky ETH for testnet. </Note>
+
+<CodeGroup>
+
+```bash ❯_ bridge to settlement chain from L1
+user-cli bridge-to-settlement \
+	--account-key <Private Key of source account> \
+	--dest-addr <Address to fund on the mev-commit chain> \
+	--amount <Amount in Wei>
+```
+
+```bash ❯_ bridge to L1 from settlement chain
+user-cli bridge-to-l1 \
+	--account-key <Private Key of source account> \
+	--dest-addr <Address to fund on the mev-commit chain> \
+	--amount <Amount in Wei>
+```
+
+</CodeGroup>
+
+<Note> Users can also use a keystore file instead of using the private key. </Note>
+
+<Note> Currently the CLI uses the default contract addresses for testnet and the default RPC endpoints. Users can use separate RPC URLs using the respective options. </Note>
+
+<p> To check other options available in the user CLI, users can use the `-h` option </p>
+
+```
+./user-cli -h
+NAME:
+   mev-commit-bridge-user-cli - CLI for interacting with a custom bridge between L1 and the mev-commit (settlement) chain
+
+USAGE:
+   mev-commit-bridge-user-cli [global options] command [command options]
+
+COMMANDS:
+   bridge-to-settlement  Submit a transaction to bridge ether to the settlement chain
+   bridge-to-l1          Submit a transaction to bridge ether back to L1
+   help, h               Shows a list of commands or help for one command
+
+GLOBAL OPTIONS:
+   --help, -h  show help
+
+```
+
+```
+./user-cli bridge-to-settlement -h
+NAME:
+   mev-commit-bridge-user-cli bridge-to-settlement - Submit a transaction to bridge ether to the settlement chain
+
+USAGE:
+   mev-commit-bridge-user-cli bridge-to-settlement [command options]
+
+OPTIONS:
+   --account-key value               private key of the account to use for signing transactions in hex encoding [$ACCOUNT_KEY]
+   --keystore-path value             path to keystore location [$MEV_ORACLE_KEYSTORE_PATH]
+   --keystore-password value         use to access keystore [$MEV_ORACLE_KEYSTORE_PASSWORD]
+   --amount value                    amount of ether to bridge in wei [$AMOUNT]
+   --dest-addr value                 destination address on the mev-commit (settlement) chain [$DEST_ADDR]
+   --l1-rpc-url value                URL for L1 RPC [$L1_RPC_URL]
+   --settlement-rpc-url value        URL for settlement RPC [$SETTLEMENT_RPC_URL]
+   --l1-contract-addr value          address of the L1 gateway contract [$L1_CONTRACT_ADDR]
+   --settlement-contract-addr value  address of the settlement gateway contract [$SETTLEMENT_CONTRACT_ADDR]
+   --silent                          disable spinner (default: false) [$SILENT]
+   --help, -h                        show help
+```
+
+<Note> The current bridge waits for L1 finalization before moving funds in either direction. L1 finalization takes time (~15mins). Users will have to wait for atleast 15 mins before getting confirmation from the application. </Note>
