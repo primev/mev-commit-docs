@@ -31,17 +31,26 @@ icon: "gear"
     ### 5. Wallet Setup
     - Generates a new private key and wallet address for your node.
 
-    ### 6. Node Startup
+    ### 6. Wait for the wallet to be funded
+    - The script will wait for the wallet to be funded on mev-commit settlement chain. Once the user acquires the funds on the chain, it will move to the next step.
+
+    ### 7. Node Startup
     - Launches the mev-commit node in the background tailored to the specified role, enabling it to begin its operations within the Primev network.
 
-    ### 7. Cleanup
+    ### 8. Set-up autodeposit for bidder node
+    - If user selects the bidder type to launch the node, the script will also setup autodeposit for the bidder account. This means that the node will keep depositing funds for the bidder address on the mev-commit bidder registry in order to send bids.
+
+    ### 8. Cleanup
     - Includes a cleanup function to ensure the node is properly shut down when the script exits, preventing any residual processes.
 
 </Accordion>
 
   </Step>
   <Step title="Fund Your Account">
-    To fund your account, please visit our [Testnet Faucet](/v0.7.0/get-started/faucet). Details about the account address will be displayed after running the command above.
+    In order to fund the account, users will need to bridge holesky ETH to the mev-commit settlement chain using the bridge user CLI application. Please download it from the [releases](https://github.com/primev/mev-commit/releases/latest) page. The CLI application provides two sub-commands to bridge to and from the settlement chain. Details about the account address will be displayed after running the command above. For more details go the the [bridge documentation](/v0.7.0/get-started/bridge).
+```shell ❯_ example
+./user-cli bridge-to-settlement --account-key <PRIVATE KEY of source account for funds> --dest-addr <Address to fund on mev-commit chain> --amount 1000000000000000000
+```
   </Step>
   <Step title="Send a Bid">
     Open a new terminal window to send a bid and receive commitments from providers. Run the following command:

@@ -50,7 +50,7 @@
       "pages": [
         "v0.7.0/get-started/welcome-to-primev",
         "v0.7.0/get-started/quickstart",
-        "v0.7.0/get-started/faucet",
+        "v0.7.0/get-started/bridge",
         {
           "group": "Validators",
           "version": "v0.7.0",
