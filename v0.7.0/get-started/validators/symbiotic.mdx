@@ -87,7 +87,11 @@ The network address will also call:
 
 ### Vault Actions
 
-Finally the vault curator address must make some calls. `INetworkRestakeDelegator.setNetworkLimit(bytes32 subnetwork, uint256 amount)` should be called on the delegator module of the vault. This sets the total amount of collateral the vault would like to restake to the mev-commit network. The `subnetwork` argument can be computed using Symbiotic's `Subnetwork` library, where the subnetwork id will always be `1`.
+<Info>
+For the mev-commit network, the subnetwork id is always `1`, and the `subnetwork` argument can be computed using Symbiotic's [Subnetwork library](https://github.com/symbioticfi/core/blob/main/src/contracts/libraries/Subnetwork.sol), by concatenating the network address with the subnetwork ID. On Holesky for example, the subnetwork bytes value is `0x4535bd6ff24860b5fd2889857651a85fb3d3c6b1000000000000000000000001`.
+</Info>
+
+Finally the vault curator address must make some calls. `INetworkRestakeDelegator.setNetworkLimit(bytes32 subnetwork, uint256 amount)` should be called on the delegator module of the vault. This sets the total amount of collateral the vault would like to restake to the mev-commit network.
 
 The vault curator must then call `INetworkRestakeDelegator.setOperatorNetworkShares(bytes32 subnetwork, address operator, uint256 shares)` on the delegator module of the vault. This sets what portion of the mev-commit allocated stake the vault curator is allocating to the operator.
 
