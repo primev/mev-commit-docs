@@ -38,6 +38,10 @@ We plan to introduce a points system that will be applied to all opted-in valida
 
 The following setup steps will reference various Symbiotic core contracts. Refer to their [deployments page](https://docs.symbiotic.fi/category/deployments) and [core source code](https://github.com/symbioticfi/core).
 
+<Info>
+The Symbiotic CLI can assist in many of these steps. Refer to their [docs](https://docs.symbiotic.fi/guides/cli/).
+</Info>
+
 ### Initial Network Setup
 
 The Network in this context is mev-commit. Our network is represented by a network address, and a middleware contract. Both of which can be found on the [testnet](/v0.7.0/developers/testnet#validator-registry-contract-addresses-holesky) page. Mainnet support is coming soon.
@@ -71,14 +75,20 @@ The operator then opts-in to the mev-commit network via `NetworkOptInService.opt
 
 ## Coordinate with our Team
 
-At this point you've setup a vault and operator pair that can be used to opt-in a group of validator pubkeys. Next you'll need communicate a couple things to our team:
+At this point you've setup a vault and operator pair that can be used to opt-in a group of validator pubkeys. Next you'll need communicate the following details to our team:
 
-1. The type of collateral that will be used to secure the validator pubkeys.
-2. How much collateral is available to secure the validator pubkeys.
+1. The vault address and operator address setup in previous steps.
+2. The type of ERC20 collateral that will be used to secure the validator pubkeys.
+3. The decimal precision of the ERC20 collateral (not all ERC20s have 18 decimal precision).
+4. How much collateral is available to secure the validator pubkeys.
 
-From there our team will assign a `slashAmount` appropriate for the collateral type. `slashAmount` of collateral is required to define a single validator as being slashable, and therefore opted-in to mev-commit. The vault/operator pair is able to opt-in `totalCollateral / slashAmount` number of validators.
+<Warning>
+Please provide these values to our team in the exact format described, and let us know if you have any questions.
+</Warning>
 
-The network address (represented by the mev-commit team) will then set a max network limit for the vault's delegator module, `IBaseDelegator.setMaxNetworkLimit(uint96 identifier, uint256 amount)` (subnetwork id = 1 in our case). This is the maximum amount of collateral that will be accepted by the network from the vault.
+From here our team will assign a `slashAmount` appropriate for the collateral type. `slashAmount` of collateral is required to define a single validator as being slashable, and therefore opted-in to mev-commit. The vault/operator pair is able to opt-in `totalCollateral / slashAmount` number of validators.
+
+The network address (represented by the mev-commit team) will then set a max network limit for the vault's delegator module, `IBaseDelegator.setMaxNetworkLimit(uint96 identifier, uint256 amount)`. This is the maximum amount of collateral that will be accepted by the network from the vault.
 
 The network address will also call:
 
