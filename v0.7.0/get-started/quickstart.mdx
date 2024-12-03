@@ -49,7 +49,7 @@ icon: "gear"
   <Step title="Fund Your Account">
     In order to fund the account, users will need to bridge holesky ETH to the mev-commit settlement chain using the bridge user CLI application. Please download it from the [releases](https://github.com/primev/mev-commit/releases/latest) page. The CLI application provides two sub-commands to bridge to and from the settlement chain. Details about the account address will be displayed after running the command above. For more details go the the [bridge documentation](/v0.7.0/get-started/bridge).
 ```shell ❯_ example
-./user-cli bridge-to-settlement --account-key <PRIVATE KEY of source account for funds> --dest-addr 0x01ead4e21b8f6452075b54b7b869f53fbb5b5399 --amount 1000000000000000000
+./user-cli bridge-to-settlement --account-key <PRIVATE KEY of source account for funds> --dest-addr <Address to fund on mev-commit chain> --amount 1000000000000000000
 ```
   </Step>
   <Step title="Send a Bid">
