@@ -4,7 +4,7 @@ sidebarTitle: Bridge
 icon: "bridge"
 ---
 
-<p> The mev-commit chain uses the native ETH tokens that need to be bridged from L1. We use a very basic lock and mint bridge. There is a user CLI application which can be downloaded from the [releases page](https://github.com/primev/mev-commit/releases/latest). The bridge will subtract a static `finalizationFee` from the bridged amount on the destination chain. For now this is a nominal 1 wei. The fee will be increased soon. </p>
+<p> The mev-commit chain uses the native ETH tokens that need to be bridged from L1. We use a lock and mint bridge. A user CLI application can be downloaded from the [releases page](https://github.com/primev/mev-commit/releases/latest). </p>
 
 <Note>In order to bridge funds, users need to have an account which is funded with Holesky ETH for testnet. </Note>
 
@@ -72,4 +72,10 @@ OPTIONS:
    --help, -h                        show help
 ```
 
-<Note> The current bridge waits for L1 finalization before moving funds in either direction. L1 finalization takes time (~15mins). Users will have to wait for atleast 15 mins before getting confirmation from the application. </Note>
+<Note> The current bridge waits for finalization. Thus when moving funds from L1 to the settlement chain, users will have to wait for at least 15 mins (L1 finalization time) before getting a confirmation. Conversely, bridging from settlement to L1 chain will be significantly faster (<1 second settlement chain finalization time). </Note>
+
+
+## check balance
+After the bridge is successful, the following command can be used to check their mev-commit chain balance 
+
+```cast balance mev_commit_testnet_address --rpc-url https://chainrpc.testnet.mev-commit.xyz/```
