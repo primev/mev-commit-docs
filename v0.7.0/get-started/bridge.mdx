@@ -72,7 +72,7 @@ OPTIONS:
    --help, -h                        show help
 ```
 
-<Note> The current bridge waits for L1 finalization before moving funds in either direction. L1 finalization takes time (~15mins). Users will have to wait for atleast 15 mins before getting confirmation from the application. </Note>
+<Note> The current bridge waits for finalization. Thus when moving funds from L1 to the settlement chain, users will have to wait for at least 15 mins (L1 finalization time) before getting a confirmation. Conversely, bridging from settlement to L1 chain will be significantly faster (<1 second settlement chain finalization time). </Note>
 
 
 ## check balance
