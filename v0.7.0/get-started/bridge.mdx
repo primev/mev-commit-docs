@@ -73,3 +73,9 @@ OPTIONS:
 ```
 
 <Note> The current bridge waits for L1 finalization before moving funds in either direction. L1 finalization takes time (~15mins). Users will have to wait for atleast 15 mins before getting confirmation from the application. </Note>
+
+
+## check balance
+After the bridge is successful, the following command can be used to check their mev-commit chain balance 
+
+```cast balance mev_commit_testnet_address --rpc-url https://chainrpc.testnet.mev-commit.xyz/```
