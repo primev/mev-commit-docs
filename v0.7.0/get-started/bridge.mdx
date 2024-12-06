@@ -25,3 +25,52 @@ user-cli bridge-to-l1 \
 ```
 
 </CodeGroup>
+
+Was here 
+
+<Note> Users can also use a keystore file instead of using the private key. </Note>
+
+<Note> Currently the CLI uses the default contract addresses for testnet and the default RPC endpoints. Users can use separate RPC URLs using the respective options. </Note>
+
+<p> To check other options available in the user CLI, users can use the `-h` option </p>
+
+```
+./user-cli -h
+NAME:
+   mev-commit-bridge-user-cli - CLI for interacting with a custom bridge between L1 and the mev-commit (settlement) chain
+USAGE:
+   mev-commit-bridge-user-cli [global options] command [command options]
+COMMANDS:
+   bridge-to-settlement  Submit a transaction to bridge ether to the settlement chain
+   bridge-to-l1          Submit a transaction to bridge ether back to L1
+   help, h               Shows a list of commands or help for one command
+GLOBAL OPTIONS:
+   --help, -h  show help
+```
+
+```
+./user-cli bridge-to-settlement -h
+NAME:
+   mev-commit-bridge-user-cli bridge-to-settlement - Submit a transaction to bridge ether to the settlement chain
+USAGE:
+   mev-commit-bridge-user-cli bridge-to-settlement [command options]
+OPTIONS:
+   --account-key value               private key of the account to use for signing transactions in hex encoding [$ACCOUNT_KEY]
+   --keystore-path value             path to keystore location [$MEV_ORACLE_KEYSTORE_PATH]
+   --keystore-password value         use to access keystore [$MEV_ORACLE_KEYSTORE_PASSWORD]
+   --amount value                    amount of ether to bridge in wei [$AMOUNT]
+   --dest-addr value                 destination address on the mev-commit (settlement) chain [$DEST_ADDR]
+   --l1-rpc-url value                URL for L1 RPC [$L1_RPC_URL]
+   --settlement-rpc-url value        URL for settlement RPC [$SETTLEMENT_RPC_URL]
+   --l1-contract-addr value          address of the L1 gateway contract [$L1_CONTRACT_ADDR]
+   --settlement-contract-addr value  address of the settlement gateway contract [$SETTLEMENT_CONTRACT_ADDR]
+   --silent                          disable spinner (default: false) [$SILENT]
+   --help, -h                        show help
+```
+
+<Note> The current bridge waits for finalization. Thus when moving funds from L1 to the settlement chain, users will have to wait for at least 15 mins (L1 finalization time) before getting a confirmation. Conversely, bridging from settlement to L1 chain will be significantly faster (<1 second settlement chain finalization time). </Note>
+
+After the bridge is successful, the following command can be used to check their mev-commit chain balance 
+```
+cast balance mev_commit_testnet_address --rpc-url https://chainrpc.testnet.mev-commit.xyz/
+```
