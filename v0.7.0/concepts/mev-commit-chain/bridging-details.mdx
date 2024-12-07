@@ -21,7 +21,7 @@ There are inherent security assumptions in bridging ETH to the mev-commit chain.
 - POA signers that maintain mev-commit chain state.
 - Correctness of Primev's [standard bridge protocol](https://github.com/primev/mev-commit-bridge/tree/main/standard/bridge-v1) and integration into the mev-commit chain.
 
-Our standard bridge implementation is currently being audited and has always been open source.
+Our standard bridge implementation has been audited by Canita. More details can be found [here](https://blog.primev.xyz/Battle-Testing-mev-commit-Key-Findings-from-Our-Spearbit-Security-Review-1436865efd6f8025bd6ce3824349821d).
 
 ## **Importance of Origin Chain Security**
 
@@ -30,3 +30,7 @@ Our standard bridge implementation is currently being audited and has always bee
 ## Bridge Contracts
 
 See **Bridge Contracts** section of [contracts page](/v0.7.0/developers/contracts) to gain context on contracts necessary to enable bridging.
+
+## Relayer
+
+The main off-chain component of the bridge is the relayer. Primev currently operates the relayer, with open-sourced implementation [here](https://github.com/primev/mev-commit/tree/main/bridge/standard).
