@@ -37,6 +37,17 @@ The validator registry contracts are deployed on L1, and enable three methods of
 - **Mev-commit middleware**
   - MevCommitMiddleware serves as tie-in to Symbiotic core contracts, enabling validators to opt-in to the mev-commit protocol via restaking ERC20 tokens with vaults.
 
+## Bridge Contracts
+
+The standard bridge protocol for native ETH transfers between L1 and the mev-commit chain is implemented in [this directory](https://github.com/primev/mev-commit/tree/main/contracts/contracts/standard-bridge). Contracts include:
+
+- **L1 Gateway**
+  - The L1 gateway contract allows users to lock their native ETH on L1, where an equivalent amount will be allocated to a specified account on the mev-commit chain. This contract is also responsible for unlocking ETH when bridging back to L1.
+- **Settlement Gateway**
+  - The settlement gateway integrates with the allocator contract to allocate native ETH on the mev-commit chain. It also allows users to bridge native ETH back to L1.
+- **Allocator**
+  - The allocator contract is responsible paying out ETH to bridge users as necessary on the mev-commit chain. It's currently only integrated with the settlement gateway, but will be extended to other bridging protocols in the future.
+
 ## Deploying Custom Contracts
 
 you can deploy any EVM compatible contracts to the mev-commit chain, simply set your **Chain ID to 17864** and RPC Url to `https://chainrpc.testnet.mev-commit.xyz`.

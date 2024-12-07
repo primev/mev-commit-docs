@@ -47,7 +47,21 @@ icon: "gear"
 
   </Step>
   <Step title="Fund Your Account">
-    In order to fund the account, users will need to bridge holesky ETH to the mev-commit settlement chain using the bridge user CLI application. Please download it from the [releases](https://github.com/primev/mev-commit/releases/latest) page. The CLI application provides two sub-commands to bridge to and from the settlement chain. Details about the account address will be displayed after running the command above. For more details go the the [bridge documentation](/v0.7.0/get-started/bridge).
+    In order to fund the account, users will need to bridge holesky ETH to the mev-commit chain using the bridge user CLI. 
+
+    First confirm your operating system and architecture by running `uname -sm`. Then download the appropriate bridge user CLI binary from the [releases](https://github.com/primev/mev-commit/releases/latest) page. 
+
+    Or download the 0.7.0 bridge CLI directly from the links below:
+    * [Darwin ARM64](https://github.com/primev/mev-commit/releases/download/v0.7.0/mev-commit-bridge-user-cli_0.7.0_Darwin_arm64.tar.gz)
+    * [Darwin x86_64](https://github.com/primev/mev-commit/releases/download/v0.7.0/mev-commit-bridge-user-cli_0.7.0_Darwin_x86_64.tar.gz)
+    * [Linux ARM64](https://github.com/primev/mev-commit/releases/download/v0.7.0/mev-commit-bridge-user-cli_0.7.0_Linux_arm64.tar.gz)
+    * [Linux x86_64](https://github.com/primev/mev-commit/releases/download/v0.7.0/mev-commit-bridge-user-cli_0.7.0_Linux_x86_64.tar.gz)
+    * [Windows x86_64](https://github.com/primev/mev-commit/releases/download/v0.7.0/mev-commit-bridge-user-cli_0.7.0_Windows_x86_64.zip)
+
+    The CLI application provides two sub-commands to bridge to and from the settlement chain. For more details go the the [bridge documentation](/v0.7.0/get-started/bridge).
+
+    <Note> Make sure to specify the newly generated account address from the previous step as the destination address for the bridge command. </Note>
+
 ```shell ❯_ example
 ./user-cli bridge-to-settlement --account-key <PRIVATE KEY of source account for funds> --dest-addr <Address to fund on mev-commit chain> --amount 1000000000000000000
 ```
