@@ -1,6 +1,6 @@
 ---
 title: "Quickstart for mev-commit bidder node"
-description: "Step into the Primev ecosystem with ease. This guide covers everything you need to set up your mev-commit bidder node. For providers, please refer to the [manual start mev-commit](/v0.7.0/developers/manual-start-mev-commit) section"
+description: "This guide covers everything you need to set up your mev-commit bidder node. For providers, please refer to the [manual start mev-commit](/v0.7.0/developers/manual-start-mev-commit) section"
 sidebarTitle: Quickstart
 icon: "gear"
 ---
@@ -72,7 +72,7 @@ icon: "gear"
 ```shell ❯_ example
 curl -X POST http://localhost:13523/v1/bidder/bid \
 -d '{
-    "txHashes": ["0549fc7c57fffbdbfb2cf9d5e0de165fc68dadb5c27c42fdad0bdf506f4eacae"],
+    "rawTransactions": ["0x02f8db82426882010c8410433624841043362f8303425094ea593b730d745fb5fe01b6d20e6603915252c6bf87016e03ce313800b864ce0b63ce0000000000000000000000000e94804eaa3c4c5355992086647f683f6f41ef1f000000000000000000000000000000000000000000000000000150e0786cc000000000000000000000000000000000000000000000000000000000000004e378c001a0ece6d13b20247abdc07d669c9186ee5a1ac9601db8c98a3323024ab299cb6662a01c20680efe4e0bb48a3a936b5ab27c741819f0ac567b12b34b230004b20b78a0"],
     "amount": "<amount in wei>",
     "blockNumber": <integer l1blocknumber>,
     "decayStartTimestamp": <timestamp milliseconds>,
@@ -94,16 +94,20 @@ curl -X POST http://localhost:13523/v1/bidder/bid \
 
     </Accordion>
 
-You can change the values in the fields `txHashes`, `amount`, `blockNumber`, `decayStartTimestamp`, `decayEndTimestamp` and `revertingTxHashes` as desired.
+You can change the values in the fields `amount`, `blockNumber`, `decayStartTimestamp`, `decayEndTimestamp` and `revertingTxHashes` as desired. The `rawTransactions` field contains hexadecimal string of the RLP encoded raw transaction payloads, include raw transaction payloads in your bid in the atomic sequence in which they need to be placed in the block.  Only one out of `txHashes` or `rawTransactions` need to be sent in a bid.
 
 Make sure your bid amount is sufficiently high for the commitment you're requesting, and your target L1 block number is accurate. It's up to the providers to commit to your bid, so try to ensure a commitment is feasible to your bid by its construction. Selecting a target block of n+1 where n is the current block number generally makes it easy to receive a commitment for standard bid amounts.
 
-We recommend sending the raw transaction payloads in the bid. The `rawTransactions` field contains hexadecimal string of the RLP encoded raw transaction payloads. Only one out of `txHashes` or `rawTransactions` need to be sent in a bid.
+</Step>
+</Steps>
 
+<Check>Congrats, you just sent your first L1 preconfirmation bid! You should be receiving commitments nearly instantly.</Check>
+
+Alternatively you can send a bid using the `txHashes` field instead of `rawTransactions` to refer to a transaction a provider has in their own environment using its hash. This method also allows you to bid on others' behalf using their transaction hashes.
 ```shell ❯_ example
 curl -X POST http://localhost:13523/v1/bidder/bid \
 -d '{
-    "rawTransactions": ["0x02f8db82426882010c8410433624841043362f8303425094ea593b730d745fb5fe01b6d20e6603915252c6bf87016e03ce313800b864ce0b63ce0000000000000000000000000e94804eaa3c4c5355992086647f683f6f41ef1f000000000000000000000000000000000000000000000000000150e0786cc000000000000000000000000000000000000000000000000000000000000004e378c001a0ece6d13b20247abdc07d669c9186ee5a1ac9601db8c98a3323024ab299cb6662a01c20680efe4e0bb48a3a936b5ab27c741819f0ac567b12b34b230004b20b78a0"],
+    "txHashes": ["0549fc7c57fffbdbfb2cf9d5e0de165fc68dadb5c27c42fdad0bdf506f4eacae"],
     "amount": "<amount in wei>",
     "blockNumber": <integer l1blocknumber>,
     "decayStartTimestamp": <timestamp milliseconds>,
@@ -111,10 +115,6 @@ curl -X POST http://localhost:13523/v1/bidder/bid \
     "revertingTxHashes": []
 }'
 ```
-  </Step>
-</Steps>
-
-<Check>Congrats, you just sent your first L1 preconfirmation bid! You should be receiving commitments nearly instantly.</Check>
 
 <Info> Make sure to check [System Requirements](/v0.7.0/developers/system-requirements) to better understand what is needed to run mev-commit without any interruptions.  If you want to perform a manual setup and learn details, please skip to the [manual start mev-commit](/v0.7.0/developers/manual-start-mev-commit) section.</Info>
 
