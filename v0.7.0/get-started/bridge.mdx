@@ -13,6 +13,8 @@ Or download the 0.7.0 bridge CLI directly from the links below:
 * [Linux x86_64](https://github.com/primev/mev-commit/releases/download/v0.7.0/mev-commit-bridge-user-cli_0.7.0_Linux_x86_64.tar.gz)
 * [Windows x86_64](https://github.com/primev/mev-commit/releases/download/v0.7.0/mev-commit-bridge-user-cli_0.7.0_Windows_x86_64.zip)
 
+You can confirm your operating system and architecture by running `uname -sm`.
+
 On MacOS, a warning may appear about running untrusted software. Try using `xattr -d com.apple.quarantine ./user-cli` to disable this warning, or feel free to build/use the CLI from source [here](https://github.com/primev/mev-commit/tree/main/bridge/standard).
 
 <Note>In order to bridge funds, users need to have an account which is funded with Holesky ETH for testnet. </Note>
@@ -34,6 +36,8 @@ user-cli bridge-to-l1 \
 ```
 
 </CodeGroup>
+
+A static fee is charged for bridging from the mev-commit chain to L1, to compensate the relayer for transaction inclusion. This fee is currently set to 0.005 ETH.
 
 <Note> Users can also use a keystore file instead of using the private key. </Note>
 
