@@ -11,7 +11,11 @@ Validators have three methods to opt-in to mev-commit, as described in the [vali
 A validator that opts into mev-commit makes an implicit commitment to include a block from a mev-commit registered block builder in L1 whenever they become the proposer of the slot. 
 
 ### Rewards
-Upon successfully including a block built by mev-commit providers in L1, the proposer is paid by the provider/builder through the mev-boost auction. Upon proposing a block while opted-in to mev-commit, a validator will receive all bid related value in the mev-commit network that is surfaced by the mev-boost auction embedded in the block they propose. In other words, validators passively receive rewards from mev-commit by proposing more valuable blocks that include mev-commit bids. A validator will almost always propose a more valuable block using mev-commit than without while mev-commit bids are present for its slot.
+The main reward for proposers opting in to mev-commit is proposing a more valuable block and being paid through the mev-boost auction as standard. Upon proposing a block while opted-in to mev-commit, a proposer will receive all bid related value in the mev-commit network that is surfaced by the mev-boost auction embedded in the block they propose. In other words, proposers passively receive rewards from mev-commit by proposing more valuable blocks that include mev-commit bids. A proposer will almost always propose a more valuable block using mev-commit than without while mev-commit bids are present for its slot.
+
+Using an example of a block worth 1 ETH and mev-commit bids worth 0.1 ETH, the diagram below depicts Validator Rewards with and without mev-commit:
+
+![Validator Rewards](/v0.7.0/images/validator-rewards.png)
 
 <Note>An important observation here is that proposers opting in increases the credibility of the preconfs and consequently their value. Due to the increased preconf values, the providers have additional value to bid in the mev-boost auction, thus driving up the total revenue a proposer will get.</Note>
 
