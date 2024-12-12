@@ -55,12 +55,10 @@ A vault contract must be deployed and configured with slashable ERC20 `collatera
 In general vault configuration is immutable, and thus important to get right. See [Symbiotic's vault configuration docs](https://docs.symbiotic.fi/handbooks/vaults-handbook#vault-configuration). Mev-commit requires the following vault configuration:
 
 <Steps>
-  <Step title="Configure Burner Address">
-    The `burner` address must be set to a `BurnerRouter` contract, deployed via the `BurnerRouterFactory`. More details [here](https://docs.symbiotic.fi/modules/extensions/burners#burner-router).
-  </Step>
-
   <Step title="Configure Burner Router">
-    The burner router must be configured as follows:
+    The `IVaultStorage.burner` address must be set to a `BurnerRouter` contract, deployed via the `BurnerRouterFactory`. More details [here](https://docs.symbiotic.fi/modules/extensions/burners#burner-router).
+
+    The deployed burner router must be configured as follows:
     * `IBurnerRouter.networkReceiver()` must be set to `MevCommitMiddlewareStorage.slashReceiver`.
     * `IBurnerRouter.delay()` must be greater than `MevCommitMiddlewareStorage.minBurnerRouterDelay`, currently set to `2 days`.
     * `IBurnerRouter.operatorNetworkReceiver()` must be disable by setting to `address(0)`, or set to `MevCommitMiddlewareStorage.slashReceiver`. Essentially this value must not override a valid network receiver.
