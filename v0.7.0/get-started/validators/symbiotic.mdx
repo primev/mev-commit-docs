@@ -54,9 +54,14 @@ A vault contract must be deployed and configured with slashable ERC20 `collatera
 
 In general vault configuration is immutable, and thus important to get right. See [Symbiotic's vault configuration docs](https://docs.symbiotic.fi/handbooks/vaults-handbook#vault-configuration). Mev-commit requires the following vault configuration:
 
-1. The `burner` address must be set to a specialized "burner router" contract. This is a WIP from the Symbiotic team. Essentially, funds slashed specifically by the mev-commit protocol must routed to a mev-commit address. For now on Holesky, this requirement can be ignored.
-2. The delegator module for the vault must be the `NetworkRestakeDelegator` or `OperatorSpecificDelegator` type. `FullRestakeDelegator` is not supported.
-3. The slasher module must be set, and can be either a `Slasher` or `VetoSlasher` type.
+1. The `burner` address must be set to a `BurnerRouter` contract, deployed via the `BurnerRouterFactory`. More details [here](https://docs.symbiotic.fi/modules/extensions/burners#burner-router).
+2. the burner router must be configured as follows:
+  * `IBurnerRouter.networkReceiver()` must be set to `MevCommitMiddlewareStorage.slashReceiver`.
+  * `IBurnerRouter.delay()` must be greater than `MevCommitMiddlewareStorage.minBurnerRouterDelay`, currently set to `2 days`.
+  * `IBurnerRouter.operatorNetworkReceiver()` must be disable by setting to `address(0)`, or set to `MevCommitMiddlewareStorage.slashReceiver`. Essentially this value must not override a valid network receiver.
+  Upon vault registration, and validator registration, these conditions are checked. If later on, these conditions are not met, all validators associated to a vault will no longer be opted-in, as enforced in `_isValidatorOptedIn`.
+3. The delegator module for the vault must be the `NetworkRestakeDelegator` or `OperatorSpecificDelegator` type. `FullRestakeDelegator` is not supported.
+4. The slasher module must be set, and can be either a `Slasher` or `VetoSlasher` type.
 
 Finally, vaults with instant slashers must have an `epochDuration` greater than `slashPeriodSeconds` to register with our middleware contract, ensuring collateral is slashable during the full slashing period. 
 
