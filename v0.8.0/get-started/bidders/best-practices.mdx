@@ -1,0 +1,84 @@
+---
+title: "Bidder Best Practices"
+sidebarTitle: "Best Practices"
+---
+
+## Understanding Credible and General Commitments
+In the mev-commit network, commitments are essential to the bidding process. You may receive two types of commitments: credible and general. If the slot proposer is opted-in to mev-commit, provider commitments become credible. Understanding the difference between these two types of commitments will help you, as a bidder, optimize your interactions with the network and maximize your utility.
+
+**Credible Commitments** - Credible commitments are guarantees made by network participants who have direct control over fulfilling your bid. This could include block builders, proposers, or sequencers. These commitments offer the highest level of assurance that your bid will be delivered as promised, as they mean the proposer has opted in to mev-commit. [Querying for Proposers](/v0.8.0/get-started/bidders/bidder-node-commands#querying-for-proposers-api) is available by default and will notify you when your commitments are ultimately credible.
+
+**General Commitments** - General commitments are also promises made by network participants, but they offer a lower level of assurance compared to credible commitments. However, general commitments can approach the reliability of credible commitments when aggregated across multiple providers, such as all block builders for a mev-boost-enabled validator. This simply means that the proposer hasn't opted in to mev-commit, but a committing block builder may still win the mev-boost auction and deliver its commitment for your bid.
+
+
+## Submit Bundles
+To include bundles of transactions, submit them in the exact atomic sequence they appear in the bundle. Bundles can be submitted as either:
+* An array of transaction hashes.
+* An array of transaction payloads.
+
+Submitting raw transaction payloads is more efficient for providers, as it eliminates the extra step of looking up the payload based on a transaction hash when matching transactions with preconfirmation bids. This allows providers to be able to send preconfirmation commitments back to the bidder faster as well. You can learn more about bid structure [here](https://docs.primev.xyz/v0.8.0/concepts/bids/bid-structure).
+
+### Transaction Payload
+Include the raw transaction payloads in your bid in the atomic sequence in which they need to be placed in the block.
+
+```shell ❯_ example
+curl -X POST http://localhost:13523/v1/bidder/bid \
+-d '{
+    "rawTransactions": ["0x02f8db82426882010c8410433624841043362f8303425094ea593b730d745fb5fe01b6d20e6603915252c6bf87016e03ce313800b864ce0b63ce0000000000000000000000000e94804eaa3c4c5355992086647f683f6f41ef1f000000000000000000000000000000000000000000000000000150e0786cc000000000000000000000000000000000000000000000000000000000000004e378c001a0ece6d13b20247abdc07d669c9186ee5a1ac9601db8c98a3323024ab299cb6662a01c20680efe4e0bb48a3a936b5ab27c741819f0ac567b12b34b230004b20b78a0", "0x02f8748242682c841043362684104336318252089412b141665da4a5f617c759ad996ef91ad806a9c0880de0b6b3a764000080c001a0806552ed846808580eb896994825f07e73de2f42e2d3554f228284ecfaa89d9ca046d58b62ba565982fb07a64b436dd7a6c210b2f59c4fb2aee2cdd150ccf8bfaa"],
+    "amount": "<amount in wei>",
+    "blockNumber": <integer l1blocknumber>,
+    "decayStartTimestamp": <timestamp milliseconds>,
+    "decayEndTimestamp": <timestamp milliseconds>,
+    "revertingTxHashes": ["7ca16add2aa1b1ef718006b791cb48a6ad729d22f5d2a0b294705320e4825abb"]
+}'
+```
+### Transaction Hash
+Alternatively, you may refer to transactions that providers may already have through their RPCs or the public mempool by using transaction hashes. Note that not all providers may support this feature, and we encourage the use of the transaction payload option for optimal results.
+
+```shell ❯_ example
+curl -X POST http://localhost:13523/v1/bidder/bid \
+-d '{
+    "txHashes": ["0549fc7c57fffbdbfb2cf9d5e0de165fc68dadb5c27c42fdad0bdf506f4eacae", "22145ba31366d29a893ae3ffbc95c36c06e8819a289ac588594c9512d0a99810", "7e1506f266bc86c81ae46018053a274a3bd96a9eff17392930707bf8fa5ff6be"],
+    "amount": "<amount in wei>",
+    "blockNumber": <integer l1blocknumber>,
+    "decayStartTimestamp": <timestamp milliseconds>,
+    "decayEndTimestamp": <timestamp milliseconds>,
+    "revertingTxHashes": ["22145ba31366d29a893ae3ffbc95c36c06e8819a289ac588594c9512d0a99810"]
+}'
+```  
+You can change the values in the fields `txHashes`, `amount`, `blockNumber`, `decayStartTimestamp`, `decayEndTimestamp` and `revertingTxHashes` as desired.
+
+### Bid Decay
+The `decayStartTimestamp` and `decayEndTimestamp` are important components for how sensitive the [price of a preconfirmation](https://docs.primev.xyz/v0.8.0/knowledge-base/how-to-price-a-bid) will be. More details can be found about it [here](https://docs.primev.xyz/v0.8.0/concepts/bids/bid-structure#details-on-decay-parameters).
+
+## Troubleshooting
+Bidders will start receiving commitments instantly in most cases. If you're having trouble receiving commitments, check your bid parameters and ensure your bid is high enough for the commitment you're requesting. Additionally check that you are connected to providers (via the [topology endpoint](https://docs.primev.xyz/v0.8.0/get-started/bidders/bidder-node-commands#topology)) and that you are receiving mev-commit events (via the [health endpoint](https://docs.primev.xyz/v0.8.0/get-started/bidders/bidder-node-commands#health)).
+
+## Bidder Funds and Autodeposit Window
+
+Bidders on mev-commit need funds available in their account to submit bids, which can be obtained via bridging to your wallet address and then depositing to your node address. For testnet, you can obtain funds by using the [bridge](/v0.8.0/get-started/bridge). Once funds are deposited, the auto deposit function will automatically deposit funds into your account for the next 3 [windows](/v0.8.0/concepts/bids/bidder-deposit) to bid. Unused funds will automatically transfer into upcoming windows for bidding. You can read more about the auto deposit feature [here](https://docs.primev.xyz/v0.8.0/get-started/bidders/bidder-node-commands#autodeposit-funds).
+
+## (Optional) Provider RPCs
+
+If you don't send transaction payloads in your bid, you can send your transactions directly to block builders. Below is a table of Provider RPCs to send your transactions to on testnet. You may already be sending transactions to these providers if you have existing transaction operations. 
+
+<table>
+  <thead>
+    <tr>
+      <th width="350">Provider</th>
+      <th width="350">RPC Endpoint</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Preconf Builder</td>
+      <td>[http://52.11.201.67/execution/rpc](http://52.11.201.67/execution/rpc)</td>
+    </tr>
+    <tr>
+      <td>Titan</td>
+      <td>[holesky-rpc.titanbuilder.xyz](https://holesky-rpc.titanbuilder.xyz/)</td>
+    </tr>
+  </tbody>
+</table>
+
+
