@@ -56,10 +56,10 @@ The Symbiotic CLI can assist in many of these steps. Refer to their [docs](https
 
     In general vault configuration is immutable, and thus important to get right. See [Symbiotic's vault configuration docs](https://docs.symbiotic.fi/handbooks/vaults-handbook#vault-configuration).
     
-    Mev-commit requires the following vault configuration:
+    Mev-commit enforces the vault configuration from the following dropdown:
 
     <Accordion title="Mev-commit Vault Configuration">
-      ### Configure Burner Router
+      ## Configure Burner Router
 
       The `IVaultStorage.burner` address must be set to a `BurnerRouter` contract, deployed via the `BurnerRouterFactory`. More details [here](https://docs.symbiotic.fi/modules/extensions/burners#burner-router).
 
@@ -70,11 +70,11 @@ The Symbiotic CLI can assist in many of these steps. Refer to their [docs](https
 
       Upon vault registration, and validator registration, these conditions are checked. If later on, these conditions are not met, all validators associated to a vault will no longer be opted-in, as enforced in `_isValidatorOptedIn`.
 
-      ### Configure Delegator Module
+      ## Configure Delegator Module
 
       The delegator module for the vault must be the `NetworkRestakeDelegator` or `OperatorSpecificDelegator` type. `FullRestakeDelegator` is not supported.
 
-      ### Configure Slasher Module
+      ## Configure Slasher Module
     
       The slasher module must be set, and can be either a `Slasher` or `VetoSlasher` type.
 
@@ -126,7 +126,7 @@ The Symbiotic CLI can assist in many of these steps. Refer to their [docs](https
     `OperatorSpecificDelegator` does not require this step, as it automatically allocates 100% of the "shares" to a single operator.
   </Step>
   <Step title="Setup Complete - Register Validators">
-  
+
     Now that setup is complete, the operator can register validators to the vault, so long as enough slashable collateral is allocated to the operator from previous steps.
 
     This is done through the [holesky validator dashboard](https://holesky.validators.mev-commit.xyz/).
