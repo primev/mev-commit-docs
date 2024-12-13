@@ -56,11 +56,9 @@ The Symbiotic CLI can assist in many of these steps. Refer to their [docs](https
 
     In general vault configuration is immutable, and thus important to get right. See [Symbiotic's vault configuration docs](https://docs.symbiotic.fi/handbooks/vaults-handbook#vault-configuration).
     
-    Mev-commit enforces vault configuration from the following dropdown:
+    Mev-commit enforces vault configuration from the following dropdowns:
 
-    <Accordion title="Mev-commit Vault Configuration">
-      ## Configure Burner Router
-
+    <Accordion title="Configure Burner Router">
       The `IVaultStorage.burner` address must be set to a `BurnerRouter` contract, deployed via the `BurnerRouterFactory`. More details [here](https://docs.symbiotic.fi/modules/extensions/burners#burner-router).
 
       The deployed burner router must be configured as follows:
@@ -69,13 +67,13 @@ The Symbiotic CLI can assist in many of these steps. Refer to their [docs](https
       * `IBurnerRouter.operatorNetworkReceiver()` must be disable by setting to `address(0)`, or set to `MevCommitMiddlewareStorage.slashReceiver`. Essentially this value must not override a valid network receiver.
 
       Upon vault registration, and validator registration, these conditions are checked. If later on, these conditions are not met, all validators associated to a vault will no longer be opted-in, as enforced in `_isValidatorOptedIn`.
+    </Accordion>
 
-      ## Configure Delegator Module
-
+    <Accordion title="Configure Delegator Module">
       The delegator module for the vault must be the `NetworkRestakeDelegator` or `OperatorSpecificDelegator` type. `FullRestakeDelegator` is not supported.
+    </Accordion>
 
-      ## Configure Slasher Module
-    
+    <Accordion title="Configure Slasher Module">
       The slasher module must be set, and can be either a `Slasher` or `VetoSlasher` type.
 
       Vaults with an instant `Slasher` must have an `epochDuration` greater than `slashPeriodSeconds` to register with our middleware contract, ensuring collateral is slashable during the full slashing period. 
