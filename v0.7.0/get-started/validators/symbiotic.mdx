@@ -116,7 +116,7 @@ The Symbiotic CLI can assist in many of these steps. Refer to their [docs](https
 
     From here our team will assign a `slashAmount` appropriate for the collateral type. `slashAmount` of collateral is required to define a single validator as being slashable, and therefore opted-in to mev-commit. The vault/operator pair is able to opt-in `totalCollateral / slashAmount` number of validators.
 
-    The network address (represented by the mev-commit team) will then set a max network limit for the vault's delegator module, `IBaseDelegator.setMaxNetworkLimit(uint96 identifier, uint256 amount)`. This is the maximum amount of collateral that will be accepted by the network from the vault.
+    The network address (represented by Primev) will then set a max network limit for the vault's delegator module, `IBaseDelegator.setMaxNetworkLimit(uint96 identifier, uint256 amount)`. This is the maximum amount of collateral that will be accepted by the network from the vault.
 
     The network address will also call:
 
