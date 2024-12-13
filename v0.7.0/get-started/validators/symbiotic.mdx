@@ -131,7 +131,7 @@ The Symbiotic CLI can assist in many of these steps. Refer to their [docs](https
 
     If using a `NetworkRestakeDelegator`, the vault curator must then call `INetworkRestakeDelegator.setOperatorNetworkShares(bytes32 subnetwork, address operator, uint256 shares)`. This sets what portion of the mev-commit allocated stake the vault curator is allocating to a particular operator.
 
-    `OperatorSpecificDelegator` does not require this step, as it automatically allocates 100% of the "shares" to a single operator.
+    If using an `OperatorSpecificDelegator`, calling `setOperatorNetworkShares` is not required, as this type of delegator automatically allocates 100% of the "shares" to a single operator.
   </Step>
   <Step title="Setup Complete - Register Validators">
 
