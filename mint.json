@@ -78,7 +78,8 @@
           "version": "v0.8.0",
           "pages": [
             "v0.8.0/get-started/bidders/best-practices",
-            "v0.8.0/get-started/bidders/bidder-node-commands"
+            "v0.8.0/get-started/bidders/bidder-node-commands",
+            "v0.8.0/get-started/bidders/bidder-cli"
           ],
           "icon": "user-bounty-hunter"
         },
