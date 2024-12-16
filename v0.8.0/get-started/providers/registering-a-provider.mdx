@@ -8,7 +8,6 @@ To register on the mev-commit network, providers need to stake ETH in the provid
 Once a provider is registered on the network, other nodes will connect to it, and the provider node will receive bids.
 
 You can use the provider API to stake and check your stake balance.
-
 <Steps>
   <Step title="Launch mev-commit Node">
     Make sure you've [launched a mev-commit node](/v0.8.0/developers/manual-start-mev-commit) first.
@@ -26,16 +25,43 @@ You can use the provider API to stake and check your stake balance.
   }
   ```
   </Step>
-  <Step title="Register Stake with BLS PubKeys">
-     ```shell
-      > curl -X POST "http://localhost:13523/v1/provider/register_stake/1000000000000000000?blsPublicKey=0xpk" | jq
-      {
-        "amount": "10000000000000000000", 
-        "blsPublicKey": "0xpk1,0xpk2"
-      }
-      ```
+  <Step title="Get Provider's Ethereum Address">
+    Get your provider's Ethereum address from the topology endpoint. This will be used as the challenge message for BLS signing:
 
-  Once staked, peer connection logs should appear within a few minutes. You can check the `/topology` endpoint again to verify connected peers.
+    ```shell
+    > curl localhost:13523/v1/debug/topology | jq .self."Ethereum Address"
+    "0xB9286CB4782E43A202BfD426AbB72c8cb34f886c"
+    ```
+  </Step>
+  <Step title="Generate BLS Signature">
+    Download the bls-signer tool from the releases page and use it to generate your signature:
+
+    ```shell
+    > bls-signer --private-key YOUR_BLS_PRIVATE_KEY --payload 0xB9286CB4782E43A202BfD426AbB72c8cb34f886c
+    Payload: 0xB9286CB4782E43A202BfD426AbB72c8cb34f886c
+    Public Key: 0x8e7884b3c4961550c13c87c0d0d30bdf8f3c9f3b5e0fb6259b2d1dc8c93432fac8f55d8c0f9e4f2a0f7d0a7b9b9f5d1
+    Signature: 0xa1b2c3... # Your actual signature will be different
+    ```
+
+    Make note of both the public key and signature outputs - you'll need these in the next step.
+  </Step>
+  <Step title="Submit Stake Registration">
+    Register your stake by submitting:
+    - The stake amount (in wei)
+    - Your BLS public key from the previous step
+    - The BLS signature you generated
+
+    Here's an example request:
+    ```shell
+    # Replace with your actual values from the previous step
+    > curl localhost:13523/v1/provider/register_stake \
+      -X POST \
+      -H "Content-Type: application/json" \
+      -d '{"amount":"1000000000000000000","bls_public_keys":["0x8e7884b3c4961550c13c87c0d0d30bdf8f3c9f3b5e0fb6259b2d1dc8c93432fac8f55d8c0f9e4f2a0f7d0a7b9b9f5d1"],"bls_signatures":["0xa1b2c3..."]}' | jq
+    ```
+  </Step>
+  <Step title="Verify Registration">
+    Once staked, peer connection logs should appear within a few minutes. You can check the `/topology` endpoint again to verify connected peers.
   </Step>
 </Steps>
 
