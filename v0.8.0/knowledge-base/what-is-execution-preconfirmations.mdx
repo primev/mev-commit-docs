@@ -1,0 +1,12 @@
+---
+title: "What is Execution Preconfirmations?"
+sidebarTitle: What is Execution Preconfirmations?
+---
+
+The mev-commit system enforces execution guarantees by default. 
+This means that transactions must be executed successfully to ensure providers aren't slashed. 
+We allow users to specify which transactions are critical and must succeed, and which can revert.
+
+This is important because providers, in most cases, can provide inclusion guarantees with little cost. 
+For example, if a block builder has gas left in the block, they can trivially include any preconfirmed transaction at the bottom of the block. 
+

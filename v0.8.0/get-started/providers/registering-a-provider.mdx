@@ -1,0 +1,103 @@
+---
+title: Registering as a Provider
+sidebarTitle: Registering as a Provider
+---
+
+To register on the mev-commit network, providers need to stake ETH in the provider registry contract. This adds credibility to issued commitments, as stake may be slashed in the event of a broken commitment, such as committing to a preconfirmation bid and not including the relevant transaction in a block.
+
+Once a provider is registered on the network, other nodes will connect to it, and the provider node will receive bids.
+
+You can use the provider API to stake and check your stake balance.
+<Steps>
+  <Step title="Launch mev-commit Node">
+    Make sure you've [launched a mev-commit node](/v0.8.0/developers/manual-start-mev-commit) first.
+  </Step>
+  <Step title="Fund Account">
+    Make sure you've also [funded your account on the mev-commit chain](/v0.8.0/get-started/bridge).
+  </Step>
+  <Step title="Check Minimum Stake Amount">
+    Check the minimum amount that can be staked, and consider staking more than the minimum. Bidders will only connect to providers which have stake higher than this minimum. The larger a provider's stake, the greater the credibility behind that provider's commitments. The amount is set in `wei`.
+
+  ```shell
+  > curl localhost:13523/v1/provider/get_min_stake | jq
+  {
+    "amount": "1000000000000000000"
+  }
+  ```
+  </Step>
+  <Step title="Get Provider's Ethereum Address">
+    Get your provider's Ethereum address from the topology endpoint. This will be used as the challenge message for BLS signing:
+
+    ```shell
+    > curl localhost:13523/v1/debug/topology | jq .self."Ethereum Address"
+    "0xB9286CB4782E43A202BfD426AbB72c8cb34f886c"
+    ```
+  </Step>
+  <Step title="Generate BLS Signature">
+    Download the bls-signer tool from the releases page and use it to generate your signature:
+
+    ```shell
+    > bls-signer --private-key YOUR_BLS_PRIVATE_KEY --payload 0xB9286CB4782E43A202BfD426AbB72c8cb34f886c
+    Payload: 0xB9286CB4782E43A202BfD426AbB72c8cb34f886c
+    Public Key: 0x8e7884b3c4961550c13c87c0d0d30bdf8f3c9f3b5e0fb6259b2d1dc8c93432fac8f55d8c0f9e4f2a0f7d0a7b9b9f5d1
+    Signature: 0xa1b2c3... # Your actual signature will be different
+    ```
+
+    Make note of both the public key and signature outputs - you'll need these in the next step.
+  </Step>
+  <Step title="Submit Stake Registration">
+    Register your stake by submitting:
+    - The stake amount (in wei)
+    - Your BLS public key from the previous step
+    - The BLS signature you generated
+
+    Here's an example request:
+    ```shell
+    # Replace with your actual values from the previous step
+    > curl localhost:13523/v1/provider/register_stake \
+      -X POST \
+      -H "Content-Type: application/json" \
+      -d '{"amount":"1000000000000000000","bls_public_keys":["0x8e7884b3c4961550c13c87c0d0d30bdf8f3c9f3b5e0fb6259b2d1dc8c93432fac8f55d8c0f9e4f2a0f7d0a7b9b9f5d1"],"bls_signatures":["0xa1b2c3..."]}' | jq
+    ```
+  </Step>
+  <Step title="Verify Registration">
+    Once staked, peer connection logs should appear within a few minutes. You can check the `/topology` endpoint again to verify connected peers.
+  </Step>
+</Steps>
+
+<Check>Congrats, your provider node is registered on mev-commit and you're ready to [consume bids](/v0.8.0/get-started/providers/consuming-bids).</Check>
+
+<Info>Rewards on mev-commit now rely on the BLS key found in the relay and are then tied to the BLS key registered. The BLS key that is sending messages to the relay should be registered. This registration can now be done automatically without manual intervention. Once the registration is done, the settlement chain will be able to correctly attribute the winning providers on L1.</Info>
+
+
+Other commands that can be used are:
+
+- Check stake balance
+
+  ```shell
+  > curl localhost:13523/v1/provider/get_stake | jq
+  {
+    "amount": "0"
+  }
+  ```
+
+- Get the account address of your node
+
+  ```shell
+  > curl localhost:13523/v1/debug/topology | jq
+  {
+    "self": {
+      "Addresses": [
+        "/ip4/127.0.0.1/tcp/13522",
+        "/ip4/172.29.0.4/tcp/13522"
+      ],
+      "Ethereum Address": "0xB9286CB4782E43A202BfD426AbB72c8cb34f886c",
+      "Peer Type": "provider",
+      "Underlay": "16Uiu2HAmDWZb4DxZQkS9yseXNukBFe6MhZdimSKuZcHFeJrF3jC9"
+    },
+    "connected_peers": null,
+    "blocked_peers": null
+  }
+  ```
+
+We recommend reading the [consuming bids](/v0.8.0/get-started/providers/consuming-bids) section next to consume bids effectively.

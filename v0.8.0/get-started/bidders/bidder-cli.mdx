@@ -1,0 +1,98 @@
+---
+title: "Bidder CLI application"
+sidebarTitle: "Bidder CLI"
+---
+
+The `bidder-cli` aims to provide a better UX for users to send raw transactions or bids on existing transactions, to the mev-commit network. The tool can be downloaded from the [releases](https://github.com/primev/mev-commit/releases/latest) page.
+
+```
+NAME:
+   bidder-cli - A CLI tool for interacting with a gRPC bidder server
+
+USAGE:
+   bidder-cli [global options] command [command options]
+
+VERSION:
+   1.0.0
+
+COMMANDS:
+   send-tx-hash  Send a bid to the gRPC bidder server
+   send-tx       Send a transaction to the gRPC bidder server
+   help, h       Shows a list of commands or help for one command
+
+GLOBAL OPTIONS:
+   --help, -h     show help
+   --version, -v  print the version
+```
+
+The `send-tx` command is used to send raw transaction payloads. Here users can create a new transaction on the L1 chain and send it directly to the mev-commit network. Users need to provide the account to be used as source of the funds and to sign the transaction. Currently this allows users to send simple transfer transactions.
+
+```
+NAME:
+   bidder-cli send-tx - Send a transaction to the gRPC bidder server
+
+USAGE:
+   bidder-cli send-tx [command options]
+
+OPTIONS:
+   --rpc-url value         URL of the gRPC server [$BIDDER_CLI_RPC_URL]
+   --l1-rpc-url value      URL of the L1 RPC (default: "https://ethereum-holesky-rpc.publicnode.com") [$BIDDER_CLI_L1_RPC_URL]
+   --verbose               enable verbose logging (default: false) [$BIDDER_CLI_VERBOSE]
+   --from value            private key of the account sending the transaction
+   --to value              to address
+   --value value           amount of the transaction
+   --block-number value    block number (default: 0)
+   --decay-duration value  decay duration (default: "10m")
+   --bid-amount value      bid amount
+   --help, -h              show help
+```
+
+The `rpc-url` is the URL for the gRPC server running on the bidder node. This is by default running on port 13524. So if you run the node locally, this would typically be `localhost:13524`.
+
+If `block-number` is not specified, the next block number is used for the bid.
+
+Similarly, the default `decay-duration` is 10 minutes. Which means the bid amount will decay starting from current time to 10 minutes from now.
+
+`value` is the amount of ETH to be sent in the L1 transaction and `bid-amount` is the amount the bidder is willing to give to the providers for preconfirming the transaction. All the other flags have sane defaults.
+
+<Note> The CLI uses the `l1-rpc-url` to get the nonce for the account. Users can point it to a different RPC URL if they are sending transactions to a custom RPC.</Note>
+
+```shell ❯_ example
+./bidder-cli send-tx \
+  --from <PRIVATE KEY of source account> \
+  --to <DESTINATION on L1 chain> \
+  --value <Amount of ETH to be sent in wei> \
+  --bid-amount <Amount to be sent to provider node> \
+  --rpc-url localhost:13524
+```
+
+The `send-tx-hash` is used to send bids for transactions that were already submitted to the mempool of the block-builders or to the public mempool. There is a possibility that the transaction is not gossiped to the provider's block building infrastructure in time, so it is better to use the Provider's RPC for submitting transactions.
+
+```
+NAME:
+   bidder-cli send-tx-hash - Send a bid to the gRPC bidder server
+
+USAGE:
+   bidder-cli send-tx-hash [command options]
+
+OPTIONS:
+   --rpc-url value                                              URL of the gRPC server [$BIDDER_CLI_RPC_URL]
+   --l1-rpc-url value                                           URL of the L1 RPC (default: "https://ethereum-holesky-rpc.publicnode.com") [$BIDDER_CLI_L1_RPC_URL]
+   --verbose                                                    enable verbose logging (default: false) [$BIDDER_CLI_VERBOSE]
+   --tx-hashes value [ --tx-hashes value ]                      transaction hashes
+   --bid-amount value                                           bid amount
+   --block-number value                                         block number (default: 0)
+   --decay-duration value                                       decay duration (default: "10m")
+   --reverting-tx-hashes value [ --reverting-tx-hashes value ]  reverting transaction hashes
+   --help, -h                                                   show help
+```
+
+Users can provider multiple transaction hashes to bid on. Rest of the flags have similar use cases as above.
+
+```shell ❯_ example
+./bidder-cli send-tx-hash \
+  --tx-hashes <HASH 1> \
+  --tx-hashes <HASH 2> \
+  --bid-amount <Amount to be sent to provider node> \
+  --rpc-url localhost:13524
+```

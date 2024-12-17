@@ -1,0 +1,156 @@
+---
+title: Relay Integration Guide
+sidebarTitle: Relays
+icon: 'arrow-right-arrow-left'
+---
+import { ProviderRegistryAddress, ProviderRegistryAddress0_7_0} from '/snippets/testnet-addresses.mdx';
+
+## Overview
+
+<Note>
+Enabling mev-commit on your relay is simple and requires minimal changes to your existing setup.
+</Note>
+
+This guide explains how to integrate your relay with mev-commit.
+
+Your relay will check if the current slot's validator has opted into mev-commit:
+
+- If they haven't opted in, your relay works normally:
+<Frame>
+  <img src="/v0.8.0/images/mev-commit-relay.png" alt="mev-commit relay diagram" />
+</Frame>
+
+- If they have opted in, your relay only accepts blocks from mev-commit builders:
+<Frame>
+  <img src="/v0.8.0/images/mev-commit-validator-relay.png" alt="mev-commit validator relay diagram" />
+</Frame>
+
+To implement this, your relay needs to track two things:
+
+1. Provider Registry: Lists opted-in builders and their BLS keys
+2. Validator Registry: Shows which validators have opted into mev-commit
+
+## Quick Start
+
+<Steps>
+  <Step title="View the Example Implementation">
+   - Check out this [mev-commit relay integration](https://github.com/flashbots/mev-boost-relay/pull/657)
+   - Add required environment variables:
+
+<CodeBlock>
+MEV_COMMIT_RPC=wss://chainrpc-wss.testnet.mev-commit.xyz
+PROVIDER_REGISTRY_ADDR={ProviderRegistryAddress0_7_0}
+</CodeBlock>
+  </Step>
+
+  <Step title="Test and Deploy">
+    Test filtering behavior on Holesky:
+    - Register a [test builder](/v0.8.0/get-started/quickstart)
+    - Submit [test bids](/bidders/best-practices#submit-bundles)
+    - Verify correct block filtering 
+  </Step>
+
+  <Step title="Register Your Relay">
+    1. Add your relay to our [supporting relays list](/v0.8.0/get-started/validators/validator-guide#supporting-relays)
+    2. Provide connection details for validators
+    3. Contact the Primev team to coordinate validator outreach
+  </Step>
+</Steps>
+
+You have now successfully integrated your relay with mev-commit.
+
+## Implementation Details
+
+### What Contracts to Monitor
+
+To track which validators have opted into mev-commit, you'll want to monitor the following contracts:
+
+1. **Validator Registry Router on Ethereum L1:**
+   - Network: Ethereum Mainnet
+   - Address: `0x251Fbc993f58cBfDA8Ad7b0278084F915aCE7fc3`
+
+2. **Provider Registry on mev-commit-chain:**
+   - Network: mev-commit
+   - Address: `0x1C2a592950E5dAd49c0E2F3A402DCF496bdf7b67`
+
+By monitoring these contracts, you can determine which validators and providers have opted into mev-commit and ensure compliance with the protocol.
+
+
+### How to Query the Provider Registry
+
+    The mev-commit provider registry contract maintains the list of authorized providers such as block builders. You can query this contract to validate builder addresses.
+
+    **Contract Details:**
+    - Network: mev-commit-chain
+    - Address: {ProviderRegistryAddress0_7_0} 
+
+    <AccordionGroup>
+      <Accordion title="How to query the registry for connected providers">
+        You can retrieve all connected providers using the following script:
+
+        ```javascript
+        // Import the ethers library
+        const ethers = require("ethers");
+
+        // Define the provider using the RPC URL
+        const provider = new ethers.JsonRpcProvider("https://chainrpc.testnet.mev-commit.xyz/");
+
+        // Define the contract address and ABI
+        const providerRegistryAddress = "0x1C2a592950E5dAd49c0E2F3A402DCF496bdf7b67";
+        const abi = [
+          "event ProviderRegistered(address indexed provider, uint256 stakedAmount, bytes blsPublicKey)"
+        ];
+
+        // Create a new contract instance
+        const contract = new ethers.Contract(providerRegistryAddress, abi, provider);
+
+        // Function to retrieve the list of registered providers
+        async function getRegisteredProviders() {
+          // Create a filter for the ProviderRegistered event
+          const filter = contract.filters.ProviderRegistered();
+
+          // Query the contract for the ProviderRegistered events
+          const events = await contract.queryFilter(filter);
+
+          // Map the events to get the list of provider bls public keys
+          const providers = events.map(event => event.args.blsPublicKey);
+
+          return providers;
+        }
+
+        // Call the function and log the result
+        getRegisteredProviders().then(providers => {
+          console.log("Registered Providers:", providers);
+        }).catch(error => {
+          console.error("Error:", error);
+        });
+        ```
+      </Accordion>
+  
+      <Accordion title="Expected Output">
+        The output will be a list of providers, identified by their BLS pubkey, that have registered with mev-commit.
+
+        ```bash
+        Registered Providers: [
+          '0x4e9c5b21bb1df120a7000fac8e3b1978bc308d28b54bbeae76eff010d8d8f83d785adc4141faf179715f550088becd7f',
+          '0x2e6b986435137b88685d8a2783c46ec9a68958bbb3f50b09a538954942c0f9066493d35b3e341a059a507d66d4545c23',
+          '0x43c615787576375f2c7db9c03c8899bab545881e373a963873b0f10c00faa3da57c7c7ecc1915809c651bb40c055b22e',
+          ...
+        ]
+        ```
+      </Accordion>
+    </AccordionGroup>
+
+## Mainnet Integration
+
+<Note>
+**Mainnet Contracts**
+  <Expandable title="Mainnet Contract Addresses" defaultOpen>
+        <p>The two main contracts on mainnet will be the provider registry and validator registry router.</p>
+        <ul>
+          <li>The provider registry will list all builders that have opted into mev-commit, and will be on the mev-commit-chain.</li>
+          <li>The validator registry router will track which validators have opted into mev-commit, and will be on the eth-mainnet.</li>
+        </ul>
+        <p>We expect to deploy these contracts before the start of 2025.</p>
+  </Expandable>
+</Note>

@@ -1,0 +1,149 @@
+---
+title: Mev-commit Testnet
+sidebarTitle: Testnet
+---
+
+Live with Holesky, mev-commit allows bidders and providers to engage in execution service bids and commitments. Preconfirmations, the first use case for real-time bids and commitments, are available with mev-commit.
+
+## **Links and Connection Details**
+
+### **Services links**
+
+| Service           | Link                                                                                           |
+| ----------------- | ---------------------------------------------------------------------------------------------- |
+| Testnet RPC       | [https://chainrpc.testnet.mev-commit.xyz/](https://chainrpc.testnet.mev-commit.xyz/)           |
+| Testnet WebSocket | [wss://chainrpc-wss.testnet.mev-commit.xyz](wss://chainrpc-wss.testnet.mev-commit.xyz)         |
+| Bootnode endpoint | [https://bootnode.testnet.mev-commit.xyz/](https://bootnode.testnet.mev-commit.xyz/)           |
+| Block explorer    | [http://explorer.testnet.mev-commit.xyz](http://explorer.testnet.mev-commit.xyz)               |
+
+### **Core Contract Addresses (mev-commit chain)**
+
+import { BidderRegistryAddress0_7_0, ProviderRegistryAddress0_7_0, PreconfManagerAddress0_7_0, OracleAddress0_7_0, BlockTrackerAddress0_7_0 } from '/snippets/testnet-addresses.mdx';
+
+<table>
+  <thead>
+    <tr>
+      <th width="299">Contract</th>
+      <th>Address</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>BidderRegistry</td>
+      <td>{BidderRegistryAddress0_7_0}</td>
+    </tr>
+    <tr>
+      <td>ProviderRegistry</td>
+      <td>{ProviderRegistryAddress0_7_0}</td>
+    </tr>
+    <tr>
+      <td>PreconfManager</td>
+      <td>{PreconfManagerAddress0_7_0}</td>
+    </tr>
+    <tr>
+      <td>Oracle</td>
+      <td>{OracleAddress0_7_0}</td>
+    </tr>
+    <tr>
+      <td>BlockTracker</td>
+      <td>{BlockTrackerAddress0_7_0}</td>
+    </tr>
+  </tbody>
+</table>
+
+### **Bridge Gateway (mev-commit chain)**
+
+import { SettlementGateway_0_7_0 } from '/snippets/testnet-addresses.mdx';
+
+<table>
+  <thead>
+    <tr>
+      <th width="299">Contract</th>
+      <th>Address</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>SettlementGateway</td>
+      <td>{SettlementGateway_0_7_0}</td>
+    </tr>
+  </tbody>
+</table>
+
+### **Validator Registry Contract Addresses (Holesky)**
+
+import { ValidatorOptInRouterAddress, VanillaRegistryAddress, MevCommitAVSAddress, MevCommitMiddlewareAddress } from '/snippets/testnet-addresses.mdx';
+
+<table>
+  <thead>
+    <tr>
+      <th width="299">Contract</th>
+      <th>Address</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>ValidatorOptInRouter</td>
+      <td>{ValidatorOptInRouterAddress}</td>
+    </tr>
+    <tr>
+      <td>VanillaRegistry</td>
+      <td>{VanillaRegistryAddress}</td>
+    </tr>
+    <tr>
+      <td>MevCommitAVS</td>
+      <td>{MevCommitAVSAddress}</td>
+    </tr>
+    <tr>
+      <td>MevCommitMiddleware</td>
+      <td>{MevCommitMiddlewareAddress}</td>
+    </tr>
+  </tbody>
+</table>
+
+### **Other addresses (Holesky)**
+
+import { MevCommitNetworkAddress } from '/snippets/testnet-addresses.mdx';
+
+<table>
+  <thead>
+    <tr>
+      <th width="299">Entity</th>
+      <th>Address</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Mev-commit (Symbiotic) Network Address</td>
+      <td>{MevCommitNetworkAddress}</td>
+    </tr>
+  </tbody>
+</table>
+
+
+### **Bridge Gateway (Holesky)**
+
+import { L1Gateway_0_8_0 } from '/snippets/testnet-addresses.mdx';
+
+<table>
+  <thead>
+    <tr>
+      <th width="299">Entity</th>
+      <th>Address</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>L1Gateway</td>
+      <td>{L1Gateway_0_8_0}</td>
+    </tr>
+  </tbody>
+</table>
+
+## How can users provide feedback or report issues encountered on the testnet?
+
+Users can open an issue on the GitHub repository that is associated with any issue they encounter. They can also tag @primev_xyz on Twitter, or reach out to us to join a Telegram group for early power users.
+
+## Testnet System Requirements
+
+Please refer to the System Requirements section [here.](/v0.8.0/developers/system-requirements)
