@@ -34,6 +34,11 @@ You can use the provider API to stake and check your stake balance.
     ```
   </Step>
   <Step title="Generate BLS Signature">
+
+<Warning>
+  Rewards on mev-commit now rely on the BLS key found in the relay and are then tied to the BLS key registered. The BLS key that is sending messages to the relay should be registered. This registration can now be done automatically without manual intervention. Once the registration is done, the settlement chain will be able to correctly attribute the winning providers on L1.
+</Warning>
+
     Download the bls-signer tool from the releases page and use it to generate your signature:
 
     ```shell
@@ -46,6 +51,9 @@ You can use the provider API to stake and check your stake balance.
     Make note of both the public key and signature outputs - you'll need these in the next step.
   </Step>
   <Step title="Submit Stake Registration">
+    <Info>
+      You can map multiple BLS keys to a single stake registration by including multiple public keys and signatures in the arrays. This allows you to use different BLS keys while maintaining a single stake amount.
+    </Info>
     Register your stake by submitting:
     - The stake amount (in wei)
     - Your BLS public key from the previous step
@@ -54,7 +62,7 @@ You can use the provider API to stake and check your stake balance.
     Here's an example request:
     ```shell
     # Replace with your actual values from the previous step
-    > curl localhost:13523/v1/provider/register_stake \
+    > curl localhost:13523/v1/provider/stake \
       -X POST \
       -H "Content-Type: application/json" \
       -d '{"amount":"1000000000000000000","bls_public_keys":["0x8e7884b3c4961550c13c87c0d0d30bdf8f3c9f3b5e0fb6259b2d1dc8c93432fac8f55d8c0f9e4f2a0f7d0a7b9b9f5d1"],"bls_signatures":["0xa1b2c3..."]}' | jq
@@ -66,8 +74,6 @@ You can use the provider API to stake and check your stake balance.
 </Steps>
 
 <Check>Congrats, your provider node is registered on mev-commit and you're ready to [consume bids](/v0.8.0/get-started/providers/consuming-bids).</Check>
-
-<Info>Rewards on mev-commit now rely on the BLS key found in the relay and are then tied to the BLS key registered. The BLS key that is sending messages to the relay should be registered. This registration can now be done automatically without manual intervention. Once the registration is done, the settlement chain will be able to correctly attribute the winning providers on L1.</Info>
 
 
 Other commands that can be used are:
