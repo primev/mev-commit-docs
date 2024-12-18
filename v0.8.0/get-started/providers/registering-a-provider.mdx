@@ -34,6 +34,11 @@ You can use the provider API to stake and check your stake balance.
     ```
   </Step>
   <Step title="Generate BLS Signature">
+
+<Warning>
+  Rewards on mev-commit now rely on the BLS key found in the relay and are then tied to the BLS key registered. The BLS key that is sending messages to the relay should be registered. This registration can now be done automatically without manual intervention. Once the registration is done, the settlement chain will be able to correctly attribute the winning providers on L1.
+</Warning>
+
     Download the bls-signer tool from the releases page and use it to generate your signature:
 
     ```shell
@@ -66,8 +71,6 @@ You can use the provider API to stake and check your stake balance.
 </Steps>
 
 <Check>Congrats, your provider node is registered on mev-commit and you're ready to [consume bids](/v0.8.0/get-started/providers/consuming-bids).</Check>
-
-<Info>Rewards on mev-commit now rely on the BLS key found in the relay and are then tied to the BLS key registered. The BLS key that is sending messages to the relay should be registered. This registration can now be done automatically without manual intervention. Once the registration is done, the settlement chain will be able to correctly attribute the winning providers on L1.</Info>
 
 
 Other commands that can be used are:
