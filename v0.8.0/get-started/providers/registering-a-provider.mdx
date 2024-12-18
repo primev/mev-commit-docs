@@ -51,6 +51,9 @@ You can use the provider API to stake and check your stake balance.
     Make note of both the public key and signature outputs - you'll need these in the next step.
   </Step>
   <Step title="Submit Stake Registration">
+    <Info>
+      You can map multiple BLS keys to a single stake registration by including multiple public keys and signatures in the arrays. This allows you to use different BLS keys while maintaining a single stake amount.
+    </Info>
     Register your stake by submitting:
     - The stake amount (in wei)
     - Your BLS public key from the previous step
