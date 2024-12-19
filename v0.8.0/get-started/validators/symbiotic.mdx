@@ -72,7 +72,7 @@ The Symbiotic CLI can assist in many of these steps. Refer to their [docs](https
 
       On-chain values relevant to the middleware contract can be obtained by an applicable eth client, or by using etherscan to query against the verified contract. For example, the `MevCommitMiddleware.slashReceiver` for our current holesky deployment can be found from [this link](https://holesky.etherscan.io/address/0x79FeCD427e5A3e5f1a40895A0AC20A6a50C95393#readProxyContract#F24). The `slashReceiver` row should display `0x4535bd6fF24860b5fd2889857651a85fb3d3C6b1 address`.
 
-      Upon vault registration, and validator registration, these conditions are checked. If later on, these conditions are not met, all validators associated to a vault will no longer be opted-in, as enforced in `_isValidatorOptedIn`.
+      Upon vault registration, and validator registration, all burner router configuration is validated on-chain. If later on this validation fails, all validators associated to a vault will no longer be opted-in, as enforced in `_isValidatorOptedIn`.
     </Accordion>
 
     <Accordion title="Configure Delegator Module">
