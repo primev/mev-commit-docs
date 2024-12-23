@@ -52,7 +52,7 @@ Below, you'll find a guide tailored for those who prefer a more customized insta
     ```bash  ❯_ terminal
     FILENAME="mev-commit_$(uname -s)_$(uname -m).tar.gz"
     curl -L \
-    "https://github.com/primev/mev-commit/releases/download/v0.5.0/$FILENAME" \
+    "https://github.com/primev/mev-commit/releases/download/v0.8.0/$FILENAME" \
     | tar -xz -C $HOME
     ```
 
@@ -74,7 +74,7 @@ Below, you'll find a guide tailored for those who prefer a more customized insta
         ```bash ❯_ terminal
         FILENAME="mev-commit_$(uname -s)_$(uname -m).tar.gz"
         CHECKSUM=$(curl -L \
-        "https://github.com/primev/mev-commit/releases/download/v0.5.0/mev-commit_v0.5.0_checksums.txt" \
+        "https://github.com/primev/mev-commit/releases/download/v0.8.0/mev-commit_v0.8.0_checksums.txt" \
         | awk "/$FILENAME/ {print \$1}")
         ```
       </Step>
