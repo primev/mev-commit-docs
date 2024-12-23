@@ -127,6 +127,27 @@ Below, you'll find a guide tailored for those who prefer a more customized insta
 
 Execute the script to initiate your node, selecting either a bidder or provider configuration based on your role in the network.
 
+### Mainnet
+
+```bash ❯_ provider
+mev-commit \
+	--peer-type provider \
+	--keystore-path ~/.mev-commit \
+	--keystore-password <PASSWORD> \
+	--bootnodes /dnsaddr/bootnode.mev-commit.xyz \
+	--settlement-ws-rpc-endpoint wss://chainrpc-wss.mev-commit.xyz
+```
+
+```bash ❯_ bidder
+mev-commit \
+	--keystore-path ~/.mev-commit \
+	--keystore-password <PASSWORD> \
+	--bootnodes /dnsaddr/bootnode.mev-commit.xyz \
+	--settlement-ws-rpc-endpoint wss://chainrpc-wss.mev-commit.xyz
+```
+
+### Testnet
+
 <CodeGroup>
 
 ```bash ❯_ provider

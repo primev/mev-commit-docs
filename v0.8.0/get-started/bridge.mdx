@@ -87,7 +87,14 @@ OPTIONS:
 
 <Note> The current bridge waits for finalization. Thus when moving funds from L1 to the settlement chain, users will have to wait for at least 15 mins (L1 finalization time) before getting a confirmation. Conversely, bridging from settlement to L1 chain will be significantly faster (less than 1 second settlement chain finalization time). </Note>
 
-After the bridge is successful, the following command can be used to check their mev-commit chain balance 
+After the bridge is successful, the following command can be used to check their mev-commit chain balance
+
+### Mainnet
+```
+cast balance mev_commit_mainnet_address --rpc-url https://chainrpc.mev-commit.xyz/
+```
+
+### Testnet
 ```
 cast balance mev_commit_testnet_address --rpc-url https://chainrpc.testnet.mev-commit.xyz/
 ```
