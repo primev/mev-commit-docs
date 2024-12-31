@@ -1,0 +1,174 @@
+---
+title: Mev-commit Mainnet
+sidebarTitle: Mainnet
+---
+
+Live with Ethereum Mainnet, mev-commit allows bidders and providers to engage in execution service bids and commitments. Preconfirmations, the first use case for real-time bids and commitments, are available with mev-commit.
+
+## **Links and Connection Details**
+
+### **Services links**
+
+| Service           | Link                                                                                           |
+| ----------------- | ---------------------------------------------------------------------------------------------- |
+| Mainnet RPC       | [https://chainrpc.mev-commit.xyz/](https://chainrpc.mev-commit.xyz/)           |
+| Mainnet WebSocket | [wss://chainrpc-wss.mev-commit.xyz](wss://chainrpc-wss.mev-commit.xyz)         |
+| Bootnode endpoint | [https://bootnode.mev-commit.xyz/](https://bootnode.mev-commit.xyz/)           |
+| Block explorer    | [http://explorer.mev-commit.xyz](http://explorer.mev-commit.xyz)               |
+
+### **Core Contract Addresses (mev-commit chain)**
+
+import { BidderRegistryAddressMainnet0_8_0, ProviderRegistryAddressMainnet0_8_0, PreconfManagerAddressMainnet0_8_0, OracleAddressMainnet0_8_0, BlockTrackerAddressMainnet0_8_0 } from '/snippets/mainnet-addresses.mdx';
+
+<table>
+  <thead>
+    <tr>
+      <th width="299">Contract</th>
+      <th>Address</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>BidderRegistry</td>
+      <td>{BidderRegistryAddressMainnet0_8_0}</td>
+    </tr>
+    <tr>
+      <td>ProviderRegistry</td>
+      <td>{ProviderRegistryAddressMainnet0_8_0}</td>
+    </tr>
+    <tr>
+      <td>PreconfManager</td>
+      <td>{PreconfManagerAddressMainnet0_8_0}</td>
+    </tr>
+    <tr>
+      <td>Oracle</td>
+      <td>{OracleAddressMainnet0_8_0}</td>
+    </tr>
+    <tr>
+      <td>BlockTracker</td>
+      <td>{OracleAddressMainnet0_8_0}</td>
+    </tr>
+  </tbody>
+</table>
+
+### **Bridge Gateway (mev-commit chain)**
+
+import { SettlementGatewayMainnet0_8_0 } from '/snippets/mainnet-addresses.mdx';
+
+<table>
+  <thead>
+    <tr>
+      <th width="299">Contract</th>
+      <th>Address</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>SettlementGateway</td>
+      <td>{SettlementGatewayMainnet0_8_0}</td>
+    </tr>
+  </tbody>
+</table>
+
+### **Bridge Gateway (L1 Ethereum)**
+
+import { L1GatewayMainnet0_8_0 } from '/snippets/mainnet-addresses.mdx';
+
+<table>
+  <thead>
+    <tr>
+      <th width="299">Entity</th>
+      <th>Address</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>L1Gateway</td>
+      <td>{L1GatewayMainnet0_8_0}</td>
+    </tr>
+  </tbody>
+</table>
+
+### **L1 Validator Registries**
+
+import { 
+  VanillaRegistryProxyAddress, 
+  VanillaRegistryImplementationAddress, 
+  MevCommitAVSProxyAddress, 
+  MevCommitAVSImplementationAddress,
+  ValidatorOptInRouterProxyAddress,
+  ValidatorOptInRouterImplementationAddress
+} from '/snippets/mainnet-addresses.mdx';
+
+<table>
+  <thead>
+    <tr>
+      <th>Contract</th>
+      <th>Address Type</th>
+      <th>Address</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td rowspan="2">MevCommitAVS</td>
+      <td style={{ textAlign: 'center' }}>Proxy</td>
+      <td>
+        <a href={`https://etherscan.io/address/${MevCommitAVSProxyAddress}`} target="_blank" rel="noopener noreferrer">
+          {MevCommitAVSProxyAddress}
+        </a>
+      </td>
+    </tr>
+    <tr>
+      <td style={{ textAlign: 'center' }}>Implementation</td>
+      <td>
+        <a href={`https://etherscan.io/address/${MevCommitAVSImplementationAddress}`} target="_blank" rel="noopener noreferrer">
+          {MevCommitAVSImplementationAddress}
+        </a>
+      </td>
+    </tr>
+    <tr>
+      <td rowspan="2">VanillaRegistry</td>
+      <td style={{ textAlign: 'center' }}>Proxy</td>
+      <td>
+        <a href={`https://etherscan.io/address/${VanillaRegistryProxyAddress}`} target="_blank" rel="noopener noreferrer">
+          {VanillaRegistryProxyAddress}
+        </a>
+      </td>
+    </tr>
+    <tr>
+      <td style={{ textAlign: 'center' }}>Implementation</td>
+      <td>
+        <a href={`https://etherscan.io/address/${VanillaRegistryImplementationAddress}`} target="_blank" rel="noopener noreferrer">
+          {VanillaRegistryImplementationAddress}
+        </a>
+      </td>
+    </tr>
+    <tr>
+      <td rowspan="2">ValidatorOptInRouter</td>
+      <td style={{ textAlign: 'center' }}>Proxy</td>
+      <td>
+        <a href={`https://etherscan.io/address/${ValidatorOptInRouterProxyAddress}`} target="_blank" rel="noopener noreferrer">
+          {ValidatorOptInRouterProxyAddress}
+        </a>
+      </td>
+    </tr>
+    <tr>
+      <td style={{ textAlign: 'center' }}>Implementation</td>
+      <td>
+        <a href={`https://etherscan.io/address/${ValidatorOptInRouterImplementationAddress}`} target="_blank" rel="noopener noreferrer">
+          {ValidatorOptInRouterImplementationAddress}
+        </a>
+      </td>
+    </tr>
+  </tbody>
+</table> 
+
+All contract calls should be made through the proxy contracts. Implementations are listed for transparency, where verified contract code can be viewed.
+
+## How can users provide feedback or report issues encountered on the testnet?
+
+Users can open an issue on the GitHub repository that is associated with any issue they encounter. They can also tag @primev_xyz on Twitter, or reach out to us to join a Telegram group for early power users.
+
+## Mainnet System Requirements
+
+Please refer to the System Requirements section [here.](/v0.8.0/developers/system-requirements)

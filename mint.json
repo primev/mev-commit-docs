@@ -22,6 +22,16 @@
   },
   "tabs": [
     {
+      "version": "v1.0.0",
+      "name": "API Reference",
+      "url": "v1.0.0/api-reference"
+    },
+    {
+      "version": "v1.0.0",
+      "name": "Knowledge Base",
+      "url": "v1.0.0/knowledge-base"
+    },
+    {
       "version": "v0.8.0",
       "name": "API Reference",
       "url": "v0.8.0/api-reference"
@@ -52,8 +62,51 @@
       "url": "v0.6.3/knowledge-base"
     }
   ],
-  "versions": ["v0.8.0", "v0.7.0", "v0.6.3"],
+  "versions": ["v1.0.0", "v0.8.0", "v0.7.0", "v0.6.3"],
   "navigation": [
+    {
+      "group": "Get Started",
+      "version": "v1.0.0",
+      "pages": [
+        "v1.0.0/get-started/welcome-to-primev",
+        "v1.0.0/get-started/quickstart",
+        "v1.0.0/get-started/bridge",
+        {
+          "group": "Validators",
+          "version": "v1.0.0",
+          "pages": [
+            "v1.0.0/get-started/validators/validator-guide",
+            "v1.0.0/get-started/validators/eigenlayer",
+            "v1.0.0/get-started/validators/symbiotic",
+            "v1.0.0/get-started/validators/vanilla"
+          ],
+          "icon": "list-check"
+        },
+        "v1.0.0/get-started/relays",
+        {
+          "group": "Bidders",
+          "version": "v1.0.0",
+          "pages": [
+            "v1.0.0/get-started/bidders/best-practices",
+            "v1.0.0/get-started/bidders/bidder-node-commands",
+            "v1.0.0/get-started/bidders/bidder-cli"
+          ],
+          "icon": "user-bounty-hunter"
+        },
+        {
+          "group": "Providers",
+          "version": "v1.0.0",
+          "pages": [
+            "v1.0.0/get-started/providers/registering-a-provider",
+            "v1.0.0/get-started/providers/consuming-bids",
+            "v1.0.0/get-started/providers/sending-commitments",
+            "v1.0.0/get-started/providers/Querying-for-proposers",
+            "v1.0.0/get-started/providers/withdraw"
+          ],
+          "icon": "network-wired"
+        }
+      ]
+    },
     {
       "group": "Get Started",
       "version": "v0.8.0",
@@ -183,6 +236,41 @@
     },
     {
       "group": "Concepts",
+      "version": "v1.0.0",
+      "pages": [
+        "v1.0.0/concepts/what-is-mev-commit",
+        "v1.0.0/concepts/actors",
+        "v1.0.0/concepts/network-overview",
+        "v1.0.0/concepts/privacy",
+        "v1.0.0/concepts/commitments",
+        "v1.0.0/concepts/solvers",
+        "v1.0.0/concepts/builder-attribution",
+        {
+          "group": "Bids",
+          "version": "v1.0.0",
+          "pages": [
+            "v1.0.0/concepts/bids/bid-structure",
+            "v1.0.0/concepts/bids/reverting-txns",
+            "v1.0.0/concepts/bids/bidder-deposit",
+            "v1.0.0/concepts/bids/bid-decay-mechanism"
+          ]
+        },
+        {
+          "group": "Mev-commit Chain",
+          "version": "v1.0.0",
+          "pages": [
+            "v1.0.0/concepts/mev-commit-chain/chain-details",
+            "v1.0.0/concepts/mev-commit-chain/differences-between-ethereum-and-mev-commit-chain",
+            "v1.0.0/concepts/mev-commit-chain/bridging-details"
+          ]
+        },
+        "v1.0.0/concepts/rewards-and-slashing",
+        "v1.0.0/concepts/oracle",
+        "v1.0.0/concepts/validator-considerations"
+      ]
+    },
+    {
+      "group": "Concepts",
       "version": "v0.8.0",
       "pages": [
         "v0.8.0/concepts/what-is-mev-commit",
@@ -287,6 +375,24 @@
     },
     {
       "group": "Developers",
+      "version": "v1.0.0",
+      "pages": [
+        "v1.0.0/developers/mainnet",
+        "v1.0.0/developers/testnet",
+        "v1.0.0/developers/system-requirements",
+        "v1.0.0/developers/provider-api",
+        "v1.0.0/developers/bidder-api",
+        "v1.0.0/developers/bidder-deposit",
+        "v1.0.0/developers/docker-bidder",
+        "v1.0.0/developers/tools-for-bid-submission",
+        "v1.0.0/developers/contracts",
+        "v1.0.0/developers/debugging",
+        "v1.0.0/developers/manual-start-mev-commit",
+        "v1.0.0/developers/run-mev-commit-chain-node"
+      ]
+    },
+    {
+      "group": "Developers",
       "version": "v0.8.0",
       "pages": [
         "v0.8.0/developers/mainnet",
@@ -337,6 +443,23 @@
         "v0.6.3/developers/debugging",
         "v0.6.3/developers/manual-start-mev-commit",
         "v0.6.3/developers/run-mev-commit-chain-node"
+      ]
+    },
+    {
+      "group": "Knowledge Base",
+      "version": "v1.0.0",
+      "pages": [
+        "v1.0.0/knowledge-base/introduction",
+        "v1.0.0/knowledge-base/what-is-deposit-amount",
+        "v1.0.0/knowledge-base/how-do-i-fix-the-error-failed-to-read-msg-stream-reset",
+        "v1.0.0/knowledge-base/what-is-foundry",
+        "v1.0.0/knowledge-base/why-is-cast-necessary-for-mev-commit-chain-interactions",
+        "v1.0.0/knowledge-base/why-do-i-receive-the-same-commitment-when-resending-a-bid",
+        "v1.0.0/knowledge-base/what-is-execution-preconfirmations",
+        "v1.0.0/knowledge-base/how-to-price-a-bid",
+        "v1.0.0/knowledge-base/what-happens-during-an-execution-preconf",
+        "v1.0.0/knowledge-base/how-do-preconfs-work",
+        "v1.0.0/knowledge-base/eigenlayer-operator-registration"
       ]
     },
     {
@@ -392,6 +515,22 @@
     },
     {
       "group": "FAQ",
+      "version": "v1.0.0",
+      "pages": [
+        "v1.0.0/faq/introduction",
+        "v1.0.0/faq/what-is-deposit-amount",
+        "v1.0.0/faq/how-do-i-fix-the-error-failed-to-read-msg-stream-reset",
+        "v1.0.0/faq/what-is-foundry",
+        "v1.0.0/faq/why-is-cast-necessary-for-mev-commit-chain-interactions",
+        "v1.0.0/faq/why-do-i-receive-the-same-commitment-when-resending-a-bid",
+        "v1.0.0/faq/what-is-execution-preconfirmations",
+        "v1.0.0/faq/how-to-price-a-bid",
+        "v1.0.0/faq/what-happens-during-an-execution-preconf",
+        "v1.0.0/faq/how-do-preconfs-work"
+      ]
+    },
+    {
+      "group": "FAQ",
       "version": "v0.8.0",
       "pages": [
         "v0.8.0/faq/introduction",
@@ -424,6 +563,11 @@
     },
     {
       "group": "API Reference",
+      "version": "v1.0.0",
+      "pages": ["v1.0.0/api-reference/introduction"]
+    },
+    {
+      "group": "API Reference",
       "version": "v0.8.0",
       "pages": ["v0.8.0/api-reference/introduction"]
     },
@@ -436,6 +580,19 @@
       "group": "API Reference",
       "version": "v0.6.3",
       "pages": ["v0.6.3/api-reference/introduction"]
+    },
+    {
+      "group": "Provider",
+      "version": "v1.0.0",
+      "pages": [
+        "v1.0.0/api-reference/provider/receivebids",
+        "v1.0.0/api-reference/provider/sendprocessedbids",
+        "v1.0.0/api-reference/provider/registerstake",
+        "v1.0.0/api-reference/provider/getminstake",
+        "v1.0.0/api-reference/provider/getstake",
+        "v1.0.0/api-reference/provider/unstake",
+        "v1.0.0/api-reference/provider/withdraw_stake"
+      ]
     },
     {
       "group": "Provider",
@@ -474,6 +631,21 @@
         "v0.6.3/api-reference/provider/getstake",
         "v0.6.3/api-reference/provider/unstake",
         "v0.6.3/api-reference/provider/withdraw_stake"
+      ]
+    },
+    {
+      "group": "Bidder",
+      "version": "v1.0.0",
+      "pages": [
+        "v1.0.0/api-reference/bidder/sendbid",
+        "v1.0.0/api-reference/bidder/getdeposit",
+        "v1.0.0/api-reference/bidder/deposit",
+        "v1.0.0/api-reference/bidder/withdraw",
+        "v1.0.0/api-reference/bidder/withdrawfromwindows",
+        "v1.0.0/api-reference/bidder/autodeposit",
+        "v1.0.0/api-reference/bidder/autodepositstatus",
+        "v1.0.0/api-reference/bidder/cancelautodeposit",
+        "v1.0.0/api-reference/validator/getvalidators"
       ]
     },
     {
@@ -519,6 +691,15 @@
         "v0.6.3/api-reference/bidder/autodepositstatus",
         "v0.6.3/api-reference/bidder/cancelautodeposit",
         "v0.6.3/api-reference/validator/getvalidators"
+      ]
+    },
+    {
+      "group": "Debug",
+      "version": "v1.0.0",
+      "pages": [
+        "v1.0.0/api-reference/debug/canceltx",
+        "v1.0.0/api-reference/debug/pendingtxs",
+        "v1.0.0/api-reference/debug/topology"
       ]
     },
     {

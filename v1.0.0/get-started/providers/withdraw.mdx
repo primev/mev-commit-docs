@@ -1,0 +1,28 @@
+---
+title: 'Withdraw Stake'
+description: Withdraws the stake from the provider registry.
+sidebarTitle: Withdraw Stake
+---
+
+Withdrawal on mev-commit chain should be done in two steps:
+
+<Steps>
+    <Step title="Unstake Funds">
+        Unstake the funds from the provider registry.
+
+    ```shell
+    > curl -X POST "http://localhost:13523/v1/provider/unstake"
+    ```
+    </Step>
+    <Step title="Withdraw Stake">
+        Withdraw the stake from the provider registry.
+
+        After 24 hours following the unstake operation, you can withdraw the funds from the provider registry.
+        ```shell
+        > curl -X POST "http://localhost:13523/v1/provider/withdraw_stake" | jq
+        {
+            "amount": "1000000000000000000"
+        }
+        ```
+    </Step>
+</Steps>
