@@ -16,9 +16,13 @@ Live with Ethereum Mainnet, mev-commit allows bidders and providers to engage in
 | Bootnode endpoint | [https://bootnode.mev-commit.xyz/](https://bootnode.mev-commit.xyz/)           |
 | Block explorer    | [http://explorer.mev-commit.xyz](http://explorer.mev-commit.xyz)               |
 
+## Mev-commit chain contracts
+
+The following contracts are deployed on the mev-commit chain.
+
 ### **Core Contract Addresses (mev-commit chain)**
 
-import { BidderRegistryAddressMainnet0_8_0, ProviderRegistryAddressMainnet0_8_0, PreconfManagerAddressMainnet0_8_0, OracleAddressMainnet0_8_0, BlockTrackerAddressMainnet0_8_0 } from '/snippets/mainnet-addresses.mdx';
+import { BidderRegistryAddressMainnet1_0_0, ProviderRegistryAddressMainnet1_0_0, PreconfManagerAddressMainnet1_0_0, OracleAddressMainnet1_0_0, BlockTrackerAddressMainnet1_0_0 } from '/snippets/mainnet-addresses.mdx';
 
 <table>
   <thead>
@@ -30,30 +34,30 @@ import { BidderRegistryAddressMainnet0_8_0, ProviderRegistryAddressMainnet0_8_0,
   <tbody>
     <tr>
       <td>BidderRegistry</td>
-      <td>{BidderRegistryAddressMainnet0_8_0}</td>
+      <td>{BidderRegistryAddressMainnet1_0_0}</td>
     </tr>
     <tr>
       <td>ProviderRegistry</td>
-      <td>{ProviderRegistryAddressMainnet0_8_0}</td>
+      <td>{ProviderRegistryAddressMainnet1_0_0}</td>
     </tr>
     <tr>
       <td>PreconfManager</td>
-      <td>{PreconfManagerAddressMainnet0_8_0}</td>
+      <td>{PreconfManagerAddressMainnet1_0_0}</td>
     </tr>
     <tr>
       <td>Oracle</td>
-      <td>{OracleAddressMainnet0_8_0}</td>
+      <td>{OracleAddressMainnet1_0_0}</td>
     </tr>
     <tr>
       <td>BlockTracker</td>
-      <td>{OracleAddressMainnet0_8_0}</td>
+      <td>{BlockTrackerAddressMainnet1_0_0}</td>
     </tr>
   </tbody>
 </table>
 
-### **Bridge Gateway (mev-commit chain)**
+### **Settlement Bridge Gateway**
 
-import { SettlementGatewayMainnet0_8_0 } from '/snippets/mainnet-addresses.mdx';
+import { SettlementGatewayMainnet1_0_0 } from '/snippets/mainnet-addresses.mdx';
 
 <table>
   <thead>
@@ -65,31 +69,49 @@ import { SettlementGatewayMainnet0_8_0 } from '/snippets/mainnet-addresses.mdx';
   <tbody>
     <tr>
       <td>SettlementGateway</td>
-      <td>{SettlementGatewayMainnet0_8_0}</td>
+      <td>{SettlementGatewayMainnet1_0_0}</td>
     </tr>
   </tbody>
 </table>
 
-### **Bridge Gateway (L1 Ethereum)**
+## L1 Ethereum contracts
 
-import { L1GatewayMainnet0_8_0 } from '/snippets/mainnet-addresses.mdx';
+The following contracts are deployed on L1 Ethereum.
+
+### **L1 Bridge Gateway**
+
+import { L1GatewayMainnet1_0_0Proxy, L1GatewayMainnet1_0_0Implementation } from '/snippets/mainnet-addresses.mdx';
 
 <table>
   <thead>
     <tr>
       <th width="299">Entity</th>
+      <th>Address Type</th>
       <th>Address</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>L1Gateway</td>
-      <td>{L1GatewayMainnet0_8_0}</td>
+      <td rowspan="2">L1Gateway</td>
+      <td style={{ textAlign: 'center' }}>Proxy</td>
+      <td>
+        <a href={`https://etherscan.io/address/${L1GatewayMainnet1_0_0Proxy}`} target="_blank" rel="noopener noreferrer">
+          {L1GatewayMainnet1_0_0Proxy}
+        </a>
+      </td>
+    </tr>
+    <tr>
+      <td style={{ textAlign: 'center' }}>Implementation</td>
+      <td>
+        <a href={`https://etherscan.io/address/${L1GatewayMainnet1_0_0Implementation}`} target="_blank" rel="noopener noreferrer">
+          {L1GatewayMainnet1_0_0Implementation}
+        </a>
+      </td>
     </tr>
   </tbody>
 </table>
 
-### **L1 Validator Registries**
+### **Validator Registries**
 
 import { 
   VanillaRegistryProxyAddress, 
