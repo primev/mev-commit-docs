@@ -102,15 +102,27 @@ curl -X POST http://localhost:13523/v1/bidder/withdraw_from_windows \
 ```
 
 ## Checking the Balance of your Wallet
+### Mainnet
+This command will allow you to check your current wallet balance on mainnet mev-commit chain:
 
-This command will allow you to check your current wallet balance on mev-commit chain:
+```shell ❯_ terminal
+cast b $ADDRESS --rpc-url https://chainrpc.mev-commit.xyz
+```
+### Testnet
+This command will allow you to check your current wallet balance on testnet mev-commit chain:
 
 ```shell ❯_ terminal
 cast b $ADDRESS --rpc-url https://chainrpc.testnet.mev-commit.xyz
 ```
 
 ## Check Total Value Locked in Contracts
-
+### Mainnet
+```shell ❯_ terminal
+python3 -c "print($(cast b 0x401B3287364f95694c43ACA3252831cAc02e5C41 \
+--rpc-url https://chainrpc.mev-commit.xyz) + $(cast b 0xf4F10e18244d836311508917A3B04694D88999Dd \
+--rpc-url https://chainrpc.mev-commit.xyz))"
+```
+### Testnet
 ```shell ❯_ terminal
 python3 -c "print($(cast b 0x401B3287364f95694c43ACA3252831cAc02e5C41 \
 --rpc-url https://chainrpc.testnet.mev-commit.xyz) + $(cast b 0xf4F10e18244d836311508917A3B04694D88999Dd \
@@ -137,9 +149,11 @@ This API is enabled by default, the following environment variables could be set
 - `MEV_COMMIT_BEACON_API_URL`
 - `MEV_COMMIT_L1_RPC_URL`
 
-Current address for the ValidatorOptInRouter contract on Holesky is `0x251Fbc993f58cBfDA8Ad7b0278084F915aCE7fc3`.
+Current address for the ValidatorOptInRouter contract on Holesky is `0x251Fbc993f58cBfDA8Ad7b0278084F915aCE7fc3` and on Mainnet is `tbd`.
 
-The default URLs for the Beacon Chain and L1 RPC are https://ethereum-holesky-beacon-api.publicnode.com and https://ethereum-holesky-rpc.publicnode.com, respectively, but you can set your own URLs.
+The default URLs for the *Mainnet* Beacon Chain and L1 RPC are https://ethereum-beacon-api.publicnode.com and https://ethereum-rpc.publicnode.com, respectively, but you can set your own URLs.
+
+The default URLs for the *Testnet* Beacon Chain and L1 RPC are https://ethereum-holesky-beacon-api.publicnode.com and https://ethereum-holesky-rpc.publicnode.com, respectively, but you can set your own URLs.
 
 To get the information on whether validators for a specific epoch are opted in to mev-commit:
 
@@ -159,6 +173,16 @@ Note proposer selection is only stable within the context of the current epoch, 
 
 Users can also set-up a specific subset of provider nodes in order to send their bids. By default the mev-commit bidder node will send bids to all the available and staked providers. However, if the user wants only a specific subset of providers to be able to see their bids, the can use the `--provider-whitelist` option to set it up. The list should contain the ethereum wallet addresses of the provider nodes.
 
+### Mainnet
+```shell ❯_ terminal
+mev-commit --keystore-path ~/.mev-commit \
+ --keystore-password <PASSWORD> \
+	--bootnodes /dnsaddr/bootnode.mev-commit.xyz \
+	--settlement-rpc-endpoint https://chainrpc.mev-commit.xyz
+  --provider-whitelist 0x6DcE7bcF4fCA9E14b546e583049B82474631b185,0x0979c194EaD08444B6e40415F5822AB32363f580
+```
+
+### Testnet
 ```shell ❯_ terminal
 mev-commit --keystore-path ~/.mev-commit \
  --keystore-password <PASSWORD> \
