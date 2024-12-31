@@ -3,13 +3,13 @@ title: "Tools for Bid Submission"
 sidebarTitle: "Tools for Bid Submission"
 ---
 
-The team has developed the [bidder CLI](/v0.8.0/get-started/bidders/bidder-cli) tool to make it easier for users to send bids or raw transactions to the network. Please go through the instructions there on how to use this.
+The team has developed the [bidder CLI](/v1.0.0/get-started/bidders/bidder-cli) tool to make it easier for users to send bids or raw transactions to the network. Please go through the instructions there on how to use this.
 
 We also recommend leveraging the Go RPC client or alternatively using the REST API below to send bids. For those who prefer to use command-line tools, options like [grpcurl](https://github.com/fullstorydev/grpcurl), or [BloomRPC](https://github.com/bloomrpc/bloomrpc) are available. These tools require the protobuf definitions from the repository to interact with the RPC services.
 
 ## Official Go RPC Client
 
-For Go developers, leveraging the official Go RPC client is the recommended approach. It is easier for users to copy the [bidder API protobuf generated](https://github.com/primev/mev-commit/tree/v0.8.0/p2p/gen/go/bidderapi/v1) files into their local project.
+For Go developers, leveraging the official Go RPC client is the recommended approach. It is easier for users to copy the [bidder API protobuf generated](https://github.com/primev/mev-commit/tree/v1.0.0/p2p/gen/go/bidderapi/v1) files into their local project.
 
 Then, incorporate the generated client into your Go application as follows:
 
@@ -59,7 +59,7 @@ for {
 
 ### Custom Client Generation
 
-Utilize the provided protobuf [files](https://github.com/primev/mev-commit/tree/v0.8.0/p2p/rpc/bidderapi/v1/bidderapi.proto) to generate a client in your preferred programming language, enabling seamless integration with your existing codebase.
+Utilize the provided protobuf [files](https://github.com/primev/mev-commit/tree/v1.0.0/p2p/rpc/bidderapi/v1/bidderapi.proto) to generate a client in your preferred programming language, enabling seamless integration with your existing codebase.
 
 ## REST API
 
@@ -91,4 +91,4 @@ curl -X POST http://localhost:13523/v1/bidder/bid \
 
 </CodeGroup>
 
-The REST API provides a straightforward way to submit bids using HTTP requests. For detailed usage instructions, refer to [the Bidder API documentation](/v0.8.0/api-reference/bidder/sendbid).
+The REST API provides a straightforward way to submit bids using HTTP requests. For detailed usage instructions, refer to [the Bidder API documentation](/v1.0.0/api-reference/bidder/sendbid).

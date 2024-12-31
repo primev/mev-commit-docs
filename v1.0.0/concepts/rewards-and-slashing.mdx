@@ -5,7 +5,7 @@ sidebarTitle: Rewards and Slashing
 
 The providers and validators that opt-in to the mev-commit protocol are incentivized to act honestly and follow the protocol. This honest behavior is enforced by a reward and slashing mechanism. Both the providers and the validators are required to stake or restake a certain amount of tokens to participate in the mev-commit protocol. The mechanism is designed to reward providers for fulfilling their commitments and to penalize them for breaking them. It also disincentivizes providers from issuing commitments that they cannot fulfill. Additionally, validators can be penalized if they fail to propose a block from mev-commit registered block builders on the L1 chain.
 
-Validators have three methods to opt-in to mev-commit, as described in the [validators section](/v0.8.0/get-started/validators). The staked (or restaked) tokens are used to secure the mev-commit protocol and to incentivize validators to include blocks built by mev-commit providers in the L1 chain. Crucially, if the validator acts maliciously on the mev-commit protocol they can be slashed and lose a portion of their staked (or restaked) tokens. Next, we discuss the rewards and slashing mechanisms for validators and providers in more detail.
+Validators have three methods to opt-in to mev-commit, as described in the [validators section](/v1.0.0/get-started/validators). The staked (or restaked) tokens are used to secure the mev-commit protocol and to incentivize validators to include blocks built by mev-commit providers in the L1 chain. Crucially, if the validator acts maliciously on the mev-commit protocol they can be slashed and lose a portion of their staked (or restaked) tokens. Next, we discuss the rewards and slashing mechanisms for validators and providers in more detail.
 
 ## Validators/Proposers
 A validator that opts into mev-commit makes an implicit commitment to include a block from a mev-commit registered block builder in L1 whenever they become the proposer of the slot. 
@@ -15,7 +15,7 @@ The main reward for proposers opting in to mev-commit is proposing a more valuab
 
 Using an example of a block worth 1 ETH and mev-commit bids worth 0.1 ETH, the diagram below depicts Validator Rewards with and without mev-commit:
 
-![Validator Rewards](/v0.8.0/images/validator-rewards.png)
+![Validator Rewards](/v1.0.0/images/validator-rewards.png)
 
 <Note>An important observation here is that proposers opting in increases the credibility of the preconfs and consequently their value. Due to the increased preconf values, the providers have additional value to bid in the mev-boost auction, thus driving up the total revenue a proposer will get.</Note>
 

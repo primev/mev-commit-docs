@@ -12,7 +12,7 @@ Participation of L1 validators in the mev-commit protocol increases the credibil
 
 Both Holesky and Mainnet L1 validators are able to opt-in to mev-commit. The opt-in process is initiated from the chain the validator is staked on.
 
-See [mainnet](/v0.8.0/developers/mainnet#l1-validator-registries) and [testnet](/v0.8.0/developers/testnet#validator-registry-contract-addresses-holesky) for relevant contract addresses.
+See [mainnet](/v1.0.0/developers/mainnet#l1-validator-registries) and [testnet](/v1.0.0/developers/testnet#validator-registry-contract-addresses-holesky) for relevant contract addresses.
 
 ## Requirements
 
@@ -34,7 +34,7 @@ By opting-in to the mev-commit protocol as a validator **in one of the three for
 | Aestus Mainnet | [mainnet.aestus.live](https://mainnet.aestus.live/) |
 | Aestus Holesky | [holesky.aestus.live](https://holesky.aestus.live/) |
 
-We expect all known relays to support opting-in to mev-commit within a few months of being live on mainnet. If you are a relay looking to join the mev-commit network please visit our [Relays page](/v0.8.0/get-started/relays) to get more information.
+We expect all known relays to support opting-in to mev-commit within a few months of being live on mainnet. If you are a relay looking to join the mev-commit network please visit our [Relays page](/v1.0.0/get-started/relays) to get more information.
 
 Proposers who fallback to local block production, from either a fault in the mev-boost software or a lack of economically viable block bids, **will not be slashed**. See [flashbots docs](https://docs.flashbots.net/flashbots-mev-boost/architecture-overview/risks#liveness-and-local-fallback) for more on this scenario. The protocol may in the future slash for abuse of this local fallback mechanism.
 
@@ -44,13 +44,13 @@ Note each validator pubkey should only opt-in using one of the three methods des
 
 <CardGroup cols={3}>
   <Card title="Eigenlayer Restaking" icon="coins">
-    [Click here](/v0.8.0/get-started/validators/eigenlayer) for more information on native restaking with mev-commit's AVS
+    [Click here](/v1.0.0/get-started/validators/eigenlayer) for more information on native restaking with mev-commit's AVS
   </Card>
   <Card title="Symbiotic Restaking" icon="coins">
-    [Click here](/v0.8.0/get-started/validators/symbiotic) for more information on ERC20 restaking with mev-commit's middleware contract
+    [Click here](/v1.0.0/get-started/validators/symbiotic) for more information on ERC20 restaking with mev-commit's middleware contract
   </Card>
   <Card title="Simple Staking" icon="layer-group">
-    [Click here](/v0.8.0/get-started/validators/vanilla) for more information on "vanilla" staking with mev-commit
+    [Click here](/v1.0.0/get-started/validators/vanilla) for more information on "vanilla" staking with mev-commit
   </Card>
 </CardGroup>
 

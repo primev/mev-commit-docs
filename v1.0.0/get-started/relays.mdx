@@ -18,12 +18,12 @@ Your relay will check if the current slot's validator has opted into mev-commit:
 
 - If they haven't opted in, your relay works normally:
 <Frame>
-  <img src="/v0.8.0/images/mev-commit-relay.png" alt="mev-commit relay diagram" />
+  <img src="/v1.0.0/images/mev-commit-relay.png" alt="mev-commit relay diagram" />
 </Frame>
 
 - If they have opted in, your relay only accepts blocks from mev-commit builders:
 <Frame>
-  <img src="/v0.8.0/images/mev-commit-validator-relay.png" alt="mev-commit validator relay diagram" />
+  <img src="/v1.0.0/images/mev-commit-validator-relay.png" alt="mev-commit validator relay diagram" />
 </Frame>
 
 To implement this, your relay needs to track two things:
@@ -51,13 +51,13 @@ PROVIDER_REGISTRY_ADDR={ProviderRegistryAddress0_7_0}
 
   <Step title="Test and Deploy">
     Test filtering behavior on Holesky:
-    - Register a [test builder](/v0.8.0/get-started/quickstart)
+    - Register a [test builder](/v1.0.0/get-started/quickstart)
     - Submit [test bids](/bidders/best-practices#submit-bundles)
     - Verify correct block filtering 
   </Step>
 
   <Step title="Register Your Relay">
-    1. Add your relay to our [supporting relays list](/v0.8.0/get-started/validators/validator-guide#supporting-relays)
+    1. Add your relay to our [supporting relays list](/v1.0.0/get-started/validators/validator-guide#supporting-relays)
     2. Provide connection details for validators
     3. Contact the Primev team to coordinate validator outreach
   </Step>
