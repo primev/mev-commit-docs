@@ -1,0 +1,59 @@
+# Introduction
+
+The [mev-commit contracts](https://github.com/primev/mev-commit/tree/main/contracts) verify and manage the movement of funds as a response to bid and commitment activities that occur on our p2p network.
+
+For mev-commit mainnet contract addresses please refer to [Mainnet](/v1.0.0/developers/mainnet) section.
+
+For mev-commit testnet contract addresses please refer to [Testnet](/v1.0.0/developers/testnet) section.
+
+## Core Contracts
+
+The mev-commit protocol has 5 **core contracts**, which are all deployed on the mev-commit chain:
+
+- **Preconf Manager**
+  - This will persist details about the commitments that have been made into contract storage.
+- **Bidder Registry**
+  - This will be where the bulk of monetary transfer occurs.
+  - Bidders deposit for bids into this contract.
+  - The payment gets processed into a provider-allocated section that a provider can later retrieve.
+- **Provider Registry**
+  - This contract stores the stake a provider bounds to ensure it doesn't break its promises under preconfirmations.
+- **Oracle**
+  - This simply retrieves details on which commitments to process for rewarding or slashing.
+  - Access to the functions on this contract is restricted to the owner of the Oracle key.
+- **Block Tracker**
+  - This will track Ethereum blocks and their winners, so commitments could be rewarded or slashed
+  - Access to the functions on this contract is restricted to the owner of the Oracle key.
+
+## Validator Registry Contracts
+
+The validator registry contracts are deployed on L1, and enable three methods of validator opt-in:
+
+- **Validator Opt-In Router**
+  - ValidatorOptInRouter enables actors to query whether a validator is opted-in to the mev-commit protocol from any of the below three methods.
+- **Vanilla Registry**
+  - VanillaRegistry allows validators to opt-in to mev-commit by staking native ETH directly with the contract.
+  - This stake is separate from a validator's 32 ETH already staked with the beacon chain.
+- **Mev-commit AVS**
+  - MevCommitAVS acts as a tie-in to Eigenlayer core contracts, enabling validators to opt-in to the mev-commit protocol via native restaking.
+- **Mev-commit middleware**
+  - MevCommitMiddleware serves as tie-in to Symbiotic core contracts, enabling validators to opt-in to the mev-commit protocol via restaking ERC20 tokens with vaults.
+
+## Bridge Contracts
+
+The standard bridge protocol for native ETH transfers between L1 and the mev-commit chain is implemented in [this directory](https://github.com/primev/mev-commit/tree/main/contracts/contracts/standard-bridge). Contracts include:
+
+- **L1 Gateway**
+  - The L1 gateway contract allows users to lock their native ETH on L1, where an equivalent amount will be allocated to a specified account on the mev-commit chain. This contract is also responsible for unlocking ETH when bridging back to L1.
+- **Settlement Gateway**
+  - The settlement gateway integrates with the allocator contract to allocate native ETH on the mev-commit chain. It also allows users to bridge native ETH back to L1.
+- **Allocator**
+  - The allocator contract is responsible paying out ETH to bridge users as necessary on the mev-commit chain. It's currently only integrated with the settlement gateway, but will be extended to other bridging protocols in the future.
+
+## Deploying Custom Contracts
+
+### Mainnet
+You can deploy any EVM compatible contracts to the mev-commit chain, simply set your **Chain ID to tbd** and RPC Url to `https://chainrpc.mev-commit.xyz`.
+
+### Testnet
+You can deploy any EVM compatible contracts to the mev-commit chain, simply set your **Chain ID to 17864** and RPC Url to `https://chainrpc.testnet.mev-commit.xyz`.

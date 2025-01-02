@@ -1,0 +1,45 @@
+---
+title: How Do You Provide A Commitment for Execution?
+sidebarTitle: How Do Preconfs Work?
+description: "Learn what providers do during an execution preconfirmation."
+---
+
+In [this guide](/knowledge-base/what-happens-during-an-execution-preconf), we covered what goes into an execution preconf. Now, let's look at what preconf providers are doing behind the scenes to make this possible.
+
+<Steps>
+<Step title="Bid Analysis">
+
+A provider receives bids through mev-commit and analyzes the bid parameters - transaction details, bid amount, and target L1 block number.
+
+Favorable bids might include:
+- Higher bid amounts
+- Transactions that align with the provider's own block building strategies
+- Bids for blocks in the near future (easier to plan for)
+</Step>
+<Step title="Commitment">
+Based on the analysis, the provider decides whether to commit to including the transaction.
+
+The provider's decision to commit generally depends on:
+- Profitability of including the transaction
+- Available block space
+- Potential conflicts with other commitments
+- The expected value of the opportunity as the timeslot nears its end
+
+If decided positively, the provider generates a cryptographic commitment that includes the transaction and sends it back to the bidder's node.
+
+Upon committing to a transaction, providers typically take the following steps:
+1. They start a new simulation instance for the block they're building.
+2. In this simulation, the committed transaction is treated as a fixed parameter, which allows them to ensure the committed transaction will execute as expected as they optimize the inclusion of additional transactions around the committed one.
+</Step>
+<Step title="Commitment Aggregation">
+Multiple providers may issue commitments for the same bid. Ideally, providers seek 100% coverage by getting commitments from all providers registered in mev-commit before issuing a guarantee to the bidder.
+</Step>
+<Step title="Block Building">
+Block builders act as preconf providers. They receive bids and can issue commitments to include specific transactions in blocks they build.
+</Step>
+<Step title="Execution and Verification">
+As the block is proposed, the committed transactions are executed.
+An oracle verifies that the committed transactions were indeed executed in the correct block.
+</Step>
+</Steps>
+Preconfirmations are about ensuring execution terms. By allowing searchers to specify their execution preferences, transactors can have the assurance that execution will conform to their stated parameters. It also makes value extraction more transparent and according to predefined goals.
