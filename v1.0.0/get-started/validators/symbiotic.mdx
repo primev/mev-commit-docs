@@ -61,6 +61,39 @@ Alternatively the Symbiotic CLI can assist in many of these steps. Refer to thei
     <Info>
       If you're deploying any contracts for the first time, please make use of Symbiotic's various factory contracts, and set all necessary parameters upon contract initialization. This avoids unnecessary delays in the setup process.
     </Info>
+    
+    Mev-commit enforces vault configuration from the following dropdowns:
+
+    <Accordion title="Configure Burner Router">
+      The `IVaultStorage.burner` address must be set to a `BurnerRouter` contract, and this contract must be deployed via Symbiotic's `IBurnerRouterFactory.create()`. See [here](https://docs.symbiotic.fi/deployments/current#burners) to find the `BurnerRouterFactory` address from the current deployment. Find more details about burner routers [here](https://docs.symbiotic.fi/modules/extensions/burners#burner-router).
+
+      The deployed burner router must be configured as follows:
+      * `IBurnerRouter.networkReceiver()` must be set to `MevCommitMiddleware.slashReceiver`.
+      * `IBurnerRouter.operatorNetworkReceiver()` must be disable by setting to `address(0)`, or set to `MevCommitMiddleware.slashReceiver`. Essentially this value must not override a valid network receiver.
+      * `IBurnerRouter.delay()` must be greater than `MevCommitMiddleware.minBurnerRouterDelay`, currently set to `2 days`.
+
+      <Info>
+        If the burner router is already deployed, the delay must elapse before `acceptNetworkReceiver` can be called, to properly set the network receiver.
+      </Info>
+
+      On-chain values relevant to the middleware contract can be obtained by an applicable eth client, or by using etherscan to query against the verified contract. For example, the `MevCommitMiddleware.slashReceiver` for our current holesky deployment can be found from [this link](https://holesky.etherscan.io/address/0x79FeCD427e5A3e5f1a40895A0AC20A6a50C95393#readProxyContract#F24). The `slashReceiver` row should display `0x4535bd6fF24860b5fd2889857651a85fb3d3C6b1 address`.
+
+      Upon vault registration, and validator registration, all burner router configuration is validated on-chain. If later on this validation fails, all validators associated to a vault will no longer be opted-in, as enforced in `_isValidatorOptedIn`.
+    </Accordion>
+
+    <Accordion title="Configure Delegator Module">
+      The delegator module for the vault must be the `NetworkRestakeDelegator` or `OperatorSpecificDelegator` type. `FullRestakeDelegator` is not supported.
+    </Accordion>
+
+    <Accordion title="Configure Slasher Module">
+      The slasher module must be set, and can be either a `Slasher` or `VetoSlasher` type.
+
+      Vaults with an instant `Slasher` must have an `epochDuration` greater than `slashPeriodSeconds` to register with our middleware contract, ensuring collateral is slashable during the full slashing period. 
+
+      Vaults with veto slashers:
+        * must have an `epochDuration` greater than `slashPeriodSeconds` + `vetoDuration`, where `vetoDuration` is specified by the slasher. 
+        * require the resolver to be disabled via `address(0)`, since a permissioned oracle account invokes slashing, requiring only the most basic slashing interface.
+    </Accordion>
 
     <Accordion title="Example">
       Here is an example of how to deploy a vault with a burner router, delegator, and slasher, using a foundry script.
@@ -141,39 +174,6 @@ Alternatively the Symbiotic CLI can assist in many of these steps. Refer to thei
           --password $PASSWORD \
           --broadcast
       ```
-    </Accordion>
-    
-    Mev-commit enforces vault configuration from the following dropdowns:
-
-    <Accordion title="Configure Burner Router">
-      The `IVaultStorage.burner` address must be set to a `BurnerRouter` contract, and this contract must be deployed via Symbiotic's `IBurnerRouterFactory.create()`. See [here](https://docs.symbiotic.fi/deployments/current#burners) to find the `BurnerRouterFactory` address from the current deployment. Find more details about burner routers [here](https://docs.symbiotic.fi/modules/extensions/burners#burner-router).
-
-      The deployed burner router must be configured as follows:
-      * `IBurnerRouter.networkReceiver()` must be set to `MevCommitMiddleware.slashReceiver`.
-      * `IBurnerRouter.operatorNetworkReceiver()` must be disable by setting to `address(0)`, or set to `MevCommitMiddleware.slashReceiver`. Essentially this value must not override a valid network receiver.
-      * `IBurnerRouter.delay()` must be greater than `MevCommitMiddleware.minBurnerRouterDelay`, currently set to `2 days`.
-
-      <Info>
-        If the burner router is already deployed, the delay must elapse before `acceptNetworkReceiver` can be called, to properly set the network receiver.
-      </Info>
-
-      On-chain values relevant to the middleware contract can be obtained by an applicable eth client, or by using etherscan to query against the verified contract. For example, the `MevCommitMiddleware.slashReceiver` for our current holesky deployment can be found from [this link](https://holesky.etherscan.io/address/0x79FeCD427e5A3e5f1a40895A0AC20A6a50C95393#readProxyContract#F24). The `slashReceiver` row should display `0x4535bd6fF24860b5fd2889857651a85fb3d3C6b1 address`.
-
-      Upon vault registration, and validator registration, all burner router configuration is validated on-chain. If later on this validation fails, all validators associated to a vault will no longer be opted-in, as enforced in `_isValidatorOptedIn`.
-    </Accordion>
-
-    <Accordion title="Configure Delegator Module">
-      The delegator module for the vault must be the `NetworkRestakeDelegator` or `OperatorSpecificDelegator` type. `FullRestakeDelegator` is not supported.
-    </Accordion>
-
-    <Accordion title="Configure Slasher Module">
-      The slasher module must be set, and can be either a `Slasher` or `VetoSlasher` type.
-
-      Vaults with an instant `Slasher` must have an `epochDuration` greater than `slashPeriodSeconds` to register with our middleware contract, ensuring collateral is slashable during the full slashing period. 
-
-      Vaults with veto slashers:
-        * must have an `epochDuration` greater than `slashPeriodSeconds` + `vetoDuration`, where `vetoDuration` is specified by the slasher. 
-        * require the resolver to be disabled via `address(0)`, since a permissioned oracle account invokes slashing, requiring only the most basic slashing interface.
     </Accordion>
   </Step>
 
