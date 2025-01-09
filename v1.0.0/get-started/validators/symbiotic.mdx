@@ -61,6 +61,87 @@ Alternatively the Symbiotic CLI can assist in many of these steps. Refer to thei
     <Info>
       If you're deploying any contracts for the first time, please make use of Symbiotic's various factory contracts, and set all necessary parameters upon contract initialization. This avoids unnecessary delays in the setup process.
     </Info>
+
+    <Accordion title="Example">
+      Here is an example of how to deploy a vault with a burner router, delegator, and slasher, using a foundry script.
+
+      ```solidity
+      contract SetupVault is Script {
+        function run() external {
+        vm.startBroadcast();
+
+        // Deploy burner router
+        address burnerRouterFactory = 0x32e2AfbdAffB1e675898ABA75868d92eE1E68f3b; // From https://docs.symbiotic.fi/deployments/current
+        IBurnerRouter.NetworkReceiver[] memory networkReceivers = new IBurnerRouter.NetworkReceiver[](1);
+        networkReceivers[0] = IBurnerRouter.NetworkReceiver({
+            network: 0x4535bd6fF24860b5fd2889857651a85fb3d3C6b1, // MevCommitMiddleware.network()
+            receiver: 0x4535bd6fF24860b5fd2889857651a85fb3d3C6b1 // MevCommitMiddleware.slashReceiver()
+        });
+        address burnerRouter = IBurnerRouterFactory(burnerRouterFactory).create(
+            IBurnerRouter.InitParams({
+               owner: msg.sender,                       
+               collateral: 0x3F1c547b21f65e10480dE3ad8E19fAAC46C95034, // stETH                  
+               delay: 3 days, // > 2 days
+               globalReceiver: msg.sender,             
+               networkReceivers: networkReceivers,
+               operatorNetworkReceivers: new IBurnerRouter.OperatorNetworkReceiver[](0) // Empty or same as networkReceivers
+         }));
+
+        console.log("Burner router deployed to:", address(burnerRouter));
+
+        // Deploy vault with delegator and slasher
+        IVaultConfigurator vaultConfigurator = IVaultConfigurator(0xD2191FE92987171691d552C219b8caEf186eb9cA); // From https://docs.symbiotic.fi/deployments/current
+
+        address[] memory networkLimitSetRoleHolders = new address[](1);
+        networkLimitSetRoleHolders[0] = msg.sender;
+        address[] memory operatorNetworkSharesSetRoleHolders = new address[](1);
+        operatorNetworkSharesSetRoleHolders[0] = msg.sender;
+        IVaultConfigurator.InitParams memory initParams = IVaultConfigurator.InitParams({
+            version: 1,                                                                   
+            owner: msg.sender,                            
+            vaultParams: abi.encode(IVault.InitParams({
+                collateral: 0x3F1c547b21f65e10480dE3ad8E19fAAC46C95034, // stETH
+                burner: address(burnerRouter),                                                   
+                epochDuration: 1 weeks,
+                depositWhitelist: false, 
+                isDepositLimit: false, 
+                depositLimit: 0, 
+                defaultAdminRoleHolder: msg.sender, 
+                depositWhitelistSetRoleHolder: msg.sender, 
+                depositorWhitelistRoleHolder: msg.sender, 
+                isDepositLimitSetRoleHolder: msg.sender, 
+                depositLimitSetRoleHolder: msg.sender
+            })),
+            delegatorIndex: 2, // OperatorSpecificDelegator
+            delegatorParams: abi.encode(IOperatorSpecificDelegator.InitParams({
+                baseParams: IBaseDelegator.BaseParams({
+                    defaultAdminRoleHolder: msg.sender,
+                    hook: 0x0000000000000000000000000000000000000000,
+                    hookSetRoleHolder: msg.sender
+                }),
+                networkLimitSetRoleHolders: networkLimitSetRoleHolders,
+                operator: 0xb4F13624966E874967d7C9231F2F740F03F1A832
+            })),
+            withSlasher: true,
+            slasherIndex: 0, // Instant slasher
+            slasherParams: abi.encode(ISlasher.InitParams({
+                baseParams: IBaseSlasher.BaseParams({
+                    isBurnerHook: true
+                })
+            }))
+        });
+      ```
+
+      To run the script, use a command similar to 
+      ```bash
+      	forge script scripts/validator-registry/middleware/ExampleSetup.s.sol:SetupVault \
+          --via-ir \
+          --rpc-url https://1rpc.io/holesky \
+          --keystore $KEYSTORE \
+          --password $PASSWORD \
+          --broadcast
+      ```
+    </Accordion>
     
     Mev-commit enforces vault configuration from the following dropdowns:
 
@@ -98,6 +179,34 @@ Alternatively the Symbiotic CLI can assist in many of these steps. Refer to thei
 
   <Step title="Obtain Deposits">
     After the vault, burner router, delegator, and slasher are deployed in the previous step, the vault must obtain deposits of the appropriate ERC20 collateral type. These deposits can come from a variety of sources depending on the vault.
+
+    <Accordion title="Example">
+      Here is an example of how an account would deposit to a vault using a foundry script.
+
+      ```solidity
+      contract DepositToVault is Script {
+        function run() external {
+          vm.startBroadcast();
+          address stEthVault = 0x5DF518571733d5F4f496D76C9087110FAe98a946;
+          address stEthToken = 0x3F1c547b21f65e10480dE3ad8E19fAAC46C95034;
+          IERC20(stEthToken).approve(stEthVault, 0.1 ether);
+          IVault vault = IVault(stEthVault);
+          vault.deposit(msg.sender, 0.1 ether);
+          vm.stopBroadcast();
+        }
+      }
+      ```
+
+      To run the script, use a command similar to 
+      ```bash
+      forge script scripts/validator-registry/middleware/ExampleSetup.s.sol:DepositToVault \
+          --via-ir \
+          --rpc-url https://1rpc.io/holesky \
+          --keystore $KEYSTORE \
+          --password $PASSWORD \
+          --broadcast
+      ```
+    </Accordion>
   </Step>
 
   <Step title="Operator Actions">
@@ -106,6 +215,38 @@ Alternatively the Symbiotic CLI can assist in many of these steps. Refer to thei
     The operator must then opt-in to the any vault which will secure validators via `VaultOptInService.optIn(vaultAddress)`.
 
     The operator then opts-in to the mev-commit network via `NetworkOptInService.optIn(networkAddress)`. Do not confuse the mev-commit network address with the middleware contract address.
+
+    <Accordion title="Example">
+      Here is an example of the operator actions required in this step, using a foundry script.
+
+      ```solidity
+      contract OperatorActions is Script {
+        function run() external {
+          vm.startBroadcast();
+          IOperatorRegistry operatorRegistry = IOperatorRegistry(SymbioticHoleskyDevnetConsts.OPERATOR_REGISTRY);
+          operatorRegistry.registerOperator();
+
+          IOptInService vaultOptInService = IOptInService(SymbioticHoleskyDevnetConsts.VAULT_OPT_IN_SERVICE);
+          address stEthVault = 0x5DF518571733d5F4f496D76C9087110FAe98a946;
+          vaultOptInService.optIn(stEthVault);
+
+          IOptInService networkOptInService = IOptInService(SymbioticHoleskyDevnetConsts.NETWORK_OPT_IN_SERVICE);
+          networkOptInService.optIn(0x4535bd6fF24860b5fd2889857651a85fb3d3C6b1); // mev-commit network addr
+          vm.stopBroadcast();
+        }
+      }
+      ```
+
+      To run the script, use a command similar to 
+      ```bash
+      forge script scripts/validator-registry/middleware/ExampleSetup.s.sol:OperatorActions \
+          --via-ir \
+          --rpc-url https://1rpc.io/holesky \
+          --keystore $KEYSTORE \
+          --password $PASSWORD \
+          --broadcast
+      ```
+    </Accordion>
   </Step>
   <Step title="Coordinate with our Team">
 
@@ -148,6 +289,36 @@ Alternatively the Symbiotic CLI can assist in many of these steps. Refer to thei
     If using a `NetworkRestakeDelegator`, the vault curator must then call `INetworkRestakeDelegator.setOperatorNetworkShares(bytes32 subnetwork, address operator, uint256 shares)`. This sets what portion of the mev-commit allocated stake the vault curator is allocating to a particular operator.
 
     If using an `OperatorSpecificDelegator`, calling `setOperatorNetworkShares` is not required, as this type of delegator automatically allocates 100% of the "shares" to a single operator.
+
+    <Accordion title="Example">
+      Here is an example of how the vault curator would complete this step, using a foundry script.
+
+      ```solidity
+      contract VaultActions is Script { 
+        function run() external {
+          vm.startBroadcast();
+
+          IOperatorSpecificDelegator delegator = IOperatorSpecificDelegator(0x75b131De299A5D343b9408081DD6A8D6a9891b8c);
+          delegator.setNetworkLimit(0x4535bd6ff24860b5fd2889857651a85fb3d3c6b1000000000000000000000001, 1000000 ether);
+
+          uint256 stake = delegator.stake(0x4535bd6ff24860b5fd2889857651a85fb3d3c6b1000000000000000000000001, msg.sender);
+          console.log("Stake toward operator:", stake);
+
+          vm.stopBroadcast();
+        }
+      }
+      ```
+
+      To run the script, use a command similar to 
+      ```bash
+      forge script scripts/validator-registry/middleware/ExampleSetup.s.sol:VaultActions \
+          --via-ir \
+          --rpc-url https://1rpc.io/holesky \
+          --keystore $KEYSTORE \
+          --password $PASSWORD \
+          --broadcast
+      ```
+    </Accordion>
   </Step>
   <Step title="Setup Complete - Register Validators">
 
