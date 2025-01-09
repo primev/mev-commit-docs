@@ -54,12 +54,16 @@ The Symbiotic CLI can assist in many of these steps. Refer to their [docs](https
   <Step title="Vault Configuration">
     A vault contract must be deployed and configured with slashable ERC20 `collateral`. Mev-commit will accept most forms of ERC20 collateral, unless they present significant risk of losing value. For non ETH denominated assets, overcollateralization may be required compared to their ETH denominated counterparts.
 
-    In general vault configuration is immutable, and thus important to get right. See [Symbiotic's vault configuration docs](https://docs.symbiotic.fi/handbooks/vaults-handbook#vault-configuration).
+    See Symbiotic's [vault deployment guide](https://docs.symbiotic.fi/guides/vault-deployment/) and [vault configuration docs](https://docs.symbiotic.fi/handbooks/vaults-handbook#vault-configuration).
+
+    <Info>
+      If you're deploying any contracts for the first time, please make use of Symbiotic's various factory contracts, and set all necessary parameters upon contract initialization. This avoids unnecessary delays in the setup process.
+    </Info>
     
     Mev-commit enforces vault configuration from the following dropdowns:
 
     <Accordion title="Configure Burner Router">
-      The `IVaultStorage.burner` address must be set to a `BurnerRouter` contract, deployed via `IBurnerRouterFactory.create()`. See [here](https://docs.symbiotic.fi/deployments/current#burners) to find the `BurnerRouterFactory` address from the current deployment. Find more details about burner routers [here](https://docs.symbiotic.fi/modules/extensions/burners#burner-router).
+      The `IVaultStorage.burner` address must be set to a `BurnerRouter` contract, and this contract must be deployed via Symbiotic's `IBurnerRouterFactory.create()`. See [here](https://docs.symbiotic.fi/deployments/current#burners) to find the `BurnerRouterFactory` address from the current deployment. Find more details about burner routers [here](https://docs.symbiotic.fi/modules/extensions/burners#burner-router).
 
       The deployed burner router must be configured as follows:
       * `IBurnerRouter.networkReceiver()` must be set to `MevCommitMiddleware.slashReceiver`.
@@ -67,7 +71,7 @@ The Symbiotic CLI can assist in many of these steps. Refer to their [docs](https
       * `IBurnerRouter.delay()` must be greater than `MevCommitMiddleware.minBurnerRouterDelay`, currently set to `2 days`.
 
       <Info>
-      If you're deploying a burner router for the first time, we highly recommend setting these parameters upon burner router initialization. Otherwise if a delay is set for an already deployed BurnerRouter, that delay period must elapse before `acceptNetworkReceiver` can be called, to properly set the network receiver.
+        If the burner router is already deployed, the delay must elapse before `acceptNetworkReceiver` can be called, to properly set the network receiver.
       </Info>
 
       On-chain values relevant to the middleware contract can be obtained by an applicable eth client, or by using etherscan to query against the verified contract. For example, the `MevCommitMiddleware.slashReceiver` for our current holesky deployment can be found from [this link](https://holesky.etherscan.io/address/0x79FeCD427e5A3e5f1a40895A0AC20A6a50C95393#readProxyContract#F24). The `slashReceiver` row should display `0x4535bd6fF24860b5fd2889857651a85fb3d3C6b1 address`.
