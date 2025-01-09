@@ -95,8 +95,9 @@ Alternatively the Symbiotic CLI can assist in many of these steps. Refer to thei
         * require the resolver to be disabled via `address(0)`, since a permissioned oracle account invokes slashing, requiring only the most basic slashing interface.
     </Accordion>
 
+    Considering these requirements, below is an example of how to deploy a vault with a burner router, delegator, and slasher, using a foundry script.
+
     <Accordion title="Example">
-      Here is an example of how to deploy a vault with a burner router, delegator, and slasher, using a foundry script.
 
       ```solidity
       contract SetupVault is Script {
