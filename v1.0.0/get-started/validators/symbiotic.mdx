@@ -72,7 +72,7 @@ Alternatively the Symbiotic CLI can assist in many of these steps. Refer to thei
       </Info>
 
       The deployed burner router must be configured as follows:
-      * `IBurnerRouter.networkReceiver()` must be set to `MevCommitMiddleware.slashReceiver` (`0x4535bd6fF24860b5fd2889857651a85fb3d3C6b1` on holesky).
+      * `IBurnerRouter.networkReceiver()` must be set to `MevCommitMiddleware.slashReceiver` (`MevCommitMiddleware.slashReceiver` is the same as the "network address" `0x4535bd6fF24860b5fd2889857651a85fb3d3C6b1`, on holesky).
       * `IBurnerRouter.operatorNetworkReceiver()` must be disable by setting to `address(0)`, or set to `MevCommitMiddleware.slashReceiver`. Essentially this value must not override a valid network receiver.
       * `IBurnerRouter.delay()` must be greater than `MevCommitMiddleware.minBurnerRouterDelay`, currently set to `2 days`.
 
