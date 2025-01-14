@@ -65,7 +65,7 @@ Alternatively the Symbiotic CLI can assist in many of these steps. Refer to thei
     Mev-commit enforces vault configuration from the following dropdowns:
 
     <Accordion title="Configure Burner Router">
-      The `IVaultStorage.burner` address must be set to a `BurnerRouter` contract, and this contract must be deployed via Symbiotic's `IBurnerRouterFactory.create()`. See [here](https://docs.symbiotic.fi/deployments/current#burners) to find the `BurnerRouterFactory` address from the current deployment. Find more details about burner routers [here](https://docs.symbiotic.fi/modules/extensions/burners#burner-router).
+      The `IVaultStorage.burner` address must be set to a `BurnerRouter` contract, and this contract must be deployed via Symbiotic's `IBurnerRouterFactory.create()`. Find more details about burner routers [here](https://docs.symbiotic.fi/modules/extensions/burners#burner-router).
 
       <Info>
       If you're deploying a burner router for the first time, please set all necessary parameters upon contract initialization. This avoids unnecessary delays in the setup process. If your burner router is already deployed, the `delay` must elapse before `acceptNetworkReceiver` can be called, to properly set the network receiver.
