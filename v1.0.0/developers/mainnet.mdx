@@ -112,6 +112,8 @@ import {
   VanillaRegistryImplementationAddress, 
   MevCommitAVSProxyAddress, 
   MevCommitAVSImplementationAddress,
+  MevCommitMiddlewareProxyAddress,
+  MevCommitMiddlewareImplementationAddress,
   ValidatorOptInRouterProxyAddress,
   ValidatorOptInRouterImplementationAddress
 } from '/snippets/mainnet-addresses.mdx';
@@ -139,6 +141,23 @@ import {
       <td>
         <a href={`https://etherscan.io/address/${MevCommitAVSImplementationAddress}`} target="_blank" rel="noopener noreferrer">
           {MevCommitAVSImplementationAddress}
+        </a>
+      </td>
+    </tr>
+    <tr>
+      <td rowspan="2">MevCommitMiddleware</td>
+      <td style={{ textAlign: 'center' }}>Proxy</td>
+      <td>
+        <a href={`https://etherscan.io/address/${MevCommitMiddlewareProxyAddress}`} target="_blank" rel="noopener noreferrer">
+          {MevCommitMiddlewareProxyAddress}
+        </a>
+      </td>
+    </tr>
+    <tr>
+      <td style={{ textAlign: 'center' }}>Implementation</td>
+      <td>
+        <a href={`https://etherscan.io/address/${MevCommitMiddlewareImplementationAddress}`} target="_blank" rel="noopener noreferrer">
+          {MevCommitMiddlewareImplementationAddress}
         </a>
       </td>
     </tr>
