@@ -91,7 +91,7 @@ Alternatively the Symbiotic CLI can assist in many of these steps. Refer to thei
       Vaults with an instant `Slasher` must have an `epochDuration` greater than `1 day` to register with our middleware contract. 
 
       Vaults with veto slashers:
-        * must have an `epochDuration` greater than `1 day` + `vetoDuration`, where `vetoDuration` is specified by the slasher. 
+        * must have an `epochDuration` greater than `1 day + vetoDuration`, where `vetoDuration` is specified by the slasher. 
         * require the resolver to be disabled via `address(0)`, since a permissioned oracle account invokes slashing, requiring only the most basic slashing interface.
     </Accordion>
 
