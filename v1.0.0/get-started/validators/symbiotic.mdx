@@ -178,7 +178,7 @@ Alternatively the Symbiotic CLI can assist in many of these steps. Refer to thei
       ```bash
       	forge script scripts/validator-registry/middleware/ExampleSetup.s.sol:SetupVault \
           --via-ir \
-          --rpc-url https://1rpc.io/holesky \
+          --rpc-url $RPC_URL \
           --keystore $KEYSTORE \
           --password $PASSWORD \
           --broadcast
@@ -210,7 +210,7 @@ Alternatively the Symbiotic CLI can assist in many of these steps. Refer to thei
       ```bash
       forge script scripts/validator-registry/middleware/ExampleSetup.s.sol:DepositToVault \
           --via-ir \
-          --rpc-url https://1rpc.io/holesky \
+          --rpc-url $RPC_URL \
           --keystore $KEYSTORE \
           --password $PASSWORD \
           --broadcast
@@ -250,7 +250,7 @@ Alternatively the Symbiotic CLI can assist in many of these steps. Refer to thei
       ```bash
       forge script scripts/validator-registry/middleware/ExampleSetup.s.sol:OperatorActions \
           --via-ir \
-          --rpc-url https://1rpc.io/holesky \
+          --rpc-url $RPC_URL \
           --keystore $KEYSTORE \
           --password $PASSWORD \
           --broadcast
@@ -322,7 +322,7 @@ Alternatively the Symbiotic CLI can assist in many of these steps. Refer to thei
       ```bash
       forge script scripts/validator-registry/middleware/ExampleSetup.s.sol:VaultActions \
           --via-ir \
-          --rpc-url https://1rpc.io/holesky \
+          --rpc-url $RPC_URL \
           --keystore $KEYSTORE \
           --password $PASSWORD \
           --broadcast
