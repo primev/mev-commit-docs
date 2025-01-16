@@ -93,7 +93,7 @@ Alternatively the Symbiotic CLI can assist in many of these steps. Refer to thei
       The delegator module for the vault must be the `NetworkRestakeDelegator` or `OperatorSpecificDelegator` type. `FullRestakeDelegator` is not supported.
 
       <Warning>
-        If using an `OperatorSpecificDelegator`, ensure the `IOperatorSpecificDelegator.operator()` field is initialized to the operator address that'll be used in subsequent steps.
+        If using an `OperatorSpecificDelegator`, ensure the `IOperatorSpecificDelegator.operator()` field is initialized to the operator address that'll be used in subsequent steps. That field is immutable after delegator deployment!
       </Warning>
     </Accordion>
 
