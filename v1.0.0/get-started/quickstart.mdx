@@ -53,9 +53,17 @@ icon: "gear"
 
   </Step>
   <Step title="Fund Your Account">
-    In order to fund the account, users will need to bridge holesky ETH to the mev-commit chain using the bridge user CLI. 
+      In order to fund your account, you'll need to bridge ETH to the mev-commit chain. The easiest way to do this is through our web interface:
 
-    First confirm your operating system and architecture by running `uname -sm`. Then download the appropriate bridge user CLI binary from the [releases](https://github.com/primev/mev-commit/releases/latest) page. 
+    1. Visit [mev-commit.xyz/bridge](https://www.mev-commit.xyz/bridge)
+    2. Connect your wallet (MetaMask or WalletConnect supported)
+    3. Select Ethereum as the source chain and mev-commit as the destination
+    4. Enter the amount of ETH you want to transfer
+    5. Click "Bridge" and approve the transaction
+
+    Wait for the bridge transaction to complete (approximately 15 minutes for L1 finality). You can see detailed instructions in our [Bridge UI guide](/v1.0.0/get-started/bridge-ui).
+
+    For automated or programmatic bridging, you can use our CLI tool by first confirming your operating system and architecture by running `uname -sm` then downloading the appropriate bridge user CLI binary from the [releases](https://github.com/primev/mev-commit/releases/latest) page. 
 
     Or download the 1.0.0 bridge CLI directly from the links below:
     * [Darwin ARM64](https://github.com/primev/mev-commit/releases/download/v1.0.0/mev-commit-bridge-user-cli_1.0.0_Darwin_arm64.tar.gz)
