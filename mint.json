@@ -70,7 +70,14 @@
       "pages": [
         "v1.0.0/get-started/welcome-to-primev",
         "v1.0.0/get-started/quickstart",
-        "v1.0.0/get-started/bridge",
+        {
+  "group": "Bridge",
+  "version": "v1.0.0",
+  "pages": [
+    "v1.0.0/get-started/bridge/bridge", 
+    "v1.0.0/get-started/bridge/bridge-cli"
+  ],
+            "icon": "bridge"} ,
         {
           "group": "Validators",
           "version": "v1.0.0",
