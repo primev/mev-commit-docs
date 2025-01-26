@@ -225,9 +225,9 @@ Alternatively the Symbiotic CLI can assist in many of these steps. Refer to thei
   <Step title="Operator Actions">
     Next, a Symbiotic operator can be setup as an EOA or a contract. The Operator must be registered with Symbiotic via `OperatorRegistry.registerOperator()`.
 
-    The operator must then opt-in to the any vault which will secure validators via `VaultOptInService.optIn(vaultAddress)`.
+    The operator must then opt-in to any vault which will secure validators via `VaultOptInService.optIn(vaultAddress)`.
 
-    The operator then opts-in to the mev-commit network via `NetworkOptInService.optIn(networkAddress)`. The network address is `0x9101eda106A443A0fA82375936D0D1680D5a64F5` for mainnet.
+    The operator then opts-in to the mev-commit network via `NetworkOptInService.optIn(networkAddress)`. The network address is `0x9101eda106A443A0fA82375936D0D1680D5a64F5` for mainnet. Even if an operator represents multiple vaults, it only needs to opt-in to the mev-commit network once.
 
     <Accordion title="Example">
       Here is an example of the operator actions required in this step, using a foundry script.
