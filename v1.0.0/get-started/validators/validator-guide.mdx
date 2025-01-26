@@ -8,33 +8,28 @@ description: 'Opt into mev-commit with ease. This guide covers everything you ne
 
 Participation of L1 validators in the mev-commit protocol increases the credibility of preconfs made through mev-commit and consequently their value. Due to increased preconf values, providers have additional value to bid in the mev-boost auction, thus driving up the total revenue a proposer will get.
 
-## Supported Networks
-
-Both Holesky and Mainnet L1 validators are able to opt-in to mev-commit. The opt-in process is initiated from the chain the validator is staked on.
-
-See [mainnet](/v1.0.0/developers/mainnet#l1-validator-registries) and [testnet](/v1.0.0/developers/testnet#validator-registry-contract-addresses-holesky) for relevant contract addresses.
-
 ## Requirements
 
-1. An operational L1 validator node for either mainnet or Holesky.
+1. An operational L1 validator node.
 2. An operational mev-boost sidecar.
-3. Capital requirements as described further below.
+3. Stake or Restake as described below.
 
 <Warning>
 As a validator opting into the mev-commit protocol, ensure your mev-boost client only connects to mev-commit opted-in relays to avoid slashing for proposing blocks without delivering commitments.
 </Warning>
 
-By opting-in to the mev-commit protocol as a validator **in one of the three forms described**, you agree to only use **opted-in relays**. These opted-in relays will only forward mev-boost bids from addresses that have registered with the mev-commit provider registry, such that any provider can be slashed in case of a protocol violation. This allows validators to passively opt-in to mev-commit, letting block builders and relays do the work.
+By opting-in to the mev-commit protocol as a validator **in one of the three forms described**, you agree to only use **opted-in relays**. These opted-in relays will only forward mev-boost bids from addresses that have registered with the mev-commit provider registry, such that providers can be slashed in case of a protocol violation. We generally don't anticipate validator slashing events, as this allows validators to passively opt-in to mev-commit, letting block builders and relays do the work.
 
 ### Supporting Relays
 
 | Relay | Docs |
 |-------|------|
 | Titan | [docs.titanrelay.xyz](https://docs.titanrelay.xyz/) |
-| Aestus Mainnet | [mainnet.aestus.live](https://mainnet.aestus.live/) |
-| Aestus Holesky | [holesky.aestus.live](https://holesky.aestus.live/) |
+| Aestus | [mainnet.aestus.live](https://mainnet.aestus.live/) |
+| Bloxroute Max Profit | [https://0x8b5d2e73e2a3a55c6c87b8b6eb92e0149a125c852751db1422fa951e42a09b82c142c3ea98d0d9930b056a3bc9896b8f@bloxroute.max-profit.blxrbdn.com](https://0x8b5d2e73e2a3a55c6c87b8b6eb92e0149a125c852751db1422fa951e42a09b82c142c3ea98d0d9930b056a3bc9896b8f@bloxroute.max-profit.blxrbdn.com) |
+| Bloxroute Regulated | [https://0xb0b07cd0abef743db4260b0ed50619cf6ad4d82064cb4fbec9d3ec530f7c5e6793d9f286c4e082c0244ffb9f2658fe88@bloxroute.regulated.blxrbdn.com](https://0xb0b07cd0abef743db4260b0ed50619cf6ad4d82064cb4fbec9d3ec530f7c5e6793d9f286c4e082c0244ffb9f2658fe88@bloxroute.regulated.blxrbdn.com) |
 
-We expect all known relays to support opting-in to mev-commit within a few months of being live on mainnet. If you are a relay looking to join the mev-commit network please visit our [Relays page](/v1.0.0/get-started/relays) to get more information.
+If you are a relay looking to join the mev-commit network please visit our [Relays page](/v1.0.0/get-started/relays) to get more information.
 
 Proposers who fallback to local block production, from either a fault in the mev-boost software or a lack of economically viable block bids, **will not be slashed**. See [flashbots docs](https://docs.flashbots.net/flashbots-mev-boost/architecture-overview/risks#liveness-and-local-fallback) for more on this scenario. The protocol may in the future slash for abuse of this local fallback mechanism.
 
