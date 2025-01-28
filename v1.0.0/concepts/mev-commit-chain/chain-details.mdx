@@ -3,7 +3,7 @@ title: "Chain Details"
 sidebarTitle: Chain Details
 ---
 
-The mev-commit chain mainnet is set to launch soon. In the meantime, join the testnet and get familiar with its functionalities at the [Testnet](/v1.0.0/developers/testnet) section.
+The mev-commit chain is live on [mainnet](/v1.0.0/developers/mainnet). To test and experiment, join the testnet and get familiar with its functionalities at the [testnet](/v1.0.0/developers/testnet) section.
 
 ## Design
 
@@ -37,7 +37,7 @@ Currently deployed contracts are designed as follows:
 
 - A preconfirmation contract allows preconfirmation commitments to be stored and tracked on-chain.
 - Two separate registry contracts exist to manage bidders and providers, both parties must stake ETH to participate. Rewards and/or slashing are managed by these contracts.
-- An oracle contract receives L1 payloads from the oracle service. It currently operates by checking confirmed Holesky blocks, and will transition to Mainnet as mev-commit migrates to Mainnet.
+- An oracle contract receives L1 payloads from the oracle service. It currently operates by checking confirmed mainnet blocks.
 - An block tracker contract which designed to track Ethereum blocks and their respective winners.
 
 ## Oracle service
