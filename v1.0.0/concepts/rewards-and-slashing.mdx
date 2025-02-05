@@ -32,9 +32,7 @@ A proposer can completely miss its slot and not include any block in L1. This ca
 
     2. The proposer includes a block that was built by itself.
     
-Case (1) is considered non-compliant behavior and thus the proposer will be slashed from their stake the fixed amount of 1 ETH.  
-  
-Case (2) should only happen very rarely when the value of the block it receives from the relay is too low, and mev-commit will not slash proposers in this case. However, due to the lack of a robust mechanism for builder attribution of a block in Ethereum's PBS, we will monitor how often proposers choose to build their own blocks, and if needed we will revisit this decision to discourage misbehavior by the proposers.
+Both cases are considered non-compliant behavior and thus the proposer will be slashed from their stake the fixed amount of 1 ETH.
 
 Currently, the restaking case with Eigenlayer only allows the stake to be frozen for an undetermined period of time and not slashed permanently (i.e., burned). While the stake is frozen, the proposer is not able to participate in mev-commit. The proposer can pay a fee to unfreeze its stake. This is a limitation of the current Eigenlayer implementation, and it is expected to be resolved. 
 
