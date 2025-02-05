@@ -16,7 +16,7 @@ Opting into the mev-commit protocol signals from a validator that they:
 Validators opting into the mev-commit protocol should be aware of the following risks:
 
 * **Relay block delivery:** Relays could communicate blocks that do not abide by existing commitments. This would lead to slashing of the validator.
-* **Failure to propose block:** Validators could fail to propose a block for a slot that has preconf commitments. This would lead to slashing of the validator if there are existing commitments
+* **Self-building a block:** A validator gets slashed when it self-builds a block. When the min-bid parameter of mev-boost is set to 0, this can happen only if no block is received from any of the connected relays, which should never happen in normal circumstances.
 
 ### Future plans
 
