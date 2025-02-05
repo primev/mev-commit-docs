@@ -22,7 +22,7 @@ Participation of L1 validators in the mev-commit protocol increases the credibil
 As a validator opting into the mev-commit protocol, ensure your mev-boost client is configured with min-bid 0 and only connects to mev-commit opted-in relays to avoid slashing for proposing blocks without delivering commitments.
 </Warning>
 
-By opting-in to the mev-commit protocol as a validator **in one of the three forms described**, you agree to not self build blocks by setting the min-bid parameter to 0 and to only use **opted-in relays**. These opted-in relays will only forward mev-boost bids from addresses that have registered with the mev-commit provider registry. These two steps ensure that the validator only proposes blocks from registered block builders such that these builders can be slashed in case of a protocol violation. We generally don't anticipate validator slashing events, as this allows validators to passively opt-in to mev-commit, letting block builders and relays do the work.
+By opting-in to the mev-commit protocol as a validator **in one of the three forms described**, you agree to not self build blocks by setting the **min-bid parameter to 0** and to only use **opted-in relays**. These opted-in relays will only forward mev-boost bids from addresses that have registered with the mev-commit provider registry. These two steps ensure that the validator only proposes blocks from registered block builders such that these builders can be slashed in case of a protocol violation. We generally don't anticipate validator slashing events, as this allows validators to passively opt-in to mev-commit, letting block builders and relays do the work.
 
 ### Supporting Relays
 
