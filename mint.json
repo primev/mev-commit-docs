@@ -10,6 +10,20 @@
       "measurementId": "G-H7MFKTB1FS"
     }
   },
+  "seo": {
+    "metatags": {
+      "og:site_name": "Primev Docs",
+      "og:title": "Primev Docs",
+      "og:description": "Primev is building mev-commit; a credible commitment network used for preconfirmations & more",
+      "og:url": "https://docs.primev.xyz",
+      "og:image": "https://docs.primev.xyz/logo/Primev-w&o.PNG",
+      "twitter:title": "Primev Docs",
+      "twitter:description": "Primev is building mev-commit; a credible commitment network used for preconfirmations & more",
+      "twitter:url": "https://docs.primev.xyz",
+      "twitter:image": "https://docs.primev.xyz/logo/Primev-w&o.PNG",
+      "twitter:site": "@primev_xyz"
+    }
+  },
   "favicon": "favicon.svg",
   "colors": {
     "primary": "#E97D25",
