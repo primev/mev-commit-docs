@@ -20,7 +20,7 @@ Prior to opt-in through Symbiotic, it's worth familiarizing yourself with their 
 
 Mev-commit is flexible in the type of entities that use Symbiotic to restake, and secure validators with our protocol. Any combination of Operator and Vault entities can be used, whether each are from the same organization or not.
 
-Most importantly, For L1 validators to be opted-in to mev-commit, some collateral stake must be slashable for each validator, in case that validator acts against its protocol commitments. In the context of Symbiotic, Vaults allocate slashable ERC20 collateral to Operators that are registered with the mev-commit network. This collateral may be slashable by other Symbiotic networks, hence it is restaked.
+Most importantly, For L1 validators to be opted-in to mev-commit, a minimum of 3 ETH worth of restake must be slashable for each validator, in case that validator acts against its protocol commitments. This can be reduced for operators with a large number of validators to 1,000 ETH at the entity level. Vaults allocate slashable ERC20 collateral to Operators that are registered with the mev-commit network in Symbiotic. This collateral may be slashable by other Symbiotic networks, hence it is restaked.
 
 Operators for the mev-commit network are responsible for bulk registering groups of L1 validator pubkeys to an associated vault. Every registered validator is represented by restaked collateral from a single Vault and Operator. Each Vault’s total collateral can be split up to secure/represent many validators in groups.
 
