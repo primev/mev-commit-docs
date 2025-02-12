@@ -20,7 +20,7 @@ Prior to opt-in through Symbiotic, it's worth familiarizing yourself with their 
 
 Mev-commit is flexible in the type of entities that use Symbiotic to restake, and secure validators with our protocol. Any combination of Operator and Vault entities can be used, whether each are from the same organization or not.
 
-Most importantly, For L1 validators to be opted-in to mev-commit, some collateral stake must be slashable for each validator, in case that validator acts against its protocol commitments. In the context of Symbiotic, Vaults allocate slashable ERC20 collateral to Operators that are registered with the mev-commit network. This collateral may be slashable by other Symbiotic networks, hence it is restaked.
+Most importantly, For L1 validators to be opted-in to mev-commit, a minimum of 3 ETH worth of restake must be slashable for each validator, in case that validator acts against its protocol commitments. This can be reduced for operators with a large number of validators to 1,000 ETH at the entity level. Vaults allocate slashable ERC20 collateral to Operators that are registered with the mev-commit network in Symbiotic. This collateral may be slashable by other Symbiotic networks, hence it is restaked.
 
 Operators for the mev-commit network are responsible for bulk registering groups of L1 validator pubkeys to an associated vault. Every registered validator is represented by restaked collateral from a single Vault and Operator. Each Vault’s total collateral can be split up to secure/represent many validators in groups.
 
@@ -46,9 +46,9 @@ The Symbiotic "network" in this context is mev-commit. Our network is represente
 
 The following setup steps will reference various Symbiotic core contracts. Refer to their [deployments page](https://docs.symbiotic.fi/category/deployments) and [core source code](https://github.com/symbioticfi/core).
 
-We now support Symbiotic opt-in on mainnet! Consequently this page will reference mainnet addresses. For holesky, please use values from the following dropdown where applicable:
+We now support Symbiotic opt-in on mainnet! Consequently this page will reference mainnet addresses. For Holesky Testnet, please use values from the following dropdown:
 
-<Accordion title="Holesky Values">
+<Accordion title="Holesky Testnet Values">
 * Network Address: [0x4535bd6fF24860b5fd2889857651a85fb3d3C6b1](https://holesky.etherscan.io/address/0x4535bd6fF24860b5fd2889857651a85fb3d3C6b1)
 * Middleware Contract: [0x79FeCD427e5A3e5f1a40895A0AC20A6a50C95393](https://holesky.etherscan.io/address/0x79FeCD427e5A3e5f1a40895A0AC20A6a50C95393)
 * Receiver for the burner router: [0x4535bd6fF24860b5fd2889857651a85fb3d3C6b1](https://holesky.etherscan.io/address/0x4535bd6fF24860b5fd2889857651a85fb3d3C6b1) (Ie. the "network" and "receiver" are the same address)
@@ -227,7 +227,7 @@ Alternatively the Symbiotic CLI can assist in many of these steps. Refer to thei
 
     The operator must then opt-in to any vault which will secure validators via `VaultOptInService.optIn(vaultAddress)`.
 
-    The operator then opts-in to the mev-commit network via `NetworkOptInService.optIn(networkAddress)`. The network address is `0x9101eda106A443A0fA82375936D0D1680D5a64F5` for mainnet. Even if an operator represents multiple vaults, it only needs to opt-in to the mev-commit network once.
+    The operator then opts-in to the mev-commit network via `NetworkOptInService.optIn(networkAddress)`. The network address is `0x9101eda106A443A0fA82375936D0D1680D5a64F5` for mainnet. An operator only needs to opt-in to the mev-commit network once even if an operator represents multiple vaults.
 
     <Accordion title="Example">
       Here is an example of the operator actions required in this step, using a foundry script.

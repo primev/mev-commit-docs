@@ -13,11 +13,10 @@ Opting into the mev-commit protocol signals from a validator that they:
 
 ### Risks
 
-Validators opting into the mev-commit protocol should be aware of the following risks:
+While mev-commit is generally not set up to slash validators, validators opting into the mev-commit protocol should be aware of the following risks:
 
-* **Relay block delivery:** Relays could communicate blocks that do not abide by existing commitments. This would lead to slashing of the validator.
-* **Failure to propose block:** Validators could fail to propose a block for a slot that has preconf commitments. This would lead to slashing of the validator if there are existing commitments
+* **Trusted Relay block delivery:** Relays could break your trust and communicate blocks that do not abide by existing commitments. This would lead to slashing of the validator.
 
 ### Future plans
 
-While mev-commit AVS is passive and doesn't require operators to run any software today, Primev is researching means to decentralize centralized components of the mev-commit stack through bundling them into an AVS. Stay tuned for more updates on this.
+While mev-commit AVS is passive and doesn't require operators to run any software today, Primev is researching means to decentralize centralized components of the mev-commit stack. Stay tuned for more updates on this.
