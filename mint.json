@@ -16,11 +16,11 @@
       "og:title": "Primev Docs",
       "og:description": "Primev's mev-commit makes Ethereum FAST by enabling preconfirmations and new types of mev using an encrypted mempool, enhancing yield for opted-in validators.",
       "og:url": "https://docs.primev.xyz",
-      "og:image": "https://docs.primev.xyz/logo/Primev-w&o.JPG",
+      "og:image": "https://docs.primev.xyz/logo/primev-logo.jpg",
       "twitter:title": "Primev Docs",
       "twitter:description": "Primev's mev-commit makes Ethereum FAST by enabling preconfirmations and new types of mev using an encrypted mempool, enhancing yield for opted-in validators.",
       "twitter:url": "https://x.com/primev_xyz",
-      "twitter:image": "https://docs.primev.xyz/logo/Primev-w&o.JPG",
+      "twitter:image": "https://docs.primev.xyz/logo/primev-logo.jpg",
       "twitter:site": "@primev_xyz"
     }
   },
@@ -167,22 +167,6 @@
         "v1.0.0/knowledge-base/what-happens-during-an-execution-preconf",
         "v1.0.0/knowledge-base/how-do-preconfs-work",
         "v1.0.0/knowledge-base/eigenlayer-operator-registration"
-      ]
-    },
-    {
-      "group": "FAQ",
-      "version": "v1.0.0",
-      "pages": [
-        "v1.0.0/faq/introduction",
-        "v1.0.0/faq/what-is-deposit-amount",
-        "v1.0.0/faq/how-do-i-fix-the-error-failed-to-read-msg-stream-reset",
-        "v1.0.0/faq/what-is-foundry",
-        "v1.0.0/faq/why-is-cast-necessary-for-mev-commit-chain-interactions",
-        "v1.0.0/faq/why-do-i-receive-the-same-commitment-when-resending-a-bid",
-        "v1.0.0/faq/what-is-execution-preconfirmations",
-        "v1.0.0/faq/how-to-price-a-bid",
-        "v1.0.0/faq/what-happens-during-an-execution-preconf",
-        "v1.0.0/faq/how-do-preconfs-work"
       ]
     },
     {
