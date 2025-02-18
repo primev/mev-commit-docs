@@ -24,7 +24,7 @@ Using an example of a block worth 1 ETH and mev-commit bids worth 0.1 ETH, the d
 <Note>An important observation here is that proposers opting in increases the credibility of the preconfs and consequently their value. Due to the increased preconf values, the providers have additional value to bid in the mev-boost auction, thus driving up the total revenue a proposer will get.</Note>
 
 ### Slashing
-In this section we discuss the proposer's slashing cases.
+Validators are generally **not expected to be slashed** on mev-commit unless they act maliciously, as providers on mev-commit are the primary decision makers liable for any slashing. The only case for a proposer slash is acting maliciously or using an unsupported relay / validator sidecar misconfiguration. For missed blocks or self-built blocks, mev-commit does not slash proposers. We detail these cases below.
 
 #### Missed Block
 A proposer can completely miss its slot and not include any block in L1. This can happen either due to network issues by the proposer, due to the relay not delivering the block's contents on time, or due to chain reorgs. In any case, mev-commit does not slash the proposer for missing a block as the proposer does not profit from omitting a block and it is potentially out of their control.
