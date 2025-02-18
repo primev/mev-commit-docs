@@ -16,11 +16,11 @@
       "og:title": "Primev Docs",
       "og:description": "Primev's mev-commit makes Ethereum FAST by enabling preconfirmations and new types of mev using an encrypted mempool, enhancing yield for opted-in validators.",
       "og:url": "https://docs.primev.xyz",
-      "og:image": "https://docs.primev.xyz/logo/primev-logo.jpg",
+      "og:image": "https://docs.primev.xyz/v1.0.0/images/primev-logo.jpg",
       "twitter:title": "Primev Docs",
       "twitter:description": "Primev's mev-commit makes Ethereum FAST by enabling preconfirmations and new types of mev using an encrypted mempool, enhancing yield for opted-in validators.",
       "twitter:url": "https://x.com/primev_xyz",
-      "twitter:image": "https://docs.primev.xyz/logo/primev-logo.jpg",
+      "twitter:image": "https://docs.primev.xyz/v1.0.0/images/primev-logo.jpg",
       "twitter:site": "@primev_xyz"
     }
   },
@@ -29,7 +29,7 @@
     "primary": "#E97D25",
     "light": "#E97D25",
     "dark": "#E97D25",
-    "anchors": {
+    "anchors":{
       "from": "#E97D25",
       "to": "#E97D25"
     }
