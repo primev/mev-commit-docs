@@ -11,7 +11,11 @@ Validators have three methods to opt-in to mev-commit, as described in the [vali
 A validator that opts into mev-commit makes an implicit commitment to include a block from a mev-commit registered block builder in L1 whenever they become the proposer of the slot. 
 
 ### Rewards
-The main reward for proposers opting in to mev-commit is proposing a more valuable block and being paid through the mev-boost auction as standard. Upon proposing a block while opted-in to mev-commit, a proposer will receive all bid related value in the mev-commit network that is surfaced by the mev-boost auction embedded in the block they propose. In other words, proposers passively receive rewards from mev-commit by proposing more valuable blocks that include mev-commit bids. A proposer will almost always propose a more valuable block using mev-commit than without while mev-commit bids are present for its slot.
+There are two categories of rewards for validators opting in to mev-commit:
+1. Increased yield
+2. [Points](/v1.0.0/concepts/rewards-and-slashing/points)
+
+The main reward for proposers opting in to mev-commit is increased yield by proposing a more valuable block, paid through the mev-boost auction. Upon proposing a block while opted-in to mev-commit, a proposer will receive all bid related value in the mev-commit network that is surfaced by the mev-boost auction embedded in the block they propose. In other words, proposers passively receive rewards from mev-commit by proposing more valuable blocks that include inreased value from mev-commit bids. A proposer will almost always propose a more valuable block using mev-commit than without while mev-commit bids are present for its slot.
 
 Using an example of a block worth 1 ETH and mev-commit bids worth 0.1 ETH, the diagram below depicts Validator Rewards with and without mev-commit:
 
@@ -20,7 +24,7 @@ Using an example of a block worth 1 ETH and mev-commit bids worth 0.1 ETH, the d
 <Note>An important observation here is that proposers opting in increases the credibility of the preconfs and consequently their value. Due to the increased preconf values, the providers have additional value to bid in the mev-boost auction, thus driving up the total revenue a proposer will get.</Note>
 
 ### Slashing
-In this section we discuss the proposer's slashing cases.
+Validators are generally **not expected to be slashed** on mev-commit unless they act maliciously, as providers on mev-commit are the primary decision makers liable for any slashing. The only case for a proposer slash is acting maliciously or using an unsupported relay / validator sidecar misconfiguration. For missed blocks or self-built blocks, mev-commit does not slash proposers. We detail these cases below.
 
 #### Missed Block
 A proposer can completely miss its slot and not include any block in L1. This can happen either due to network issues by the proposer, due to the relay not delivering the block's contents on time, or due to chain reorgs. In any case, mev-commit does not slash the proposer for missing a block as the proposer does not profit from omitting a block and it is potentially out of their control.
