@@ -13,7 +13,7 @@ A validator that opts into mev-commit makes an implicit commitment to include a 
 ### Rewards
 There are two categories of rewards for validators opting in to mev-commit:
 1. Increased yield
-2. Points
+2. [Points](/v1.0.0/concepts/rewards-and-slashing/points)
 
 The main reward for proposers opting in to mev-commit is increased yield by proposing a more valuable block, paid through the mev-boost auction. Upon proposing a block while opted-in to mev-commit, a proposer will receive all bid related value in the mev-commit network that is surfaced by the mev-boost auction embedded in the block they propose. In other words, proposers passively receive rewards from mev-commit by proposing more valuable blocks that include inreased value from mev-commit bids. A proposer will almost always propose a more valuable block using mev-commit than without while mev-commit bids are present for its slot.
 
