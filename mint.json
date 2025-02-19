@@ -134,7 +134,7 @@
           "version": "v1.0.0",
           "pages": [
             "v1.0.0/concepts/rewards-and-slashing",
-            "v1.0.0/concepts/points",
+            "v1.0.0/concepts/points"
           ]
         },
         "v1.0.0/concepts/oracle",
