@@ -10,7 +10,7 @@ This repository contains the source code for our documentation website. If you'd
 
 1. Fork the repository and create a new branch from the `main` branch.
 2. Make your changes to the markdown files.
-3. If you're creating a new file, edit the `mint.json` file to make it appear on the sidebar.
+3. If you're creating a new file, edit the `docs.json` file to make it appear on the sidebar.
 4. Submit a pull request to the `main` branch.
 
 ## Standards and conventions
