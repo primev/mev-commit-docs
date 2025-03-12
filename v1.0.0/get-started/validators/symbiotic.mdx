@@ -105,6 +105,8 @@ Alternatively the Symbiotic CLI can assist in many of these steps. Refer to thei
       Vaults with veto slashers:
         * must have an `epochDuration` greater than `1 day + vetoDuration`, where `vetoDuration` is specified by the slasher. 
         * require the resolver to be disabled via `address(0)`, since a permissioned oracle account invokes slashing, requiring only the most basic slashing interface.
+
+      `IBaseSlasher.BaseParams` must have `isBurnerHook` set to `true`.
     </Accordion>
 
     Considering these requirements, below is an example of how to deploy a vault with a burner router, delegator, and slasher, using a foundry script.
@@ -172,7 +174,7 @@ Alternatively the Symbiotic CLI can assist in many of these steps. Refer to thei
             slasherIndex: 0, // Instant slasher
             slasherParams: abi.encode(ISlasher.InitParams({
                 baseParams: IBaseSlasher.BaseParams({
-                    isBurnerHook: true
+                    isBurnerHook: true // Required
                 })
             }))
         });
