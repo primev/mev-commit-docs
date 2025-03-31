@@ -1,0 +1,59 @@
+---
+title: "Bidder API"
+---
+
+## **Bidders**
+
+Bidders will use the `bidder` role to run their nodes. The node provides the **Bidder API** to submit bids to the network and will sign the bid before sending it out. In response, bidders will receive commitments from providers if their bid is accepted. This is a streaming response, and bidders are expected to keep their connection alive until their node receives all relevant commitments.
+
+The Bidder API is also implemented using the gRPC framework, supporting two primary operations:
+
+- **Send Bid:** The user submit their bid.
+- **Receive Preconfirmation:** The user receives streaming preconfirmations if accepted.
+
+### **RPC API for Bidders**
+
+Users can find the protobuf file in the [repository](https://github.com/primev/mev-commit/blob/main/p2p/rpc/bidderapi/v1/bidderapi.proto). This can be used to generate the client for the RPC in the language of your choice. The Go client has already been generated in the repository. For other languages, please follow the instructions in the [gRPC documentation](https://grpc.io/docs/languages/) to generate them separately.
+
+**API Operation:**
+
+```
+  rpc SendBid(Bid) returns (stream PreConfirmation)
+```
+
+**Message Definitions**
+
+```protobuf
+message Bid {
+  string tx_hash = 1;
+  string bid_amount = 2;
+  int64 block_number = 3;
+  bytes digest = 4;
+  bytes signature = 5;
+  int64 decay_start_timestamp = 6;
+  int64 decay_end_timestamp = 7;
+  bytes nike_public_key = 8;
+  string reverting_tx_hashes = 9;
+};
+
+message PreConfirmation {
+  repeated string tx_hashes = 1;
+  string bid_amount = 2;
+  int64 block_number = 3;
+  string received_bid_digest = 4;
+  string received_bid_signature = 5;
+  string commitment_digest = 6;
+  string commitment_signature = 7;
+  string provider_address = 8;
+  int64 decay_start_timestamp = 9;
+  int64 decay_end_timestamp = 10;
+  int64 dispatch_timestamp = 11;
+  repeated string reverting_tx_hashes = 12;
+};
+```
+
+### **HTTP API**
+
+The same API is also available on the HTTP port configured on the node. Please review the [API docs](/v1.1.0/api-reference/bidder/sendbid) to understand the usage.
+
+An [example CLI application](https://github.com/primev/mev-commit/blob/main/p2p/examples/biddercli) is implemented in the repository. The primary purpose of this example is to demonstrate the process of integrating with the RPC API.

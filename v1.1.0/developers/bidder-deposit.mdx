@@ -1,0 +1,103 @@
+---
+title: "Managing Your Bidder Deposit"
+sidebarTitle: Managing Your Bidder Deposit
+---
+
+**To Check Your Deposit for current window:**
+
+  ```shell
+  > curl localhost:13523/v1/bidder/get_deposit | jq
+  {
+    "amount": "0",
+    "windowNumber": 1
+  }
+  ```
+
+**To Check Your Deposit for a specific window:**
+
+  ```shell
+  > curl localhost:13523/v1/bidder/get_deposit?window_number=1 | jq
+  {
+    "amount": "0",
+    "windowNumber": 1
+  }
+  ```
+
+**Funding Your Node Account:**
+  First, retrieve the Ethereum account address of your node:
+
+    ```shell
+    > curl localhost:13523/v1/debug/topology | jq
+    {
+      "self": {
+        "Addresses": [
+          "/ip4/127.0.0.1/tcp/13522",
+          "/ip4/172.29.0.4/tcp/13522"
+        ],
+        "Ethereum Address": "0xB9286CB4782E43A202BfD426AbB72c8cb34f886c",
+        "Peer Type": "bidder",
+        "Underlay": "16Uiu2HAmDWZb4DxZQkS9yseXNukBFe6MhZdimSKuZcHFeJrF3jC9"
+      },
+      "connected_peers": {
+        "providers": [
+          "0x48ddc642514370bdafad81c91e23759b0302c915",
+          "0x972eb4fc3c457da4c957306be7fa1976bb8f39a6",
+          "0xa1e8fdb3bb6a0db7aa5db49a3512b01671686dcb"
+        ]
+      },
+      "blocked_peers": null
+    }
+    ```
+
+To add funds to your account on the mev-commit chain, you may use the [bridge](/v1.1.0/getting-started/bridge). 
+
+
+- **Adding to Your Deposit:**
+
+To increase your deposit for the current window, use the following command, specifying the desired amount:
+
+```shell
+> curl -X POST localhost/v1/bidder/deposit/YOUR_AMOUNT | jq
+```
+
+To increase your deposit for the specific window, use the following command, specifying the desired amount and window number:
+
+```shell
+> curl -X POST "localhost/v1/bidder/deposit/YOUR_AMOUNT" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "window_number": 1
+  }' | jq
+```
+
+To increase your deposit for the specific L1 block number, use the following command, specifying the desired amount and L1 block number:
+
+```shell
+> curl -X POST "localhost/v1/bidder/deposit/YOUR_AMOUNT" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "block_number": 1,
+  }' | jq
+```
+After successfully adding to your deposit, you are ready to send bids and receive preconfirmations on the network.
+
+- **Withdrawing from Your Deposit:**
+
+To withdraw funds from your deposit, use the following command:
+
+```shell
+> curl -X POST localhost/v1/bidder/withdraw \
+  -H "Content-Type: application/json" \
+  -d '{
+    "window_number": 1
+  }' | jq
+```
+If you don't specify a window number, the current window will be used by default.
+
+### Outcome of Preconfirmed Bids:
+When a bid is preconfirmed by a provider, there are several possible outcomes:
+
+| Outcome Matrix | Provider Wins Slot Auction| Provider Loses Slot Auction |
+| --------------------- | --------------| --------|
+| **Transaction in block**                   | Reward Provider          | Refund Bid to Bidder  |
+| **Transaction not in block**                 | Slash Provider & Refund Bid To Bidder           | Refund Bid to Bidder  |
