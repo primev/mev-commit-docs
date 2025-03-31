@@ -1,6 +1,6 @@
 ---
 title: "Quickstart for mev-commit bidder node"
-description: "This guide covers everything you need to set up your mev-commit bidder node. For providers, please refer to the [manual start mev-commit](/v1.0.0/developers/manual-start-mev-commit) section"
+description: "This guide covers everything you need to set up your mev-commit bidder node. For providers, please refer to the [manual start mev-commit](/v1.1.0/developers/manual-start-mev-commit) section"
 sidebarTitle: Quickstart
 icon: "gear"
 ---
@@ -61,18 +61,18 @@ icon: "gear"
     4. Enter the amount of ETH you want to transfer
     5. Click "Bridge" and approve the transaction
 
-    Wait for the bridge transaction to complete (approximately 15 minutes for L1 finality). You can see detailed instructions in our [Bridge UI guide](/v1.0.0/get-started/bridge-ui).
+    Wait for the bridge transaction to complete (approximately 15 minutes for L1 finality). You can see detailed instructions in our [Bridge UI guide](/v1.1.0/get-started/bridge-ui).
 
     For automated or programmatic bridging, you can use our CLI tool by first confirming your operating system and architecture by running `uname -sm` then downloading the appropriate bridge user CLI binary from the [releases](https://github.com/primev/mev-commit/releases/latest) page. 
 
     Or download the 1.0.0 bridge CLI directly from the links below:
-    * [Darwin ARM64](https://github.com/primev/mev-commit/releases/download/v1.0.0/mev-commit-bridge-user-cli_1.0.0_Darwin_arm64.tar.gz)
-    * [Darwin x86_64](https://github.com/primev/mev-commit/releases/download/v1.0.0/mev-commit-bridge-user-cli_1.0.0_Darwin_x86_64.tar.gz)
-    * [Linux ARM64](https://github.com/primev/mev-commit/releases/download/v1.0.0/mev-commit-bridge-user-cli_1.0.0_Linux_arm64.tar.gz)
-    * [Linux x86_64](https://github.com/primev/mev-commit/releases/download/v1.0.0/mev-commit-bridge-user-cli_1.0.0_Linux_x86_64.tar.gz)
-    * [Windows x86_64](https://github.com/primev/mev-commit/releases/download/v1.0.0/mev-commit-bridge-user-cli_1.0.0_Windows_x86_64.zip)
+    * [Darwin ARM64](https://github.com/primev/mev-commit/releases/download/v1.1.0/mev-commit-bridge-user-cli_1.0.0_Darwin_arm64.tar.gz)
+    * [Darwin x86_64](https://github.com/primev/mev-commit/releases/download/v1.1.0/mev-commit-bridge-user-cli_1.0.0_Darwin_x86_64.tar.gz)
+    * [Linux ARM64](https://github.com/primev/mev-commit/releases/download/v1.1.0/mev-commit-bridge-user-cli_1.0.0_Linux_arm64.tar.gz)
+    * [Linux x86_64](https://github.com/primev/mev-commit/releases/download/v1.1.0/mev-commit-bridge-user-cli_1.0.0_Linux_x86_64.tar.gz)
+    * [Windows x86_64](https://github.com/primev/mev-commit/releases/download/v1.1.0/mev-commit-bridge-user-cli_1.0.0_Windows_x86_64.zip)
 
-    The CLI application provides two sub-commands to bridge to and from the settlement chain. For more details go the the [bridge documentation](/v1.0.0/get-started/bridge).
+    The CLI application provides two sub-commands to bridge to and from the settlement chain. For more details go the the [bridge documentation](/v1.1.0/get-started/bridge).
 
     <Note> Make sure to specify the newly generated account address from the previous step as the destination address for the bridge command. </Note>
 
@@ -130,10 +130,10 @@ curl -X POST http://localhost:13523/v1/bidder/bid \
 }'
 ```
 
-<Info> Make sure to check [System Requirements](/v1.0.0/developers/system-requirements) to better understand what is needed to run mev-commit without any interruptions.  If you want to perform a manual setup and learn details, please skip to the [manual start mev-commit](/v1.0.0/developers/manual-start-mev-commit) section.</Info>
+<Info> Make sure to check [System Requirements](/v1.1.0/developers/system-requirements) to better understand what is needed to run mev-commit without any interruptions.  If you want to perform a manual setup and learn details, please skip to the [manual start mev-commit](/v1.1.0/developers/manual-start-mev-commit) section.</Info>
 
 # Bidder CLI application
-In order to make it simpler for users to interact with the bidder node, the team has also created a CLI application which aims to provider a simpler UX to send transactions or bids to the mev-commit network. You can check the [bidder CLI](/v1.0.0/get-started/bidders/bidder-cli) docs for more details.
+In order to make it simpler for users to interact with the bidder node, the team has also created a CLI application which aims to provider a simpler UX to send transactions or bids to the mev-commit network. You can check the [bidder CLI](/v1.1.0/get-started/bidders/bidder-cli) docs for more details.
 
 # Preconf Bot Example with Docker
-Ready to work preconf bot examples can be found [here](https://github.com/primev/preconf_bot_example) and ready to be dockerized. Additionally, the dockerized bidder node example repository can be found [here](https://docs.primev.xyz/v1.0.0/developers/docker-bidder).
+Ready to work preconf bot examples can be found [here](https://github.com/primev/preconf_bot_example) and ready to be dockerized. Additionally, the dockerized bidder node example repository can be found [here](https://docs.primev.xyz/v1.1.0/developers/docker-bidder).

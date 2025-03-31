@@ -77,7 +77,7 @@ Note that the deposit amount a bidder has set needs to be 10 times higher than t
 The `decayStartTimestamp` and `decayEndTimestamp` parameters allow bidders to control the range over which their bid decays.
 
 Due to inherent network delays, preconfirmation times can range between 50 to 250 milliseconds even if providers commit immediately after seeing the bid. To account for this, you might want to set your `decayStartTimestamp` approximately 300 milliseconds in the future. However, setting this delay is not mandatory and should be adjusted based on your strategic preferences for bid timing and pricing.
-For more detailed information about the decay mechanism, refer to the [Bid Decay Page](https://docs.primev.xyz/v1.0.0/concepts/bids/bid-decay-mechanism).
+For more detailed information about the decay mechanism, refer to the [Bid Decay Page](https://docs.primev.xyz/v1.1.0/concepts/bids/bid-decay-mechanism).
 
 ### Details on Encrypted Bid Structure
 The bid structure is encrypted using an AES key, which the bidder P2P node generates at the start, and is then sent to the provider.

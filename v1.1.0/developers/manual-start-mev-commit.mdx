@@ -52,7 +52,7 @@ Below, you'll find a guide tailored for those who prefer a more customized insta
     ```bash  ❯_ terminal
     FILENAME="mev-commit_$(uname -s)_$(uname -m).tar.gz"
     curl -L \
-    "https://github.com/primev/mev-commit/releases/download/v1.0.0/$FILENAME" \
+    "https://github.com/primev/mev-commit/releases/download/v1.1.0/$FILENAME" \
     | tar -xz -C $HOME
     ```
 
@@ -74,7 +74,7 @@ Below, you'll find a guide tailored for those who prefer a more customized insta
         ```bash ❯_ terminal
         FILENAME="mev-commit_$(uname -s)_$(uname -m).tar.gz"
         CHECKSUM=$(curl -L \
-        "https://github.com/primev/mev-commit/releases/download/v1.0.0/mev-commit_v1.0.0_checksums.txt" \
+        "https://github.com/primev/mev-commit/releases/download/v1.1.0/mev-commit_v1.1.0_checksums.txt" \
         | awk "/$FILENAME/ {print \$1}")
         ```
       </Step>
@@ -175,7 +175,7 @@ mev-commit \
       <br />
       <br />
       Once the node is started you can go through the [funding
-      process](/v1.0.0/developers/bidder-deposit) to start sending bids.
+      process](/v1.1.0/developers/bidder-deposit) to start sending bids.
     </Card>
   </div>
   <div className="inline-card-header">
@@ -183,7 +183,7 @@ mev-commit \
       <br />
       <br />
       In order to register as a provider please go through the [registration
-      process](/v1.0.0/get-started/providers/registering-a-provider).
+      process](/v1.1.0/get-started/providers/registering-a-provider).
     </Card>
   </div>
 </CardGroup>
@@ -209,7 +209,7 @@ USAGE:
    mev-commit [global options] command [command options]
 
 VERSION:
-   v1.0.0
+   v1.1.0
 
 COMMANDS:
    help, h  Shows a list of commands or help for one command

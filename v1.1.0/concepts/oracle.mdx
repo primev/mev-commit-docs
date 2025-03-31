@@ -6,7 +6,7 @@ The oracle consists of two parts:
 - A microservice [here](https://github.com/primev/mev-commit/tree/main/oracle).
 
 <Frame>
-  <img src="/v1.0.0/images/oracle-detailed-overview.png" />
+  <img src="/v1.1.0/images/oracle-detailed-overview.png" />
 </Frame>
 
 The oracle automates the verification of provider commitments and queries the L1 data source for transaction hashes and block extra data. It then
@@ -20,7 +20,7 @@ with the provider contract.
 Before the oracle can be engaged according to the protocol's intended sequence of events, several preliminary actions must be taken:
 
 <Frame>
-  <img src="/v1.0.0/images/oracle-before.png" />
+  <img src="/v1.1.0/images/oracle-before.png" />
 </Frame>
 
 **1a.** Simultaneously, the bidder issues an encrypted bid via the mev-commit peer-to-peer network.
@@ -35,7 +35,7 @@ _After the bidder's actions, the provider proceeds to:_
 
 When a bid for a transaction (txnj) is circulated through the mev-commit p2p network, and the provider has made an encrypted commitment and then opened it after the L1 block was created, the oracle is activated to verify whether the provider has honored this commitment.
 <Frame>
-  <img src="/v1.0.0/images/oracle.png" />
+  <img src="/v1.1.0/images/oracle.png" />
 </Frame>
 
 The process is as follows:
@@ -50,7 +50,7 @@ The process is as follows:
 In the event that a provider fails to include a committed transaction (txnj) in the L1 block, the oracle slashing path is initiated to penalize the provider for the breach of commitment. This process is outlined below:
 
 <Frame>
-  <img src="/v1.0.0/images/oracle-non-happy.png" />
+  <img src="/v1.1.0/images/oracle-non-happy.png" />
 </Frame>
 
 1. The provider is expected to produce an L1 block that includes the committed transaction (txnj). However, if the provider does not include txnj, the protocol moves to the slashing phase.

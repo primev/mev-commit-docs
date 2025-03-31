@@ -6,7 +6,7 @@ sidebarTitle: Sending Commitments
 To send your first commitment, you will need to connect to the mev-commit Testnet. This will allow you to consume bids incoming to the network and submit commitments. To do this, you'll want to run an emulator to simulate accepting and rejecting bids. 
 
 
-<Tip>You will want to connect to a decisioning system that will accept and reject bids based on custom criteria. You can read more about the API to open a gRPC stream [here](/v1.0.0/api-reference/provider/sendprocessedbids).</Tip>
+<Tip>You will want to connect to a decisioning system that will accept and reject bids based on custom criteria. You can read more about the API to open a gRPC stream [here](/v1.1.0/api-reference/provider/sendprocessedbids).</Tip>
 
 
 As an example, a dummy decisioning system is implemented in the repository. This dummy system accepts all the bids it gets. To try it, you can open a new terminal and run the following command:
@@ -14,7 +14,7 @@ As an example, a dummy decisioning system is implemented in the repository. This
 <Warning>You require Go Version 1.21.1 to run the example emulator</Warning>
 ``` 
 git clone --recurse-submodules https://github.com/primev/mev-commit.git && cd mev-commit &&
-git checkout v1.0.0 && cd p2p/examples/provideremulator && go run . 
+git checkout v1.1.0 && cd p2p/examples/provideremulator && go run . 
 ```
 
 ## Configuring custom logic to process bids and send Commitments
@@ -59,7 +59,7 @@ message Bid {
 The raw transactions are optionally provided by the bidder. If provided the order of the transaction hashes in `txHashes` will be the same as the order or the corresponding `rawTransactions`.
 
 Below is an image of the flow through which bids would be received through the gRPC API
-![gRPC Flow for Getting Bids](/v1.0.0/images/grpc-flow-getbids.png)
+![gRPC Flow for Getting Bids](/v1.1.0/images/grpc-flow-getbids.png)
 </Step>
 <Step title="Process Bids">
 

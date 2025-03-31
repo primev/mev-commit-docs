@@ -12,7 +12,7 @@ This method of opt-in is capital efficient in that a validator's 32 ETH already 
 
 ## Prerequisites
 
-If you plan to bulk opt-in a large number of validator pubkeys, check out the [Eigenlayer Operator Registration](/v1.0.0/knowledge-base/eigenlayer-operator-registration) guide.
+If you plan to bulk opt-in a large number of validator pubkeys, check out the [Eigenlayer Operator Registration](/v1.1.0/knowledge-base/eigenlayer-operator-registration) guide.
 
 Individual validator entities represented by a pod owner must delegate their natively restaked ETH to an Operator that's registered with the mev-commit AVS. See how to delegate [here](https://docs.eigenlayer.xyz/eigenlayer/restaking-guides/restaking-user-guide/restaker-delegation/delegate-to-an-operator).
 
@@ -31,7 +31,7 @@ If an Operator is registering pubkeys on behalf of validators, it's expected tha
 
 ## Pubkey Registration
 
-Following operator delegation, each validator pubkey must be *registered* with the mev-commit AVS from the delegated operator's account, or from the pod owner account. This action confirms a validator's attestation to follow the relay selection rule mentioned in the [Validator Guide](/v1.0.0/get-started/validators/validator-guide#requirements).
+Following operator delegation, each validator pubkey must be *registered* with the mev-commit AVS from the delegated operator's account, or from the pod owner account. This action confirms a validator's attestation to follow the relay selection rule mentioned in the [Validator Guide](/v1.1.0/get-started/validators/validator-guide#requirements).
 
 Pubkey registration is facilitated through the [mainnet](https://validators.mev-commit.xyz/dashboard) or [holesky](https://holesky.validators.mev-commit.xyz/dashboard) validator dashboard interface to the `MevCommitAVS.registerValidatorsByPodOwners` function.
 

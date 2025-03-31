@@ -5,7 +5,7 @@ sidebarTitle: Bidder Node Commands
 
 ## Interacting with the Bidder Node
 
-<Note>Ensure you have completed the [Quickstart](/v1.0.0/get-started/quickstart) step in a separate terminal. This will set up your environment and place your key in the `$HOME/.mev-commit` directory, along with running the required bidder node.</Note>
+<Note>Ensure you have completed the [Quickstart](/v1.1.0/get-started/quickstart) step in a separate terminal. This will set up your environment and place your key in the `$HOME/.mev-commit` directory, along with running the required bidder node.</Note>
 
 Now that you've made sure we have a bidder node running, we can interact with it using the following commands:
 
@@ -17,13 +17,13 @@ export ADDRESS=$(cast wallet address --private-key 0x$(cat key))
 
 ## Getting Deposit
 
-To get the current deposit balance in the contract for the current [window](/v1.0.0/concepts/bids/bidder-deposit):
+To get the current deposit balance in the contract for the current [window](/v1.1.0/concepts/bids/bidder-deposit):
 
 ```shell ❯_ terminal
 curl -s http://localhost:13523/v1/bidder/get_deposit
 ```
 
-To get the current deposit balance in the contract for a specific [window](/v1.0.0/concepts/bids/bidder-deposit):
+To get the current deposit balance in the contract for a specific [window](/v1.1.0/concepts/bids/bidder-deposit):
 
 ```shell ❯_ terminal
 curl -s http://localhost:13523/v1/bidder/get_deposit?windowNumber=1
@@ -33,7 +33,7 @@ curl -s http://localhost:13523/v1/bidder/get_deposit?windowNumber=1
 
 ## Withdraw Deposited Funds
 
-This command will allow you to withdraw funds from the specific [window](/v1.0.0/concepts/bids/bidder-deposit). 
+This command will allow you to withdraw funds from the specific [window](/v1.1.0/concepts/bids/bidder-deposit). 
 Window number is the number where the bidder deposited funds.
 
 ```shell ❯_ terminal
