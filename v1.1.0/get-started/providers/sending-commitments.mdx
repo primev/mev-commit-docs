@@ -53,7 +53,8 @@ message Bid {
   int64 decay_start_timestamp = 5;
   int64 decay_end_timestamp = 6;
   repeated string reverting_tx_hashes = 7;
-  repeated string rawTransactions = 8;
+  repeated string raw_transactions = 8;
+  string slash_amount = 9;
 };
 ```
 The raw transactions are optionally provided by the bidder. If provided the order of the transaction hashes in `txHashes` will be the same as the order or the corresponding `rawTransactions`.

@@ -18,25 +18,24 @@ Users can find the protobuf file in the [repository](https://github.com/primev/m
 **API Operation:**
 
 ```
-  rpc SendBid(Bid) returns (stream PreConfirmation)
+  rpc SendBid(Bid) returns (stream Commitment)
 ```
 
 **Message Definitions**
 
 ```protobuf
 message Bid {
-  string tx_hash = 1;
-  string bid_amount = 2;
+  repeated string tx_hashes = 1;
+  string amount = 2;
   int64 block_number = 3;
-  bytes digest = 4;
-  bytes signature = 5;
-  int64 decay_start_timestamp = 6;
-  int64 decay_end_timestamp = 7;
-  bytes nike_public_key = 8;
-  string reverting_tx_hashes = 9;
+  int64 decay_start_timestamp = 4;
+  int64 decay_end_timestamp = 5;
+  repeated string reverting_tx_hashes = 6;
+  repeated string raw_transactions = 7;
+  string slash_amount = 8;
 };
 
-message PreConfirmation {
+message Commitment {
   repeated string tx_hashes = 1;
   string bid_amount = 2;
   int64 block_number = 3;
@@ -49,7 +48,8 @@ message PreConfirmation {
   int64 decay_end_timestamp = 10;
   int64 dispatch_timestamp = 11;
   repeated string reverting_tx_hashes = 12;
-};
+  string slash_amount = 13;
+}
 ```
 
 ### **HTTP API**

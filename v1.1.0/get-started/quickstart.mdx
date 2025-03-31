@@ -105,6 +105,7 @@ curl -X POST http://localhost:13523/v1/bidder/bid \
         | `decayEndTimestamp` | End timestamp for bid decay (in Unix milliseconds) |
         | `revertingTxHashes` | Array of transaction hashes as strings that can revert |
         | `rawTransactions` | Array of hexadecimal encoded raw signed transaction payloads |
+        | `slashAmount` | Amount to be slashed from provider stake in case of a failed bid |
 
     </Accordion>
 
