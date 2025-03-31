@@ -43,6 +43,8 @@ message Bid {
   int64 decay_start_timestamp = 5;
   int64 decay_end_timestamp = 6;
   repeated string reverting_tx_hashes = 7;
+  repeated string raw_transactions = 8;
+  string slash_amount = 9;
 };
 
 message BidResponse {
