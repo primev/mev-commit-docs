@@ -43,4 +43,12 @@ The image below illustrates provider B committing to a bid posted by bidder 2, w
   <img src="/v1.1.0/images/dpcom.png" />
 </Frame>
 
-You can read more on these protocols [here](https://mirror.xyz/preconf.eth/iz2J0uTXHhl8DiAkG-VLLwvCp-8qcc_Z7A8_4rU0A3g).
+You can read more on ARUBE and DPCOM [here](https://mirror.xyz/preconf.eth/iz2J0uTXHhl8DiAkG-VLLwvCp-8qcc_Z7A8_4rU0A3g).
+
+## ZK Proofs for Opening Commitments
+A crucial property of the commitments issued by providers on mev-commit is that they can both be opened by providers as well as bidders. Being able for the bidders to open commitments is necessary when providers violate the commitment and thus have no incentive to open it. Therefore, when providers open a commitment, they have to prove in zero-knowledge that the commitment was generated correctly. This ZK proof is verified in a smart contract on the mev-commit chain when the provider sends the commitment-opening transaction. Thus, a provider can only open commitments that have been generated correctly and could also have been opened by the bidder.
+
+### Implementation and Efficiency
+The ZK proof used has been tailor-made for this particular use-case and optimized for efficiency. It is based on so-called sigma protocols and only requires a few elliptic curve operations and the computation of a hash. Generating a single ZK proof for the commitment opening takes only 0.122 milliseconds on a Mac M1 Pro. Furthermore, only around 32k gas is consumed in the smart contract to verify the proof. For comparison, the overall gas cost of the commitment opening transaction is around 488k gas. Hence, only less than 7% of the gas cost is attributed to the zero-knowledge proof verification.
+
+More details on the used ZK proofs can be found [here](https://mirror.xyz/preconf.eth/AgtLSBob1hd2A924vlL7jCyJxQDZZE2tCq_K07w5vuU).
