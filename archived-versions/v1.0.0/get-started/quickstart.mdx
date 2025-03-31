@@ -1,0 +1,139 @@
+---
+title: "Quickstart for mev-commit bidder node"
+description: "This guide covers everything you need to set up your mev-commit bidder node. For providers, please refer to the [manual start mev-commit](/v1.0.0/developers/manual-start-mev-commit) section"
+sidebarTitle: Quickstart
+icon: "gear"
+---
+<Steps>
+  <Step title="Launch mev-commit Bidder Node">
+        ### Mainnet
+            ```bash ❯_ bidder
+         curl -L -o launchmevcommit launch.mev-commit.xyz; chmod +x launchmevcommit; ./launchmevcommit --node-type bidder
+        ```
+        ### Testnet
+        ```bash ❯_ bidder
+         curl -L -o launchmevcommit launch.mev-commit.xyz; chmod +x launchmevcommit; DOMAIN="testnet.mev-commit.xyz" ./launchmevcommit --node-type bidder
+        ```
+
+<Accordion title="🤔 What does the script do?">
+
+    ## Script Overview
+
+    This script automates the setup and initialization of your Primev node, catering to both bidder and provider roles. Below is a detailed breakdown of the script's operations:
+
+    ### 1. Initialization
+    - Sets up essential variables like the RPC URL (for mainnet `https://chainrpc.mev-commit.xyz` or for testnet `https://chainrpc.testnet.mev-commit.xyz`) for network communication and the node type (either `bidder` or `provider`).
+    - Establishes the root directory (`$HOME/.mev-commit`) where the mev-commit node will be installed.
+
+    ### 2. Download
+    - Fetches the appropriate mev-commit binary for your system from the [Primev GitHub releases page](https://github.com/primev/mev-commit/releases/latest), considering your operating system and architecture.
+
+    ### 3. Installation
+    - Extracts the downloaded binary into the specified root directory, ensuring all necessary executables are correctly placed for the node's operation.
+
+    ### 4. Configuration
+    - Initializes the mev-commit node with your specified settings, including the node type and the RPC endpoint, along with necessary contract addresses for the node's functionality.
+
+    ### 5. Wallet Setup
+    - Generates a new private key and wallet address for your node.
+
+    ### 6. Wait for the wallet to be funded
+    - The script will wait for the wallet to be funded on mev-commit settlement chain. Once the user acquires the funds on the chain, it will move to the next step.
+
+    ### 7. Node Startup
+    - Launches the mev-commit node in the background tailored to the specified role, enabling it to begin its operations within the Primev network.
+
+    ### 8. Set-up autodeposit for bidder node
+    - If user selects the bidder type to launch the node, the script will also setup autodeposit for the bidder account. This means that the node will keep depositing funds for the bidder address on the mev-commit bidder registry in order to send bids.
+
+    ### 8. Cleanup
+    - Includes a cleanup function to ensure the node is properly shut down when the script exits, preventing any residual processes.
+
+</Accordion>
+
+  </Step>
+  <Step title="Fund Your Account">
+      In order to fund your account, you'll need to bridge ETH to the mev-commit chain. The easiest way to do this is through our web interface:
+
+    1. Visit [mev-commit.xyz/bridge](https://www.mev-commit.xyz/bridge)
+    2. Connect your wallet (MetaMask or WalletConnect supported)
+    3. Select Ethereum as the source chain and mev-commit as the destination
+    4. Enter the amount of ETH you want to transfer
+    5. Click "Bridge" and approve the transaction
+
+    Wait for the bridge transaction to complete (approximately 15 minutes for L1 finality). You can see detailed instructions in our [Bridge UI guide](/v1.0.0/get-started/bridge-ui).
+
+    For automated or programmatic bridging, you can use our CLI tool by first confirming your operating system and architecture by running `uname -sm` then downloading the appropriate bridge user CLI binary from the [releases](https://github.com/primev/mev-commit/releases/latest) page. 
+
+    Or download the 1.0.0 bridge CLI directly from the links below:
+    * [Darwin ARM64](https://github.com/primev/mev-commit/releases/download/v1.0.0/mev-commit-bridge-user-cli_1.0.0_Darwin_arm64.tar.gz)
+    * [Darwin x86_64](https://github.com/primev/mev-commit/releases/download/v1.0.0/mev-commit-bridge-user-cli_1.0.0_Darwin_x86_64.tar.gz)
+    * [Linux ARM64](https://github.com/primev/mev-commit/releases/download/v1.0.0/mev-commit-bridge-user-cli_1.0.0_Linux_arm64.tar.gz)
+    * [Linux x86_64](https://github.com/primev/mev-commit/releases/download/v1.0.0/mev-commit-bridge-user-cli_1.0.0_Linux_x86_64.tar.gz)
+    * [Windows x86_64](https://github.com/primev/mev-commit/releases/download/v1.0.0/mev-commit-bridge-user-cli_1.0.0_Windows_x86_64.zip)
+
+    The CLI application provides two sub-commands to bridge to and from the settlement chain. For more details go the the [bridge documentation](/v1.0.0/get-started/bridge).
+
+    <Note> Make sure to specify the newly generated account address from the previous step as the destination address for the bridge command. </Note>
+
+```shell ❯_ example
+./user-cli bridge-to-settlement --account-key <PRIVATE KEY of source account for funds> --dest-addr <Address to fund on mev-commit chain> --amount 1000000000000000000
+```
+  </Step>
+  <Step title="Send a Bid">
+    Open a new terminal window to send a bid and receive commitments from providers. Run the following command:
+
+```shell ❯_ example
+curl -X POST http://localhost:13523/v1/bidder/bid \
+-d '{
+    "rawTransactions": ["0x02f8db82426882010c8410433624841043362f8303425094ea593b730d745fb5fe01b6d20e6603915252c6bf87016e03ce313800b864ce0b63ce0000000000000000000000000e94804eaa3c4c5355992086647f683f6f41ef1f000000000000000000000000000000000000000000000000000150e0786cc000000000000000000000000000000000000000000000000000000000000004e378c001a0ece6d13b20247abdc07d669c9186ee5a1ac9601db8c98a3323024ab299cb6662a01c20680efe4e0bb48a3a936b5ab27c741819f0ac567b12b34b230004b20b78a0"],
+    "amount": "<amount in wei>",
+    "blockNumber": <integer l1blocknumber>,
+    "decayStartTimestamp": <timestamp milliseconds>,
+    "decayEndTimestamp": <timestamp milliseconds>,
+    "revertingTxHashes": []
+}'
+```
+    <Accordion title="Bid Structure Details">
+
+        | Key           | Description                                           |
+        |---------------|-------------------------------------------------------|
+        | `txHashes`      | Array of transaction hashes as strings |
+        | `amount`       | Bid amount in wei |
+        | `blockNumber`  | L1 block number targeted for bid inclusion |
+        | `decayStartTimestamp` | Start timestamp for bid decay (in Unix milliseconds) |
+        | `decayEndTimestamp` | End timestamp for bid decay (in Unix milliseconds) |
+        | `revertingTxHashes` | Array of transaction hashes as strings that can revert |
+        | `rawTransactions` | Array of hexadecimal encoded raw signed transaction payloads |
+
+    </Accordion>
+
+You can change the values in the fields `amount`, `blockNumber`, `decayStartTimestamp`, `decayEndTimestamp` and `revertingTxHashes` as desired. The `rawTransactions` field contains hexadecimal string of the RLP encoded raw transaction payloads, include raw transaction payloads in your bid in the atomic sequence in which they need to be placed in the block.  Only one out of `txHashes` or `rawTransactions` need to be sent in a bid.
+
+Make sure your bid amount is sufficiently high for the commitment you're requesting, and your target L1 block number is accurate. It's up to the providers to commit to your bid, so try to ensure a commitment is feasible to your bid by its construction. Selecting a target block of n+1 where n is the current block number generally makes it easy to receive a commitment for standard bid amounts.
+
+</Step>
+</Steps>
+
+<Check>Congrats, you just sent your first L1 preconfirmation bid! You should be receiving commitments nearly instantly.</Check>
+
+Alternatively you can send a bid using the `txHashes` field instead of `rawTransactions` to refer to a transaction a provider has in their own environment using its hash. This method also allows you to bid on others' behalf using their transaction hashes.
+```shell ❯_ example
+curl -X POST http://localhost:13523/v1/bidder/bid \
+-d '{
+    "txHashes": ["0549fc7c57fffbdbfb2cf9d5e0de165fc68dadb5c27c42fdad0bdf506f4eacae"],
+    "amount": "<amount in wei>",
+    "blockNumber": <integer l1blocknumber>,
+    "decayStartTimestamp": <timestamp milliseconds>,
+    "decayEndTimestamp": <timestamp milliseconds>,
+    "revertingTxHashes": []
+}'
+```
+
+<Info> Make sure to check [System Requirements](/v1.0.0/developers/system-requirements) to better understand what is needed to run mev-commit without any interruptions.  If you want to perform a manual setup and learn details, please skip to the [manual start mev-commit](/v1.0.0/developers/manual-start-mev-commit) section.</Info>
+
+# Bidder CLI application
+In order to make it simpler for users to interact with the bidder node, the team has also created a CLI application which aims to provider a simpler UX to send transactions or bids to the mev-commit network. You can check the [bidder CLI](/v1.0.0/get-started/bidders/bidder-cli) docs for more details.
+
+# Preconf Bot Example with Docker
+Ready to work preconf bot examples can be found [here](https://github.com/primev/preconf_bot_example) and ready to be dockerized. Additionally, the dockerized bidder node example repository can be found [here](https://docs.primev.xyz/v1.0.0/developers/docker-bidder).
