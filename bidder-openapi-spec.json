@@ -2,7 +2,7 @@
   "openapi" : "3.0.0",
   "info" : {
     "title" : "Bidder API",
-    "version" : "1.0.0-oas3",
+    "version" : "1.0.0",
     "license" : {
       "name" : "Business Source License 1.1",
       "url" : "https://github.com/primev/mev-commit/blob/main/LICENSE"
@@ -12,7 +12,7 @@
     "/v1/bidder/auto_deposit/{amount}" : {
       "post" : {
         "summary" : "AutoDeposit",
-        "description" : "AutoDeposit is called by the bidder node to add a recurring deposit in the bidder registry. The bidder\ncan specify the amount of ETH to be deposited in each window. The bidder can also specify the start window\nnumber for the deposit. If the start window number is not specified, the current block number is used to\ncalculate the window number. If the block number is specified, the window number is calculated based on\nthe block number. One it is enabled, the node will automatically deposit the specified amount in each window\nas well as withdraw the deposit from the previous window.",
+        "description" : "AutoDeposit is called by the bidder node to add a recurring deposit in the bidder registry. The bidder\ncan specify the amount of ETH to be deposited in each window. The bidder can also specify the start window\nnumber for the deposit. If the start window number is not specified, the current block number is used to\ncalculate the window number. If the block number is specified, the window number is calculated based on\nthe block number. Once it is enabled, the node will automatically deposit the specified amount in each window\nas well as withdraw the deposit from the previous window.",
         "operationId" : "Bidder_AutoDeposit",
         "responses" : {
           "200" : {
@@ -393,6 +393,7 @@
           "decay_end_timestamp" : 1630000000,
           "decay_start_timestamp" : 1630000000,
           "reverting_tx_hashes" : [ "fe4cb47db3630551beedfbd02a71ecc69fd59758e2ba699606e2d5c74284ffa7" ],
+          "slash_amount" : "500000000000000000",
           "tx_hashes" : [ "fe4cb47db3630551beedfbd02a71ecc69fd59758e2ba699606e2d5c74284ffa7", "71c1348f2d7ff7e814f9c3617983703435ea7446de420aeac488bf1de35737e8" ]
         },
         "properties" : {
@@ -437,6 +438,11 @@
               "type" : "string"
             },
             "description" : "Optional array of RLP encoded raw signed transaction payloads that the bidder wants to include in the block."
+          },
+          "slashAmount" : {
+            "type" : "string",
+            "description" : "Amount of ETH that will be slashed from the provider if they fail to include the transaction. If zero, the decayed bid amount is used for slashing.",
+            "pattern" : "[0-9]+"
           }
         },
         "description" : "Unsigned bid message from bidders to the bidder mev-commit node.",
@@ -595,6 +601,10 @@
               "type" : "string"
             },
             "description" : "Optional array of tx hashes that are allowed to revert or be discarded."
+          },
+          "slashAmount" : {
+            "type" : "string",
+            "description" : "Amount of ETH that will be slashed from the provider if they fail to include the transaction."
           }
         }
       },
