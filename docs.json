@@ -155,6 +155,12 @@
                 ]
               },
               {
+                "group": "Notifications",
+                "pages": [
+                  "v1.1.0/api-reference/notifications/subscribe"
+                ]
+              },
+              {
                 "group": "Debug",
                 "pages": [
                   "v1.1.0/api-reference/debug/canceltx",
