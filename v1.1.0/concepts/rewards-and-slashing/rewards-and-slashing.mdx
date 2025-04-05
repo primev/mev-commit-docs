@@ -7,6 +7,8 @@ The providers and validators that opt-in to the mev-commit protocol are incentiv
 
 Validators have three methods to opt-in to mev-commit, as described in the [validators section](/v1.1.0/get-started/validators). The staked (or restaked) tokens are used to secure the mev-commit protocol and to incentivize validators to include blocks built by mev-commit providers in the L1 chain. Crucially, if the validator acts maliciously on the mev-commit protocol they can be slashed and lose a portion of their staked (or restaked) tokens. Next, we discuss the rewards and slashing mechanisms for validators and providers in more detail.
 
+<Tip>The risk of getting slashed is very low for validators, unless they intentionally behave dishonestly. This has been confirmed by an [independent report on the risk/reward profile of mev-commit by Chaos Labs](https://governance.ether.fi/t/primev-symbiotic-risk-analysis/).</Tip>
+
 ## Validators/Proposers
 A validator that opts into mev-commit makes an implicit commitment to include a block from a mev-commit registered block builder in L1 whenever they become the proposer of the slot. 
 
@@ -15,7 +17,7 @@ There are two categories of rewards for validators opting in to mev-commit:
 1. Increased yield
 2. [Points](/v1.1.0/concepts/rewards-and-slashing/points)
 
-The main reward for proposers opting in to mev-commit is increased yield by proposing a more valuable block, paid through the mev-boost auction. Upon proposing a block while opted-in to mev-commit, a proposer will receive all bid related value in the mev-commit network that is surfaced by the mev-boost auction embedded in the block they propose. In other words, proposers passively receive rewards from mev-commit by proposing more valuable blocks that include inreased value from mev-commit bids. A proposer will almost always propose a more valuable block using mev-commit than without while mev-commit bids are present for its slot.
+The main reward for proposers opting in to mev-commit is increased yield by proposing a more valuable block, paid through the mev-boost auction. Upon proposing a block while opted-in to mev-commit, a proposer will receive all bid related value in the mev-commit network that is surfaced by the mev-boost auction embedded in the block they propose. In other words, proposers passively receive rewards from mev-commit by proposing more valuable blocks that include increased value from mev-commit bids. A proposer will almost always propose a more valuable block using mev-commit than without while mev-commit bids are present for its slot.
 
 Using an example of a block worth 1 ETH and mev-commit bids worth 0.1 ETH, the diagram below depicts Validator Rewards with and without mev-commit:
 
