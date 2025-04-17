@@ -48,6 +48,10 @@ curl -X POST http://localhost:13523/v1/bidder/bid \
 ```  
 You can change the values in the fields `txHashes`, `amount`, `blockNumber`, `decayStartTimestamp`, `decayEndTimestamp` and `revertingTxHashes` as desired.
 
+### Bid amount
+
+Note the bid `amount` should be set to the total amount the bidder is willing to pay for the bundle. Gas used by the transactions in the bundle does **not** affect the final amount paid.
+
 ### Bid Decay
 The `decayStartTimestamp` and `decayEndTimestamp` are important components for how sensitive the [price of a preconfirmation](https://docs.primev.xyz/v1.1.0/knowledge-base/how-to-price-a-bid) will be. More details can be found about it [here](https://docs.primev.xyz/v1.1.0/concepts/bids/bid-structure#details-on-decay-parameters).
 
