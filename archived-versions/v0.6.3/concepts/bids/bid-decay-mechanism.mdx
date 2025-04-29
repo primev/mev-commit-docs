@@ -32,8 +32,9 @@ For example, if the decay proportion is $1/2$ as in the example above, the bid's
 
 In general, when a provider issues a commitment at time $t$ for a bid with amount $\mathrm{bidAmt}$, the bidder pays the provider
 $$
-\mathrm{bidAmt} \cdot \frac{\mathrm{decayEndTimestamp} - t}{\mathrm{decayEndTimestamp} - \mathrm{decayStartTimestamp}}.
+\mathrm{bidAmt} \cdot \frac{\mathrm{decayEndTimestamp} - t}{\mathrm{decayEndTimestamp} - \mathrm{decayStartTimestamp}},
 $$
+where the amount is capped between $0$ and $\mathrm{bidAmt}$.
 
 ## Analysis of the Mechanism
 
