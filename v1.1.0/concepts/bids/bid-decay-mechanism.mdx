@@ -30,6 +30,11 @@ The bid's value decreases linearly from the moment it is issued until its expiry
 
 For example, if the decay proportion is $1/2$ as in the example above, the bid's value decays by $50$%.
 
+In general, when a provider issues a commitment at time $t$ for a bid with amount $\mathrm{bidAmt}$, the bidder pays the provider the value $v$ computed as
+$$
+v = \mathrm{bidAmt} \cdot \frac{\mathrm{decayEndTimestamp} - t}{\mathrm{decayEndTimestamp} - \mathrm{decayStartTimestamp}},
+$$
+constraint to $0 \leq v \leq \mathrm{bidAmt}$, i.e., the value $v$ paid is never more than $\mathrm{bidAmt}$.
 
 ## Analysis of the Mechanism
 
