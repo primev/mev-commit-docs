@@ -113,7 +113,6 @@
                   },
                   "v1.1.0/developers/system-requirements",
                   "v1.1.0/developers/provider-api",
-                  "v1.1.0/developers/bidder-api/bidder-api",
                   {
                     "group": "Bidder API",
                     "pages": [
