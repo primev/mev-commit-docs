@@ -106,9 +106,9 @@
                   {
                     "group": "Networks",
                     "pages": [
-                      "v1.1.0/developers/Networks/mainnet",
-                      "v1.1.0/developers/Networks/hyperliquid",
-                      "v1.1.0/developers/Networks/testnet"
+                      "v1.1.0/developers/networks/mainnet",
+                      "v1.1.0/developers/networks/hyperliquid",
+                      "v1.1.0/developers/networks/testnet"
                     ]
                   },
                   "v1.1.0/developers/system-requirements",
