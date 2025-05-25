@@ -103,29 +103,18 @@
               {
                 "group": "Developers",
                 "pages": [
+                  "v1.1.0/developers/mainnet",
+                  "v1.1.0/developers/testnet",
                   "v1.1.0/developers/system-requirements",
                   "v1.1.0/developers/provider-api",
+                  "v1.1.0/developers/bidder-api",
+                  "v1.1.0/developers/bidder-deposit",
+                  "v1.1.0/developers/docker-bidder",
+                  "v1.1.0/developers/tools-for-bid-submission",
                   "v1.1.0/developers/contracts",
                   "v1.1.0/developers/debugging",
                   "v1.1.0/developers/manual-start-mev-commit",
-                  "v1.1.0/developers/run-mev-commit-chain-node",
-                {
-                    "group": "Networks",
-                    "pages": [
-                      "v1.1.0/developers/networks/mainnet",
-                      "v1.1.0/developers/networks/hyperliquid",
-                      "v1.1.0/developers/networks/testnet",
-                    ]
-                  },
-                  {
-                    "group": "Bidder API",
-                    "pages": [
-                      "v1.1.0/developers/bidder-api/bidder-api",
-                      "v1.1.0/developers/bidder-api/bidder-deposit",
-                      "v1.1.0/developers/bidder-api/docker-bidder",
-                      "v1.1.0/developers/bidder-api/tools-for-bid-submission",
-                    ]
-                  },
+                  "v1.1.0/developers/run-mev-commit-chain-node"
                 ]
               }
             ]
