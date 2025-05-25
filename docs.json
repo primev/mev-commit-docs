@@ -106,9 +106,9 @@
                   {
                     "group": "Networks",
                     "pages": [
-                      "v1.1.0/developers/networks/mainnet",
-                      "v1.1.0/developers/networks/hyperliquid",
-                      "v1.1.0/developers/networks/testnet"
+                      "v1.1.0/developers/Networks/mainnet",
+                      "v1.1.0/developers/Networks/hyperliquid",
+                      "v1.1.0/developers/Networks/testnet"
                     ]
                   },
                   "v1.1.0/developers/system-requirements",
@@ -116,10 +116,10 @@
                   {
                     "group": "Bidder API",
                     "pages": [
-                      "v1.1.0/developers/bidder-api/bidder-api",
-                      "v1.1.0/developers/bidder-api/bidder-deposit",
-                      "v1.1.0/developers/bidder-api/docker-bidder",
-                      "v1.1.0/developers/bidder-api/tools-for-bid-submission"
+                      "v1.1.0/developers/Bidder-API/bidder-API",
+                      "v1.1.0/developers/Bidder-API/bidder-deposit",
+                      "v1.1.0/developers/Bidder-API/docker-bidder",
+                      "v1.1.0/developers/Bidder-API/tools-for-bid-submission"
                     ]
                   },
                   "v1.1.0/developers/contracts",
