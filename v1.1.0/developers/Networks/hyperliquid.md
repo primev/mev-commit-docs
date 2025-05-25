@@ -1,9 +1,7 @@
 ---
-title: Hyperliquid
+title: Hyperliquid (Early Access)
 sidebarTitle: Hyperliquid
 ---
-
-# Hyperliquid Network (Early Access)
 
 Primev is piloting mev-commit support for the Hyperliquid network.
 
