@@ -116,10 +116,10 @@
                   {
                     "group": "Bidder API",
                     "pages": [
-                      "v1.1.0/developers/Bidder-API/bidder-API",
-                      "v1.1.0/developers/Bidder-API/bidder-deposit",
-                      "v1.1.0/developers/Bidder-API/docker-bidder",
-                      "v1.1.0/developers/Bidder-API/tools-for-bid-submission"
+                      "v1.1.0/developers/Bidder-Api/bidder-API",
+                      "v1.1.0/developers/Bidder-Api/bidder-deposit",
+                      "v1.1.0/developers/Bidder-Api/docker-bidder",
+                      "v1.1.0/developers/Bidder-Api/tools-for-bid-submission"
                     ]
                   },
                   "v1.1.0/developers/contracts",
