@@ -103,12 +103,6 @@
               {
                 "group": "Developers",
                 "pages": [
-                  "v1.1.0/developers/system-requirements",
-                  "v1.1.0/developers/provider-api",
-                  "v1.1.0/developers/contracts",
-                  "v1.1.0/developers/debugging",
-                  "v1.1.0/developers/manual-start-mev-commit",
-                  "v1.1.0/developers/run-mev-commit-chain-node",
                   {
                     "group": "Networks",
                     "pages": [
@@ -117,6 +111,8 @@
                       "v1.1.0/developers/networks/testnet"
                     ]
                   },
+                  "v1.1.0/developers/system-requirements",
+                  "v1.1.0/developers/provider-api",
                   {
                     "group": "Bidder API",
                     "pages": [
@@ -125,7 +121,11 @@
                       "v1.1.0/developers/bidder-api/docker-bidder",
                       "v1.1.0/developers/bidder-api/tools-for-bid-submission"
                     ]
-                  }
+                  },
+                  "v1.1.0/developers/contracts",
+                  "v1.1.0/developers/debugging",
+                  "v1.1.0/developers/manual-start-mev-commit",
+                  "v1.1.0/developers/run-mev-commit-chain-node"
                 ]
               }
             ]
