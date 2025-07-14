@@ -59,6 +59,14 @@
                       "v1.1.0/get-started/providers/Querying-for-proposers",
                       "v1.1.0/get-started/providers/withdraw"
                     ]
+                  },
+                  {
+                    "group": "Preconf RPC",
+                    "icon": "plug",
+                    "pages": [
+                      "v1.1.0/get-started/rpc/overview",
+                      "v1.1.0/get-started/rpc/usage-for-dapps"
+                    ]
                   }
                 ]
               },
