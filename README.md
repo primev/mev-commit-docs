@@ -22,4 +22,4 @@ This repository contains the source code for our documentation website. If you'd
 - Ensure all files are in lowercase.
 - Ensure all files are using kebab-case. For example, the kebab-case version of "My First Preconf" is "my-first-preconf.mdx".
 
-We'd appericiate if you would run mintlify dev to verify changes locally and mintlify broken-links to ensure there aren't any broken links introduced from your changes. Thank you!
+Run `mintlify dev` to test the changes locally and `mintlify broken-links` to confirm no new broken links were introduced.
