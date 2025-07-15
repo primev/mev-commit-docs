@@ -61,7 +61,7 @@
                     ]
                   },
                   {
-                    "group": "Preconf RPC",
+                    "group": "FAST RPC",
                     "icon": "plug",
                     "pages": [
                       "v1.1.0/get-started/rpc/overview",

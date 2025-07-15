@@ -3,11 +3,11 @@ title: "Usage for DApps"
 sidebarTitle: "Usage for DApps"
 ---
 
-This guide walks you through integrating and using the mev-commit preconf RPC into your DApp to obtain preconfirmations for Ethereum transactions.
+This guide walks you through integrating and using the FAST RPC into your DApp to obtain preconfirmations for Ethereum transactions.
 
 <Steps>
-  <Step title="Point your application to the mev-commit RPC">
-    To start using mev-commit, configure your application or wallet to use the mev-commit RPC endpoint:
+  <Step title="Point your application to the FAST RPC">
+    To start using the FAST RPC, configure your application or wallet to use the following RPC endpoint:
 
     ```
     https://fastrpc.mev-commit.xyz
@@ -16,9 +16,9 @@ This guide walks you through integrating and using the mev-commit preconf RPC in
     This replaces your standard Ethereum RPC URL (e.g., from Infura or Alchemy).
   </Step>
   <Step title="Deposit funds in the gas tank">
-    Before submitting transactions through mev-commit, you must fund your gas tank. This is an internal balance used to pay for preconfirmation bids. Use the following RPC method to initiate the deposit process: `mevcommit_estimateDeposit`. This call returns:
+    Before submitting transactions through the FAST RPC, you must fund your gas tank. This is an internal balance used to pay for preconfirmation bids. Use the following RPC method to initiate the deposit process: `mevcommit_estimateDeposit`. This call returns:
 
-    - A deposit address (Ethereum address owned by the mev-commit service),
+    - A deposit address (Ethereum address owned by the FAST RPC service),
     - A bid amount, representing the cost of confirming your initial deposit.
       Once you receive these details, fund the deposit address by sending a regular EOA transfer as described in the next step to the deposit address. The deposited amount will be the amount you send minus the bid amount.
 
@@ -27,14 +27,14 @@ This guide walks you through integrating and using the mev-commit preconf RPC in
     </Info>
   </Step>
   <Step title="Submit transactions">
-    You can send transactions via the mev-commit preconf RPC as usual using `eth_sendRawTransaction`.
+    You can send transactions via the FAST RPC as usual using `eth_sendRawTransaction`.
 
     <Warning>
       Since fees are handled via mev-commit using the gas tank, the priority fee of the transaction should always be set to 0. To reflect this, the method `eth_maxPriorityFeePerGas` of the RPC therefore always returns 0.
     </Warning>
   </Step>
   <Step title="Monitor preconf status">
-    To monitor the transaction status, you can as usual use the method `eth_getTransactionReceipt`. The mev-commit preconf RPC will already return a receipt once a preconfirmation is obtained from all providers and if the next block proposer is opted in.
+    To monitor the transaction status, you can as usual use the method `eth_getTransactionReceipt`. The FAST RPC will already return a receipt once a preconfirmation is obtained from all providers and if the next block proposer is opted in.
 
     For more detailed information, you can also call `mevcommit_getTransactionCommitments`. This method takes the transaction hash as input and returns the commitments received for that transactions on the mev-commit network. This can be useful for advanced decision making in case `eth_getTransactionReceipt` does not return a receipt, e.g., if the block proposer is not opted in or if some, but not all, providers have committed to a transaction.
   </Step>
@@ -48,4 +48,4 @@ The balance available in the deposit for future transactions can be checked usin
 
 ### Checking for opted in validators
 
-The RPC only issues preconfs via `eth_getTransactionReceipt` if the next block proposer is opted into mev-commit. The DApp may therefore want to adjust its strategy based on whether the next proposers are opted in or not. To enable this, the mev-commit preconf RPC provides the endpoint `mevcommit_optedInBlock`, which returns the time in seconds until the next block with a mev-commit opted-in proposer.
+The RPC only issues preconfs via `eth_getTransactionReceipt` if the next block proposer is opted into mev-commit. The DApp may therefore want to adjust its strategy based on whether the next proposers are opted in or not. To enable this, the FAST RPC provides the endpoint `mevcommit_optedInBlock`, which returns the time in seconds until the next block with a mev-commit opted-in proposer.
