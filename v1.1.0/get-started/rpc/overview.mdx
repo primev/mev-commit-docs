@@ -1,14 +1,16 @@
 ---
-title: Overview
-sidebarTitle: Overview
+title: "Overview"
+sidebarTitle: "Overview"
 ---
 
 The mev-commit preconf RPC is a drop-in replacement for standard Ethereum RPC endpoints that enables wallet users and service providers to easily obtain preconfirmations. Users interact with the RPC like they would with a normal Ethereum node (via `eth_sendRawTransaction`, `eth_getTransactionReceipt`, etc.), but under the hood, the RPC leverages mev-commit to coordinate a decentralized network of block builders who issue and honor transaction commitments. Additionally, the RPC also provides additional endpoints (such as `mevcommit_getTransactionCommitments`) for advanced use cases.
 
 ## How it Works
+
 Users first configure their application to use the mev-commit preconf RPC. Since fees are paid through a pre-funded gas tank, the user needs to deposit some ETH before sending transactions. For basic usage, the RPC can then be used transparently as any other Ethereum RPC. In particular, `eth_sendRawTransaction` is used to send transactions to the RPC. Instead of sending the transaction to the public mempool, the RPC instead sends encrypted bids to block builders in the mev-commit network. Once all registered block builders have issued a commitment and if the next block proposer is opted in, the RPC considers the transaction as preconfirmed. From that point on, `eth_getTransactionReceipt` will return a receipt for that transaction, including a special block hash, that can be used to call `eth_getBlockByHash`. That call will in turn return a special block that only contains this specific preconfirmed transaction. This ensures compatibility with existing wallets to recognize preconfirmed transactions.
 
 ## Usage
+
 The RPC is designed to integrate easily into existing tools and infrastructure. That means after setup, basic usage is equivalent to using any regular RPC, except that transactions quickly get preconfirmed.
 
 For a detailed guide on how to integrate the preconf RPC into DApps, see [guide on DApp integration](/v1.1.0/get-started/rpc/usage-for-dapps).
