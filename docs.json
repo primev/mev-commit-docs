@@ -21,6 +21,7 @@
                 "pages": [
                   "v1.1.0/get-started/welcome-to-primev",
                   "v1.1.0/get-started/quickstart",
+                  "v1.1.0/get-started/fastrpc",
                   {
                     "group": "Bridge",
                     "icon": "bridge",
@@ -60,14 +61,6 @@
                       "v1.1.0/get-started/providers/withdraw"
                     ]
                   },
-                  {
-                    "group": "FAST RPC",
-                    "icon": "plug",
-                    "pages": [
-                      "v1.1.0/get-started/rpc/overview",
-                      "v1.1.0/get-started/rpc/usage-for-dapps"
-                    ]
-                  }
                 ]
               },
               {
