@@ -1,9 +1,8 @@
 ---
 title: "FAST RPC"
 sidebarTitle: "FAST RPC"
-icon: "forward-fast" 
+icon: "forward"
 ---
-
 The FAST RPC is a drop-in replacement for standard Ethereum RPC transaction sending endpoints that enables dapps and wallets to easily obtain preconfirmations. Users interact with the RPC like they would with a normal Ethereum node (via `eth_sendRawTransaction`, `eth_getTransactionReceipt`, etc.), but under the hood, the RPC leverages mev-commit to coordinate a decentralized network of block builders who issue and honor transaction commitments. Additionally, the RPC also provides additional endpoints (such as `mevcommit_getTransactionCommitments`) for advanced use cases.
 
 <Columns cols={2}>
