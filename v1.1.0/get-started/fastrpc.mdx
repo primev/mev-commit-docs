@@ -1,17 +1,17 @@
 ---
 title: "FAST RPC"
 sidebarTitle: "FAST RPC"
-icon: "forward"
+icon: "forward-fast"
 ---
 The FAST RPC is a drop-in replacement for standard Ethereum RPC transaction sending endpoints that enables dapps and wallets to easily obtain preconfirmations. Users interact with the RPC like they would with a normal Ethereum node (via `eth_sendRawTransaction`, `eth_getTransactionReceipt`, etc.), but under the hood, the RPC leverages mev-commit to coordinate a decentralized network of block builders who issue and honor transaction commitments. Additionally, the RPC also provides additional endpoints (such as `mevcommit_getTransactionCommitments`) for advanced use cases.
 
 <Columns cols={2}>
   <Card title="For dApps" icon="panel-left-close">
-    [FAST RPC Usage Instructions for dApps](#usage-for-dapps)
+    <p>[FAST RPC Usage Instructions for dApps](#usage-for-dapps)</p>
   </Card>
   <Card title="For Wallets" icon="panel-right-close">
-    <p>FAST RPC [Usage Instructions for wallets and wallet users](#usage-for-wallets)</p>
-  </Card>
+    <p>FAST RPC [Usage Instructions for wallets and wallet users](#usage-for-wallets)</p>
+  </Card>
 </Columns>
 
 ## How it Works
@@ -28,7 +28,7 @@ This guide walks you through integrating and using the FAST RPC into your DApp t
     To start using the FAST RPC, configure your application or wallet to use the following RPC endpoint:
 
     ```
-    https://fastrpc.mev-commit.xyz
+    [https://fastrpc.mev-commit.xyz](https://fastrpc.mev-commit.xyz)
     ```
 
     This replaces your standard Ethereum RPC URL (e.g., from Infura or Alchemy).
@@ -71,7 +71,7 @@ The RPC only issues preconfs via `eth_getTransactionReceipt` if the next block p
 ## Usage for Wallets
 
 <Steps>
-  <Step title="Go to your wallet's "Add Custom RPC" screen and add the following details:">
+  <Step title="Go to your wallet's \"Add Custom RPC\" screen and add the following details:">
     **Network Name:** Ethereum Mainnet
     **Default RPC URL:** `https://fastrpc.mev-commit.xyz`
     **Chain ID:** 1
@@ -82,12 +82,10 @@ The RPC only issues preconfs via `eth_getTransactionReceipt` if the next block p
   </Step>
   <Step title="Deposit funds in the gas tank">
     Send some ETH to `0x24AFFA7b16A0771848f6CD49c2aa36506Bfc2ACf` to top up your bid balance.
- </Step>
+  </Step>
   <Step title="Make a transaction!">
     Send some ETH, Use a dApp, Mint an NFT on mainnet with blazing speed
   </Step>
 </Steps>
 
 You're all set. Happy FAST Ethereum!
-
-
