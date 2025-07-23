@@ -167,6 +167,21 @@
                 ]
               },
               {
+                "group": "FAST RPC",
+                "pages": [
+                  "v1.1.0/api-reference/rpc/gettransactioncount",
+                  "v1.1.0/api-reference/rpc/maxpriorityfeepergas",
+                  "v1.1.0/api-reference/rpc/sendrawtransaction",
+                  "v1.1.0/api-reference/rpc/gettransactionreceipt",
+                  "v1.1.0/api-reference/rpc/getblockbyhash",
+                  "v1.1.0/api-reference/rpc/gettransactioncommitments",
+                  "v1.1.0/api-reference/rpc/optedinblock",
+                  "v1.1.0/api-reference/rpc/estimatedeposit",
+                  "v1.1.0/api-reference/rpc/getbalance",
+                  "v1.1.0/api-reference/rpc/estimatebridge"
+                ]
+              },
+              {
                 "group": "Notifications",
                 "pages": [
                   "v1.1.0/api-reference/notifications/subscribe"
