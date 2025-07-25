@@ -224,6 +224,6 @@
     }
   },
   "api": {
-    "openapi": "/fast_rpc_openapi_spec.json"
+    "openapi": "/fast-rpc-openapi-spec.json"
   }
 }
