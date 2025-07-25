@@ -8,6 +8,9 @@
     "dark": "#E97D25"
   },
   "favicon": "favicon.svg",
+  "api": {
+    "openapi": "fast-rpc-openapi-spec.json"
+  },
   "navigation": {
     "versions": [
       {
