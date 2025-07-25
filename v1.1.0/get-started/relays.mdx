@@ -1,15 +1,16 @@
 ---
-title: Relay Integration Guide
-sidebarTitle: Relays
-icon: 'arrow-right-arrow-left'
+title: "Relay Integration Guide"
+sidebarTitle: "Relays"
+icon: "arrow-right-arrow-left"
 ---
+
 import { ProviderRegistryAddressMainnet1_0_0, ValidatorOptInRouterProxyAddress } from '/snippets/mainnet-addresses.mdx';
 import { ProviderRegistryAddress, ProviderRegistryAddress0_7_0, ValidatorOptInRouterAddress } from '/snippets/testnet-addresses.mdx';
 
 ## Overview
 
 <Note>
-Enabling mev-commit on your relay is simple and requires minimal changes to your existing setup.
+  Enabling mev-commit on your relay is simple and requires minimal changes to your existing setup.
 </Note>
 
 This guide explains how to integrate your relay with mev-commit.
@@ -17,13 +18,15 @@ This guide explains how to integrate your relay with mev-commit.
 Your relay will check if the current slot's validator has opted into mev-commit:
 
 - If they haven't opted in, your relay works normally:
+
 <Frame>
-  <img src="/v1.1.0/images/mev-commit-relay.png" alt="mev-commit relay diagram" />
+  ![mev-commit relay diagram](/v1.1.0/images/mev-commit-relay.png)
 </Frame>
 
 - If they have opted in, your relay only accepts blocks from mev-commit builders:
+
 <Frame>
-  <img src="/v1.1.0/images/mev-commit-validator-relay.png" alt="mev-commit validator relay diagram" />
+  ![mev-commit validator relay diagram](/v1.1.0/images/mev-commit-validator-relay.png)
 </Frame>
 
 To implement this, your relay needs to track two things:
@@ -35,29 +38,30 @@ To implement this, your relay needs to track two things:
 
 <Steps>
   <Step title="View the Example Implementation">
-   - Check out this [mev-commit relay integration](https://github.com/flashbots/mev-boost-relay/pull/657)
-   - Add required environment variables:
+    - Check out this [mev-commit relay integration](https://github.com/flashbots/mev-boost-relay/pull/657)
+    - Add required environment variables:
 
-### Mainnet
-<CodeBlock>
-MEV_COMMIT_RPC=wss://chainrpc-wss.mev-commit.xyz
-PROVIDER_REGISTRY_ADDR={ProviderRegistryAddressMainnet1_0_0}
-</CodeBlock>
+    ### Mainnet
 
-### Testnet
-<CodeBlock>
-MEV_COMMIT_RPC=wss://chainrpc-wss.testnet.mev-commit.xyz
-PROVIDER_REGISTRY_ADDR={ProviderRegistryAddress0_7_0}
-</CodeBlock>
+    ```
+    MEV_COMMIT_RPC=wss://chainrpc-wss.mev-commit.xyz
+    PROVIDER_REGISTRY_ADDR=ProviderRegistryAddressMainnet1_0_0
+    ```
+
+    ### Testnet
+
+    ```
+    MEV_COMMIT_RPC=wss://chainrpc-wss.testnet.mev-commit.xyz
+    PROVIDER_REGISTRY_ADDR=ProviderRegistryAddress0_7_0
+    ```
   </Step>
-
   <Step title="Test and Deploy">
     Test filtering behavior on Holesky:
+
     - Register a [test builder](/v1.1.0/get-started/quickstart)
     - Submit [test bids](/bidders/best-practices#submit-bundles)
-    - Verify correct block filtering 
+    - Verify correct block filtering
   </Step>
-
   <Step title="Register Your Relay">
     1. Add your relay to our [supporting relays list](/v1.1.0/get-started/validators/validator-guide#supporting-relays)
     2. Provide connection details for validators
@@ -74,118 +78,118 @@ You have now successfully integrated your relay with mev-commit.
 To track which validators have opted into mev-commit, you'll want to monitor the following contracts:
 
 ## Ethereum L1
-| Network | Contract | Address |
-|---------|----------|---------|
-| **Mainnet** | Validator Opt In Router | {ValidatorOptInRouterProxyAddress} |
-| **Holesky** | Validator Opt In Router | {ValidatorOptInRouterAddress} |
+
+| Network     | Contract                | Address                          |
+| ----------- | ----------------------- | -------------------------------- |
+| **Mainnet** | Validator Opt In Router | ValidatorOptInRouterProxyAddress |
+| **Holesky** | Validator Opt In Router | ValidatorOptInRouterAddress      |
 
 ## mev-commit Chain
-| Network | Contract | Address |
-|---------|----------|---------|
-| **Mainnet** | Provider Registry | {ProviderRegistryAddressMainnet1_0_0} |
-| **Testnet** | Provider Registry | {ProviderRegistryAddress0_7_0} |
+
+| Network     | Contract          | Address                             |
+| ----------- | ----------------- | ----------------------------------- |
+| **Mainnet** | Provider Registry | ProviderRegistryAddressMainnet1_0_0 |
+| **Testnet** | Provider Registry | ProviderRegistryAddress0_7_0        |
 
 By monitoring these contracts, you can determine which validators and providers have opted into mev-commit and ensure compliance with the protocol.
 
-
 ### How to Query the Provider Registry
 
-    The mev-commit provider registry contract maintains the list of authorized providers such as block builders. You can query this contract to validate builder addresses.
+The mev-commit provider registry contract maintains the list of authorized providers such as block builders. You can query this contract to validate builder addresses.
 
-    **Contract Details:**
+**Contract Details:**
 
-    | Network | Address |
-    |---------|---------|
-    | **mev-commit chain mainnet** | {ProviderRegistryAddressMainnet1_0_0} |
-    | **mev-commit chain testnet** | {ProviderRegistryAddress0_7_0} |
+| Network                      | Address                             |
+| ---------------------------- | ----------------------------------- |
+| **mev-commit chain mainnet** | ProviderRegistryAddressMainnet1_0_0 |
+| **mev-commit chain testnet** | ProviderRegistryAddress0_7_0        |
 
-    <AccordionGroup>
-      <Accordion title="How to query the registry for registered providers">
-        You can retrieve all registered providers using the following script:
+<AccordionGroup>
+  <Accordion title="How to query the registry for registered providers">
+    You can retrieve all registered providers using the following script:
 
-        ```javascript
-        // Import the ethers library
-        const ethers = require("ethers");
-
-        // Define the provider using the RPC URL
-        const provider = new ethers.JsonRpcProvider("https://chainrpc.mev-commit.xyz/");
-
-        // Define the contract address and ABI
-        const providerRegistryAddress = "0xb772Add4718E5BD6Fe57Fb486A6f7f008E52167E";
-        const abi = [
-            "event ProviderRegistered(address indexed provider, uint256 stakedAmount)",
-            "function isProviderValid(address provider) public view",
-            "function getBLSKeys(address provider) external view returns (bytes[])"
-        ];
-
-        // Create a new contract instance
-        const contract = new ethers.Contract(providerRegistryAddress, abi, provider);
-
-        // Function to retrieve BLS keys grouped by valid provider address
-        async function getRegisteredProviders() {
-            const filter = contract.filters.ProviderRegistered();
-            const events = await contract.queryFilter(filter);
-            let totalKeys = 0;
-
-            const providerMap = {};
-
-            for (const event of events) {
-                const providerAddress = event.args.provider;
-
-                try {
-                    //This will fail if the provider isn't valid
-                    await contract.isProviderValid(providerAddress);
-
-                    const blsKeys = await contract.getBLSKeys(providerAddress);
-
-                    // Convert each key to hex string for any future usage
-                    providerMap[providerAddress] = blsKeys.map(key => ethers.hexlify(key));
-                    totalKeys += blsKeys.length
-                } catch (error) {
-                    // Skip invalid providers or failed fetches
-                }
+    ```javascript
+    // Import the ethers library
+    const ethers = require("ethers");
+    
+    // Define the provider using the RPC URL
+    const provider = new ethers.JsonRpcProvider("https://chainrpc.mev-commit.xyz/");
+    
+    // Define the contract address and ABI
+    const providerRegistryAddress = "0xb772Add4718E5BD6Fe57Fb486A6f7f008E52167E";
+    const abi = [
+        "event ProviderRegistered(address indexed provider, uint256 stakedAmount)",
+        "function isProviderValid(address provider) public view",
+        "function getBLSKeys(address provider) external view returns (bytes[])"
+    ];
+    
+    // Create a new contract instance
+    const contract = new ethers.Contract(providerRegistryAddress, abi, provider);
+    
+    // Function to retrieve BLS keys grouped by valid provider address
+    async function getRegisteredProviders() {
+        const filter = contract.filters.ProviderRegistered();
+        const events = await contract.queryFilter(filter);
+        let totalKeys = 0;
+    
+        const providerMap = {};
+    
+        for (const event of events) {
+            const providerAddress = event.args.provider;
+    
+            try {
+                //This will fail if the provider isn't valid
+                await contract.isProviderValid(providerAddress);
+    
+                const blsKeys = await contract.getBLSKeys(providerAddress);
+    
+                // Convert each key to hex string for any future usage
+                providerMap[providerAddress] = blsKeys.map(key => ethers.hexlify(key));
+                totalKeys += blsKeys.length
+            } catch (error) {
+                // Skip invalid providers or failed fetches
             }
-
-            console.log("Total Registered Keys: ", totalKeys);
-            return providerMap;
         }
+    
+        console.log("Total registered keys: ", totalKeys);
+        return providerMap;
+    }
+    
+    // Run and log providers with their BLS keys
+    getRegisteredProviders()
+        .then(providerMap => {
+        console.log("Valid providers and their BLS keys:");
+            for (const [address, blsKeys] of Object.entries(providerMap)) {
+                console.log(`\nProvider: ${address}`);
+                blsKeys.forEach((key, index) => {
+                console.log(`  Key ${index + 1}: ${key}`);
+                });
+            }
+        })
+        .catch(error => {
+            console.error("Error fetching providers:", error);
+        });
+    ```
+  </Accordion>
+  <Accordion title="Expected Output">
+    The output will contain the number of all registered keys and a list of providers with their registered BLS public keys.
 
-        // Run and log providers with their BLS keys
-        getRegisteredProviders()
-            .then(providerMap => {
-            console.log("Valid providers and their BLS keys:");
-                for (const [address, blsKeys] of Object.entries(providerMap)) {
-                    console.log(`\nProvider: ${address}`);
-                    blsKeys.forEach((key, index) => {
-                    console.log(`  Key ${index + 1}: ${key}`);
-                    });
-                }
-            })
-            .catch(error => {
-                console.error("Error fetching providers:", error);
-            });
-        ```
-      </Accordion>
-  
-      <Accordion title="Expected Output">
-        The output will contain the number of all registered keys and a list of providers with their registered BLS public keys.
-
-        ```bash
-        Total Registered Keys:  17
-        Valid providers and their BLS keys:
-
-        Provider: 0x2445e5e28890De3e93F39fCA817639c470F4d3b9
-          Key 1: 0x8cafae64383b537561650b2e3893c126d1da86eb43c04e690fcead76cc6512c022873241c2630b099d13868f9b01dc17
-
-        Provider: 0xE3d71EF44D20917b93AA93e12Bd35b0859824A8F
-          Key 1: 0xb7c5fbdde8ca800875d7aac708761e07486fbab117af3826c48a6c287bc52ab1ae7320bf7b9701467a9bdc7b43aaddba
-
-        Provider: 0x70C0f12E802aAD2532e1AfF6AE151Ce4CE75fDb7
-          Key 1: 0x83d6a6abb623689e70b339a3080b52082efd548fe33bcf2d3f3497ee7980bfb7e343917307ebae7f2ea552cfe44ec116
-          Key 2: 0x926b79056c9d24eff9ebf7811c03587e036c24aa1e98c180813be5686c744e7cb68e3665a8c9930aa37281962037dad5
-          Key 3: 0x8a2d9d9a99521dac1189c30366347a17a17ef77369810d83f8b5f0c224517849219f03f13afd9e85bcbf675d0653dbf5
-
-        ...
-        ```
-      </Accordion>
-    </AccordionGroup>
+    ```bash
+    Total registered keys:  23
+    Valid providers and their BLS keys:
+    
+    Provider: 0x...
+      Key 1: 0x...
+    
+    Provider: 0x...
+      Key 1: 0x...
+    
+    Provider: 0x...
+      Key 1: 0x...
+      Key 2: 0x...
+      Key 3: 0x...
+    
+    ...
+    ```
+  </Accordion>
+</AccordionGroup>
