@@ -202,7 +202,15 @@
           },
           {
             "tab": "FAST RPC API Reference",
-            "openapi": "fast-rpc-openapi-spec.json"
+            "groups": [
+              {
+                "group": "Endpoints",
+                "openapi": {
+                  "source": "fast-rpc-openapi-spec.json",
+                  "directory": "fast-rpc-api-reference"
+                }
+              }
+            ]
           },
           {
             "tab": "Knowledge Base",
