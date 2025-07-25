@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "FAST RPC API",
+    "title": "Bidder API",
     "version": "1.0.0",
     "license": {
       "name": "Business Source License 1.1",
@@ -9,378 +9,368 @@
     }
   },
   "paths": {
-    "/rpc/eth_getTransactionCount": {
+    "/": {
       "post": {
-        "summary": "eth_getTransactionCount",
-        "description": "Returns the transaction count including queued transactions in the RPC provider\u2019s private pool. May differ from public mempool.",
-        "operationId": "RPC_eth_getTransactionCount",
+        "summary": "Preconf JSON-RPC",
+        "description": "Generic JSON-RPC endpoint to interact with preconfirmation RPC methods.",
+        "operationId": "PreconfRpc",
         "requestBody": {
-          "description": "JSON-RPC request for `eth_getTransactionCount` method.",
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/JsonRpcRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/JsonRpcResponse"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/googlerpcStatus"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/rpc/eth_maxPriorityFeePerGas": {
-      "post": {
-        "summary": "eth_maxPriorityFeePerGas",
-        "description": "Overrides default behavior to return zero priority fee, preventing clients from using the underlying provider\u2019s suggested fee.",
-        "operationId": "RPC_eth_maxPriorityFeePerGas",
-        "requestBody": {
-          "description": "JSON-RPC request for `eth_maxPriorityFeePerGas` method.",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/JsonRpcRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/JsonRpcResponse"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/googlerpcStatus"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/rpc/eth_sendRawTransaction": {
-      "post": {
-        "summary": "eth_sendRawTransaction",
-        "description": "Custom implementation that logs the transaction locally and enqueues it for broadcasting on the mev-commit network.",
-        "operationId": "RPC_eth_sendRawTransaction",
-        "requestBody": {
-          "description": "JSON-RPC request for `eth_sendRawTransaction` method.",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/JsonRpcRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/JsonRpcResponse"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/googlerpcStatus"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/rpc/eth_getTransactionReceipt": {
-      "post": {
-        "summary": "eth_getTransactionReceipt",
-        "description": "Returns early receipts for mev-commit transactions. Uses custom block hashes to indicate preconfirmed status.",
-        "operationId": "RPC_eth_getTransactionReceipt",
-        "requestBody": {
-          "description": "JSON-RPC request for `eth_getTransactionReceipt` method.",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/JsonRpcRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/JsonRpcResponse"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/googlerpcStatus"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/rpc/eth_getBlockByHash": {
-      "post": {
-        "summary": "eth_getBlockByHash",
-        "description": "Filters and returns preconfirmed blocks from mev-commit receipts. Falls back to upstream for others.",
-        "operationId": "RPC_eth_getBlockByHash",
-        "requestBody": {
-          "description": "JSON-RPC request for `eth_getBlockByHash` method.",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/JsonRpcRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/JsonRpcResponse"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/googlerpcStatus"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/rpc/mevcommit_getTransactionCommitments": {
-      "post": {
-        "summary": "mevcommit_getTransactionCommitments",
-        "description": "Given a transaction hash, returns a list of commitments, digests, signatures, and bid details received on the mev-commit network.",
-        "operationId": "RPC_mevcommit_getTransactionCommitments",
-        "requestBody": {
-          "description": "JSON-RPC request for `mevcommit_getTransactionCommitments` method.",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/JsonRpcRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/JsonRpcResponse"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/googlerpcStatus"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/rpc/mevcommit_optedInBlock": {
-      "post": {
-        "summary": "mevcommit_optedInBlock",
-        "description": "Returns the number of seconds until the next validator block that has opted into mev-commit.",
-        "operationId": "RPC_mevcommit_optedInBlock",
-        "requestBody": {
-          "description": "JSON-RPC request for `mevcommit_optedInBlock` method.",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/JsonRpcRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/JsonRpcResponse"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/googlerpcStatus"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/rpc/mevcommit_estimateDeposit": {
-      "post": {
-        "summary": "mevcommit_estimateDeposit",
-        "description": "Estimates the deposit amount and returns the service-owned EOA address where the user should send funds.",
-        "operationId": "RPC_mevcommit_estimateDeposit",
-        "requestBody": {
-          "description": "JSON-RPC request for `mevcommit_estimateDeposit` method.",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/JsonRpcRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/JsonRpcResponse"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/googlerpcStatus"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/rpc/mevcommit_getBalance": {
-      "post": {
-        "summary": "mevcommit_getBalance",
-        "description": "Returns the user's available balance after depositing into the RPC provider.",
-        "operationId": "RPC_mevcommit_getBalance",
-        "requestBody": {
-          "description": "JSON-RPC request for `mevcommit_getBalance` method.",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/JsonRpcRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/JsonRpcResponse"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/googlerpcStatus"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/rpc/mevcommit_estimateBridge": {
-      "post": {
-        "summary": "mevcommit_estimateBridge",
-        "description": "Estimates the cost and returns the address for instant bridging to the mev-commit chain. No deposit required beforehand.",
-        "operationId": "RPC_mevcommit_estimateBridge",
-        "requestBody": {
-          "description": "JSON-RPC request for `mevcommit_estimateBridge` method.",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/JsonRpcRequest"
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "title": "eth_getTransactionCount",
+                    "description": "Returns the transaction count including queued transactions in the RPC provider\u2019s private pool. May differ from public mempool.",
+                    "properties": {
+                      "jsonrpc": {
+                        "type": "string",
+                        "example": "2.0"
+                      },
+                      "method": {
+                        "type": "string",
+                        "enum": [
+                          "eth_getTransactionCount"
+                        ]
+                      },
+                      "id": {
+                        "type": "integer",
+                        "example": 1
+                      },
+                      "params": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        },
+                        "minItems": 2,
+                        "maxItems": 2,
+                        "description": "Takes two parameters: address and block tag."
+                      }
+                    },
+                    "required": [
+                      "jsonrpc",
+                      "method",
+                      "id",
+                      "params"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "title": "eth_maxPriorityFeePerGas",
+                    "description": "Overrides default behavior to return zero priority fee, preventing clients from using the underlying provider\u2019s suggested fee.",
+                    "properties": {
+                      "jsonrpc": {
+                        "type": "string",
+                        "example": "2.0"
+                      },
+                      "method": {
+                        "type": "string",
+                        "enum": [
+                          "eth_maxPriorityFeePerGas"
+                        ]
+                      },
+                      "id": {
+                        "type": "integer",
+                        "example": 1
+                      },
+                      "params": {
+                        "type": "array",
+                        "items": {},
+                        "minItems": 0,
+                        "maxItems": 0,
+                        "description": "No parameters."
+                      }
+                    },
+                    "required": [
+                      "jsonrpc",
+                      "method",
+                      "id",
+                      "params"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "title": "eth_sendRawTransaction",
+                    "description": "Custom implementation that logs the transaction locally and enqueues it for broadcasting on the mev-commit network.",
+                    "properties": {
+                      "jsonrpc": {
+                        "type": "string",
+                        "example": "2.0"
+                      },
+                      "method": {
+                        "type": "string",
+                        "enum": [
+                          "eth_sendRawTransaction"
+                        ]
+                      },
+                      "id": {
+                        "type": "integer",
+                        "example": 1
+                      },
+                      "params": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        },
+                        "minItems": 1,
+                        "maxItems": 1,
+                        "description": "Takes one parameter: the raw signed transaction data."
+                      }
+                    },
+                    "required": [
+                      "jsonrpc",
+                      "method",
+                      "id",
+                      "params"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "title": "eth_getTransactionReceipt",
+                    "description": "Returns early receipts for mev-commit transactions. Uses custom block hashes to indicate preconfirmed status.",
+                    "properties": {
+                      "jsonrpc": {
+                        "type": "string",
+                        "example": "2.0"
+                      },
+                      "method": {
+                        "type": "string",
+                        "enum": [
+                          "eth_getTransactionReceipt"
+                        ]
+                      },
+                      "id": {
+                        "type": "integer",
+                        "example": 1
+                      },
+                      "params": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        },
+                        "minItems": 1,
+                        "maxItems": 1,
+                        "description": "Takes one parameter: transaction hash."
+                      }
+                    },
+                    "required": [
+                      "jsonrpc",
+                      "method",
+                      "id",
+                      "params"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "title": "eth_getBlockByHash",
+                    "description": "Filters and returns preconfirmed blocks from mev-commit receipts. Falls back to upstream for others.",
+                    "properties": {
+                      "jsonrpc": {
+                        "type": "string",
+                        "example": "2.0"
+                      },
+                      "method": {
+                        "type": "string",
+                        "enum": [
+                          "eth_getBlockByHash"
+                        ]
+                      },
+                      "id": {
+                        "type": "integer",
+                        "example": 1
+                      },
+                      "params": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        },
+                        "minItems": 2,
+                        "maxItems": 2,
+                        "description": "Takes two parameters: block hash and boolean to include full transactions."
+                      }
+                    },
+                    "required": [
+                      "jsonrpc",
+                      "method",
+                      "id",
+                      "params"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "title": "mevcommit_getTransactionCommitments",
+                    "description": "Given a transaction hash, returns a list of commitments, digests, signatures, and bid details received on the mev-commit network.",
+                    "properties": {
+                      "jsonrpc": {
+                        "type": "string",
+                        "example": "2.0"
+                      },
+                      "method": {
+                        "type": "string",
+                        "enum": [
+                          "mevcommit_getTransactionCommitments"
+                        ]
+                      },
+                      "id": {
+                        "type": "integer",
+                        "example": 1
+                      },
+                      "params": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        },
+                        "minItems": 1,
+                        "maxItems": 1,
+                        "description": "Takes one parameter: transaction hash."
+                      }
+                    },
+                    "required": [
+                      "jsonrpc",
+                      "method",
+                      "id",
+                      "params"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "title": "mevcommit_optedInBlock",
+                    "description": "Returns the number of seconds until the next validator block that has opted into mev-commit.",
+                    "properties": {
+                      "jsonrpc": {
+                        "type": "string",
+                        "example": "2.0"
+                      },
+                      "method": {
+                        "type": "string",
+                        "enum": [
+                          "mevcommit_optedInBlock"
+                        ]
+                      },
+                      "id": {
+                        "type": "integer",
+                        "example": 1
+                      },
+                      "params": {
+                        "type": "array",
+                        "items": {},
+                        "minItems": 0,
+                        "maxItems": 0,
+                        "description": "No parameters."
+                      }
+                    },
+                    "required": [
+                      "jsonrpc",
+                      "method",
+                      "id",
+                      "params"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "title": "mevcommit_estimateDeposit",
+                    "description": "Estimates the deposit amount and returns the service-owned EOA address where the user should send funds.",
+                    "properties": {
+                      "jsonrpc": {
+                        "type": "string",
+                        "example": "2.0"
+                      },
+                      "method": {
+                        "type": "string",
+                        "enum": [
+                          "mevcommit_estimateDeposit"
+                        ]
+                      },
+                      "id": {
+                        "type": "integer",
+                        "example": 1
+                      },
+                      "params": {
+                        "type": "array",
+                        "items": {},
+                        "minItems": 0,
+                        "maxItems": 0,
+                        "description": "No parameters."
+                      }
+                    },
+                    "required": [
+                      "jsonrpc",
+                      "method",
+                      "id",
+                      "params"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "title": "mevcommit_getBalance",
+                    "description": "Returns the user's available balance after depositing into the RPC provider.",
+                    "properties": {
+                      "jsonrpc": {
+                        "type": "string",
+                        "example": "2.0"
+                      },
+                      "method": {
+                        "type": "string",
+                        "enum": [
+                          "mevcommit_getBalance"
+                        ]
+                      },
+                      "id": {
+                        "type": "integer",
+                        "example": 1
+                      },
+                      "params": {
+                        "type": "array",
+                        "items": {},
+                        "minItems": 0,
+                        "maxItems": 0,
+                        "description": "No parameters."
+                      }
+                    },
+                    "required": [
+                      "jsonrpc",
+                      "method",
+                      "id",
+                      "params"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "title": "mevcommit_estimateBridge",
+                    "description": "Estimates the cost and returns the address for instant bridging to the mev-commit chain. No deposit required beforehand.",
+                    "properties": {
+                      "jsonrpc": {
+                        "type": "string",
+                        "example": "2.0"
+                      },
+                      "method": {
+                        "type": "string",
+                        "enum": [
+                          "mevcommit_estimateBridge"
+                        ]
+                      },
+                      "id": {
+                        "type": "integer",
+                        "example": 1
+                      },
+                      "params": {
+                        "type": "array",
+                        "items": {},
+                        "minItems": 0,
+                        "maxItems": 0,
+                        "description": "No parameters."
+                      }
+                    },
+                    "required": [
+                      "jsonrpc",
+                      "method",
+                      "id",
+                      "params"
+                    ]
+                  }
+                ]
               }
             }
           }
@@ -770,30 +760,6 @@
         },
         "description": "Withdraw deposit from the bidder registry.",
         "title": "Withdraw response"
-      },
-      "JsonRpcRequest": {
-        "type": "object",
-        "properties": {
-          "jsonrpc": {
-            "type": "string",
-            "example": "2.0"
-          },
-          "method": {
-            "type": "string"
-          },
-          "params": {
-            "type": "array",
-            "items": {}
-          },
-          "id": {
-            "type": "integer"
-          }
-        },
-        "required": [
-          "jsonrpc",
-          "method",
-          "id"
-        ]
       },
       "JsonRpcResponse": {
         "type": "object",
