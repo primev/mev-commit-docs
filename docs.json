@@ -201,6 +201,10 @@
             ]
           },
           {
+            "tab": "FAST RPC API Reference",
+            "openapi": "fast-rpc-openapi-spec.json"
+          },
+          {
             "tab": "Knowledge Base",
             "groups": [
               {
