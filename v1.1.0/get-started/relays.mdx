@@ -100,58 +100,92 @@ By monitoring these contracts, you can determine which validators and providers 
     | **mev-commit chain testnet** | {ProviderRegistryAddress0_7_0} |
 
     <AccordionGroup>
-      <Accordion title="How to query the registry for connected providers">
-        You can retrieve all connected providers using the following script:
+      <Accordion title="How to query the registry for registered providers">
+        You can retrieve all registered providers using the following script:
 
         ```javascript
         // Import the ethers library
         const ethers = require("ethers");
 
         // Define the provider using the RPC URL
-        const provider = new ethers.JsonRpcProvider("https://chainrpc.testnet.mev-commit.xyz/");
+        const provider = new ethers.JsonRpcProvider("https://chainrpc.mev-commit.xyz/");
 
         // Define the contract address and ABI
-        const providerRegistryAddress = "0x1C2a592950E5dAd49c0E2F3A402DCF496bdf7b67";
+        const providerRegistryAddress = "0xb772Add4718E5BD6Fe57Fb486A6f7f008E52167E";
         const abi = [
-          "event ProviderRegistered(address indexed provider, uint256 stakedAmount, bytes blsPublicKey)"
+            "event ProviderRegistered(address indexed provider, uint256 stakedAmount)",
+            "function isProviderValid(address provider) public view",
+            "function getBLSKeys(address provider) external view returns (bytes[])"
         ];
 
         // Create a new contract instance
         const contract = new ethers.Contract(providerRegistryAddress, abi, provider);
 
-        // Function to retrieve the list of registered providers
+        // Function to retrieve BLS keys grouped by valid provider address
         async function getRegisteredProviders() {
-          // Create a filter for the ProviderRegistered event
-          const filter = contract.filters.ProviderRegistered();
+            const filter = contract.filters.ProviderRegistered();
+            const events = await contract.queryFilter(filter);
+            let totalKeys = 0;
 
-          // Query the contract for the ProviderRegistered events
-          const events = await contract.queryFilter(filter);
+            const providerMap = {};
 
-          // Map the events to get the list of provider bls public keys
-          const providers = events.map(event => event.args.blsPublicKey);
+            for (const event of events) {
+                const providerAddress = event.args.provider;
 
-          return providers;
+                try {
+                    //This will fail if the provider isn't valid
+                    await contract.isProviderValid(providerAddress);
+
+                    const blsKeys = await contract.getBLSKeys(providerAddress);
+
+                    // Convert each key to hex string for any future usage
+                    providerMap[providerAddress] = blsKeys.map(key => ethers.hexlify(key));
+                    totalKeys += blsKeys.length
+                } catch (error) {
+                    // Skip invalid providers or failed fetches
+                }
+            }
+
+            console.log("Total Registered Keys: ", totalKeys);
+            return providerMap;
         }
 
-        // Call the function and log the result
-        getRegisteredProviders().then(providers => {
-          console.log("Registered Providers:", providers);
-        }).catch(error => {
-          console.error("Error:", error);
-        });
+        // Run and log providers with their BLS keys
+        getRegisteredProviders()
+            .then(providerMap => {
+            console.log("Valid providers and their BLS keys:");
+                for (const [address, blsKeys] of Object.entries(providerMap)) {
+                    console.log(`\nProvider: ${address}`);
+                    blsKeys.forEach((key, index) => {
+                    console.log(`  Key ${index + 1}: ${key}`);
+                    });
+                }
+            })
+            .catch(error => {
+                console.error("Error fetching providers:", error);
+            });
         ```
       </Accordion>
   
       <Accordion title="Expected Output">
-        The output will be a list of providers, identified by their BLS pubkey, that have registered with mev-commit.
+        The output will contain the number of all registered keys and a list of providers with their registered BLS public keys.
 
         ```bash
-        Registered Providers: [
-          '0x4e9c5b21bb1df120a7000fac8e3b1978bc308d28b54bbeae76eff010d8d8f83d785adc4141faf179715f550088becd7f',
-          '0x2e6b986435137b88685d8a2783c46ec9a68958bbb3f50b09a538954942c0f9066493d35b3e341a059a507d66d4545c23',
-          '0x43c615787576375f2c7db9c03c8899bab545881e373a963873b0f10c00faa3da57c7c7ecc1915809c651bb40c055b22e',
-          ...
-        ]
+        Total Registered Keys:  17
+        Valid providers and their BLS keys:
+
+        Provider: 0x2445e5e28890De3e93F39fCA817639c470F4d3b9
+          Key 1: 0x8cafae64383b537561650b2e3893c126d1da86eb43c04e690fcead76cc6512c022873241c2630b099d13868f9b01dc17
+
+        Provider: 0xE3d71EF44D20917b93AA93e12Bd35b0859824A8F
+          Key 1: 0xb7c5fbdde8ca800875d7aac708761e07486fbab117af3826c48a6c287bc52ab1ae7320bf7b9701467a9bdc7b43aaddba
+
+        Provider: 0x70C0f12E802aAD2532e1AfF6AE151Ce4CE75fDb7
+          Key 1: 0x83d6a6abb623689e70b339a3080b52082efd548fe33bcf2d3f3497ee7980bfb7e343917307ebae7f2ea552cfe44ec116
+          Key 2: 0x926b79056c9d24eff9ebf7811c03587e036c24aa1e98c180813be5686c744e7cb68e3665a8c9930aa37281962037dad5
+          Key 3: 0x8a2d9d9a99521dac1189c30366347a17a17ef77369810d83f8b5f0c224517849219f03f13afd9e85bcbf675d0653dbf5
+
+        ...
         ```
       </Accordion>
     </AccordionGroup>
