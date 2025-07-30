@@ -3,7 +3,7 @@ title: "FAST RPC"
 sidebarTitle: "FAST RPC"
 icon: "forward-fast"
 ---
-The FAST RPC is a drop-in replacement for standard Ethereum RPC transaction sending endpoints that enables dapps and wallets to easily obtain preconfirmations. Users interact with the RPC like they would with a normal Ethereum node (via `eth_sendRawTransaction`, `eth_getTransactionReceipt`, etc.), but under the hood, the RPC leverages mev-commit to coordinate a decentralized network of block builders who issue and honor transaction commitments. Additionally, the RPC also provides additional endpoints (such as `mevcommit_getTransactionCommitments`) for advanced use cases.
+The FAST RPC is a drop-in replacement for standard Ethereum RPC transaction sending endpoints that enables dapps and wallets to easily obtain preconfirmations. Users interact with the RPC like they would with a normal Ethereum node (via `eth_sendRawTransaction`, `eth_getTransactionReceipt`, etc.), but under the hood, the RPC leverages mev-commit to coordinate a decentralized network of block builders who issue and honor transaction commitments. Additionally, the RPC also provides additional methods (such as `mevcommit_getTransactionCommitments`) for advanced use cases. See [FAST RPC API](/v1.1.0/developers/fast-rpc-api) for an overview of the supported methods.
 
 <Columns cols={2}>
   <Card title="For dApps" icon="code"> {/* Changed icon to 'code' - a common alternative if 'network' is an issue. If 'network' still doesn't work, try other Lucide icon names like 'application-window' or 'layers' */}
@@ -59,6 +59,7 @@ This guide walks you through integrating and using the FAST RPC into your DApp t
 </Steps>
 
 ### Additional Features
+Some useful additional features are described here. For an overview of the full available functionality see [FAST RPC API](/v1.1.0/developers/fast-rpc-api).
 
 #### Checking current deposit balance
 
