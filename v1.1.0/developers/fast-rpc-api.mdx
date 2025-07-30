@@ -1,0 +1,153 @@
+---
+title: "FAST RPC API"
+---
+
+The FAST RPC provides all the methods of the regular Ethereum API. Some of the default methods (starting with `eth_`) have been overridden to provide improved functionality and some additional methods have been added (starting with `mevcommit_`).
+
+## Overridden Standard Methods
+All methods here have exactly the same interface as the default API to preserve compatiblity, i.e., all arguments and responses are compliant with standard RPCs. We here describe how they differ internally from the default implementation.
+
+### eth_sendRawTransaction
+This method sources preconfs on the mev-commit chain. The RPC creates a local record of the transaction and returns the transaction hash. The transaction is enqueued in the background and is sent to the mev-commit network. Transaction are not send to the public mempool.
+
+### eth_getTransactionCount
+If users query the public mempool after submitting transactions through the FAST RPC, they might see a different nonce as FAST RPC transactions are private on the mev-commit network. This RPC method thus returns the mempool count + the queued transactions in the private pool of the service.
+
+### eth_maxPriorityFeePerGas
+For users of the FAST RPC, the priority fee should be set to 0. Thus, this method always return 0.
+
+### eth_getTransactionReceipt
+This method is used by clients to query the receipt of the transaction corresponding to the hash they received when sending the transaction. To enable the FAST experience, it will return the receipt early if it is a mev-commit opted-in slot and enough preconfirmations have been obtained for the transaction. The block hash of a preconfirmed transaction is set to the transaction hash and can be used in the `eth_getBlockByHash` method.
+
+### eth_getBlockByHash
+For regular block hashes, this method returns the usual block information. For block hashes corresponding to preconfirmed transactions, it returns a fictitious block containing only this transaction.
+
+## Additional FAST RPC Methods
+
+### mevcommit_getTransactionCommitments
+For a preconfirmed transaction, this method takes the transaction hash as argument and returns the commitments received on the mev-commit network.
+
+**Example output:**
+```json
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": [
+    {
+      "tx_hashes": [
+        "751d9aa7a64b59f63c8374216b4b13e29d9085821846900461b9b95595554449"
+      ],
+      "bid_amount": "2310000000000",
+      "block_number": 12594,
+      "received_bid_digest": "4cd2d1253a9f884d0618be7b71be668c1f628a650d569bf9891e698d04180f37",
+      "received_bid_signature": "ae696428129521f5ea1284e5648715d1d6f9878327d8a0ee64f38c92af31bdeb5bcdb4eb45dd74774ae27e8e80e9f7980a8aa18c6c47df7f4c0474ae8771cf381c",
+      "commitment_digest": "b76625bd8f5041d62ab18bfc1d688d1507efef801670afa7c227b45720ccae00",
+      "commitment_signature": "c2611b430bc38198715ed537d06d5a8e548cd7e73a6b4c9cd3b8898851c736b75b851d5547d46eefe2456a45b71eed4b13f54a1f5949c3a8945d1aa8afd979b01b",
+      "provider_address": "e9f91e47e36b4705ccdb91213291069e49d245c0",
+      "decay_start_timestamp": 1752134873021,
+      "decay_end_timestamp": 1752134884921,
+      "dispatch_timestamp": 1752134872924,
+      "reverting_tx_hashes": [
+        ""
+      ],
+      "slash_amount": "0"
+    },
+    {
+      "tx_hashes": [
+        "751d9aa7a64b59f63c8374216b4b13e29d9085821846900461b9b95595554449"
+      ],
+      "bid_amount": "2310000000000",
+      "block_number": 12594,
+      "received_bid_digest": "4cd2d1253a9f884d0618be7b71be668c1f628a650d569bf9891e698d04180f37",
+      "received_bid_signature": "ae696428129521f5ea1284e5648715d1d6f9878327d8a0ee64f38c92af31bdeb5bcdb4eb45dd74774ae27e8e80e9f7980a8aa18c6c47df7f4c0474ae8771cf381c",
+      "commitment_digest": "7ac89c08eda90f54b1a8c18ccc22056653a62e16cdaebf0b70fd76fad35060ab",
+      "commitment_signature": "52051e5f3f7c831bf383c627810ec07cfface3aab35f2b2c4278ef21a082ea872eb08d48d311ec740c71d9b448f654d528b4900de1198098dc7401fd6a9fd0661c",
+      "provider_address": "88468d3b44c06a5deb2a60a580944a458b389072",
+      "decay_start_timestamp": 1752134873021,
+      "decay_end_timestamp": 1752134884921,
+      "dispatch_timestamp": 1752134872925,
+      "reverting_tx_hashes": [
+        ""
+      ],
+      "slash_amount": "0"
+    },
+    {
+      "tx_hashes": [
+        "751d9aa7a64b59f63c8374216b4b13e29d9085821846900461b9b95595554449"
+      ],
+      "bid_amount": "2310000000000",
+      "block_number": 12594,
+      "received_bid_digest": "4cd2d1253a9f884d0618be7b71be668c1f628a650d569bf9891e698d04180f37",
+      "received_bid_signature": "ae696428129521f5ea1284e5648715d1d6f9878327d8a0ee64f38c92af31bdeb5bcdb4eb45dd74774ae27e8e80e9f7980a8aa18c6c47df7f4c0474ae8771cf381c",
+      "commitment_digest": "9e54edce7f895079ee836dc4915eabe7c39892aae281640ffeb96541618908f4",
+      "commitment_signature": "de356ccedc9812f9cd8e3a0048f6408c667cbfe854ac4bb5a9090180c90aa025603ae74f2a70cf043e8b81f2a09c4c1e2bb6d9750db602a31d2d31458e1938c11b",
+      "provider_address": "71303204575c024cd185ca3809a0964925f10ce4",
+      "decay_start_timestamp": 1752134873021,
+      "decay_end_timestamp": 1752134884921,
+      "dispatch_timestamp": 1752134872925,
+      "reverting_tx_hashes": [
+        ""
+      ],
+      "slash_amount": "0"
+    }
+  ]
+}
+```
+
+### mevcommit_optedInBlock
+This method returns the time in seconds until the next block that has a mev-commit opted in validator. Since these blocks are exclusively built using the mev-commit network, the method can be used for decisioning by users and applications.
+
+**Example output:**
+```json
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": {
+    "timeInSecs": "57"
+  }
+}
+```
+
+### mevcommit_estimateDeposit
+In order to send transactions using the RPC service, the user has to deposit funds, which will be used to send bids on the network. To deposit funds, the user has to send a transaction to the RPC with the amount they want to deposit + the cost of deposit to a specific EOA wallet which is owned by the service. This transaction should be sent to the same RPC with no priority fee. This method returns the estimated cost of deposit and the EOA wallet to use to send the funds.
+
+**Example output:**
+```json
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": {
+    "bidAmount": "0x24abbb47000", // In hex
+    "depositAddress": "0x945A9e492B98f05c37F5B98349A716F828D5A5bA"
+  }
+}
+```
+
+### mevcommit_getBalance
+This method takes as input an account address and returns the available deposit balance for that address.
+
+**Example output:**
+```json
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": {
+    "balance": "499997942000000000"
+  }
+}
+```
+
+### mevcommit_estimateBridge
+The RPC also provides an instant bridging service to the mev-commit chain. This can be used  without depositing anything in the service beforehand. In order to do the bridging, the user has to create a transaction on L1 to a specific account managed by the RPC service with the amount they want to bridge + the cost of bridging. The funds will be released on mev-commit chain as soon as the transaction is preconfirmed. This method returns the estimated cost and the destination address.
+
+**Example output:**
+```json
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": {
+    "bidAmount": "0x4957768e000", // In hex
+    "bridgeAddress": "0x6F3191AdCaeD764cAB858A1B0f522e701C336F70"
+  }
+}
+```

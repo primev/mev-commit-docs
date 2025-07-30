@@ -113,6 +113,7 @@
                     ]
                   },
                   "v1.1.0/developers/system-requirements",
+                  "v1.1.0/developers/fast-rpc-api",
                   "v1.1.0/developers/provider-api",
                   {
                     "group": "Bidder API",
