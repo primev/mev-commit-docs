@@ -14,7 +14,7 @@ This method sources preconfs on the mev-commit chain. The RPC creates a local re
 If users query the public mempool after submitting transactions through the FAST RPC, they might see a different nonce as FAST RPC transactions are private on the mev-commit network. This RPC method thus returns the mempool count + the queued transactions in the private pool of the service.
 
 ### eth_maxPriorityFeePerGas
-For users of the FAST RPC, the priority fee should be set to 0. Thus, this method always return 0.
+For users of the FAST RPC, the priority fee should be set to 0. Thus, this method always returns 0.
 
 ### eth_getTransactionReceipt
 This method is used by clients to query the receipt of the transaction corresponding to the hash they received when sending the transaction. To enable the FAST experience, it will return the receipt early if it is a mev-commit opted-in slot and enough preconfirmations have been obtained for the transaction. The block hash of a preconfirmed transaction is set to the transaction hash and can be used in the `eth_getBlockByHash` method.
@@ -47,25 +47,6 @@ For a preconfirmed transaction, this method takes the transaction hash as argume
       "decay_start_timestamp": 1752134873021,
       "decay_end_timestamp": 1752134884921,
       "dispatch_timestamp": 1752134872924,
-      "reverting_tx_hashes": [
-        ""
-      ],
-      "slash_amount": "0"
-    },
-    {
-      "tx_hashes": [
-        "751d9aa7a64b59f63c8374216b4b13e29d9085821846900461b9b95595554449"
-      ],
-      "bid_amount": "2310000000000",
-      "block_number": 12594,
-      "received_bid_digest": "4cd2d1253a9f884d0618be7b71be668c1f628a650d569bf9891e698d04180f37",
-      "received_bid_signature": "ae696428129521f5ea1284e5648715d1d6f9878327d8a0ee64f38c92af31bdeb5bcdb4eb45dd74774ae27e8e80e9f7980a8aa18c6c47df7f4c0474ae8771cf381c",
-      "commitment_digest": "7ac89c08eda90f54b1a8c18ccc22056653a62e16cdaebf0b70fd76fad35060ab",
-      "commitment_signature": "52051e5f3f7c831bf383c627810ec07cfface3aab35f2b2c4278ef21a082ea872eb08d48d311ec740c71d9b448f654d528b4900de1198098dc7401fd6a9fd0661c",
-      "provider_address": "88468d3b44c06a5deb2a60a580944a458b389072",
-      "decay_start_timestamp": 1752134873021,
-      "decay_end_timestamp": 1752134884921,
-      "dispatch_timestamp": 1752134872925,
       "reverting_tx_hashes": [
         ""
       ],
