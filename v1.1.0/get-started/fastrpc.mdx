@@ -67,7 +67,7 @@ The balance available in the deposit for future transactions can be checked usin
 
 #### Checking for opted in validators
 
-The RPC only issues preconfs via `eth_getTransactionReceipt` if the next block proposer is opted into mev-commit. The DApp may therefore want to adjust its strategy based on whether the next proposers are opted in or not. To enable this, the FAST RPC provides the endpoint `mevcommit_optedInBlock`, which returns the time in seconds until the next block with a mev-commit opted-in proposer.
+The RPC only issues preconfs via `eth_getTransactionReceipt` if the next block proposer is opted into mev-commit. The DApp may therefore want to adjust its strategy based on whether the next proposers are opted in or not. To enable this, the FAST RPC provides the method `mevcommit_optedInBlock`, which returns the time in seconds until the next block with a mev-commit opted-in proposer.
 
 ## Usage for Wallets
 
