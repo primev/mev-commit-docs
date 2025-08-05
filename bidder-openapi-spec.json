@@ -1,941 +1,944 @@
 ﻿{
   "openapi": "3.0.0",
-  "info": null,
-  "title": "Bidder API",
-  "version": "1.1.5-oas3",
-  "license": {
-    "name": "Business Source License 1.1",
-    "url": "https://github.com/primev/mev-commit/blob/main/LICENSE"
-  },
-  "paths": null,
-  "/v1/bidder/auto_deposit/{amount}": {
-    "post": {
-      "summary": "AutoDeposit",
-      "description": "AutoDeposit is called by the bidder node to add a recurring deposit in the bidder registry. The bidder\ncan specify the amount of ETH to be deposited in each window. The bidder can also specify the start window\nnumber for the deposit. If the start window number is not specified, the current block number is used to\ncalculate the window number. If the block number is specified, the window number is calculated based on\nthe block number. Once it is enabled, the node will automatically deposit the specified amount in each window\nas well as withdraw the deposit from the previous window.",
-      "operationId": "Bidder_AutoDeposit",
-      "responses": {
-        "200": {
-          "description": "A successful response.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/v1AutoDepositResponse"
-              }
-            }
-          }
-        },
-        "default": {
-          "description": "An unexpected error response.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/googlerpcStatus"
-              }
-            }
-          }
-        }
-      },
-      "parameters": [
-        {
-          "name": "amount",
-          "description": "Amount of ETH to be deposited in wei.",
-          "in": "path",
-          "required": true,
-          "schema": {
-            "type": "string"
-          }
-        },
-        {
-          "name": "windowNumber",
-          "description": "Optional window number for querying deposit. If not specified, the current block number is used.",
-          "in": "query",
-          "required": false,
-          "schema": {
-            "type": "string",
-            "format": "uint64"
-          }
-        },
-        {
-          "name": "blockNumber",
-          "description": "Optional block number for querying deposit. If specified, calculate window based on this block number.",
-          "in": "query",
-          "required": false,
-          "schema": {
-            "type": "string",
-            "format": "uint64"
-          }
-        }
-      ]
+  "info": {
+    "title": "Bidder API",
+    "version": "1.1.6-oas3",
+    "license": {
+      "name": "Business Source License 1.1",
+      "url": "https://github.com/primev/mev-commit/blob/main/LICENSE"
     }
   },
-  "/v1/bidder/auto_deposit_status": {
-    "get": {
-      "summary": "AutoDepositStatus",
-      "description": "AutoDepositStatus is called by the bidder node to get the status of the auto deposit.",
-      "operationId": "Bidder_AutoDepositStatus",
-      "responses": {
-        "200": {
-          "description": "A successful response.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/v1AutoDepositStatusResponse"
+  "paths": {
+    "/v1/bidder/auto_deposit/{amount}": {
+      "post": {
+        "summary": "AutoDeposit",
+        "description": "AutoDeposit is called by the bidder node to add a recurring deposit in the bidder registry. The bidder\ncan specify the amount of ETH to be deposited in each window. The bidder can also specify the start window\nnumber for the deposit. If the start window number is not specified, the current block number is used to\ncalculate the window number. If the block number is specified, the window number is calculated based on\nthe block number. Once it is enabled, the node will automatically deposit the specified amount in each window\nas well as withdraw the deposit from the previous window.",
+        "operationId": "Bidder_AutoDeposit",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/v1AutoDepositResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/googlerpcStatus"
+                }
               }
             }
           }
         },
-        "default": {
-          "description": "An unexpected error response.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/googlerpcStatus"
+        "parameters": [
+          {
+            "name": "amount",
+            "description": "Amount of ETH to be deposited in wei.",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "windowNumber",
+            "description": "Optional window number for querying deposit. If not specified, the current block number is used.",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uint64"
+            }
+          },
+          {
+            "name": "blockNumber",
+            "description": "Optional block number for querying deposit. If specified, calculate window based on this block number.",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uint64"
+            }
+          }
+        ]
+      }
+    },
+    "/v1/bidder/auto_deposit_status": {
+      "get": {
+        "summary": "AutoDepositStatus",
+        "description": "AutoDepositStatus is called by the bidder node to get the status of the auto deposit.",
+        "operationId": "Bidder_AutoDepositStatus",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/v1AutoDepositStatusResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/googlerpcStatus"
+                }
               }
             }
           }
         }
       }
-    }
-  },
-  "/v1/bidder/bid": {
-    "post": {
-      "summary": "SendBid",
-      "description": "Send a bid to the bidder mev-commit node. The bid is a message from the bidder to the provider \nwith the transaction hashes and the amount of ETH that the bidder is willing to pay to the provider\nfor including the transaction in the block. The bid also includes the block number that the bidder\nwants to include the transaction in, the start and end timestamps for the bid decay. The bidder can\noptionally include the raw transaction payloads (hex encoded RLP) instead of transaction hashes.",
-      "operationId": "Bidder_SendBid",
-      "responses": {
-        "200": {
-          "description": "A successful response.(streaming responses)",
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "result": {
-                    "$ref": "#/components/schemas/bidderapiv1Commitment"
+    },
+    "/v1/bidder/bid": {
+      "post": {
+        "summary": "SendBid",
+        "description": "Send a bid to the bidder mev-commit node. The bid is a message from the bidder to the provider \nwith the transaction hashes and the amount of ETH that the bidder is willing to pay to the provider\nfor including the transaction in the block. The bid also includes the block number that the bidder\nwants to include the transaction in, the start and end timestamps for the bid decay. The bidder can\noptionally include the raw transaction payloads (hex encoded RLP) instead of transaction hashes.",
+        "operationId": "Bidder_SendBid",
+        "responses": {
+          "200": {
+            "description": "A successful response.(streaming responses)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "$ref": "#/components/schemas/bidderapiv1Commitment"
+                    },
+                    "error": {
+                      "$ref": "#/components/schemas/googlerpcStatus"
+                    }
                   },
-                  "error": {
-                    "$ref": "#/components/schemas/googlerpcStatus"
-                  }
-                },
-                "title": "Stream result of bidderapiv1Commitment"
+                  "title": "Stream result of bidderapiv1Commitment"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/googlerpcStatus"
+                }
               }
             }
           }
         },
-        "default": {
-          "description": "An unexpected error response.",
+        "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/googlerpcStatus"
+                "$ref": "#/components/schemas/bidderapiv1Bid"
+              }
+            }
+          },
+          "description": "Unsigned bid message from bidders to the bidder mev-commit node.",
+          "required": true
+        }
+      }
+    },
+    "/v1/bidder/cancel_auto_deposit": {
+      "post": {
+        "summary": "CancelAutoDeposit",
+        "description": "CancelAutoDeposit is called by the bidder node to cancel the auto deposit. The bidder can specify if it\nwants to withdraw the deposit from the current deposited windows. If the withdraw flag is set to true, the API will\nwait till we can withdraw the deposit from the latest deposited window.",
+        "operationId": "Bidder_CancelAutoDeposit",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/v1CancelAutoDepositResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/googlerpcStatus"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "withdraw",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ]
+      }
+    },
+    "/v1/bidder/claim_slashed_funds": {
+      "post": {
+        "summary": "ClaimSlashedFunds",
+        "description": "ClaimSlashedFunds is called by the bidder to claim slashed funds from the provider. The response\nwill show the amount claimed if any in wei.",
+        "operationId": "Bidder_ClaimSlashedFunds",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/googlerpcStatus"
+                }
               }
             }
           }
         }
-      },
-      "requestBody": {
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/bidderapiv1Bid"
+      }
+    },
+    "/v1/bidder/deposit/{amount}": {
+      "post": {
+        "summary": "Deposit",
+        "description": "Deposit is called by the bidder node to add deposit in the bidder registry. The bidder can deposit\nfunds in a particular window by specifying the window number. If the window number is not specified,\nthe current block number is used to calculate the window number. If the block number is specified,\nthe window number is calculated based on the block number. If AutoDeposit is enabled, the deposit\nAPI returns error.",
+        "operationId": "Bidder_Deposit",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/v1DepositResponse"
+                }
+              }
             }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/googlerpcStatus"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "amount",
+            "description": "Amount of ETH to be deposited in wei.",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "windowNumber",
+            "description": "Optional window number for querying deposit. If not specified, the current block number is used.",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uint64"
+            }
+          },
+          {
+            "name": "blockNumber",
+            "description": "Optional block number for querying deposit. If specified, calculate window based on this block number.",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uint64"
+            }
+          }
+        ]
+      }
+    },
+    "/v1/bidder/get_bid_info": {
+      "get": {
+        "summary": "GetBidInfo",
+        "description": "GetBidInfo is called by the bidder to get the bid information. If block number is not specified,\nall known block numbers are returned in the ascending order.",
+        "operationId": "Bidder_GetBidInfo",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/v1GetBidInfoResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/googlerpcStatus"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "blockNumber",
+            "description": "Optional block number for querying bid info. If not specified, all known block numbers are returned in ascending order.",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "page",
+            "description": "Page number for pagination.",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "limit",
+            "description": "Number of items per page for pagination. Default is 50",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ]
+      }
+    },
+    "/v1/bidder/get_deposit": {
+      "get": {
+        "summary": "GetDeposit",
+        "description": "GetDeposit is called by the bidder to get its deposit in the bidder registry.",
+        "operationId": "Bidder_GetDeposit",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/v1DepositResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/googlerpcStatus"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "windowNumber",
+            "description": "Optional window number for querying deposits. If not specified, the current block number is used.",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uint64"
+            }
+          }
+        ]
+      }
+    },
+    "/v1/bidder/withdraw": {
+      "post": {
+        "summary": "Withdraw",
+        "description": "Withdraw is called by the bidder to withdraw deposit from the bidder registry.",
+        "operationId": "Bidder_Withdraw",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/v1WithdrawResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/googlerpcStatus"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "windowNumber",
+            "description": "Optional window number for withdrawing deposits. If not specified, the last window number is used.",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uint64"
+            }
+          }
+        ]
+      }
+    },
+    "/v1/bidder/withdraw_from_windows": {
+      "post": {
+        "summary": "WithdrawFromWindows",
+        "description": "WithdrawFromWindows is called by the bidder node to withdraw funds from multiple windows.",
+        "operationId": "Bidder_WithdrawFromWindows",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/v1WithdrawFromWindowsResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/googlerpcStatus"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/v1WithdrawFromWindowsRequest"
+              }
+            }
+          },
+          "description": "Withdraw deposit from the bidder registry.",
+          "required": true
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "GetBidInfoResponseBidInfo": {
+        "type": "object",
+        "properties": {
+          "txnHashes": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "[a-fA-F0-9]{64}"
+            },
+            "description": "Hex string encoding of the hashes of the transactions that the bidder wants to include in the block."
+          },
+          "revertableTxnHashes": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "[a-fA-F0-9]{64}"
+            },
+            "description": "Optional array of tx hashes that are allowed to revert or be discarded."
+          },
+          "blockNumber": {
+            "type": "string",
+            "format": "int64",
+            "description": "Block number that the bidder wants to include the transaction in."
+          },
+          "bidAmount": {
+            "type": "string",
+            "description": "Amount of ETH that the bidder is willing to pay to the provider for including the transaction in the block.",
+            "pattern": "[0-9]+"
+          },
+          "decayStartTimestamp": {
+            "type": "string",
+            "format": "int64",
+            "description": "Timestamp at which the bid starts decaying."
+          },
+          "decayEndTimestamp": {
+            "type": "string",
+            "format": "int64",
+            "description": "Timestamp at which the bid ends decaying."
+          },
+          "bidDigest": {
+            "type": "string",
+            "description": "Hex string encoding of digest of the bid message signed by the bidder."
+          },
+          "slashAmount": {
+            "type": "string",
+            "description": "Amount of ETH that will be slashed from the provider if they fail to include the transaction. If zero, the decayed bid amount is used for slashing.",
+            "pattern": "[0-9]+"
+          },
+          "commitments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GetBidInfoResponseCommitmentWithStatus"
+            }
+          }
+        },
+        "description": "Information about a bid including its commitments.",
+        "title": "Bid Info"
+      },
+      "GetBidInfoResponseBlockBidInfo": {
+        "type": "object",
+        "properties": {
+          "blockNumber": {
+            "type": "string",
+            "format": "int64",
+            "description": "Block number for which the bid info is requested."
+          },
+          "bids": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GetBidInfoResponseBidInfo"
+            },
+            "description": "List of bids for the specified block number."
+          }
+        }
+      },
+      "GetBidInfoResponseCommitmentWithStatus": {
+        "type": "object",
+        "properties": {
+          "providerAddress": {
+            "type": "string",
+            "description": "Hex string encoding of the address of the provider that signed the commitment."
+          },
+          "dispatchTimestamp": {
+            "type": "string",
+            "format": "int64",
+            "description": "Timestamp at which the commitment is published."
+          },
+          "status": {
+            "type": "string",
+            "description": "Status of the commitment. Possible values: 'pending', 'stored', 'opened', 'settled', 'slashed', 'failed'."
+          },
+          "details": {
+            "type": "string",
+            "description": "Additional details about the commitment status."
+          },
+          "payment": {
+            "type": "string",
+            "description": "Payment amount in wei for the commitment."
+          },
+          "refund": {
+            "type": "string",
+            "description": "Refund amount in wei for the commitment, if applicable."
+          }
+        }
+      },
+      "bidderapiv1AutoDeposit": {
+        "type": "object",
+        "properties": {
+          "depositedAmount": {
+            "type": "string",
+            "description": "Deposited amount of ETH in wei."
+          },
+          "windowNumber": {
+            "type": "string",
+            "format": "uint64",
+            "description": "Window number for the deposit."
+          },
+          "isCurrent": {
+            "type": "boolean",
+            "description": "Indicates if the window is the current window."
+          },
+          "startBlockNumber": {
+            "type": "string",
+            "format": "uint64",
+            "description": "The initial L1 block number for the window."
+          },
+          "endBlockNumber": {
+            "type": "string",
+            "format": "uint64",
+            "description": "The final L1 block number for the window."
+          }
+        }
+      },
+      "bidderapiv1Bid": {
+        "type": "object",
+        "example": {
+          "amount": "1000000000000000000",
+          "block_number": 123456,
+          "decay_end_timestamp": 1630000000,
+          "decay_start_timestamp": 1630000000,
+          "reverting_tx_hashes": [
+            "fe4cb47db3630551beedfbd02a71ecc69fd59758e2ba699606e2d5c74284ffa7"
+          ],
+          "slash_amount": "500000000000000000",
+          "tx_hashes": [
+            "fe4cb47db3630551beedfbd02a71ecc69fd59758e2ba699606e2d5c74284ffa7",
+            "71c1348f2d7ff7e814f9c3617983703435ea7446de420aeac488bf1de35737e8"
+          ]
+        },
+        "properties": {
+          "txHashes": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "[a-fA-F0-9]{64}"
+            },
+            "description": "Hex string encoding of the hashes of the transactions that the bidder wants to include in the block."
+          },
+          "amount": {
+            "type": "string",
+            "description": "Amount of ETH that the bidder is willing to pay to the provider for including the transaction in the block.",
+            "pattern": "[0-9]+"
+          },
+          "blockNumber": {
+            "type": "string",
+            "format": "int64",
+            "description": "Max block number that the bidder wants to include the transaction in."
+          },
+          "decayStartTimestamp": {
+            "type": "string",
+            "format": "int64",
+            "description": "Timestamp at which the bid starts decaying."
+          },
+          "decayEndTimestamp": {
+            "type": "string",
+            "format": "int64",
+            "description": "Timestamp at which the bid ends decaying."
+          },
+          "revertingTxHashes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Optional array of tx hashes that are allowed to revert or be discarded."
+          },
+          "rawTransactions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Optional array of RLP encoded raw signed transaction payloads that the bidder wants to include in the block."
+          },
+          "slashAmount": {
+            "type": "string",
+            "description": "Amount of ETH that will be slashed from the provider if they fail to include the transaction. If zero, the decayed bid amount is used for slashing.",
+            "pattern": "[0-9]+"
           }
         },
         "description": "Unsigned bid message from bidders to the bidder mev-commit node.",
-        "required": true
-      }
-    }
-  },
-  "/v1/bidder/cancel_auto_deposit": {
-    "post": {
-      "summary": "CancelAutoDeposit",
-      "description": "CancelAutoDeposit is called by the bidder node to cancel the auto deposit. The bidder can specify if it\nwants to withdraw the deposit from the current deposited windows. If the withdraw flag is set to true, the API will\nwait till we can withdraw the deposit from the latest deposited window.",
-      "operationId": "Bidder_CancelAutoDeposit",
-      "responses": {
-        "200": {
-          "description": "A successful response.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/v1CancelAutoDepositResponse"
-              }
-            }
+        "title": "Bid message",
+        "required": [
+          "amount",
+          "blockNumber",
+          "decayStartTimestamp",
+          "decayEndTimestamp"
+        ]
+      },
+      "bidderapiv1Commitment": {
+        "type": "object",
+        "properties": {
+          "txHashes": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "[a-fA-F0-9]{64}"
+            },
+            "description": "Hex string encoding of the hash of the transaction that the bidder wants to include in the block."
+          },
+          "bidAmount": {
+            "type": "string",
+            "description": "Amount of ETH that the bidder has agreed to pay to the provider for including the transaction in the block."
+          },
+          "blockNumber": {
+            "type": "string",
+            "format": "int64",
+            "description": "Max block number that the bidder wants to include the transaction in."
+          },
+          "receivedBidDigest": {
+            "type": "string",
+            "description": "Hex string encoding of digest of the bid message signed by the bidder."
+          },
+          "receivedBidSignature": {
+            "type": "string",
+            "description": "Hex string encoding of signature of the bidder that sent this bid."
+          },
+          "commitmentDigest": {
+            "type": "string",
+            "description": "Hex string encoding of digest of the commitment."
+          },
+          "commitmentSignature": {
+            "type": "string",
+            "description": "Hex string encoding of signature of the commitment signed by the provider confirming this transaction."
+          },
+          "providerAddress": {
+            "type": "string",
+            "description": "Hex string encoding of the address of the provider that signed the commitment signature."
+          },
+          "decayStartTimestamp": {
+            "type": "string",
+            "format": "int64",
+            "description": "Timestamp at which the bid starts decaying."
+          },
+          "decayEndTimestamp": {
+            "type": "string",
+            "format": "int64",
+            "description": "Timestamp at which the bid ends decaying."
+          },
+          "dispatchTimestamp": {
+            "type": "string",
+            "format": "int64",
+            "description": "Timestamp at which the commitment is published."
+          },
+          "revertingTxHashes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Optional array of tx hashes that are allowed to revert or be discarded."
+          },
+          "slashAmount": {
+            "type": "string",
+            "description": "Amount of ETH that will be slashed from the provider if they fail to include the transaction."
           }
         },
-        "default": {
-          "description": "An unexpected error response.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/googlerpcStatus"
-              }
+        "description": "Commitment message from the provider to the bidder mev-commit node.",
+        "title": "Commitment message"
+      },
+      "googlerpcStatus": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string"
+          },
+          "details": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/protobufAny"
             }
           }
         }
       },
-      "parameters": [
-        {
-          "name": "withdraw",
-          "in": "query",
-          "required": false,
-          "schema": {
-            "type": "boolean"
-          }
-        }
-      ]
-    }
-  },
-  "/v1/bidder/claim_slashed_funds": {
-    "post": {
-      "summary": "ClaimSlashedFunds",
-      "description": "ClaimSlashedFunds is called by the bidder to claim slashed funds from the provider. The response\nwill show the amount claimed if any in wei.",
-      "operationId": "Bidder_ClaimSlashedFunds",
-      "responses": {
-        "200": {
-          "description": "A successful response.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "string"
-              }
-            }
-          }
-        },
-        "default": {
-          "description": "An unexpected error response.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/googlerpcStatus"
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "/v1/bidder/deposit/{amount}": {
-    "post": {
-      "summary": "Deposit",
-      "description": "Deposit is called by the bidder node to add deposit in the bidder registry. The bidder can deposit\nfunds in a particular window by specifying the window number. If the window number is not specified,\nthe current block number is used to calculate the window number. If the block number is specified,\nthe window number is calculated based on the block number. If AutoDeposit is enabled, the deposit\nAPI returns error.",
-      "operationId": "Bidder_Deposit",
-      "responses": {
-        "200": {
-          "description": "A successful response.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/v1DepositResponse"
-              }
-            }
-          }
-        },
-        "default": {
-          "description": "An unexpected error response.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/googlerpcStatus"
-              }
-            }
-          }
-        }
-      },
-      "parameters": [
-        {
-          "name": "amount",
-          "description": "Amount of ETH to be deposited in wei.",
-          "in": "path",
-          "required": true,
-          "schema": {
+      "protobufAny": {
+        "type": "object",
+        "properties": {
+          "@type": {
             "type": "string"
           }
         },
-        {
-          "name": "windowNumber",
-          "description": "Optional window number for querying deposit. If not specified, the current block number is used.",
-          "in": "query",
-          "required": false,
-          "schema": {
+        "additionalProperties": {}
+      },
+      "v1AutoDepositResponse": {
+        "type": "object",
+        "example": {
+          "amount_per_window": "1000000000000000000",
+          "start_window_number": "1"
+        },
+        "properties": {
+          "startWindowNumber": {
+            "type": "string",
+            "format": "uint64"
+          },
+          "amountPerWindow": {
+            "type": "string"
+          }
+        },
+        "description": "Response on AutoDeposit request.",
+        "title": "AutoDeposit response"
+      },
+      "v1AutoDepositStatusResponse": {
+        "type": "object",
+        "example": {
+          "isAutodepositEnabled": true,
+          "window_balances": [
+            {
+              "depositedAmount": "1000000000000000000",
+              "window_number": 1
+            },
+            {
+              "depositedAmount": "1000000000000000000",
+              "window_number": 2
+            },
+            {
+              "depositedAmount": "1000000000000000000",
+              "window_number": 3
+            }
+          ]
+        },
+        "properties": {
+          "windowBalances": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/bidderapiv1AutoDeposit"
+            }
+          },
+          "isAutodepositEnabled": {
+            "type": "boolean"
+          }
+        },
+        "description": "AutoDeposit status from the bidder registry.",
+        "title": "AutoDeposit status response"
+      },
+      "v1CancelAutoDepositResponse": {
+        "type": "object",
+        "example": {
+          "window_numbers": [
+            1,
+            2,
+            3
+          ]
+        },
+        "properties": {
+          "windowNumbers": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uint64"
+            }
+          }
+        },
+        "description": "CancelAutoDeposit deposit from the bidder registry.",
+        "title": "CancelAutoDeposit response"
+      },
+      "v1DepositResponse": {
+        "type": "object",
+        "example": {
+          "amount": "1000000000000000000",
+          "window_number": 1
+        },
+        "properties": {
+          "amount": {
+            "type": "string"
+          },
+          "windowNumber": {
             "type": "string",
             "format": "uint64"
           }
         },
-        {
-          "name": "blockNumber",
-          "description": "Optional block number for querying deposit. If specified, calculate window based on this block number.",
-          "in": "query",
-          "required": false,
-          "schema": {
-            "type": "string",
-            "format": "uint64"
-          }
-        }
-      ]
-    }
-  },
-  "/v1/bidder/get_bid_info": {
-    "get": {
-      "summary": "GetBidInfo",
-      "description": "GetBidInfo is called by the bidder to get the bid information. If block number is not specified,\nall known block numbers are returned in the ascending order.",
-      "operationId": "Bidder_GetBidInfo",
-      "responses": {
-        "200": {
-          "description": "A successful response.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/v1GetBidInfoResponse"
-              }
-            }
-          }
-        },
-        "default": {
-          "description": "An unexpected error response.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/googlerpcStatus"
-              }
-            }
+        "description": "Deposit for bidder in the bidder registry for a particular window.",
+        "title": "Deposit response"
+      },
+      "v1GetBidInfoResponse": {
+        "type": "object",
+        "properties": {
+          "blockBidInfo": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GetBidInfoResponseBlockBidInfo"
+            },
+            "description": "List of block bid info containing bids and their commitments."
           }
         }
       },
-      "parameters": [
-        {
-          "name": "blockNumber",
-          "description": "Optional block number for querying bid info. If not specified, all known block numbers are returned in ascending order.",
-          "in": "query",
-          "required": false,
-          "schema": {
-            "type": "string",
-            "format": "int64"
-          }
+      "v1WithdrawFromWindowsRequest": {
+        "type": "object",
+        "example": {
+          "window_numbers": [
+            1,
+            2,
+            3
+          ]
         },
-        {
-          "name": "page",
-          "description": "Page number for pagination.",
-          "in": "query",
-          "required": false,
-          "schema": {
-            "type": "integer",
-            "format": "int32"
-          }
-        },
-        {
-          "name": "limit",
-          "description": "Number of items per page for pagination. Default is 50",
-          "in": "query",
-          "required": false,
-          "schema": {
-            "type": "integer",
-            "format": "int32"
-          }
-        }
-      ]
-    }
-  },
-  "/v1/bidder/get_deposit": {
-    "get": {
-      "summary": "GetDeposit",
-      "description": "GetDeposit is called by the bidder to get its deposit in the bidder registry.",
-      "operationId": "Bidder_GetDeposit",
-      "responses": {
-        "200": {
-          "description": "A successful response.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/v1DepositResponse"
-              }
-            }
-          }
-        },
-        "default": {
-          "description": "An unexpected error response.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/googlerpcStatus"
-              }
-            }
-          }
-        }
-      },
-      "parameters": [
-        {
-          "name": "windowNumber",
-          "description": "Optional window number for querying deposits. If not specified, the current block number is used.",
-          "in": "query",
-          "required": false,
-          "schema": {
-            "type": "string",
-            "format": "uint64"
-          }
-        }
-      ]
-    }
-  },
-  "/v1/bidder/withdraw": {
-    "post": {
-      "summary": "Withdraw",
-      "description": "Withdraw is called by the bidder to withdraw deposit from the bidder registry.",
-      "operationId": "Bidder_Withdraw",
-      "responses": {
-        "200": {
-          "description": "A successful response.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/v1WithdrawResponse"
-              }
-            }
-          }
-        },
-        "default": {
-          "description": "An unexpected error response.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/googlerpcStatus"
-              }
-            }
-          }
-        }
-      },
-      "parameters": [
-        {
-          "name": "windowNumber",
-          "description": "Optional window number for withdrawing deposits. If not specified, the last window number is used.",
-          "in": "query",
-          "required": false,
-          "schema": {
-            "type": "string",
-            "format": "uint64"
-          }
-        }
-      ]
-    }
-  },
-  "/v1/bidder/withdraw_from_windows": {
-    "post": {
-      "summary": "WithdrawFromWindows",
-      "description": "WithdrawFromWindows is called by the bidder node to withdraw funds from multiple windows.",
-      "operationId": "Bidder_WithdrawFromWindows",
-      "responses": {
-        "200": {
-          "description": "A successful response.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/v1WithdrawFromWindowsResponse"
-              }
-            }
-          }
-        },
-        "default": {
-          "description": "An unexpected error response.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/googlerpcStatus"
-              }
-            }
-          }
-        }
-      },
-      "requestBody": {
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/v1WithdrawFromWindowsRequest"
-            }
+        "properties": {
+          "windowNumbers": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uint64"
+            },
+            "description": "Window numbers for withdrawing deposits."
           }
         },
         "description": "Withdraw deposit from the bidder registry.",
-        "required": true
-      }
-    }
-  },
-  "components": null,
-  "schemas": {
-    "GetBidInfoResponseBidInfo": {
-      "type": "object",
-      "properties": {
-        "txnHashes": {
-          "type": "array",
-          "items": {
-            "type": "string",
-            "pattern": "[a-fA-F0-9]{64}"
-          },
-          "description": "Hex string encoding of the hashes of the transactions that the bidder wants to include in the block."
-        },
-        "revertableTxnHashes": {
-          "type": "array",
-          "items": {
-            "type": "string",
-            "pattern": "[a-fA-F0-9]{64}"
-          },
-          "description": "Optional array of tx hashes that are allowed to revert or be discarded."
-        },
-        "blockNumber": {
-          "type": "string",
-          "format": "int64",
-          "description": "Block number that the bidder wants to include the transaction in."
-        },
-        "bidAmount": {
-          "type": "string",
-          "description": "Amount of ETH that the bidder is willing to pay to the provider for including the transaction in the block.",
-          "pattern": "[0-9]+"
-        },
-        "decayStartTimestamp": {
-          "type": "string",
-          "format": "int64",
-          "description": "Timestamp at which the bid starts decaying."
-        },
-        "decayEndTimestamp": {
-          "type": "string",
-          "format": "int64",
-          "description": "Timestamp at which the bid ends decaying."
-        },
-        "bidDigest": {
-          "type": "string",
-          "description": "Hex string encoding of digest of the bid message signed by the bidder."
-        },
-        "slashAmount": {
-          "type": "string",
-          "description": "Amount of ETH that will be slashed from the provider if they fail to include the transaction. If zero, the decayed bid amount is used for slashing.",
-          "pattern": "[0-9]+"
-        },
-        "commitments": {
-          "type": "array",
-          "items": {
-            "$ref": "#/components/schemas/GetBidInfoResponseCommitmentWithStatus"
-          }
-        }
-      },
-      "description": "Information about a bid including its commitments.",
-      "title": "Bid Info"
-    },
-    "GetBidInfoResponseBlockBidInfo": {
-      "type": "object",
-      "properties": {
-        "blockNumber": {
-          "type": "string",
-          "format": "int64",
-          "description": "Block number for which the bid info is requested."
-        },
-        "bids": {
-          "type": "array",
-          "items": {
-            "$ref": "#/components/schemas/GetBidInfoResponseBidInfo"
-          },
-          "description": "List of bids for the specified block number."
-        }
-      }
-    },
-    "GetBidInfoResponseCommitmentWithStatus": {
-      "type": "object",
-      "properties": {
-        "providerAddress": {
-          "type": "string",
-          "description": "Hex string encoding of the address of the provider that signed the commitment."
-        },
-        "dispatchTimestamp": {
-          "type": "string",
-          "format": "int64",
-          "description": "Timestamp at which the commitment is published."
-        },
-        "status": {
-          "type": "string",
-          "description": "Status of the commitment. Possible values: 'pending', 'stored', 'opened', 'settled', 'slashed', 'failed'."
-        },
-        "details": {
-          "type": "string",
-          "description": "Additional details about the commitment status."
-        },
-        "payment": {
-          "type": "string",
-          "description": "Payment amount in wei for the commitment."
-        },
-        "refund": {
-          "type": "string",
-          "description": "Refund amount in wei for the commitment, if applicable."
-        }
-      }
-    },
-    "bidderapiv1AutoDeposit": {
-      "type": "object",
-      "properties": {
-        "depositedAmount": {
-          "type": "string",
-          "description": "Deposited amount of ETH in wei."
-        },
-        "windowNumber": {
-          "type": "string",
-          "format": "uint64",
-          "description": "Window number for the deposit."
-        },
-        "isCurrent": {
-          "type": "boolean",
-          "description": "Indicates if the window is the current window."
-        },
-        "startBlockNumber": {
-          "type": "string",
-          "format": "uint64",
-          "description": "The initial L1 block number for the window."
-        },
-        "endBlockNumber": {
-          "type": "string",
-          "format": "uint64",
-          "description": "The final L1 block number for the window."
-        }
-      }
-    },
-    "bidderapiv1Bid": {
-      "type": "object",
-      "example": {
-        "amount": "1000000000000000000",
-        "block_number": 123456,
-        "decay_end_timestamp": 1630000000,
-        "decay_start_timestamp": 1630000000,
-        "reverting_tx_hashes": [
-          "fe4cb47db3630551beedfbd02a71ecc69fd59758e2ba699606e2d5c74284ffa7"
-        ],
-        "slash_amount": "500000000000000000",
-        "tx_hashes": [
-          "fe4cb47db3630551beedfbd02a71ecc69fd59758e2ba699606e2d5c74284ffa7",
-          "71c1348f2d7ff7e814f9c3617983703435ea7446de420aeac488bf1de35737e8"
+        "title": "Withdraw from multiple windows request",
+        "required": [
+          "windowNumbers"
         ]
       },
-      "properties": {
-        "txHashes": {
-          "type": "array",
-          "items": {
-            "type": "string",
-            "pattern": "[a-fA-F0-9]{64}"
-          },
-          "description": "Hex string encoding of the hashes of the transactions that the bidder wants to include in the block."
+      "v1WithdrawFromWindowsResponse": {
+        "type": "object",
+        "example": {
+          "withdraw_responses": [
+            {
+              "amount": "1000000000000000000",
+              "window_number": 1
+            },
+            {
+              "amount": "1000000000000000000",
+              "window_number": 2
+            },
+            {
+              "amount": "1000000000000000000",
+              "window_number": 3
+            }
+          ]
         },
-        "amount": {
-          "type": "string",
-          "description": "Amount of ETH that the bidder is willing to pay to the provider for including the transaction in the block.",
-          "pattern": "[0-9]+"
-        },
-        "blockNumber": {
-          "type": "string",
-          "format": "int64",
-          "description": "Max block number that the bidder wants to include the transaction in."
-        },
-        "decayStartTimestamp": {
-          "type": "string",
-          "format": "int64",
-          "description": "Timestamp at which the bid starts decaying."
-        },
-        "decayEndTimestamp": {
-          "type": "string",
-          "format": "int64",
-          "description": "Timestamp at which the bid ends decaying."
-        },
-        "revertingTxHashes": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "description": "Optional array of tx hashes that are allowed to revert or be discarded."
-        },
-        "rawTransactions": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "description": "Optional array of RLP encoded raw signed transaction payloads that the bidder wants to include in the block."
-        },
-        "slashAmount": {
-          "type": "string",
-          "description": "Amount of ETH that will be slashed from the provider if they fail to include the transaction. If zero, the decayed bid amount is used for slashing.",
-          "pattern": "[0-9]+"
-        }
-      },
-      "description": "Unsigned bid message from bidders to the bidder mev-commit node.",
-      "title": "Bid message",
-      "required": [
-        "amount",
-        "blockNumber",
-        "decayStartTimestamp",
-        "decayEndTimestamp"
-      ]
-    },
-    "bidderapiv1Commitment": {
-      "type": "object",
-      "properties": {
-        "txHashes": {
-          "type": "array",
-          "items": {
-            "type": "string",
-            "pattern": "[a-fA-F0-9]{64}"
-          },
-          "description": "Hex string encoding of the hash of the transaction that the bidder wants to include in the block."
-        },
-        "bidAmount": {
-          "type": "string",
-          "description": "Amount of ETH that the bidder has agreed to pay to the provider for including the transaction in the block."
-        },
-        "blockNumber": {
-          "type": "string",
-          "format": "int64",
-          "description": "Max block number that the bidder wants to include the transaction in."
-        },
-        "receivedBidDigest": {
-          "type": "string",
-          "description": "Hex string encoding of digest of the bid message signed by the bidder."
-        },
-        "receivedBidSignature": {
-          "type": "string",
-          "description": "Hex string encoding of signature of the bidder that sent this bid."
-        },
-        "commitmentDigest": {
-          "type": "string",
-          "description": "Hex string encoding of digest of the commitment."
-        },
-        "commitmentSignature": {
-          "type": "string",
-          "description": "Hex string encoding of signature of the commitment signed by the provider confirming this transaction."
-        },
-        "providerAddress": {
-          "type": "string",
-          "description": "Hex string encoding of the address of the provider that signed the commitment signature."
-        },
-        "decayStartTimestamp": {
-          "type": "string",
-          "format": "int64",
-          "description": "Timestamp at which the bid starts decaying."
-        },
-        "decayEndTimestamp": {
-          "type": "string",
-          "format": "int64",
-          "description": "Timestamp at which the bid ends decaying."
-        },
-        "dispatchTimestamp": {
-          "type": "string",
-          "format": "int64",
-          "description": "Timestamp at which the commitment is published."
-        },
-        "revertingTxHashes": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "description": "Optional array of tx hashes that are allowed to revert or be discarded."
-        },
-        "slashAmount": {
-          "type": "string",
-          "description": "Amount of ETH that will be slashed from the provider if they fail to include the transaction."
-        }
-      },
-      "description": "Commitment message from the provider to the bidder mev-commit node.",
-      "title": "Commitment message"
-    },
-    "googlerpcStatus": {
-      "type": "object",
-      "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "message": {
-          "type": "string"
-        },
-        "details": {
-          "type": "array",
-          "items": {
-            "$ref": "#/components/schemas/protobufAny"
-          }
-        }
-      }
-    },
-    "protobufAny": {
-      "type": "object",
-      "properties": {
-        "@type": {
-          "type": "string"
-        }
-      },
-      "additionalProperties": {}
-    },
-    "v1AutoDepositResponse": {
-      "type": "object",
-      "example": {
-        "amount_per_window": "1000000000000000000",
-        "start_window_number": "1"
-      },
-      "properties": {
-        "startWindowNumber": {
-          "type": "string",
-          "format": "uint64"
-        },
-        "amountPerWindow": {
-          "type": "string"
-        }
-      },
-      "description": "Response on AutoDeposit request.",
-      "title": "AutoDeposit response"
-    },
-    "v1AutoDepositStatusResponse": {
-      "type": "object",
-      "example": {
-        "isAutodepositEnabled": true,
-        "window_balances": [
-          {
-            "depositedAmount": "1000000000000000000",
-            "window_number": 1
-          },
-          {
-            "depositedAmount": "1000000000000000000",
-            "window_number": 2
-          },
-          {
-            "depositedAmount": "1000000000000000000",
-            "window_number": 3
-          }
-        ]
-      },
-      "properties": {
-        "windowBalances": {
-          "type": "array",
-          "items": {
-            "$ref": "#/components/schemas/bidderapiv1AutoDeposit"
+        "properties": {
+          "withdrawResponses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/v1WithdrawResponse"
+            }
           }
         },
-        "isAutodepositEnabled": {
-          "type": "boolean"
-        }
+        "description": "Withdrawn deposit from the bidder registry.",
+        "title": "Withdraw from multiple windows response"
       },
-      "description": "AutoDeposit status from the bidder registry.",
-      "title": "AutoDeposit status response"
-    },
-    "v1CancelAutoDepositResponse": {
-      "type": "object",
-      "example": {
-        "window_numbers": [
-          1,
-          2,
-          3
-        ]
-      },
-      "properties": {
-        "windowNumbers": {
-          "type": "array",
-          "items": {
+      "v1WithdrawResponse": {
+        "type": "object",
+        "example": {
+          "amount": "1000000000000000000",
+          "window_number": 1
+        },
+        "properties": {
+          "amount": {
+            "type": "string"
+          },
+          "windowNumber": {
             "type": "string",
             "format": "uint64"
           }
-        }
-      },
-      "description": "CancelAutoDeposit deposit from the bidder registry.",
-      "title": "CancelAutoDeposit response"
-    },
-    "v1DepositResponse": {
-      "type": "object",
-      "example": {
-        "amount": "1000000000000000000",
-        "window_number": 1
-      },
-      "properties": {
-        "amount": {
-          "type": "string"
         },
-        "windowNumber": {
-          "type": "string",
-          "format": "uint64"
-        }
-      },
-      "description": "Deposit for bidder in the bidder registry for a particular window.",
-      "title": "Deposit response"
-    },
-    "v1GetBidInfoResponse": {
-      "type": "object",
-      "properties": {
-        "blockBidInfo": {
-          "type": "array",
-          "items": {
-            "$ref": "#/components/schemas/GetBidInfoResponseBlockBidInfo"
-          },
-          "description": "List of block bid info containing bids and their commitments."
-        }
+        "description": "Withdrawn deposit from the bidder registry.",
+        "title": "Withdraw response"
       }
-    },
-    "v1WithdrawFromWindowsRequest": {
-      "type": "object",
-      "example": {
-        "window_numbers": [
-          1,
-          2,
-          3
-        ]
-      },
-      "properties": {
-        "windowNumbers": {
-          "type": "array",
-          "items": {
-            "type": "string",
-            "format": "uint64"
-          },
-          "description": "Window numbers for withdrawing deposits."
-        }
-      },
-      "description": "Withdraw deposit from the bidder registry.",
-      "title": "Withdraw from multiple windows request",
-      "required": [
-        "windowNumbers"
-      ]
-    },
-    "v1WithdrawFromWindowsResponse": {
-      "type": "object",
-      "example": {
-        "withdraw_responses": [
-          {
-            "amount": "1000000000000000000",
-            "window_number": 1
-          },
-          {
-            "amount": "1000000000000000000",
-            "window_number": 2
-          },
-          {
-            "amount": "1000000000000000000",
-            "window_number": 3
-          }
-        ]
-      },
-      "properties": {
-        "withdrawResponses": {
-          "type": "array",
-          "items": {
-            "$ref": "#/components/schemas/v1WithdrawResponse"
-          }
-        }
-      },
-      "description": "Withdrawn deposit from the bidder registry.",
-      "title": "Withdraw from multiple windows response"
-    },
-    "v1WithdrawResponse": {
-      "type": "object",
-      "example": {
-        "amount": "1000000000000000000",
-        "window_number": 1
-      },
-      "properties": {
-        "amount": {
-          "type": "string"
-        },
-        "windowNumber": {
-          "type": "string",
-          "format": "uint64"
-        }
-      },
-      "description": "Withdrawn deposit from the bidder registry.",
-      "title": "Withdraw response"
     }
   }
 }
