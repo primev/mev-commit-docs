@@ -166,9 +166,9 @@
                   "v1.1.0/api-reference/bidder/autodeposit",
                   "v1.1.0/api-reference/bidder/autodepositstatus",
                   "v1.1.0/api-reference/bidder/cancelautodeposit",
-                  "v1.1.0/api-reference/validator/getvalidators",
                   "v1.1.0/api-reference/bidder/getbidinfo",
-                  "v1.1.0/api-reference/bidder/claimslashedfunds"
+                  "v1.1.0/api-reference/bidder/claimslashedfunds",
+                  "v1.1.0/api-reference/validator/getvalidators"
                 ]
               },
               {
