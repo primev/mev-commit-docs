@@ -150,7 +150,9 @@
                   "v1.1.0/api-reference/provider/getminstake",
                   "v1.1.0/api-reference/provider/getstake",
                   "v1.1.0/api-reference/provider/unstake",
-                  "v1.1.0/api-reference/provider/withdraw_stake"
+                  "v1.1.0/api-reference/provider/withdraw_stake",
+                  "v1.1.0/api-reference/provider/getcommitmentinfo",
+                  "v1.1.0/api-reference/provider/withdrawproviderreward"
                 ]
               },
               {
@@ -164,7 +166,9 @@
                   "v1.1.0/api-reference/bidder/autodeposit",
                   "v1.1.0/api-reference/bidder/autodepositstatus",
                   "v1.1.0/api-reference/bidder/cancelautodeposit",
-                  "v1.1.0/api-reference/validator/getvalidators"
+                  "v1.1.0/api-reference/validator/getvalidators",
+                  "v1.1.0/api-reference/bidder/getbidinfo",
+                  "v1.1.0/api-reference/bidder/claimslashedfunds"
                 ]
               },
               {
