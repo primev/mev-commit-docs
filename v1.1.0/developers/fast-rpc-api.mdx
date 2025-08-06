@@ -5,29 +5,37 @@ title: "FAST RPC API"
 The FAST RPC provides all the methods of the regular Ethereum API. Some of the default methods (starting with `eth_`) have been overridden to provide improved functionality and some additional methods have been added (starting with `mevcommit_`).
 
 ## Overridden Standard Methods
+
 All methods here have exactly the same interface as the default API to preserve compatiblity, i.e., all arguments and responses are compliant with standard RPCs. We here describe how they differ internally from the default implementation.
 
 ### eth_sendRawTransaction
+
 This method sources preconfs on the mev-commit chain. The RPC creates a local record of the transaction and returns the transaction hash. The transaction is enqueued in the background and is sent to the mev-commit network. Transaction are not send to the public mempool.
 
 ### eth_getTransactionCount
-If users query the public mempool after submitting transactions through the FAST RPC, they might see a different nonce as FAST RPC transactions are private on the mev-commit network. This RPC method thus returns the mempool count + the queued transactions in the private pool of the service.
+
+If users query the public mempool after submitting transactions through the FAST RPC, they might see a different nonce as FAST RPC transactions are private on the mev-commit network. This RPC method thus returns the mempool count \+ the queued transactions in the private pool of the service.
 
 ### eth_maxPriorityFeePerGas
+
 For users of the FAST RPC, the priority fee should be set to 0. Thus, this method always returns 0.
 
 ### eth_getTransactionReceipt
+
 This method is used by clients to query the receipt of the transaction corresponding to the hash they received when sending the transaction. To enable the FAST experience, it will return the receipt early if it is a mev-commit opted-in slot and enough preconfirmations have been obtained for the transaction. The block hash of a preconfirmed transaction is set to the transaction hash and can be used in the `eth_getBlockByHash` method.
 
 ### eth_getBlockByHash
+
 For regular block hashes, this method returns the usual block information. For block hashes corresponding to preconfirmed transactions, it returns a fictitious block containing only this transaction.
 
 ## Additional FAST RPC Methods
 
 ### mevcommit_getTransactionCommitments
+
 For a preconfirmed transaction, this method takes the transaction hash as argument and returns the commitments received on the mev-commit network.
 
 **Example output:**
+
 ```json
 {
   "jsonrpc": "2.0",
@@ -75,10 +83,12 @@ For a preconfirmed transaction, this method takes the transaction hash as argume
 }
 ```
 
-### mevcommit_optedInBlock
+### mevcommit_optInBlock
+
 This method returns the time in seconds until the next block that has a mev-commit opted in validator. Since these blocks are exclusively built using the mev-commit network, the method can be used for decisioning by users and applications.
 
 **Example output:**
+
 ```json
 {
   "jsonrpc": "2.0",
@@ -90,9 +100,11 @@ This method returns the time in seconds until the next block that has a mev-comm
 ```
 
 ### mevcommit_estimateDeposit
-In order to send transactions using the RPC service, the user has to deposit funds, which will be used to send bids on the network. To deposit funds, the user has to send a transaction to the RPC with the amount they want to deposit + the cost of deposit to a specific EOA wallet which is owned by the service. This transaction should be sent to the same RPC with no priority fee. This method returns the estimated cost of deposit and the EOA wallet to use to send the funds.
+
+In order to send transactions using the RPC service, the user has to deposit funds, which will be used to send bids on the network. To deposit funds, the user has to send a transaction to the RPC with the amount they want to deposit \+ the cost of deposit to a specific EOA wallet which is owned by the service. This transaction should be sent to the same RPC with no priority fee. This method returns the estimated cost of deposit and the EOA wallet to use to send the funds.
 
 **Example output:**
+
 ```json
 {
   "jsonrpc": "2.0",
@@ -105,9 +117,11 @@ In order to send transactions using the RPC service, the user has to deposit fun
 ```
 
 ### mevcommit_getBalance
+
 This method takes as input an account address and returns the available deposit balance for that address.
 
 **Example output:**
+
 ```json
 {
   "jsonrpc": "2.0",
@@ -119,9 +133,11 @@ This method takes as input an account address and returns the available deposit 
 ```
 
 ### mevcommit_estimateBridge
-The RPC also provides an instant bridging service to the mev-commit chain. This can be used  without depositing anything in the service beforehand. In order to do the bridging, the user has to create a transaction on L1 to a specific account managed by the RPC service with the amount they want to bridge + the cost of bridging. The funds will be released on mev-commit chain as soon as the transaction is preconfirmed. This method returns the estimated cost and the destination address.
+
+The RPC also provides an instant bridging service to the mev-commit chain. This can be used  without depositing anything in the service beforehand. In order to do the bridging, the user has to create a transaction on L1 to a specific account managed by the RPC service with the amount they want to bridge \+ the cost of bridging. The funds will be released on mev-commit chain as soon as the transaction is preconfirmed. This method returns the estimated cost and the destination address.
 
 **Example output:**
+
 ```json
 {
   "jsonrpc": "2.0",
