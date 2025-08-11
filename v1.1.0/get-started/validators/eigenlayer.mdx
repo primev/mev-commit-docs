@@ -19,7 +19,6 @@ Individual validator entities represented by a pod owner must delegate their nat
 Operators currently registered with the mev-commit AVS can be found through the Eigenlayer dashboard:
 
 * [Mainnet](https://app.eigenlayer.xyz/avs/0xbc77233855e3274e1903771675eb71e602d9dc2e)
-* [Holesky](https://holesky.eigenlayer.xyz/avs/0xededb8ed37a43fd399108a44646b85b780d85dd4)
 
 If your currently delegated operator is not registered with mev-commit, you have the option to [change your delegation](https://docs.eigenlayer.xyz/eigenlayer/restaking-guides/restaking-user-guide/restaker-delegation/redelegation-process).
 
@@ -33,6 +32,6 @@ If an Operator is registering pubkeys on behalf of validators, it's expected tha
 
 Following operator delegation, each validator pubkey must be *registered* with the mev-commit AVS from the delegated operator's account, or from the pod owner account. This action confirms a validator's attestation to follow the relay selection rule mentioned in the [Validator Guide](/v1.1.0/get-started/validators/validator-guide#requirements).
 
-Pubkey registration is facilitated through the [mainnet](https://validators.mev-commit.xyz/dashboard) or [holesky](https://holesky.validators.mev-commit.xyz/dashboard) validator dashboard interface to the `MevCommitAVS.registerValidatorsByPodOwners` function.
+Pubkey registration is facilitated through the [mainnet](https://validators.mev-commit.xyz/dashboard) or [hoodi](https://hoodi.validators.mev-commit.xyz/dashboard) validator dashboard interface to the `MevCommitAVS.registerValidatorsByPodOwners` function.
 
 The connected metamask account (who is invoking the pubkey registration transaction) must be the delegated operator, or pod owner, of the validator pubkeys that are being registered.

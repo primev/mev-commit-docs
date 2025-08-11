@@ -149,11 +149,14 @@ This API is enabled by default, the following environment variables could be set
 - `MEV_COMMIT_BEACON_API_URL`
 - `MEV_COMMIT_L1_RPC_URL`
 
-Current address for the ValidatorOptInRouter contract on Holesky is `0x251Fbc993f58cBfDA8Ad7b0278084F915aCE7fc3` and on Mainnet is `0x821798d7b9d57dF7Ed7616ef9111A616aB19ed64`.
+import { HoodiValidatorOptInRouterAddress } from '/snippets/testnet-addresses.mdx';
+import { ValidatorOptInRouterProxyAddress } from '/snippets/mainnet-addresses.mdx';
+
+Current address for the ValidatorOptInRouter contract on Hoodi is {HoodiValidatorOptInRouterAddress} and on Mainnet is {ValidatorOptInRouterProxyAddress}.
 
 The default URLs for the *Mainnet* Beacon Chain and L1 RPC are https://ethereum-beacon-api.publicnode.com and https://ethereum-rpc.publicnode.com, respectively, but you can set your own URLs.
 
-The default URLs for the *Testnet* Beacon Chain and L1 RPC are https://ethereum-holesky-beacon-api.publicnode.com and https://ethereum-holesky-rpc.publicnode.com, respectively, but you can set your own URLs.
+The default URLs for the *Testnet* Beacon Chain and L1 RPC are https://ethereum-hoodi-beacon-api.publicnode.com and https://ethereum-hoodi-rpc.publicnode.com, respectively, but you can set your own URLs.
 
 To get the information on whether validators for a specific epoch are opted in to mev-commit:
 
