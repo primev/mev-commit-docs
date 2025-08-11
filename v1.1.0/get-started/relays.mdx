@@ -5,7 +5,7 @@ icon: "arrow-right-arrow-left"
 ---
 
 import { ProviderRegistryAddressMainnet1_0_0, ValidatorOptInRouterProxyAddress } from '/snippets/mainnet-addresses.mdx';
-import { ProviderRegistryAddress, ProviderRegistryAddress0_7_0, ValidatorOptInRouterAddress } from '/snippets/testnet-addresses.mdx';
+import { ProviderRegistryAddress_1_1_6, HoodiValidatorOptInRouterAddress } from '/snippets/testnet-addresses.mdx';
 
 ## Overview
 
@@ -45,18 +45,18 @@ To implement this, your relay needs to track two things:
 
     ```
     MEV_COMMIT_RPC=wss://chainrpc-wss.mev-commit.xyz
-    PROVIDER_REGISTRY_ADDR=ProviderRegistryAddressMainnet1_0_0
+    PROVIDER_REGISTRY_ADDR={ProviderRegistryAddressMainnet1_0_0}
     ```
 
     ### Testnet
 
     ```
     MEV_COMMIT_RPC=wss://chainrpc-wss.testnet.mev-commit.xyz
-    PROVIDER_REGISTRY_ADDR=ProviderRegistryAddress0_7_0
+    PROVIDER_REGISTRY_ADDR={ProviderRegistryAddress_1_1_6}
     ```
   </Step>
   <Step title="Test and Deploy">
-    Test filtering behavior on Holesky:
+    Test filtering behavior on Hoodi:
 
     - Register a [test builder](/v1.1.0/get-started/quickstart)
     - Submit [test bids](/bidders/best-practices#submit-bundles)
@@ -81,15 +81,15 @@ To track which validators have opted into mev-commit, you'll want to monitor the
 
 | Network     | Contract                | Address                          |
 | ----------- | ----------------------- | -------------------------------- |
-| **Mainnet** | Validator Opt In Router | ValidatorOptInRouterProxyAddress |
-| **Holesky** | Validator Opt In Router | ValidatorOptInRouterAddress      |
+| **Mainnet** | Validator Opt In Router | {ValidatorOptInRouterProxyAddress} |
+| **Hoodi** | Validator Opt In Router | {HoodiValidatorOptInRouterAddress}      |
 
 ## mev-commit Chain
 
 | Network     | Contract          | Address                             |
 | ----------- | ----------------- | ----------------------------------- |
-| **Mainnet** | Provider Registry | ProviderRegistryAddressMainnet1_0_0 |
-| **Testnet** | Provider Registry | ProviderRegistryAddress0_7_0        |
+| **Mainnet** | Provider Registry | {ProviderRegistryAddressMainnet1_0_0} |
+| **Testnet** | Provider Registry | {ProviderRegistryAddress_1_1_6}        |
 
 By monitoring these contracts, you can determine which validators and providers have opted into mev-commit and ensure compliance with the protocol.
 
@@ -101,8 +101,8 @@ The mev-commit provider registry contract maintains the list of authorized provi
 
 | Network                      | Address                             |
 | ---------------------------- | ----------------------------------- |
-| **mev-commit chain mainnet** | ProviderRegistryAddressMainnet1_0_0 |
-| **mev-commit chain testnet** | ProviderRegistryAddress0_7_0        |
+| **mev-commit chain mainnet** | {ProviderRegistryAddressMainnet1_0_0} |
+| **mev-commit chain testnet** | {ProviderRegistryAddress_1_1_6}        |
 
 <AccordionGroup>
   <Accordion title="How to query the registry for registered providers">

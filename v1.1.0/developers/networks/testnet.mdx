@@ -3,7 +3,7 @@ title: Mev-commit Testnet
 sidebarTitle: Testnet
 ---
 
-Live on Holesky and Hoodi testnets, mev-commit allows bidders and providers to engage in execution service bids and commitments. Preconfirmations, the first use case for real-time bids and commitments, are available with mev-commit.
+Live on Hoodi testnet, mev-commit allows bidders and providers to engage in execution service bids and commitments. Preconfirmations, the first use case for real-time bids and commitments, are available with mev-commit.
 
 ## **Links and Connection Details**
 
@@ -18,7 +18,7 @@ Live on Holesky and Hoodi testnets, mev-commit allows bidders and providers to e
 
 ### **Core Contract Addresses (mev-commit chain)**
 
-import { BidderRegistryAddress0_7_0, ProviderRegistryAddress0_7_0, PreconfManagerAddress, OracleAddress0_7_0, BlockTrackerAddress0_7_0 } from '/snippets/testnet-addresses.mdx';
+import { BidderRegistryAddress_1_1_6, BlockTrackerAddress_1_1_6, OracleAddress_1_1_6, PreconfManagerAddress_1_1_6, ProviderRegistryAddress_1_1_6 } from '/snippets/testnet-addresses.mdx';
 
 <table>
   <thead>
@@ -30,30 +30,30 @@ import { BidderRegistryAddress0_7_0, ProviderRegistryAddress0_7_0, PreconfManage
   <tbody>
     <tr>
       <td>BidderRegistry</td>
-      <td>{BidderRegistryAddress0_7_0}</td>
+      <td>{BidderRegistryAddress_1_1_6}</td>
     </tr>
     <tr>
       <td>ProviderRegistry</td>
-      <td>{ProviderRegistryAddress0_7_0}</td>
+      <td>{ProviderRegistryAddress_1_1_6}</td>
     </tr>
     <tr>
       <td>PreconfManager</td>
-      <td>{PreconfManagerAddress}</td>
+      <td>{PreconfManagerAddress_1_1_6}</td>
     </tr>
     <tr>
       <td>Oracle</td>
-      <td>{OracleAddress0_7_0}</td>
+      <td>{OracleAddress_1_1_6}</td>
     </tr>
     <tr>
       <td>BlockTracker</td>
-      <td>{BlockTrackerAddress0_7_0}</td>
+      <td>{BlockTrackerAddress_1_1_6}</td>
     </tr>
   </tbody>
 </table>
 
 ### **Bridge Gateway (mev-commit chain)**
 
-import { SettlementGateway_0_7_0 } from '/snippets/testnet-addresses.mdx';
+import { HoodiSettlementGatewayAddress, HoodiL1GatewayAddress } from '/snippets/testnet-addresses.mdx';
 
 <table>
   <thead>
@@ -65,7 +65,11 @@ import { SettlementGateway_0_7_0 } from '/snippets/testnet-addresses.mdx';
   <tbody>
     <tr>
       <td>SettlementGateway</td>
-      <td>{SettlementGateway_0_7_0}</td>
+      <td>{SettlementGatewayAddress_1_1_6}</td>
+    </tr>
+    <tr>
+      <td>L1Gateway</td>
+      <td>{HoodiL1GatewayAddress}</td>
     </tr>
   </tbody>
 </table>
