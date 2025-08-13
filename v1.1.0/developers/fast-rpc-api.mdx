@@ -83,6 +83,22 @@ For a preconfirmed transaction, this method takes the transaction hash as argume
 }
 ```
 
+### mevcommit_getBalance
+
+This method takes as input an account address and returns the available deposit balance for that address.
+
+**Example output:**
+
+```json
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": {
+    "balance": "499997942000000000"
+  }
+}
+```
+
 ### mevcommit_optInBlock
 
 This method returns the time in seconds until the next block that has a mev-commit opted in validator. Since these blocks are exclusively built using the mev-commit network, the method can be used for decisioning by users and applications.
@@ -95,6 +111,24 @@ This method returns the time in seconds until the next block that has a mev-comm
   "id": 1,
   "result": {
     "timeInSecs": "57"
+  }
+}
+```
+
+### mevcommit_cancelTransaction
+
+This method takes as input a transaction hash and cancels attempts to get commitments for the corresponding transaction. If commitments have already been obtained, the transaction can still land on chain. The cancellation itself involves no additional transactions and incurs no cost.
+The method returns whether the cancellation was successful and the hash of the transaction.
+
+**Example output:**
+
+```json
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": {
+    "cancelled": true,
+    "txHash": "0x38e5a04d8670cac7851c992445b76e6862e6bb567e076e183c7984c8fc71a3c7"
   }
 }
 ```
@@ -112,22 +146,6 @@ In order to send transactions using the RPC service, the user has to deposit fun
   "result": {
     "bidAmount": "0x24abbb47000", // In hex
     "depositAddress": "0x945A9e492B98f05c37F5B98349A716F828D5A5bA"
-  }
-}
-```
-
-### mevcommit_getBalance
-
-This method takes as input an account address and returns the available deposit balance for that address.
-
-**Example output:**
-
-```json
-{
-  "jsonrpc": "2.0",
-  "id": 1,
-  "result": {
-    "balance": "499997942000000000"
   }
 }
 ```
