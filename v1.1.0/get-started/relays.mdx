@@ -43,17 +43,18 @@ To implement this, your relay needs to track two things:
 
     ### Mainnet
 
-    ```
-    MEV_COMMIT_RPC=wss://chainrpc-wss.mev-commit.xyz
-    PROVIDER_REGISTRY_ADDR=${ProviderRegistryAddressMainnet1_0_0}
-    ```
+    <CodeBlock language="bash">
+    {`MEV_COMMIT_RPC=wss://chainrpc-wss.mev-commit.xyz
+    PROVIDER_REGISTRY_ADDR=${ProviderRegistryAddressMainnet1_0_0}`}
+    </CodeBlock>
 
     ### Testnet
 
-    ```
-    MEV_COMMIT_RPC=wss://chainrpc-wss.testnet.mev-commit.xyz
-    PROVIDER_REGISTRY_ADDR=${ProviderRegistryAddress_1_1_6}
-    ```
+    <CodeBlock language="bash">
+    {`MEV_COMMIT_RPC=wss://chainrpc-wss.testnet.mev-commit.xyz
+    PROVIDER_REGISTRY_ADDR=${ProviderRegistryAddress_1_1_6}`}
+    </CodeBlock>
+
   </Step>
   <Step title="Test and Deploy">
     Test filtering behavior on Hoodi:
