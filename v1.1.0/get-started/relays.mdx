@@ -43,17 +43,21 @@ To implement this, your relay needs to track two things:
 
     ### Mainnet
 
-    <CodeBlock language="bash">
-    {`MEV_COMMIT_RPC=wss://chainrpc-wss.mev-commit.xyz
-PROVIDER_REGISTRY_ADDR=${ProviderRegistryAddressMainnet1_0_0}`}
-    </CodeBlock>
+<CodeBlock language="bash">
+{`
+MEV_COMMIT_RPC=wss://chainrpc-wss.mev-commit.xyz
+PROVIDER_REGISTRY_ADDR=${ProviderRegistryAddressMainnet1_0_0}
+`.trim()}
+</CodeBlock>
 
     ### Testnet
 
-    <CodeBlock language="bash">
-    {`MEV_COMMIT_RPC=wss://chainrpc-wss.testnet.mev-commit.xyz
- PROVIDER_REGISTRY_ADDR=${ProviderRegistryAddress_1_1_6}`}
-    </CodeBlock>
+<CodeBlock language="bash">
+{`
+MEV_COMMIT_RPC=wss://chainrpc-wss.testnet.mev-commit.xyz
+PROVIDER_REGISTRY_ADDR=${ProviderRegistryAddress_1_1_6}
+`.trim()}
+</CodeBlock>
 
   </Step>
   <Step title="Test and Deploy">
