@@ -3,7 +3,7 @@ title: "Managing Your Bidder Deposit"
 sidebarTitle: Managing Your Bidder Deposit
 ---
 
-**To Check Your Deposit for a specific provider:**
+**To check your deposit for a specific provider**
 
   ```shell
   > curl -s "http://localhost:13523/v1/bidder/get_deposit?provider=0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC" | jq
@@ -13,7 +13,7 @@ sidebarTitle: Managing Your Bidder Deposit
   }
   ```
 
-**To Check deposits for all providers and get bidder EOA balance:**
+**To check deposits for all providers and get bidder EOA balance**
 
   ```shell
   > curl -s "http://localhost:13523/v1/bidder/get_all_deposits" | jq
@@ -28,7 +28,8 @@ sidebarTitle: Managing Your Bidder Deposit
   }
   ```
 
-**Funding Your Node Account:**
+**Funding your node account**
+
   First, retrieve the Ethereum account address of your node:
 
     ```shell
@@ -56,7 +57,7 @@ sidebarTitle: Managing Your Bidder Deposit
 
 To add funds to your bidder EOA on the mev-commit chain, you may use the [bridge](/v1.1.0/get-started/bridge). 
 
-**Automate Depositing - The Easy Way**
+**Automate depositing - The easy way**
 
 It's recommended that bidders leverage the _deposit manager_ to deposit, and automate ongoing re-deposits to specific providers.
 
@@ -70,7 +71,7 @@ The easiest way to enable the deposit manager is by setting two flags/environmen
 
 Where the target deposit amount will be set for all valid providers that're currently a part of the network. Alternatively you can use the `MEV_COMMIT_ENABLE_DEPOSIT_MANAGER` and `MEV_COMMIT_TARGET_DEPOSIT_AMOUNT` environment variables.
 
-**Automate Depositing - Through API**
+**Automate depositing - Through API**
 
 To enable the deposit manager through API, use the following command:
 
@@ -98,7 +99,7 @@ Then to set target deposits customized to each provider:
 }
 ```
 
-- **Manually Adding to Your Deposit:**
+**Manually adding to your deposit**
 
 If you'd like to manually increase the deposit for a provider, use the following command, specifying the desired amount:
 
@@ -128,7 +129,7 @@ To manually deposit evenly to multiple providers, use the following command:
 
 After successfully depositing, you are ready to send bids and receive preconfirmations on the network.
 
-- **Withdrawing from Your Deposit:**
+**Withdrawing from your deposit**
 
 To withdraw funds from your deposit to a specific provider, use the following command:
 
@@ -170,7 +171,8 @@ curl -s -X POST http://localhost:13523/v1/bidder/withdraw \
 }
 ```
 
-### Outcome of Preconfirmed Bids:
+### Outcome of preconfirmed bids
+
 When a bid is preconfirmed by a provider, there are several possible outcomes:
 
 | Outcome Matrix | Provider Wins Slot Auction| Provider Loses Slot Auction |
