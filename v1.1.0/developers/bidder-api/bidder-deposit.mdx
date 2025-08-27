@@ -66,7 +66,7 @@ The deposit manager is an on-chain contract that a bidder account can enable by 
 The easiest way to enable the deposit manager is by setting two flags/environment variables upon starting your bidder node:
 
 ```shell
-> mev-commit --enable-deposit-manager=true --target-deposit-amount=<amount>
+> ./mev-commit --enable-deposit-manager=true --target-deposit-amount=<amount>
 ```
 
 Where the target deposit amount will be set for all valid providers that're currently a part of the network. Alternatively you can use the `MEV_COMMIT_ENABLE_DEPOSIT_MANAGER` and `MEV_COMMIT_TARGET_DEPOSIT_AMOUNT` environment variables.
