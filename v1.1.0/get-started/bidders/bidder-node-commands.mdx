@@ -17,28 +17,36 @@ export ADDRESS=$(cast wallet address --private-key 0x$(cat key))
 
 ## Getting Deposit
 
-To get the current deposit balance in the contract for the current [window](/v1.1.0/concepts/bids/bidder-deposit):
+To get the currently deposited balance on-chain for a provider:
 
 ```shell ❯_ terminal
-curl -s http://localhost:13523/v1/bidder/get_deposit
+> curl -s "http://localhost:13523/v1/bidder/get_deposit?provider=0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC" | jq
+{
+"amount": "0",
+"provider": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC"
+}
 ```
 
-To get the current deposit balance in the contract for a specific [window](/v1.1.0/concepts/bids/bidder-deposit):
+Or to query all deposits and the bidder's EOA balance:
 
 ```shell ❯_ terminal
-curl -s http://localhost:13523/v1/bidder/get_deposit?windowNumber=1
+> curl -s "http://localhost:13523/v1/bidder/get_all_deposits" | jq
+{
+"deposits": [
+	{
+	"provider": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+	"amount": "3000000000000000000"
+	}
+],
+"bidderBalance": "9996999791340641239011"
+}
 ```
 
 <Tip>Deposit represents the funds in the bidder's account that can be used to submit bids on the mev-commit p2p-network and settled on-chain.</Tip>
 
 ## Withdraw Deposited Funds
 
-This command will allow you to withdraw funds from the specific [window](/v1.1.0/concepts/bids/bidder-deposit). 
-Window number is the number where the bidder deposited funds.
-
-```shell ❯_ terminal
-curl -X POST http://localhost:13523/v1/bidder/withdraw?windowNumber=1 \
-```
+See [Withdraw Funds](/v1.1.0/get-started/bidders/bidder-node-commands#withdraw-funds) below.
 
 ## Deposit Manager
 
@@ -192,7 +200,7 @@ python3 -c "print($(cast b 0x401B3287364f95694c43ACA3252831cAc02e5C41 \
 ```
 
 ## Health
-The health endpoint checks whether the bidder node is receiving events from mev-commit chain. This command is useful to determine whether the bidder node has become out of sync (e.g. can't find the window balance).
+The health endpoint checks whether the bidder node is receiving events from mev-commit chain. This command is useful to determine whether the bidder node has become out of sync.
 ```shell ❯_ terminal
 curl http://localhost:13523/health
 ```
