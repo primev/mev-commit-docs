@@ -5,7 +5,7 @@ sidebarTitle: Bidder Deposit
 
 Bidders need to deposit funds to be able to place bids on the mev-commit network. As bids are posted privately, providers cannot determine how much bidders have bid to other providers for the relevant L1 block. To ensure that bidders can cover all their bids, we bind deposits to specific providers. Providers can thus ensure that bids from a given bidder do not exceed the amount deposited for them.
 
-It is important to note that if a bidder deposits, for example, 1 ETH for every provider, they can still only post bids totaling 1 ETH for that block. This is because only a single provider can post the block to L1, meaning bids made to other providers will not be executed.
+It is important to note that if a bidder deposits, for example, 1 ETH for every provider, they can still only post bids totaling 1 ETH for a given block. This is because only a single provider can post the block to L1, meaning bids made to other providers will not be executed.
 
 Deposited funds can be withdrawn by the bidder at any time, after waiting the ~10 minute cooldown period.
 
