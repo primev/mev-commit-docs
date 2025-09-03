@@ -57,9 +57,9 @@ The `decayStartTimestamp` and `decayEndTimestamp` are important components for h
 ## Troubleshooting
 Bidders will start receiving commitments instantly in most cases. If you're having trouble receiving commitments, check your bid parameters and ensure your bid is high enough for the commitment you're requesting. Additionally check that you are connected to providers (via the [topology endpoint](https://docs.primev.xyz/v1.1.0/get-started/bidders/bidder-node-commands#topology)) and that you are receiving mev-commit events (via the [health endpoint](https://docs.primev.xyz/v1.1.0/get-started/bidders/bidder-node-commands#health)).
 
-## Bidder Depositing
+## Bidder Funds and Autodeposit Window
 
-Bidders on mev-commit need to be funded with ETH which can be obtained via [bridging](/v1.1.0/get-started/bridge). Then a bidder must deposit toward one or more providers. To automate this process, the bidder can enable the deposit manager and set target deposits for each provider. Read more about the deposit manager [here](https://docs.primev.xyz/v1.1.0/get-started/bidders/bidder-node-commands#deposit-manager).
+Bidders on mev-commit need funds available in their account to submit bids, which can be obtained via bridging to your wallet address and then depositing to your node address. For testnet, you can obtain funds by using the [bridge](/v1.1.0/get-started/bridge). Once funds are deposited, the auto deposit function will automatically deposit funds into your account for the next 3 [windows](/v1.1.0/concepts/bids/bidder-deposit) to bid. Unused funds will automatically transfer into upcoming windows for bidding. You can read more about the auto deposit feature [here](https://docs.primev.xyz/v1.1.0/get-started/bidders/bidder-node-commands#autodeposit-funds).
 
 <!-- ## (Optional) Provider RPCs
 

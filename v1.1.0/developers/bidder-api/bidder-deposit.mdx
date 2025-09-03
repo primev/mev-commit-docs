@@ -3,33 +3,27 @@ title: "Managing Your Bidder Deposit"
 sidebarTitle: Managing Your Bidder Deposit
 ---
 
-**To check your deposit for a specific provider**
+**To Check Your Deposit for current window:**
 
   ```shell
-  > curl -s "http://localhost:13523/v1/bidder/get_deposit?provider=0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC" | jq
+  > curl localhost:13523/v1/bidder/get_deposit | jq
   {
     "amount": "0",
-    "provider": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC"
+    "windowNumber": 1
   }
   ```
 
-**To check deposits for all providers and get bidder EOA balance**
+**To Check Your Deposit for a specific window:**
 
   ```shell
-  > curl -s "http://localhost:13523/v1/bidder/get_all_deposits" | jq
+  > curl localhost:13523/v1/bidder/get_deposit?window_number=1 | jq
   {
-    "deposits": [
-      {
-        "provider": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
-        "amount": "3000000000000000000"
-      }
-    ],
-    "bidderBalance": "9996999791340641239011"
+    "amount": "0",
+    "windowNumber": 1
   }
   ```
 
-**Funding your node account**
-
+**Funding Your Node Account:**
   First, retrieve the Ethereum account address of your node:
 
     ```shell
@@ -55,124 +49,52 @@ sidebarTitle: Managing Your Bidder Deposit
     }
     ```
 
-To add funds to your bidder EOA on the mev-commit chain, you may use the [bridge](/v1.1.0/get-started/bridge). 
+To add funds to your account on the mev-commit chain, you may use the [bridge](/v1.1.0/getting-started/bridge). 
 
-**Automate depositing - The easy way**
 
-It's recommended that bidders leverage the _deposit manager_ to deposit, and automate ongoing re-deposits to specific providers.
+- **Adding to Your Deposit:**
 
-The deposit manager is an on-chain contract that a bidder account can enable by "setting their code" to the implementation using EIP-7702. After enabling the deposit manager, a bidder's deposits are automatically replenished from the bidder's EOA balance during the preconf settlement process, according to _target deposit_ amounts configured by the bidder.
-
-The easiest way to enable the deposit manager is by setting two flags/environment variables upon starting your bidder node:
+To increase your deposit for the current window, use the following command, specifying the desired amount:
 
 ```shell
-> ./mev-commit --enable-deposit-manager=true --target-deposit-amount=<amount>
+> curl -X POST localhost/v1/bidder/deposit/YOUR_AMOUNT | jq
 ```
 
-Where the target deposit amount will be set for all valid providers that're currently a part of the network. Alternatively you can use the `MEV_COMMIT_ENABLE_DEPOSIT_MANAGER` and `MEV_COMMIT_TARGET_DEPOSIT_AMOUNT` environment variables.
-
-**Automate depositing - Through API**
-
-To enable the deposit manager through API, use the following command:
+To increase your deposit for the specific window, use the following command, specifying the desired amount and window number:
 
 ```shell
-> curl -s -X POST http://localhost:13523/v1/bidder/enable_deposit_manager | jq
-{
-  "success": true
-}
-```
-
-Then to set target deposits customized to each provider:
-
-```shell
-> curl -s -X POST http://localhost:13523/v1/bidder/set_target_deposits -H 'Content-Type: application/json' -d '{"target_deposits":[{"provider":"0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC","target_deposit":"3000000000000000000"}]}' | jq
-{
-  "successfullySetDeposits": [
-    {
-      "provider": "3c44cdddb6a900fa2b585dd299e03d12fa4293bc",
-      "targetDeposit": "3000000000000000000"
-    }
-  ],
-  "successfullyToppedUpProviders": [
-    "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC"
-  ]
-}
-```
-
-**Manually adding to your deposit**
-
-If you'd like to manually increase the deposit for a provider, use the following command, specifying the desired amount:
-
-```shell
-> curl -s -X POST "http://localhost:13523/v1/bidder/deposit/1000000000000000000?provider=0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC" | jq
-{
-  "amount": "1000000000000000000",
-  "provider": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC"
-}
-```
-
-To manually deposit evenly to multiple providers, use the following command:
-
-```shell
-> curl -s -X POST "http://localhost:13523/v1/bidder/deposit_evenly?total_amount=2000000000000000000&providers=0x8F644015Aa59984BF849259375d9135A89a940e7&providers=0x353ff5537cc2fe78C8632c41Bb848735C2982c45" | jq
-{
-  "providers": [
-    "8f644015aa59984bf849259375d9135a89a940e7",
-    "353ff5537cc2fe78c8632c41bb848735c2982c45"
-  ],
-  "amounts": [
-    "1000000000000000000",
-    "1000000000000000000"
-  ]
-}
-```
-
-After successfully depositing, you are ready to send bids and receive preconfirmations on the network.
-
-**Withdrawing from your deposit**
-
-To withdraw funds from your deposit to a specific provider, use the following command:
-
-```shell
-> curl -s -X POST http://localhost:13523/v1/bidder/request_withdrawals \
-  -H 'Content-Type: application/json' \
+> curl -X POST "localhost/v1/bidder/deposit/YOUR_AMOUNT" \
+  -H "Content-Type: application/json" \
   -d '{
-    "providers": [
-      "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC"
-    ]
+    "window_number": 1
   }' | jq
-{
-  "providers": [
-    "3c44cdddb6a900fa2b585dd299e03d12fa4293bc"
-  ],
-  "amounts": [
-    "3000000000000000000"
-  ]
-}
 ```
 
-Then you must wait the withdrawal period to elapse, currently ~10 minutes. Then finally call:
+To increase your deposit for the specific L1 block number, use the following command, specifying the desired amount and L1 block number:
 
 ```shell
-curl -s -X POST http://localhost:13523/v1/bidder/withdraw \
-  -H 'Content-Type: application/json' \
+> curl -X POST "localhost/v1/bidder/deposit/YOUR_AMOUNT" \
+  -H "Content-Type: application/json" \
   -d '{
-    "providers": [
-      "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC"
-    ]
+    "block_number": 1,
   }' | jq
-{
-  "providers": [
-    "3c44cdddb6a900fa2b585dd299e03d12fa4293bc"
-  ],
-  "amounts": [
-    "3000000000000000000"
-  ]
-}
 ```
+After successfully adding to your deposit, you are ready to send bids and receive preconfirmations on the network.
 
-### Outcome of preconfirmed bids
+- **Withdrawing from Your Deposit:**
 
+To withdraw funds from your deposit, use the following command:
+
+```shell
+> curl -X POST localhost/v1/bidder/withdraw \
+  -H "Content-Type: application/json" \
+  -d '{
+    "window_number": 1
+  }' | jq
+```
+If you don't specify a window number, the current window will be used by default.
+
+### Outcome of Preconfirmed Bids:
 When a bid is preconfirmed by a provider, there are several possible outcomes:
 
 | Outcome Matrix | Provider Wins Slot Auction| Provider Loses Slot Auction |

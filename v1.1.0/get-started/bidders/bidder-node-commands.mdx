@@ -17,157 +17,91 @@ export ADDRESS=$(cast wallet address --private-key 0x$(cat key))
 
 ## Getting Deposit
 
-To get the currently deposited balance on-chain for a provider:
+To get the current deposit balance in the contract for the current [window](/v1.1.0/concepts/bids/bidder-deposit):
 
 ```shell ❯_ terminal
-> curl -s "http://localhost:13523/v1/bidder/get_deposit?provider=0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC" | jq
-{
-"amount": "0",
-"provider": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC"
-}
+curl -s http://localhost:13523/v1/bidder/get_deposit
 ```
 
-Or to query all deposits and the bidder's EOA balance:
+To get the current deposit balance in the contract for a specific [window](/v1.1.0/concepts/bids/bidder-deposit):
 
 ```shell ❯_ terminal
-> curl -s "http://localhost:13523/v1/bidder/get_all_deposits" | jq
-{
-"deposits": [
-	{
-	"provider": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
-	"amount": "3000000000000000000"
-	}
-],
-"bidderBalance": "9996999791340641239011"
-}
+curl -s http://localhost:13523/v1/bidder/get_deposit?windowNumber=1
 ```
 
 <Tip>Deposit represents the funds in the bidder's account that can be used to submit bids on the mev-commit p2p-network and settled on-chain.</Tip>
 
-## Deposit Manager
+## Withdraw Deposited Funds
 
-It's recommended that bidders leverage the _deposit manager_ to deposit, and automate ongoing re-deposits to specific providers.
-
-The deposit manager is an on-chain contract that a bidder account can enable by "setting their code" to the implementation using EIP-7702. After enabling the deposit manager, a bidder's deposits are automatically replenished from the bidder's EOA balance during the preconf settlement process, according to _target deposit_ amounts configured by the bidder.
-
-A target deposit is the desired amount of funds that a bidder wants to be deposited for a specific provider. Bidders should set this to the maximum cumulative amount of ETH they would ever bid to a provider with respect to a single L1 block.
-
-There are two ways to enable this feature...
-
-### On node boot up (recommended)
-
-The easiest way to enable the deposit manager is by setting two flags/environment variables upon starting your bidder node:
-
-```shell
-> ./mev-commit --enable-deposit-manager=true --target-deposit-amount=<amount>
-```
-
-Where the target deposit amount will be set for all valid providers that're currently a part of the network. Alternatively you can use the `MEV_COMMIT_ENABLE_DEPOSIT_MANAGER` and `MEV_COMMIT_TARGET_DEPOSIT_AMOUNT` environment variables.
-
-### Through API
-
-To enable the deposit manager through API, use the following command:
-
-```shell
-> curl -s -X POST http://localhost:13523/v1/bidder/enable_deposit_manager | jq
-{
-  "success": true
-}
-```
-
-Then to set target deposits customized to each provider:
-
-```shell
-> curl -s -X POST http://localhost:13523/v1/bidder/set_target_deposits -H 'Content-Type: application/json' -d '{"target_deposits":[{"provider":"0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC","target_deposit":"3000000000000000000"}]}' | jq
-{
-  "successfullySetDeposits": [
-    {
-      "provider": "3c44cdddb6a900fa2b585dd299e03d12fa4293bc",
-      "targetDeposit": "3000000000000000000"
-    }
-  ],
-  "successfullyToppedUpProviders": [
-    "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC"
-  ]
-}
-```
-
-## Get Deposit Manager Status
+This command will allow you to withdraw funds from the specific [window](/v1.1.0/concepts/bids/bidder-deposit). 
+Window number is the number where the bidder deposited funds.
 
 ```shell ❯_ terminal
-curl -s http://localhost:13523/v1/bidder/deposit_manager_status | jq
+curl -X POST http://localhost:13523/v1/bidder/withdraw?windowNumber=1 \
 ```
 
-```json
-{
-  "enabled": true,
-  "targetDeposits": [
-    {
-      "provider": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
-      "targetDeposit": "3000000000000000000"
-    },
-    {
-      "provider": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
-      "targetDeposit": "3000000000000000000"
-    }
-  ]
-}
-```
+## Autodeposit Funds
 
-## Disable Deposit Manager
+The auto deposit feature allows you to automate the process of depositing funds for the bidder account. This is useful for ensuring your bidder account always has funds available to bid. In order to achieve this, the node will keep issuing deposits for the new windows and also withdrawing funds from the previous windows.
 
-To disable the deposit manager call:
+<Note> For seamless availability of funds, the deposits would be locked for around 3 windows at a time. So the total amount locked would be `3 * amountPerWindow`. The user's wallet should have enough funds to be able to maintain these deposits as well as cover gas costs to issue transactions.</Note>
+
+There are two ways to enable this feature:
+
+### On node boot up
+
+Users can use the command-line or the configuration file to enable this feature on node boot-up. The `autodeposit-enabled` flag should be set as well as the `autodeposit-amount` needs to be set to the amount to be deposited in each window.
+
+<Note> In order to enable this at node boot up, users needs to fund their wallet before starting the node. So we would need to know the private-key used for the account beforehand. </Note>
 
 ```shell ❯_ terminal
-curl -X POST http://localhost:13523/v1/bidder/disable_deposit_manager
+mev-commit --keystore-path ~/.mev-commit \
+ --keystore-password <PASSWORD> \
+	--bootnodes /dnsaddr/bootnode.testnet.mev-commit.xyz \
+	--settlement-rpc-endpoint https://chainrpc.testnet.mev-commit.xyz
+  --autodeposit-enabled true
+  --autodeposit-amount 1000000000000000000
 ```
 
-This will set the bidder EOA's code to zero address, effectively disabling the previous EIP-7702 delegation for the EOA.
+### Use the Bidder API
+
+Another option to enable this is using the Bidder API.
+
+```shell ❯_ terminal
+curl -X POST http://localhost:13523/v1/bidder/auto_deposit/1000000000000000000
+```
+
+## Get Auto Deposit Status
+
+To get the status of the auto deposit process:
+
+```shell ❯_ terminal
+curl -s http://localhost:13523/v1/bidder/auto_deposit_status
+```
+
+## Cancel Auto Deposit
+
+To cancel the auto deposit process:
+
+```shell ❯_ terminal
+curl -X POST http://localhost:13523/v1/bidder/cancel_auto_deposit?withdraw=true
+```
+
+This will stop the ongoing auto deposit process.
+
+<Note> If withdraw is set, the node will try to withdraw the deposit at the earliest possible time. It might take time before we are able to withdraw from the current window. The bidder node should be running in order to allow this process to complete. If withdraw is not set, the API will return the window numbers which have been already deposited to. The user can then manually issue withdraw at a later point using the API. </Note>
 
 ## Withdraw Funds
 
-To withdraw funds from your deposit to a specific provider, use the following command:
+To withdraw funds from the several windows, you can use the following command:
 
-```shell
-> curl -s -X POST http://localhost:13523/v1/bidder/request_withdrawals \
-  -H 'Content-Type: application/json' \
-  -d '{
-    "providers": [
-      "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC"
-    ]
-  }' | jq
-{
-  "providers": [
-    "3c44cdddb6a900fa2b585dd299e03d12fa4293bc"
-  ],
-  "amounts": [
-    "3000000000000000000"
-  ]
-}
-```
-
-Then you must wait the withdrawal period to elapse, currently ~10 minutes. Then finally call:
-
-```shell
-curl -s -X POST http://localhost:13523/v1/bidder/withdraw \
-  -H 'Content-Type: application/json' \
-  -d '{
-    "providers": [
-      "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC"
-    ]
-  }' | jq
-{
-  "providers": [
-    "3c44cdddb6a900fa2b585dd299e03d12fa4293bc"
-  ],
-  "amounts": [
-    "3000000000000000000"
-  ]
-}
+```shell ❯_ terminal
+curl -X POST http://localhost:13523/v1/bidder/withdraw_from_windows \
+-H "Content-Type: application/json" \
+-d '{"windowNumbers": [1, 2, 3]}'
 ```
 
 ## Checking the Balance of your Wallet
-
 ### Mainnet
 This command will allow you to check your current wallet balance on mainnet mev-commit chain:
 
@@ -196,7 +130,7 @@ python3 -c "print($(cast b 0x401B3287364f95694c43ACA3252831cAc02e5C41 \
 ```
 
 ## Health
-The health endpoint checks whether the bidder node is receiving events from mev-commit chain. This command is useful to determine whether the bidder node has become out of sync.
+The health endpoint checks whether the bidder node is receiving events from mev-commit chain. This command is useful to determine whether the bidder node has become out of sync (e.g. can't find the window balance).
 ```shell ❯_ terminal
 curl http://localhost:13523/health
 ```
