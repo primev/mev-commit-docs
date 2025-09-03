@@ -136,6 +136,34 @@
             "tab": "API Reference",
             "groups": [
               {
+                "group": "Provider (auto)",
+                "openapi": {
+                  "source": "/openapi/v1.2.x/provider-openapi-spec.json",
+                  "directory": "v1.2.x/api-reference/provider-auto"
+                }
+              },
+              {
+                "group": "Bidder (auto)",
+                "openapi": {
+                  "source": "/openapi/v1.2.x/bidder-openapi-spec.json",
+                  "directory": "v1.2.x/api-reference/bidder-auto"
+                }
+              },
+              {
+                "group": "Notifications (auto)",
+                "openapi": {
+                  "source": "/openapi/v1.2.x/notifications-openapi-spec.json",
+                  "directory": "v1.2.x/api-reference/notifications-auto"
+                }
+              },
+              {
+                "group": "Debug (auto)",
+                "openapi": {
+                  "source": "/openapi/v1.2.x/debug-openapi-spec.json",
+                  "directory": "v1.2.x/api-reference/debug-auto"
+                }
+              },
+              {
                 "group": "API Reference",
                 "pages": [
                   "v1.2.x/api-reference/introduction"
@@ -339,6 +367,40 @@
                 "group": "API Reference",
                 "pages": [
                   "v1.1.0/api-reference/introduction"
+                ]
+              },
+              {
+                "group": "Provider (auto)",
+                "openapi": {
+                  "source": "/openapi/v1.2.x/provider-openapi-spec.json",
+                  "directory": "v1.2.x/api-reference/provider-auto"
+                }
+              },
+              {
+                "group": "Bidder (auto)",
+                "openapi": {
+                  "source": "/openapi/v1.2.x/bidder-openapi-spec.json",
+                  "directory": "v1.2.x/api-reference/bidder-auto"
+                }
+              },
+              {
+                "group": "Notifications (auto)",
+                "openapi": {
+                  "source": "/openapi/v1.2.x/notifications-openapi-spec.json",
+                  "directory": "v1.2.x/api-reference/notifications-auto"
+                }
+              },
+              {
+                "group": "Debug (auto)",
+                "openapi": {
+                  "source": "/openapi/v1.2.x/debug-openapi-spec.json",
+                  "directory": "v1.2.x/api-reference/debug-auto"
+                }
+              },
+              {
+                "group": "API Reference",
+                "pages": [
+                  "v1.2.x/api-reference/introduction"
                 ]
               },
               {
