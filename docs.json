@@ -136,54 +136,32 @@
             "tab": "API Reference",
             "groups": [
               {
-                "group": "API Reference",
-                "pages": [
-                  "v1.2.x/api-reference/introduction"
-                ]
-              },
-              {
                 "group": "Provider",
-                "pages": [
-                  "v1.2.x/api-reference/provider/receivebids",
-                  "v1.2.x/api-reference/provider/sendprocessedbids",
-                  "v1.2.x/api-reference/provider/registerstake",
-                  "v1.2.x/api-reference/provider/getminstake",
-                  "v1.2.x/api-reference/provider/getstake",
-                  "v1.2.x/api-reference/provider/unstake",
-                  "v1.2.x/api-reference/provider/withdraw_stake",
-                  "v1.2.x/api-reference/provider/getcommitmentinfo",
-                  "v1.2.x/api-reference/provider/withdrawproviderreward"
-                ]
+                "openapi": {
+                  "source": "v1.2.x/api-reference/provider-openapi-spec.json",
+                  "directory": "v1.2.x/api-reference/provider"
+                }
               },
               {
                 "group": "Bidder",
-                "pages": [
-                  "v1.2.x/api-reference/bidder/sendbid",
-                  "v1.2.x/api-reference/bidder/getdeposit",
-                  "v1.2.x/api-reference/bidder/deposit",
-                  "v1.2.x/api-reference/bidder/withdraw",
-                  "v1.2.x/api-reference/bidder/withdrawfromwindows",
-                  "v1.2.x/api-reference/bidder/autodeposit",
-                  "v1.2.x/api-reference/bidder/autodepositstatus",
-                  "v1.2.x/api-reference/bidder/cancelautodeposit",
-                  "v1.2.x/api-reference/bidder/getbidinfo",
-                  "v1.2.x/api-reference/bidder/claimslashedfunds",
-                  "v1.2.x/api-reference/validator/getvalidators"
-                ]
+                "openapi": {
+                  "source": "v1.2.x/api-reference/bidder-openapi-spec.json",
+                  "directory": "v1.2.x/api-reference/bidder"
+                }
               },
               {
                 "group": "Notifications",
-                "pages": [
-                  "v1.2.x/api-reference/notifications/subscribe"
-                ]
+                "openapi": {
+                  "source": "v1.2.x/api-reference/notifications-openapi-spec.json",
+                  "directory": "v1.2.x/api-reference/notifications"
+                }
               },
               {
                 "group": "Debug",
-                "pages": [
-                  "v1.2.x/api-reference/debug/canceltx",
-                  "v1.2.x/api-reference/debug/pendingtxs",
-                  "v1.2.x/api-reference/debug/topology"
-                ]
+                "openapi": {
+                  "source": "v1.2.x/api-reference/debug-openapi-spec.json",
+                  "directory": "v1.2.x/api-reference/debug"
+                }
               }
             ]
           },
@@ -336,54 +314,28 @@
             "tab": "API Reference",
             "groups": [
               {
-                "group": "API Reference",
-                "pages": [
-                  "v1.1.0/api-reference/introduction"
-                ]
-              },
-              {
                 "group": "Provider",
-                "pages": [
-                  "v1.1.0/api-reference/provider/receivebids",
-                  "v1.1.0/api-reference/provider/sendprocessedbids",
-                  "v1.1.0/api-reference/provider/registerstake",
-                  "v1.1.0/api-reference/provider/getminstake",
-                  "v1.1.0/api-reference/provider/getstake",
-                  "v1.1.0/api-reference/provider/unstake",
-                  "v1.1.0/api-reference/provider/withdraw_stake",
-                  "v1.1.0/api-reference/provider/getcommitmentinfo",
-                  "v1.1.0/api-reference/provider/withdrawproviderreward"
-                ]
+                "openapi": {
+                  "source": "v1.1.0/api-reference/provider-openapi-spec.json"
+                }
               },
               {
                 "group": "Bidder",
-                "pages": [
-                  "v1.1.0/api-reference/bidder/sendbid",
-                  "v1.1.0/api-reference/bidder/getdeposit",
-                  "v1.1.0/api-reference/bidder/deposit",
-                  "v1.1.0/api-reference/bidder/withdraw",
-                  "v1.1.0/api-reference/bidder/withdrawfromwindows",
-                  "v1.1.0/api-reference/bidder/autodeposit",
-                  "v1.1.0/api-reference/bidder/autodepositstatus",
-                  "v1.1.0/api-reference/bidder/cancelautodeposit",
-                  "v1.1.0/api-reference/bidder/getbidinfo",
-                  "v1.1.0/api-reference/bidder/claimslashedfunds",
-                  "v1.1.0/api-reference/validator/getvalidators"
-                ]
+                "openapi": {
+                  "source": "v1.1.0/api-reference/bidder-openapi-spec.json"
+                }
               },
               {
                 "group": "Notifications",
-                "pages": [
-                  "v1.1.0/api-reference/notifications/subscribe"
-                ]
+                "openapi": {
+                  "source": "v1.1.0/api-reference/notifications-openapi-spec.json"
+                }
               },
               {
                 "group": "Debug",
-                "pages": [
-                  "v1.1.0/api-reference/debug/canceltx",
-                  "v1.1.0/api-reference/debug/pendingtxs",
-                  "v1.1.0/api-reference/debug/topology"
-                ]
+                "openapi": {
+                  "source": "v1.1.0/api-reference/debug-openapi-spec.json"
+                }
               }
             ]
           },

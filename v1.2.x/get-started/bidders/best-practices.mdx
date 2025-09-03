@@ -54,6 +54,9 @@ Note the bid `amount` should be set to the total amount the bidder is willing to
 ### Bid Decay
 The `decayStartTimestamp` and `decayEndTimestamp` are important components for how sensitive the [price of a preconfirmation](https://docs.primev.xyz/v1.2.x/knowledge-base/how-to-price-a-bid) will be. More details can be found about it [here](https://docs.primev.xyz/v1.2.x/concepts/bids/bid-structure#details-on-decay-parameters).
 
+### Bid Options
+The `bidOptions` can be used to set positional constraints on the transactions or bundles in the block. Know more about the different [options here](/v1.2.x/concepts/bids/bid-structure#details-on-bidOptions)
+
 ## Troubleshooting
 Bidders will start receiving commitments instantly in most cases. If you're having trouble receiving commitments, check your bid parameters and ensure your bid is high enough for the commitment you're requesting. Additionally check that you are connected to providers (via the [topology endpoint](https://docs.primev.xyz/v1.2.x/get-started/bidders/bidder-node-commands#topology)) and that you are receiving mev-commit events (via the [health endpoint](https://docs.primev.xyz/v1.2.x/get-started/bidders/bidder-node-commands#health)).
 
