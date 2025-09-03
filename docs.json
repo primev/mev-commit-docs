@@ -138,26 +138,31 @@
               {
                 "group": "Provider",
                 "openapi": {
-                  "source": "v1.2.x/api-reference/provider-openapi-spec.json"
+                  "source": "v1.2.x/api-reference/provider-openapi-spec.json",
+                  "directory": "v1.2.x/api-reference/provider"
                 }
               },
               {
                 "group": "Bidder",
                 "openapi": {
-                  "source": "v1.2.x/api-reference/bidder-openapi-spec.json"
+                  "source": "v1.2.x/api-reference/bidder-openapi-spec.json",
+                  "directory": "v1.2.x/api-reference/bidder"
                 }
               },
               {
                 "group": "Notifications",
                 "openapi": {
-                  "source": "v1.2.x/api-reference/notifications-openapi-spec.json"
+                  "source": "v1.2.x/api-reference/notifications-openapi-spec.json",
+                  "directory": "v1.2.x/api-reference/notifications"
                 }
               },
               {
                 "group": "Debug",
                 "openapi": {
-                  "source": "v1.2.x/api-reference/debug-openapi-spec.json"
+                  "source": "v1.2.x/api-reference/debug-openapi-spec.json",
+                  "directory": "v1.2.x/api-reference/debug"
                 }
+                ]
               }
             ]
           },
