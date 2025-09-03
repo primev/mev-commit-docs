@@ -15,7 +15,6 @@ The bid payload sent to the internal mev-commit API is as follows:
 | `revertingTxHashes` | Array of transaction hashes as strings that can revert |
 | `rawTransactions` | Array of raw signed transaction payloads |
 | `slashAmount` | Amount to be slashed from provider stake in case of a failed bid |
-| `bidOptions` | One or more of the available options |
 
 Only one out of the `txHashes` or `rawTransactions` need to be provided in the bid. If the `rawTransactions` is given, the `txHashes` are inferred from it.
 
@@ -77,7 +76,6 @@ Note that the deposit amount a bidder has set needs to be 10 times higher than t
 | revertingTxHashes | Array of transaction hashes as strings that can revert |
 | rawTransactions | Array of hexadecimal encoded raw signed transaction payloads |
 | slashAmount | Amount to be slashed from provider stake in case of a failed bid |
-| bidOptions | Position constraints or other available options for placement of transaction |
 
 
 ### Details on Decay Parameters
@@ -85,52 +83,6 @@ The `decayStartTimestamp` and `decayEndTimestamp` parameters allow bidders to co
 
 Due to inherent network delays, preconfirmation times can range between 50 to 250 milliseconds even if providers commit immediately after seeing the bid. To account for this, you might want to set your `decayStartTimestamp` approximately 300 milliseconds in the future. However, setting this delay is not mandatory and should be adjusted based on your strategic preferences for bid timing and pricing.
 For more detailed information about the decay mechanism, refer to the [Bid Decay Page](https://docs.primev.xyz/v1.2.x/concepts/bids/bid-decay-mechanism).
-
-### Details on BidOptions
-The `bidOptions` provides a way to put certain constraints on the transaction with respect to the block. Currently we have the position constraint option. This option allows users to configure the location of the transaction in the block. This could be an absolute index or percentile or gas percentile index of the block.
-
-```proto
-message PositionConstraint {
-  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
-    json_schema: {
-      title: "Position Constraint"
-      description: "Constraint on the position of the transaction in the block."
-    }
-  };
-  enum Anchor {
-    ANCHOR_UNSPECIFIED = 0;
-    ANCHOR_TOP = 1; // Position is at the top of the block
-    ANCHOR_BOTTOM = 2; // Position is at the bottom of the block
-  }
-  enum Basis {
-    BASIS_UNSPECIFIED = 0;
-    BASIS_PERCENTILE = 1; // Position is a percentile of the block size
-    BASIS_ABSOLUTE = 2; // Position is an absolute position in the block
-    BASIS_GAS_PERCENTILE = 3; // Position is a percentile of the gas used in the block
-  }
-  Anchor anchor = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-    description: "Anchor position of the transaction in the block."
-  }];
-  Basis basis = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-    description: "Basis for the position constraint."
-  }];
-  int32 value = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-    description: "Value of the position constraint. If anchor is TOP, this is the position from the top of the block. If anchor is BOTTOM, this is the position from the bottom of the block."
-  }];
-};
-
-```
-
-For eg
-```json
-{
-    anchor: ANCHOR_TOP,
-    basis: BASIS_PERCENTILE,
-    value: 10
-}
-
-```
-Would let the provider know that this transaction or bundle has to be in the top 10% of the block. If we get a commitment and the transaction is not in the top 10%, the provider will be slashed.
 
 ### Details on Encrypted Bid Structure
 The bid structure is encrypted using an AES key, which the bidder P2P node generates at the start, and is then sent to the provider.
