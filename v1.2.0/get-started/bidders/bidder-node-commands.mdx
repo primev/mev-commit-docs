@@ -1,0 +1,204 @@
+---
+title: "Bidder Node Commands"
+sidebarTitle: Bidder Node Commands
+---
+
+## Interacting with the Bidder Node
+
+<Note>Ensure you have completed the [Quickstart](/v1.1.0/get-started/quickstart) step in a separate terminal. This will set up your environment and place your key in the `$HOME/.mev-commit` directory, along with running the required bidder node.</Note>
+
+Now that you've made sure we have a bidder node running, we can interact with it using the following commands:
+
+```shell ❯_ terminal
+cd $HOME/.mev-commit;
+export KEY=$(cat key);
+export ADDRESS=$(cast wallet address --private-key 0x$(cat key))
+```
+
+## Getting Deposit
+
+To get the current deposit balance in the contract for the current [window](/v1.1.0/concepts/bids/bidder-deposit):
+
+```shell ❯_ terminal
+curl -s http://localhost:13523/v1/bidder/get_deposit
+```
+
+To get the current deposit balance in the contract for a specific [window](/v1.1.0/concepts/bids/bidder-deposit):
+
+```shell ❯_ terminal
+curl -s http://localhost:13523/v1/bidder/get_deposit?windowNumber=1
+```
+
+<Tip>Deposit represents the funds in the bidder's account that can be used to submit bids on the mev-commit p2p-network and settled on-chain.</Tip>
+
+## Withdraw Deposited Funds
+
+This command will allow you to withdraw funds from the specific [window](/v1.1.0/concepts/bids/bidder-deposit). 
+Window number is the number where the bidder deposited funds.
+
+```shell ❯_ terminal
+curl -X POST http://localhost:13523/v1/bidder/withdraw?windowNumber=1 \
+```
+
+## Autodeposit Funds
+
+The auto deposit feature allows you to automate the process of depositing funds for the bidder account. This is useful for ensuring your bidder account always has funds available to bid. In order to achieve this, the node will keep issuing deposits for the new windows and also withdrawing funds from the previous windows.
+
+<Note> For seamless availability of funds, the deposits would be locked for around 3 windows at a time. So the total amount locked would be `3 * amountPerWindow`. The user's wallet should have enough funds to be able to maintain these deposits as well as cover gas costs to issue transactions.</Note>
+
+There are two ways to enable this feature:
+
+### On node boot up
+
+Users can use the command-line or the configuration file to enable this feature on node boot-up. The `autodeposit-enabled` flag should be set as well as the `autodeposit-amount` needs to be set to the amount to be deposited in each window.
+
+<Note> In order to enable this at node boot up, users needs to fund their wallet before starting the node. So we would need to know the private-key used for the account beforehand. </Note>
+
+```shell ❯_ terminal
+mev-commit --keystore-path ~/.mev-commit \
+ --keystore-password <PASSWORD> \
+	--bootnodes /dnsaddr/bootnode.testnet.mev-commit.xyz \
+	--settlement-rpc-endpoint https://chainrpc.testnet.mev-commit.xyz
+  --autodeposit-enabled true
+  --autodeposit-amount 1000000000000000000
+```
+
+### Use the Bidder API
+
+Another option to enable this is using the Bidder API.
+
+```shell ❯_ terminal
+curl -X POST http://localhost:13523/v1/bidder/auto_deposit/1000000000000000000
+```
+
+## Get Auto Deposit Status
+
+To get the status of the auto deposit process:
+
+```shell ❯_ terminal
+curl -s http://localhost:13523/v1/bidder/auto_deposit_status
+```
+
+## Cancel Auto Deposit
+
+To cancel the auto deposit process:
+
+```shell ❯_ terminal
+curl -X POST http://localhost:13523/v1/bidder/cancel_auto_deposit?withdraw=true
+```
+
+This will stop the ongoing auto deposit process.
+
+<Note> If withdraw is set, the node will try to withdraw the deposit at the earliest possible time. It might take time before we are able to withdraw from the current window. The bidder node should be running in order to allow this process to complete. If withdraw is not set, the API will return the window numbers which have been already deposited to. The user can then manually issue withdraw at a later point using the API. </Note>
+
+## Withdraw Funds
+
+To withdraw funds from the several windows, you can use the following command:
+
+```shell ❯_ terminal
+curl -X POST http://localhost:13523/v1/bidder/withdraw_from_windows \
+-H "Content-Type: application/json" \
+-d '{"windowNumbers": [1, 2, 3]}'
+```
+
+## Checking the Balance of your Wallet
+### Mainnet
+This command will allow you to check your current wallet balance on mainnet mev-commit chain:
+
+```shell ❯_ terminal
+cast b $ADDRESS --rpc-url https://chainrpc.mev-commit.xyz
+```
+### Testnet
+This command will allow you to check your current wallet balance on testnet mev-commit chain:
+
+```shell ❯_ terminal
+cast b $ADDRESS --rpc-url https://chainrpc.testnet.mev-commit.xyz
+```
+
+## Check Total Value Locked in Contracts
+### Mainnet
+```shell ❯_ terminal
+python3 -c "print($(cast b 0xb772Add4718E5BD6Fe57Fb486A6f7f008E52167E \
+--rpc-url https://chainrpc.mev-commit.xyz) + $(cast b 0xC973D09e51A20C9Ab0214c439e4B34Dbac52AD67 \
+--rpc-url https://chainrpc.mev-commit.xyz))"
+```
+### Testnet
+```shell ❯_ terminal
+python3 -c "print($(cast b 0x401B3287364f95694c43ACA3252831cAc02e5C41 \
+--rpc-url https://chainrpc.testnet.mev-commit.xyz) + $(cast b 0xf4F10e18244d836311508917A3B04694D88999Dd \
+--rpc-url https://chainrpc.testnet.mev-commit.xyz))"
+```
+
+## Health
+The health endpoint checks whether the bidder node is receiving events from mev-commit chain. This command is useful to determine whether the bidder node has become out of sync (e.g. can't find the window balance).
+```shell ❯_ terminal
+curl http://localhost:13523/health
+```
+
+## Topology
+The topology endpoint can be used to check which provider nodes the bidder node is connected to. 
+```shell ❯_ terminal
+curl http://localhost:13523/v1/debug/topology
+```
+
+## Querying for Proposers API
+
+This API is enabled by default, the following environment variables could be set when launching a mev-commit client:
+
+- `MEV_COMMIT_VALIDATOR_ROUTER_ADDR`
+- `MEV_COMMIT_BEACON_API_URL`
+- `MEV_COMMIT_L1_RPC_URL`
+
+import { HoodiValidatorOptInRouterAddress } from '/snippets/testnet-addresses.mdx';
+import { ValidatorOptInRouterProxyAddress } from '/snippets/mainnet-addresses.mdx';
+
+Current address for the ValidatorOptInRouter contract on Hoodi is {HoodiValidatorOptInRouterAddress} and on Mainnet is {ValidatorOptInRouterProxyAddress}.
+
+The default URLs for the *Mainnet* Beacon Chain and L1 RPC are https://ethereum-beacon-api.publicnode.com and https://ethereum-rpc.publicnode.com, respectively, but you can set your own URLs.
+
+The default URLs for the *Testnet* Beacon Chain and L1 RPC are https://ethereum-hoodi-beacon-api.publicnode.com and https://ethereum-hoodi-rpc.publicnode.com, respectively, but you can set your own URLs.
+
+To get the information on whether validators for a specific epoch are opted in to mev-commit:
+
+```shell ❯_ terminal
+curl http://localhost:13523/v1/validator/get_validators?epoch=1
+```
+
+To get the information on whether validators for a latest epoch are opted in to mev-commit:
+
+```shell ❯_ terminal
+curl http://localhost:13523/v1/validator/get_validators
+```
+
+You can also subscribe to notifications to receive real-time updates when validators opt in or when a new epoch starts with opted-in validators. To subscribe to these notifications:
+```shell ❯_ terminal
+curl -N -H "Content-Type: application/json" -d '{"topics": ["validator_opted_in", "epoch_validators_opted_in"]}' http://localhost:13523/v1/subscribe
+```
+
+This will establish a streaming connection that will send notifications when:
+* The next block proposer has opted in to the mev-commit protocol (`validator_opted_in`)
+* A new epoch begins, providing a list of all opted-in validators for that epoch (`epoch_validators_opted_in`)
+
+Note proposer selection is only stable within the context of the current epoch, and must be checked during the epoch in question. See specification [here](https://github.com/ethereum/consensus-specs/blob/dev/specs/phase0/validator.md#validator-assignments) and [here](https://github.com/ethereum/consensus-specs/blob/dev/specs/phase0/validator.md#lookahead). 
+
+## Configuring custom provider sets
+
+Users can also set-up a specific subset of provider nodes in order to send their bids. By default the mev-commit bidder node will send bids to all the available and staked providers. However, if the user wants only a specific subset of providers to be able to see their bids, the can use the `--provider-whitelist` option to set it up. The list should contain the ethereum wallet addresses of the provider nodes.
+
+### Mainnet
+```shell ❯_ terminal
+mev-commit --keystore-path ~/.mev-commit \
+ --keystore-password <PASSWORD> \
+	--bootnodes /dnsaddr/bootnode.mev-commit.xyz \
+	--settlement-rpc-endpoint https://chainrpc.mev-commit.xyz
+  --provider-whitelist 0x6DcE7bcF4fCA9E14b546e583049B82474631b185,0x0979c194EaD08444B6e40415F5822AB32363f580
+```
+
+### Testnet
+```shell ❯_ terminal
+mev-commit --keystore-path ~/.mev-commit \
+ --keystore-password <PASSWORD> \
+	--bootnodes /dnsaddr/bootnode.testnet.mev-commit.xyz \
+	--settlement-rpc-endpoint https://chainrpc.testnet.mev-commit.xyz
+  --provider-whitelist 0x6DcE7bcF4fCA9E14b546e583049B82474631b185,0x0979c194EaD08444B6e40415F5822AB32363f580
+```

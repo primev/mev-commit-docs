@@ -1,0 +1,54 @@
+---
+title: "Security & Privacy"
+sidebarTitle: "Security & Privacy"
+---
+
+If bids and transaction bundles were transmitted in clear text over the peer-to-peer (P2P) network, it could allow competing bidders and providers to observe and adjust their strategies based on the visible bids. This visibility potentially harms the expected utility of bidders, as their competitors could outbid them by adjusting their bids accordingly. Moreover, the premature revelation of a provider’s commitment to a bid could lead to information leakage about the total value of the block being constructed. This would not only affect the privacy of the providers but also skews the competitive landscape, enabling providers to underbid based on the leaked value information.
+
+To counteract these privacy issues mev-commit provides end-to-end privacy for all bids and commitments in the sense that until commitments are opened after the corresponding L1 block has been confirmed, the contents of the commitment and the corresponding bid are only visible to the bidder who made the bid and the provider who made the commitment. All other bidders and providers and external parties learn nothing except that this provider has made a commitment. Moreover, it is crucial that commitments to bids are binding to the specific bid, i.e., that the commitment can only be opened for that single bid. Since bidders and providers can have conflicting incentives, it is important that they can both open the commitments, which is guaranteed using zero-knowledge proofs.
+
+<Tip>The security and privacy of mev-commit is achieved by combining two novel cryptographic primitives, anonymous receiver-updatable broadcast encryption (ARUBE), and dual-phase commitments (DPCOM), with a highly efficient ZK proof.</Tip>
+
+ARUBE is used to efficiently disseminate bids from bidders to providers of their choice in a privacy-preserving manner, DPCOM is used to securely commit to those bids and later allow for the opening of such commitments, and a ZK proof is used to ensure that commitments can be opened by providers and bidders. Below we expand on the specific security and privacy notions achieved for the bidders and the providers along with a short description of the corresponding cryptographic primitive used for each.
+
+## Posting Bids
+Each bidder can choose a group of providers who will have access to their bids. The bids are then encrypted and sent to this specific group of providers. Other bidders and providers remain unaware of the details of a bid and its designated receivers. The cryptographic primitve that mev-commit leverages to achieve this privacy notion in an efficient way is called ARUBE. 
+
+### Anonymous Receiver-Updatable Broadcast Encryption (ARUBE)
+
+ARUBE is the primitive that allows bidders in the mev-commit protocol to privately send bids to a subset of the providers without revealing what this subset is. This functionality is commonly provided by anonymous broadcast encryption [[BBW06]](https://www.cs.utexas.edu/~bwaters/publications/papers/privatebe.pdf). A feature of broadcast encryption is that a new set of recipients can be specified for each message that is encrypted. 
+
+In commitment games, the set of recipients for a given bidder typically remains stable since bidders mostly send their bids to the set of providers they work with and occasionally add or remove a provider from that set. To be able to leverage this for more efficient schemes, we refine the notion of broadcast encryption by adding an algorithm for updating the set of recipients, while the encryption algorithm encrypts a message for a previously determined recipient set. We call this notion anonymous receiver-updatable broadcast encryption (ARUBE).
+
+The image below illustrates ARUBE in operation, where a bidder securely posts an encrypted bid to providers A and B. Provider C and any eavesdropper will be unable to decrypt the bid. 
+<Frame>
+  <img src="/v1.1.0/images/ARUBE.png" />
+</Frame>
+
+Using ARUBE, mev-commit keeps all information and value related to bids private pre-execution while allowing them to be settled in a decentralized manner.
+
+## Committing to Bids
+
+A provider who receives a bid can make a commitment to it, which they also sign for authentication. The signed commitment binds the provider to the bid. Furthermore, the process is executed in such a way that only the bidder who issued the bid can identify a commitment as being related to their bid. This approach ensures a high level of privacy for the providers, as the commitments they issue are not linkable to a specific bid. In a normal run of the protocol the provider opens all its commitments at the end of the L1 slot, however if the provider refuses to open any of its commtiments, the bidder can independently open the commitment without needing assistance from the provider. This functionality is provided by the novel notion of dual-phase commitments.
+
+
+### Dual-Phase Commitment (DPCOM)
+
+DPCOM is a two-party commitment protocol that allows a message to be committed in two distinct phases. In the first phase, one party precommits to a message and receives both a precommitment and an opening key. In the second phase, the other party commits to the precommitment generated in the first phase, receiving a decommitment information as the output.
+
+A key feature of a dual-phase commitment scheme is its flexibility in opening the resulting commitment using either the opening key or the decommitment information. This is especially useful in the context of the mev-commit protocol, where the bidder generates a precommitment to its bid, after which the provider commits to that precommitment. This process also ensures that both parties can open the commitment: the bidder obtains the opening key when generating the precommitment, and the provider obtains the decommitment information when committing to the precommitment. Consequently, both parties can later prove the content of the committed message to third parties. Crucially, if the provider misbehaves and refuses to publicly open the commitment, the bidder can independently open it without needing assistance from the provider.
+
+The image below illustrates provider B committing to a bid posted by bidder 2, while the other parties remain unaware of the specific bid being committed to.
+<Frame>
+  <img src="/v1.1.0/images/dpcom.png" />
+</Frame>
+
+You can read more on ARUBE and DPCOM [here](https://mirror.xyz/preconf.eth/iz2J0uTXHhl8DiAkG-VLLwvCp-8qcc_Z7A8_4rU0A3g).
+
+## ZK Proofs for Opening Commitments
+A crucial property of the commitments issued by providers on mev-commit is that they can both be opened by providers as well as bidders. Being able for the bidders to open commitments is necessary when providers violate the commitment and thus have no incentive to open it. Therefore, when providers open a commitment, they have to prove in zero-knowledge that the commitment was generated correctly. This ZK proof is verified in a smart contract on the mev-commit chain when the provider sends the commitment-opening transaction. Thus, a provider can only open commitments that have been generated correctly and could also have been opened by the bidder.
+
+### Implementation and Efficiency
+The ZK proof used has been tailor-made for this particular use-case and optimized for efficiency. It is based on so-called sigma protocols and only requires a few elliptic curve operations and the computation of a hash. Generating a single ZK proof for the commitment opening takes only 0.122 milliseconds on a Mac M1 Pro. Furthermore, only around 32k gas is consumed in the smart contract to verify the proof. For comparison, the overall gas cost of the commitment opening transaction is around 488k gas. Hence, only less than 7% of the gas cost is attributed to the zero-knowledge proof verification.
+
+More details on the used ZK proofs can be found [here](https://mirror.xyz/preconf.eth/AgtLSBob1hd2A924vlL7jCyJxQDZZE2tCq_K07w5vuU).

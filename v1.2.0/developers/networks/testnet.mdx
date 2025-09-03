@@ -1,0 +1,143 @@
+---
+title: Mev-commit Testnet
+sidebarTitle: Testnet
+---
+
+Live on Hoodi testnet, mev-commit allows bidders and providers to engage in execution service bids and commitments. Preconfirmations, the first use case for real-time bids and commitments, are available with mev-commit.
+
+## **Links and Connection Details**
+
+### **Services links**
+
+| Service           | Link                                                                                           |
+| ----------------- | ---------------------------------------------------------------------------------------------- |
+| Testnet RPC       | [https://chainrpc.testnet.mev-commit.xyz/](https://chainrpc.testnet.mev-commit.xyz/)           |
+| Testnet WebSocket | [wss://chainrpc-wss.testnet.mev-commit.xyz](wss://chainrpc-wss.testnet.mev-commit.xyz)         |
+| Bootnode endpoint | [https://bootnode.testnet.mev-commit.xyz/](https://bootnode.testnet.mev-commit.xyz/)           |
+| Block explorer    | [http://explorer.testnet.mev-commit.xyz](http://explorer.testnet.mev-commit.xyz)               |
+
+### **Core Contract Addresses (mev-commit chain)**
+
+import { BidderRegistryAddress_1_1_6, BlockTrackerAddress_1_1_6, OracleAddress_1_1_6, PreconfManagerAddress_1_1_6, ProviderRegistryAddress_1_1_6 } from '/snippets/testnet-addresses.mdx';
+
+<table>
+  <thead>
+    <tr>
+      <th width="299">Contract</th>
+      <th>Address</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>BidderRegistry</td>
+      <td>{BidderRegistryAddress_1_1_6}</td>
+    </tr>
+    <tr>
+      <td>ProviderRegistry</td>
+      <td>{ProviderRegistryAddress_1_1_6}</td>
+    </tr>
+    <tr>
+      <td>PreconfManager</td>
+      <td>{PreconfManagerAddress_1_1_6}</td>
+    </tr>
+    <tr>
+      <td>Oracle</td>
+      <td>{OracleAddress_1_1_6}</td>
+    </tr>
+    <tr>
+      <td>BlockTracker</td>
+      <td>{BlockTrackerAddress_1_1_6}</td>
+    </tr>
+  </tbody>
+</table>
+
+### **Bridge Gateway (mev-commit chain)**
+
+import { SettlementGatewayAddress_1_1_6, HoodiL1GatewayAddress } from '/snippets/testnet-addresses.mdx';
+
+<table>
+  <thead>
+    <tr>
+      <th width="299">Contract</th>
+      <th>Address</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>SettlementGateway</td>
+      <td>{SettlementGatewayAddress_1_1_6}</td>
+    </tr>
+    <tr>
+      <td>L1Gateway</td>
+      <td>{HoodiL1GatewayAddress}</td>
+    </tr>
+  </tbody>
+</table>
+
+
+### **Validator Registry Contract Addresses (Hoodi)**
+
+import { HoodiValidatorOptInRouterAddress, HoodiVanillaRegistryAddress, HoodiMevCommitAVSAddress, HoodiMevCommitMiddlewareAddress } from '/snippets/testnet-addresses.mdx';
+
+<table>
+  <thead>
+    <tr>
+      <th width="299">Contract</th>
+      <th>Address</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>ValidatorOptInRouter</td>
+      <td>{HoodiValidatorOptInRouterAddress}</td>
+    </tr>
+    <tr>
+      <td>VanillaRegistry</td>
+      <td>{HoodiVanillaRegistryAddress}</td>
+    </tr>
+    <tr>
+      <td>MevCommitAVS</td>
+      <td>{HoodiMevCommitAVSAddress}</td>
+    </tr>
+    <tr>
+      <td>MevCommitMiddleware</td>
+      <td>{HoodiMevCommitMiddlewareAddress}</td>
+    </tr>
+  </tbody>
+</table>
+
+### **Other addresses (Hoodi)**
+
+import { HoodiMevCommitNetworkAddress, HoodiMevCommitVaultAddress, HoodiMiddlewareSubnetwork } from '/snippets/testnet-addresses.mdx';
+
+<table>
+  <thead>
+    <tr>
+      <th width="299">Entity</th>
+      <th>Address</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Mev-commit (Symbiotic) Network Address</td>
+      <td>{HoodiMevCommitNetworkAddress}</td>
+    </tr>
+    <tr>
+      <td>Mev-commit (Symbiotic) Vault Address</td>
+      <td>{HoodiMevCommitVaultAddress}</td>
+    </tr>
+    <tr>
+      <td>Mev-commit (Symbiotic) Subnetwork</td>
+      <td>{HoodiMiddlewareSubnetwork}</td>
+    </tr>
+  </tbody>
+</table>
+
+
+## How can users provide feedback or report issues encountered on the testnet?
+
+Users can open an issue on the GitHub repository that is associated with any issue they encounter. They can also tag @primev_xyz on Twitter, or reach out to us to join a Telegram group for early power users.
+
+## Testnet System Requirements
+
+Please refer to the System Requirements section [here.](/v1.1.0/developers/system-requirements)

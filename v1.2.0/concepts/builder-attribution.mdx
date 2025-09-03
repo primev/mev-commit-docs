@@ -1,0 +1,20 @@
+---
+title: "Builder Attribution"
+description: "Understanding how builders are identified and attributed in mev-commit"
+---
+
+# Builder Attribution
+
+Builder attribution in the mev-commit system involves identifying the provider responsible for building an L1 block. This is crucial for ensuring that rewards and slashing mechanisms are correctly applied based on the commitments made by providers.
+
+## How Builder Attribution Works
+
+### Oracle and Builder Attribution
+The oracle plays a central role in verifying whether commitments made by providers are fulfilled. It does this by:
+- Querying the PBS relay to obtain block delivery data and associated BLS keys
+- Cross-referencing block hashes from L1 with those delivered via the relay
+- Identifying the builder through their registered BLS key when block hashes match
+- Validating commitments against the identified builder in the mev-commit system
+
+
+This system ensures accurate provider attribution for block building and appropriate distribution of rewards or penalties based on commitment fulfillment.
