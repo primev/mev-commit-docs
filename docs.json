@@ -345,41 +345,10 @@
             "tab": "API Reference",
             "groups": [
               {
-                "group": "Provider (auto)",
-                "openapi": {
-                  "source": "v1.1.0/api-reference/provider-openapi-spec.json",
-                  "directory": "v1.1.0/api-reference/provider-auto"
-                }
-              },
-              {
-                "group": "Bidder (auto)",
-                "openapi": {
-                  "source": "v1.1.0/api-reference/bidder-openapi-spec.json",
-                  "directory": "v1.1.0/api-reference/bidder-auto"
-                }
-              },
-              {
-                "group": "Notifications (auto)",
-                "openapi": {
-                  "source": "v1.1.0/api-reference/notifications-openapi-spec.json",
-                  "directory": "v1.1.0/api-reference/notifications-auto"
-                }
-              },
-              {
-                "group": "Debug (auto)",
-                "openapi": {
-                  "source": "v1.1.0/api-reference/debug-openapi-spec.json",
-                  "directory": "v1.1.0/api-reference/debug-auto"
-                }
-              },
-              {
-                "group": "API Reference",
-                "pages": [
-                  "v1.1.0/api-reference/introduction"
-                ]
-              },
-              {
                 "group": "Provider",
+                "openapi": {
+                  "source": "v1.1.0/api-reference/provider-openapi-spec.json"
+                },
                 "pages": [
                   "v1.1.0/api-reference/provider/receivebids",
                   "v1.1.0/api-reference/provider/sendprocessedbids",
@@ -394,6 +363,9 @@
               },
               {
                 "group": "Bidder",
+                "openapi": {
+                  "source": "v1.1.0/api-reference/bidder-openapi-spec.json"
+                },
                 "pages": [
                   "v1.1.0/api-reference/bidder/sendbid",
                   "v1.1.0/api-reference/bidder/getdeposit",
@@ -410,12 +382,18 @@
               },
               {
                 "group": "Notifications",
+                "openapi": {
+                  "source": "v1.1.0/api-reference/notifications-openapi-spec.json"
+                },
                 "pages": [
                   "v1.1.0/api-reference/notifications/subscribe"
                 ]
               },
               {
                 "group": "Debug",
+                "openapi": {
+                  "source": "v1.1.0/api-reference/debug-openapi-spec.json"
+                },
                 "pages": [
                   "v1.1.0/api-reference/debug/canceltx",
                   "v1.1.0/api-reference/debug/pendingtxs",
