@@ -11,6 +11,206 @@
   "navigation": {
     "versions": [
       {
+        "version": "v1.2.x",
+        "tabs": [
+          {
+            "tab": "Documentation",
+            "groups": [
+              {
+                "group": "Get Started",
+                "pages": [
+                  "v1.2.x/get-started/welcome-to-primev",
+                  "v1.2.x/get-started/quickstart",
+                  "v1.2.x/get-started/fastrpc",
+                  {
+                    "group": "Bridge",
+                    "icon": "bridge",
+                    "pages": [
+                      "v1.2.x/get-started/bridge/bridge",
+                      "v1.2.x/get-started/bridge/bridge-cli"
+                    ]
+                  },
+                  {
+                    "group": "Validators",
+                    "icon": "list-check",
+                    "pages": [
+                      "v1.2.x/get-started/validators/validator-guide",
+                      "v1.2.x/get-started/validators/eigenlayer",
+                      "v1.2.x/get-started/validators/symbiotic",
+                      "v1.2.x/get-started/validators/vanilla"
+                    ]
+                  },
+                  "v1.2.x/get-started/relays",
+                  {
+                    "group": "Bidders",
+                    "icon": "user-bounty-hunter",
+                    "pages": [
+                      "v1.2.x/get-started/bidders/best-practices",
+                      "v1.2.x/get-started/bidders/bidder-node-commands",
+                      "v1.2.x/get-started/bidders/bidder-cli"
+                    ]
+                  },
+                  {
+                    "group": "Providers",
+                    "icon": "network-wired",
+                    "pages": [
+                      "v1.2.x/get-started/providers/registering-a-provider",
+                      "v1.2.x/get-started/providers/consuming-bids",
+                      "v1.2.x/get-started/providers/sending-commitments",
+                      "v1.2.x/get-started/providers/Querying-for-proposers",
+                      "v1.2.x/get-started/providers/withdraw"
+                    ]
+                  }
+                ]
+              },
+              {
+                "group": "Concepts",
+                "pages": [
+                  "v1.2.x/concepts/what-is-mev-commit",
+                  "v1.2.x/concepts/actors",
+                  "v1.2.x/concepts/network-overview",
+                  "v1.2.x/concepts/privacy",
+                  "v1.2.x/concepts/commitments",
+                  "v1.2.x/concepts/solvers",
+                  "v1.2.x/concepts/builder-attribution",
+                  {
+                    "group": "Bids",
+                    "pages": [
+                      "v1.2.x/concepts/bids/bid-structure",
+                      "v1.2.x/concepts/bids/reverting-txns",
+                      "v1.2.x/concepts/bids/bidder-deposit",
+                      "v1.2.x/concepts/bids/bid-decay-mechanism"
+                    ]
+                  },
+                  {
+                    "group": "Mev-commit Chain",
+                    "pages": [
+                      "v1.2.x/concepts/mev-commit-chain/chain-details",
+                      "v1.2.x/concepts/mev-commit-chain/differences-between-ethereum-and-mev-commit-chain",
+                      "v1.2.x/concepts/mev-commit-chain/bridging-details"
+                    ]
+                  },
+                  {
+                    "group": "Rewards and Slashing",
+                    "pages": [
+                      "v1.2.x/concepts/rewards-and-slashing/rewards-and-slashing",
+                      "v1.2.x/concepts/rewards-and-slashing/points"
+                    ]
+                  },
+                  "v1.2.x/concepts/oracle",
+                  "v1.2.x/concepts/validator-considerations"
+                ]
+              },
+              {
+                "group": "Developers",
+                "pages": [
+                  {
+                    "group": "Networks",
+                    "pages": [
+                      "v1.2.x/developers/networks/mainnet",
+                      "v1.2.x/developers/networks/hyperliquid",
+                      "v1.2.x/developers/networks/testnet"
+                    ]
+                  },
+                  "v1.2.x/developers/system-requirements",
+                  "v1.2.x/developers/fast-rpc-api",
+                  "v1.2.x/developers/provider-api",
+                  {
+                    "group": "Bidder API",
+                    "pages": [
+                      "v1.2.x/developers/bidder-api/bidder-api",
+                      "v1.2.x/developers/bidder-api/bidder-deposit",
+                      "v1.2.x/developers/bidder-api/docker-bidder",
+                      "v1.2.x/developers/bidder-api/tools-for-bid-submission"
+                    ]
+                  },
+                  "v1.2.x/developers/contracts",
+                  "v1.2.x/developers/debugging",
+                  "v1.2.x/developers/manual-start-mev-commit",
+                  "v1.2.x/developers/run-mev-commit-chain-node"
+                ]
+              }
+            ]
+          },
+          {
+            "tab": "API Reference",
+            "groups": [
+              {
+                "group": "API Reference",
+                "pages": [
+                  "v1.2.x/api-reference/introduction"
+                ]
+              },
+              {
+                "group": "Provider",
+                "pages": [
+                  "v1.2.x/api-reference/provider/receivebids",
+                  "v1.2.x/api-reference/provider/sendprocessedbids",
+                  "v1.2.x/api-reference/provider/registerstake",
+                  "v1.2.x/api-reference/provider/getminstake",
+                  "v1.2.x/api-reference/provider/getstake",
+                  "v1.2.x/api-reference/provider/unstake",
+                  "v1.2.x/api-reference/provider/withdraw_stake",
+                  "v1.2.x/api-reference/provider/getcommitmentinfo",
+                  "v1.2.x/api-reference/provider/withdrawproviderreward"
+                ]
+              },
+              {
+                "group": "Bidder",
+                "pages": [
+                  "v1.2.x/api-reference/bidder/sendbid",
+                  "v1.2.x/api-reference/bidder/getdeposit",
+                  "v1.2.x/api-reference/bidder/deposit",
+                  "v1.2.x/api-reference/bidder/withdraw",
+                  "v1.2.x/api-reference/bidder/withdrawfromwindows",
+                  "v1.2.x/api-reference/bidder/autodeposit",
+                  "v1.2.x/api-reference/bidder/autodepositstatus",
+                  "v1.2.x/api-reference/bidder/cancelautodeposit",
+                  "v1.2.x/api-reference/bidder/getbidinfo",
+                  "v1.2.x/api-reference/bidder/claimslashedfunds",
+                  "v1.2.x/api-reference/validator/getvalidators"
+                ]
+              },
+              {
+                "group": "Notifications",
+                "pages": [
+                  "v1.2.x/api-reference/notifications/subscribe"
+                ]
+              },
+              {
+                "group": "Debug",
+                "pages": [
+                  "v1.2.x/api-reference/debug/canceltx",
+                  "v1.2.x/api-reference/debug/pendingtxs",
+                  "v1.2.x/api-reference/debug/topology"
+                ]
+              }
+            ]
+          },
+          {
+            "tab": "Knowledge Base",
+            "groups": [
+              {
+                "group": "Knowledge Base",
+                "pages": [
+                  "v1.2.x/knowledge-base/introduction",
+                  "v1.2.x/knowledge-base/what-is-deposit-amount",
+                  "v1.2.x/knowledge-base/how-do-i-fix-the-error-failed-to-read-msg-stream-reset",
+                  "v1.2.x/knowledge-base/what-is-foundry",
+                  "v1.2.x/knowledge-base/why-is-cast-necessary-for-mev-commit-chain-interactions",
+                  "v1.2.x/knowledge-base/why-do-i-receive-the-same-commitment-when-resending-a-bid",
+                  "v1.2.x/knowledge-base/what-is-execution-preconfirmations",
+                  "v1.2.x/knowledge-base/how-to-price-a-bid",
+                  "v1.2.x/knowledge-base/what-happens-during-an-execution-preconf",
+                  "v1.2.x/knowledge-base/how-do-preconfs-work",
+                  "v1.2.x/knowledge-base/eigenlayer-operator-registration"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
         "version": "v1.1.0",
         "tabs": [
           {
