@@ -1,1150 +1,1153 @@
 ﻿{
-  "openapi": "3.0.0",
-  "info": null,
-  "title": "Bidder API",
-  "version": "1.2.0-oas3",
-  "license": {
-    "name": "Business Source License 1.1",
-    "url": "https://github.com/primev/mev-commit/blob/main/LICENSE"
-  },
-  "paths": null,
-  "/v1/bidder/bid": {
-    "post": {
-      "summary": "SendBid",
-      "description": "Send a bid to the bidder mev-commit node. The bid is a message from the bidder to the provider \nwith the transaction hashes and the amount of ETH that the bidder is willing to pay to the provider\nfor including the transaction in the block. The bid also includes the block number that the bidder\nwants to include the transaction in, the start and end timestamps for the bid decay. The bidder can\noptionally include the raw transaction payloads (hex encoded RLP) instead of transaction hashes.",
-      "operationId": "Bidder_SendBid",
-      "responses": {
-        "200": {
-          "description": "A successful response.(streaming responses)",
-          "content": {
-            "application/json": {
-              "schema": {
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Bidder API",
+        "version": "1.2.0-oas3",
+        "license": {
+            "name": "Business Source License 1.1",
+            "url": "https://github.com/primev/mev-commit/blob/main/LICENSE"
+        }
+    },
+    "paths": {
+        "/v1/bidder/bid": {
+            "post": {
+                "summary": "SendBid",
+                "description": "Send a bid to the bidder mev-commit node. The bid is a message from the bidder to the provider \nwith the transaction hashes and the amount of ETH that the bidder is willing to pay to the provider\nfor including the transaction in the block. The bid also includes the block number that the bidder\nwants to include the transaction in, the start and end timestamps for the bid decay. The bidder can\noptionally include the raw transaction payloads (hex encoded RLP) instead of transaction hashes.",
+                "operationId": "Bidder_SendBid",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.(streaming responses)",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "result": {
+                                            "$ref": "#/components/schemas/bidderapiv1Commitment"
+                                        },
+                                        "error": {
+                                            "$ref": "#/components/schemas/googlerpcStatus"
+                                        }
+                                    },
+                                    "title": "Stream result of bidderapiv1Commitment"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "An unexpected error response.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/googlerpcStatus"
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/bidderapiv1Bid"
+                            }
+                        }
+                    },
+                    "description": "Unsigned bid message from bidders to the bidder mev-commit node.",
+                    "required": true
+                }
+            }
+        },
+        "/v1/bidder/claim_slashed_funds": {
+            "post": {
+                "summary": "ClaimSlashedFunds",
+                "description": "ClaimSlashedFunds is called by the bidder to claim slashed funds from the provider. The response\nwill show the amount claimed if any in wei.",
+                "operationId": "Bidder_ClaimSlashedFunds",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "An unexpected error response.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/googlerpcStatus"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/bidder/deposit/{amount}": {
+            "post": {
+                "summary": "Deposit",
+                "description": "Deposit is called by the bidder node to add deposit in the bidder registry, specific to a provider.",
+                "operationId": "Bidder_Deposit",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/v1DepositResponse"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "An unexpected error response.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/googlerpcStatus"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "amount",
+                        "description": "Amount of ETH to be deposited in wei.",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "provider",
+                        "description": "Provider Ethereum address.",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
+            }
+        },
+        "/v1/bidder/deposit_evenly": {
+            "post": {
+                "summary": "DepositEvenly",
+                "description": "DepositEvenly is called by the bidder node to deposit a total amount evenly across multiple providers.",
+                "operationId": "Bidder_DepositEvenly",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/v1DepositEvenlyResponse"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "An unexpected error response.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/googlerpcStatus"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "totalAmount",
+                        "description": "Total amount of ETH to be deposited in wei.",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "pattern": "[0-9]+"
+                        }
+                    },
+                    {
+                        "name": "providers",
+                        "description": "Provider Ethereum addresses.",
+                        "in": "query",
+                        "required": false,
+                        "explode": true,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        "/v1/bidder/deposit_manager_status": {
+            "get": {
+                "summary": "DepositManagerStatus",
+                "description": "DepositManagerStatus is called by the bidder node to query whether the bidder\nhas enabled the deposit manager via eip 7702.",
+                "operationId": "Bidder_DepositManagerStatus",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/v1DepositManagerStatusResponse"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "An unexpected error response.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/googlerpcStatus"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/bidder/disable_deposit_manager": {
+            "post": {
+                "summary": "DisableDepositManager",
+                "description": "DisableDepositManager is called by the bidder node to disable the deposit manager \nby setting the bidder EOA's code to zero address.",
+                "operationId": "Bidder_DisableDepositManager",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/v1DisableDepositManagerResponse"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "An unexpected error response.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/googlerpcStatus"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/bidder/enable_deposit_manager": {
+            "post": {
+                "summary": "EnableDepositManager",
+                "description": "EnableDepositManager is called by the bidder node to enable the deposit manager via eip 7702.",
+                "operationId": "Bidder_EnableDepositManager",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/v1EnableDepositManagerResponse"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "An unexpected error response.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/googlerpcStatus"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/bidder/get_all_deposits": {
+            "get": {
+                "summary": "GetAllDeposits",
+                "description": "GetAllDeposits is called by the bidder to get all its deposits in the bidder registry,\nand the balance of the bidder EOA itself.",
+                "operationId": "Bidder_GetAllDeposits",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/v1GetAllDepositsResponse"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "An unexpected error response.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/googlerpcStatus"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/bidder/get_bid_info": {
+            "get": {
+                "summary": "GetBidInfo",
+                "description": "GetBidInfo is called by the bidder to get the bid information. If block number is not specified,\nall known block numbers are returned in the ascending order.",
+                "operationId": "Bidder_GetBidInfo",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/v1GetBidInfoResponse"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "An unexpected error response.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/googlerpcStatus"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "blockNumber",
+                        "description": "Optional block number for querying bid info. If not specified, all known block numbers are returned in ascending order.",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "format": "int64"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "description": "Page number for pagination.",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "description": "Number of items per page for pagination. Default is 50",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    }
+                ]
+            }
+        },
+        "/v1/bidder/get_deposit": {
+            "get": {
+                "summary": "GetDeposit",
+                "description": "GetDeposit is called by the bidder to get its deposit specific to a provider in the bidder registry.",
+                "operationId": "Bidder_GetDeposit",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/v1DepositResponse"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "An unexpected error response.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/googlerpcStatus"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "provider",
+                        "description": "Provider Ethereum address.",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
+            }
+        },
+        "/v1/bidder/get_valid_providers": {
+            "get": {
+                "summary": "GetValidProviders",
+                "description": "GetValidProviders is called by the bidder node to get a list of all valid providers.\nEach provider returned by this RPC must:\n- Be \"registered\" in the provider registry\n- Have deposit >= minStake in provider registry\n- Have no pending withdrawal request with provider registry\n- Have at least one BLS key registered with provider registry",
+                "operationId": "Bidder_GetValidProviders",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/v1GetValidProvidersResponse"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "An unexpected error response.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/googlerpcStatus"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/bidder/request_withdrawals": {
+            "post": {
+                "summary": "RequestWithdrawals",
+                "description": "RequestWithdrawals is called by the bidder node to request withdrawals from provider(s)",
+                "operationId": "Bidder_RequestWithdrawals",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/v1RequestWithdrawalsResponse"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "An unexpected error response.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/googlerpcStatus"
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/v1RequestWithdrawalsRequest"
+                            }
+                        }
+                    },
+                    "description": "Request withdrawals from provider(s).",
+                    "required": true
+                }
+            }
+        },
+        "/v1/bidder/set_target_deposits": {
+            "post": {
+                "summary": "SetTargetDeposits",
+                "description": "SetTargetDeposits is called by the bidder node to set target deposits per provider\nwithin the deposit manager. During this call, the bidder node will also attempt to top-up\ndeposits for each new target deposit.",
+                "operationId": "Bidder_SetTargetDeposits",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/v1SetTargetDepositsResponse"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "An unexpected error response.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/googlerpcStatus"
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/v1SetTargetDepositsRequest"
+                            }
+                        }
+                    },
+                    "description": "OverrideTargetDepositsRequest request.",
+                    "required": true
+                }
+            }
+        },
+        "/v1/bidder/withdraw": {
+            "post": {
+                "summary": "Withdraw",
+                "description": "Withdraw is called by the bidder to withdraw their deposit to a provider.",
+                "operationId": "Bidder_Withdraw",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/v1WithdrawResponse"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "An unexpected error response.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/googlerpcStatus"
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/v1WithdrawRequest"
+                            }
+                        }
+                    },
+                    "description": "Withdraw deposits from provider(s).",
+                    "required": true
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "GetBidInfoResponseBidInfo": {
                 "type": "object",
                 "properties": {
-                  "result": {
-                    "$ref": "#/components/schemas/bidderapiv1Commitment"
-                  },
-                  "error": {
-                    "$ref": "#/components/schemas/googlerpcStatus"
-                  }
+                    "txnHashes": {
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "pattern": "[a-fA-F0-9]{64}"
+                        },
+                        "description": "Hex string encoding of the hashes of the transactions that the bidder wants to include in the block."
+                    },
+                    "revertableTxnHashes": {
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "pattern": "[a-fA-F0-9]{64}"
+                        },
+                        "description": "Optional array of tx hashes that are allowed to revert or be discarded."
+                    },
+                    "blockNumber": {
+                        "type": "string",
+                        "format": "int64",
+                        "description": "Block number that the bidder wants to include the transaction in."
+                    },
+                    "bidAmount": {
+                        "type": "string",
+                        "description": "Amount of ETH that the bidder is willing to pay to the provider for including the transaction in the block.",
+                        "pattern": "[0-9]+"
+                    },
+                    "decayStartTimestamp": {
+                        "type": "string",
+                        "format": "int64",
+                        "description": "Timestamp at which the bid starts decaying."
+                    },
+                    "decayEndTimestamp": {
+                        "type": "string",
+                        "format": "int64",
+                        "description": "Timestamp at which the bid ends decaying."
+                    },
+                    "bidDigest": {
+                        "type": "string",
+                        "description": "Hex string encoding of digest of the bid message signed by the bidder."
+                    },
+                    "slashAmount": {
+                        "type": "string",
+                        "description": "Amount of ETH that will be slashed from the provider if they fail to include the transaction. If zero, the decayed bid amount is used for slashing.",
+                        "pattern": "[0-9]+"
+                    },
+                    "commitments": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/GetBidInfoResponseCommitmentWithStatus"
+                        }
+                    },
+                    "bidOptions": {
+                        "$ref": "#/components/schemas/bidderapiv1BidOptions"
+                    }
                 },
-                "title": "Stream result of bidderapiv1Commitment"
-              }
+                "description": "Information about a bid including its commitments.",
+                "title": "Bid Info"
+            },
+            "GetBidInfoResponseBlockBidInfo": {
+                "type": "object",
+                "properties": {
+                    "blockNumber": {
+                        "type": "string",
+                        "format": "int64",
+                        "description": "Block number for which the bid info is requested."
+                    },
+                    "bids": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/GetBidInfoResponseBidInfo"
+                        },
+                        "description": "List of bids for the specified block number."
+                    }
+                }
+            },
+            "GetBidInfoResponseCommitmentWithStatus": {
+                "type": "object",
+                "properties": {
+                    "providerAddress": {
+                        "type": "string",
+                        "description": "Hex string encoding of the address of the provider that signed the commitment."
+                    },
+                    "dispatchTimestamp": {
+                        "type": "string",
+                        "format": "int64",
+                        "description": "Timestamp at which the commitment is published."
+                    },
+                    "status": {
+                        "type": "string",
+                        "description": "Status of the commitment. Possible values: 'pending', 'stored', 'opened', 'settled', 'slashed', 'failed'."
+                    },
+                    "details": {
+                        "type": "string",
+                        "description": "Additional details about the commitment status."
+                    },
+                    "payment": {
+                        "type": "string",
+                        "description": "Payment amount in wei for the commitment."
+                    },
+                    "refund": {
+                        "type": "string",
+                        "description": "Refund amount in wei for the commitment, if applicable."
+                    }
+                }
+            },
+            "bidderapiv1Bid": {
+                "type": "object",
+                "example": {
+                    "amount": "1000000000000000000",
+                    "block_number": 123456,
+                    "decay_end_timestamp": 1630000000,
+                    "decay_start_timestamp": 1630000000,
+                    "reverting_tx_hashes": [
+                        "fe4cb47db3630551beedfbd02a71ecc69fd59758e2ba699606e2d5c74284ffa7"
+                    ],
+                    "slash_amount": "500000000000000000",
+                    "tx_hashes": [
+                        "fe4cb47db3630551beedfbd02a71ecc69fd59758e2ba699606e2d5c74284ffa7",
+                        "71c1348f2d7ff7e814f9c3617983703435ea7446de420aeac488bf1de35737e8"
+                    ]
+                },
+                "properties": {
+                    "txHashes": {
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "pattern": "[a-fA-F0-9]{64}"
+                        },
+                        "description": "Hex string encoding of the hashes of the transactions that the bidder wants to include in the block."
+                    },
+                    "amount": {
+                        "type": "string",
+                        "description": "Amount of ETH that the bidder is willing to pay to the provider for including the transaction in the block.",
+                        "pattern": "[0-9]+"
+                    },
+                    "blockNumber": {
+                        "type": "string",
+                        "format": "int64",
+                        "description": "Max block number that the bidder wants to include the transaction in."
+                    },
+                    "decayStartTimestamp": {
+                        "type": "string",
+                        "format": "int64",
+                        "description": "Timestamp at which the bid starts decaying."
+                    },
+                    "decayEndTimestamp": {
+                        "type": "string",
+                        "format": "int64",
+                        "description": "Timestamp at which the bid ends decaying."
+                    },
+                    "revertingTxHashes": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "Optional array of tx hashes that are allowed to revert or be discarded."
+                    },
+                    "rawTransactions": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "Optional array of RLP encoded raw signed transaction payloads that the bidder wants to include in the block."
+                    },
+                    "slashAmount": {
+                        "type": "string",
+                        "description": "Amount of ETH that will be slashed from the provider if they fail to include the transaction. If zero, the decayed bid amount is used for slashing.",
+                        "pattern": "[0-9]+"
+                    },
+                    "bidOptions": {
+                        "$ref": "#/components/schemas/bidderapiv1BidOptions"
+                    }
+                },
+                "description": "Unsigned bid message from bidders to the bidder mev-commit node.",
+                "title": "Bid message",
+                "required": [
+                    "amount",
+                    "blockNumber",
+                    "decayStartTimestamp",
+                    "decayEndTimestamp"
+                ]
+            },
+            "bidderapiv1BidOption": {
+                "type": "object",
+                "properties": {
+                    "positionConstraint": {
+                        "$ref": "#/components/schemas/bidderapiv1PositionConstraint"
+                    }
+                }
+            },
+            "bidderapiv1BidOptions": {
+                "type": "object",
+                "properties": {
+                    "options": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/bidderapiv1BidOption"
+                        },
+                        "description": "List of bid options for the transaction."
+                    }
+                }
+            },
+            "bidderapiv1Commitment": {
+                "type": "object",
+                "properties": {
+                    "txHashes": {
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "pattern": "[a-fA-F0-9]{64}"
+                        },
+                        "description": "Hex string encoding of the hash of the transaction that the bidder wants to include in the block."
+                    },
+                    "bidAmount": {
+                        "type": "string",
+                        "description": "Amount of ETH that the bidder has agreed to pay to the provider for including the transaction in the block."
+                    },
+                    "blockNumber": {
+                        "type": "string",
+                        "format": "int64",
+                        "description": "Max block number that the bidder wants to include the transaction in."
+                    },
+                    "receivedBidDigest": {
+                        "type": "string",
+                        "description": "Hex string encoding of digest of the bid message signed by the bidder."
+                    },
+                    "receivedBidSignature": {
+                        "type": "string",
+                        "description": "Hex string encoding of signature of the bidder that sent this bid."
+                    },
+                    "commitmentDigest": {
+                        "type": "string",
+                        "description": "Hex string encoding of digest of the commitment."
+                    },
+                    "commitmentSignature": {
+                        "type": "string",
+                        "description": "Hex string encoding of signature of the commitment signed by the provider confirming this transaction."
+                    },
+                    "providerAddress": {
+                        "type": "string",
+                        "description": "Hex string encoding of the address of the provider that signed the commitment signature."
+                    },
+                    "decayStartTimestamp": {
+                        "type": "string",
+                        "format": "int64",
+                        "description": "Timestamp at which the bid starts decaying."
+                    },
+                    "decayEndTimestamp": {
+                        "type": "string",
+                        "format": "int64",
+                        "description": "Timestamp at which the bid ends decaying."
+                    },
+                    "dispatchTimestamp": {
+                        "type": "string",
+                        "format": "int64",
+                        "description": "Timestamp at which the commitment is published."
+                    },
+                    "revertingTxHashes": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "Optional array of tx hashes that are allowed to revert or be discarded."
+                    },
+                    "slashAmount": {
+                        "type": "string",
+                        "description": "Amount of ETH that will be slashed from the provider if they fail to include the transaction."
+                    },
+                    "bidOptions": {
+                        "$ref": "#/components/schemas/bidderapiv1BidOptions"
+                    }
+                },
+                "description": "Commitment message from the provider to the bidder mev-commit node.",
+                "title": "Commitment message"
+            },
+            "bidderapiv1PositionConstraint": {
+                "type": "object",
+                "properties": {
+                    "anchor": {
+                        "$ref": "#/components/schemas/bidderapiv1PositionConstraintAnchor"
+                    },
+                    "basis": {
+                        "$ref": "#/components/schemas/bidderapiv1PositionConstraintBasis"
+                    },
+                    "value": {
+                        "type": "integer",
+                        "format": "int32",
+                        "description": "Value of the position constraint. If anchor is TOP, this is the position from the top of the block. If anchor is BOTTOM, this is the position from the bottom of the block."
+                    }
+                },
+                "description": "Constraint on the position of the transaction in the block.",
+                "title": "Position Constraint"
+            },
+            "bidderapiv1PositionConstraintAnchor": {
+                "type": "string",
+                "enum": [
+                    "ANCHOR_TOP",
+                    "ANCHOR_BOTTOM"
+                ],
+                "title": "- ANCHOR_TOP: Position is at the top of the block\n - ANCHOR_BOTTOM: Position is at the bottom of the block"
+            },
+            "bidderapiv1PositionConstraintBasis": {
+                "type": "string",
+                "enum": [
+                    "BASIS_PERCENTILE",
+                    "BASIS_ABSOLUTE",
+                    "BASIS_GAS_PERCENTILE"
+                ],
+                "title": "- BASIS_PERCENTILE: Position is a percentile of the block size\n - BASIS_ABSOLUTE: Position is an absolute position in the block\n - BASIS_GAS_PERCENTILE: Position is a percentile of the gas used in the block"
+            },
+            "googlerpcStatus": {
+                "type": "object",
+                "properties": {
+                    "code": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "message": {
+                        "type": "string"
+                    },
+                    "details": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/protobufAny"
+                        }
+                    }
+                }
+            },
+            "protobufAny": {
+                "type": "object",
+                "properties": {
+                    "@type": {
+                        "type": "string"
+                    }
+                },
+                "additionalProperties": {}
+            },
+            "v1DepositEvenlyResponse": {
+                "type": "object",
+                "properties": {
+                    "providers": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "amounts": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "description": "Deposits some amount of ETH evenly across multiple providers.",
+                "title": "Deposit evenly response"
+            },
+            "v1DepositInfo": {
+                "type": "object",
+                "properties": {
+                    "provider": {
+                        "type": "string"
+                    },
+                    "amount": {
+                        "type": "string"
+                    }
+                }
+            },
+            "v1DepositManagerStatusResponse": {
+                "type": "object",
+                "properties": {
+                    "enabled": {
+                        "type": "boolean"
+                    },
+                    "targetDeposits": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/v1TargetDeposit"
+                        }
+                    }
+                },
+                "description": "DepositManagerStatus response.",
+                "title": "DepositManagerStatus response"
+            },
+            "v1DepositResponse": {
+                "type": "object",
+                "example": {
+                    "amount": "1000000000000000000",
+                    "provider": "0x0000000000000000000000000000000000000000"
+                },
+                "properties": {
+                    "amount": {
+                        "type": "string"
+                    },
+                    "provider": {
+                        "type": "string"
+                    }
+                },
+                "description": "Deposit for bidder in the bidder registry for a particular provider.",
+                "title": "Deposit response"
+            },
+            "v1DisableDepositManagerResponse": {
+                "type": "object",
+                "properties": {
+                    "success": {
+                        "type": "boolean"
+                    }
+                },
+                "description": "DisableDepositManager response.",
+                "title": "DisableDepositManager response"
+            },
+            "v1EnableDepositManagerResponse": {
+                "type": "object",
+                "properties": {
+                    "success": {
+                        "type": "boolean"
+                    }
+                },
+                "description": "EnableDepositManager response.",
+                "title": "EnableDepositManager response"
+            },
+            "v1GetAllDepositsResponse": {
+                "type": "object",
+                "properties": {
+                    "deposits": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/v1DepositInfo"
+                        }
+                    },
+                    "bidderBalance": {
+                        "type": "string"
+                    }
+                },
+                "description": "GetAllDeposits response.",
+                "title": "GetAllDeposits response"
+            },
+            "v1GetBidInfoResponse": {
+                "type": "object",
+                "properties": {
+                    "blockBidInfo": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/GetBidInfoResponseBlockBidInfo"
+                        },
+                        "description": "List of block bid info containing bids and their commitments."
+                    }
+                }
+            },
+            "v1GetValidProvidersResponse": {
+                "type": "object",
+                "properties": {
+                    "validProviders": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "description": "GetValidProviders response.",
+                "title": "GetValidProviders response"
+            },
+            "v1RequestWithdrawalsRequest": {
+                "type": "object",
+                "properties": {
+                    "providers": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "Provider Ethereum addresses."
+                    }
+                },
+                "description": "Request withdrawals from provider(s).",
+                "title": "RequestWithdrawals request"
+            },
+            "v1RequestWithdrawalsResponse": {
+                "type": "object",
+                "example": {
+                    "amounts": [
+                        "1000000000000000000"
+                    ],
+                    "providers": [
+                        "0x0000000000000000000000000000000000000000"
+                    ]
+                },
+                "properties": {
+                    "providers": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "amounts": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "description": "Request withdrawals from provider(s).",
+                "title": "RequestWithdrawals response"
+            },
+            "v1SetTargetDepositsRequest": {
+                "type": "object",
+                "properties": {
+                    "targetDeposits": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/v1TargetDeposit"
+                        }
+                    }
+                },
+                "description": "OverrideTargetDepositsRequest request.",
+                "title": "OverrideTargetDepositsRequest request"
+            },
+            "v1SetTargetDepositsResponse": {
+                "type": "object",
+                "properties": {
+                    "successfullySetDeposits": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/v1TargetDeposit"
+                        }
+                    },
+                    "successfullyToppedUpProviders": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "description": "OverrideTargetDepositsResponse response.",
+                "title": "OverrideTargetDepositsResponse response"
+            },
+            "v1TargetDeposit": {
+                "type": "object",
+                "properties": {
+                    "provider": {
+                        "type": "string"
+                    },
+                    "targetDeposit": {
+                        "type": "string"
+                    }
+                }
+            },
+            "v1WithdrawRequest": {
+                "type": "object",
+                "properties": {
+                    "providers": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "Provider Ethereum addresses."
+                    }
+                },
+                "description": "Withdraw deposits from provider(s).",
+                "title": "Withdraw request"
+            },
+            "v1WithdrawResponse": {
+                "type": "object",
+                "example": {
+                    "amounts": [
+                        "1000000000000000000"
+                    ],
+                    "providers": [
+                        "0x0000000000000000000000000000000000000000"
+                    ]
+                },
+                "properties": {
+                    "amounts": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "providers": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "description": "Withdrawn deposit from the bidder registry.",
+                "title": "Withdraw response"
             }
-          }
-        },
-        "default": {
-          "description": "An unexpected error response.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/googlerpcStatus"
-              }
-            }
-          }
         }
-      },
-      "requestBody": {
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/bidderapiv1Bid"
-            }
-          }
-        },
-        "description": "Unsigned bid message from bidders to the bidder mev-commit node.",
-        "required": true
-      }
     }
-  },
-  "/v1/bidder/claim_slashed_funds": {
-    "post": {
-      "summary": "ClaimSlashedFunds",
-      "description": "ClaimSlashedFunds is called by the bidder to claim slashed funds from the provider. The response\nwill show the amount claimed if any in wei.",
-      "operationId": "Bidder_ClaimSlashedFunds",
-      "responses": {
-        "200": {
-          "description": "A successful response.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "string"
-              }
-            }
-          }
-        },
-        "default": {
-          "description": "An unexpected error response.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/googlerpcStatus"
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "/v1/bidder/deposit/{amount}": {
-    "post": {
-      "summary": "Deposit",
-      "description": "Deposit is called by the bidder node to add deposit in the bidder registry, specific to a provider.",
-      "operationId": "Bidder_Deposit",
-      "responses": {
-        "200": {
-          "description": "A successful response.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/v1DepositResponse"
-              }
-            }
-          }
-        },
-        "default": {
-          "description": "An unexpected error response.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/googlerpcStatus"
-              }
-            }
-          }
-        }
-      },
-      "parameters": [
-        {
-          "name": "amount",
-          "description": "Amount of ETH to be deposited in wei.",
-          "in": "path",
-          "required": true,
-          "schema": {
-            "type": "string"
-          }
-        },
-        {
-          "name": "provider",
-          "description": "Provider Ethereum address.",
-          "in": "query",
-          "required": true,
-          "schema": {
-            "type": "string"
-          }
-        }
-      ]
-    }
-  },
-  "/v1/bidder/deposit_evenly": {
-    "post": {
-      "summary": "DepositEvenly",
-      "description": "DepositEvenly is called by the bidder node to deposit a total amount evenly across multiple providers.",
-      "operationId": "Bidder_DepositEvenly",
-      "responses": {
-        "200": {
-          "description": "A successful response.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/v1DepositEvenlyResponse"
-              }
-            }
-          }
-        },
-        "default": {
-          "description": "An unexpected error response.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/googlerpcStatus"
-              }
-            }
-          }
-        }
-      },
-      "parameters": [
-        {
-          "name": "totalAmount",
-          "description": "Total amount of ETH to be deposited in wei.",
-          "in": "query",
-          "required": false,
-          "schema": {
-            "type": "string",
-            "pattern": "[0-9]+"
-          }
-        },
-        {
-          "name": "providers",
-          "description": "Provider Ethereum addresses.",
-          "in": "query",
-          "required": false,
-          "explode": true,
-          "schema": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          }
-        }
-      ]
-    }
-  },
-  "/v1/bidder/deposit_manager_status": {
-    "get": {
-      "summary": "DepositManagerStatus",
-      "description": "DepositManagerStatus is called by the bidder node to query whether the bidder\nhas enabled the deposit manager via eip 7702.",
-      "operationId": "Bidder_DepositManagerStatus",
-      "responses": {
-        "200": {
-          "description": "A successful response.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/v1DepositManagerStatusResponse"
-              }
-            }
-          }
-        },
-        "default": {
-          "description": "An unexpected error response.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/googlerpcStatus"
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "/v1/bidder/disable_deposit_manager": {
-    "post": {
-      "summary": "DisableDepositManager",
-      "description": "DisableDepositManager is called by the bidder node to disable the deposit manager \nby setting the bidder EOA's code to zero address.",
-      "operationId": "Bidder_DisableDepositManager",
-      "responses": {
-        "200": {
-          "description": "A successful response.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/v1DisableDepositManagerResponse"
-              }
-            }
-          }
-        },
-        "default": {
-          "description": "An unexpected error response.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/googlerpcStatus"
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "/v1/bidder/enable_deposit_manager": {
-    "post": {
-      "summary": "EnableDepositManager",
-      "description": "EnableDepositManager is called by the bidder node to enable the deposit manager via eip 7702.",
-      "operationId": "Bidder_EnableDepositManager",
-      "responses": {
-        "200": {
-          "description": "A successful response.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/v1EnableDepositManagerResponse"
-              }
-            }
-          }
-        },
-        "default": {
-          "description": "An unexpected error response.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/googlerpcStatus"
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "/v1/bidder/get_all_deposits": {
-    "get": {
-      "summary": "GetAllDeposits",
-      "description": "GetAllDeposits is called by the bidder to get all its deposits in the bidder registry,\nand the balance of the bidder EOA itself.",
-      "operationId": "Bidder_GetAllDeposits",
-      "responses": {
-        "200": {
-          "description": "A successful response.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/v1GetAllDepositsResponse"
-              }
-            }
-          }
-        },
-        "default": {
-          "description": "An unexpected error response.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/googlerpcStatus"
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "/v1/bidder/get_bid_info": {
-    "get": {
-      "summary": "GetBidInfo",
-      "description": "GetBidInfo is called by the bidder to get the bid information. If block number is not specified,\nall known block numbers are returned in the ascending order.",
-      "operationId": "Bidder_GetBidInfo",
-      "responses": {
-        "200": {
-          "description": "A successful response.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/v1GetBidInfoResponse"
-              }
-            }
-          }
-        },
-        "default": {
-          "description": "An unexpected error response.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/googlerpcStatus"
-              }
-            }
-          }
-        }
-      },
-      "parameters": [
-        {
-          "name": "blockNumber",
-          "description": "Optional block number for querying bid info. If not specified, all known block numbers are returned in ascending order.",
-          "in": "query",
-          "required": false,
-          "schema": {
-            "type": "string",
-            "format": "int64"
-          }
-        },
-        {
-          "name": "page",
-          "description": "Page number for pagination.",
-          "in": "query",
-          "required": false,
-          "schema": {
-            "type": "integer",
-            "format": "int32"
-          }
-        },
-        {
-          "name": "limit",
-          "description": "Number of items per page for pagination. Default is 50",
-          "in": "query",
-          "required": false,
-          "schema": {
-            "type": "integer",
-            "format": "int32"
-          }
-        }
-      ]
-    }
-  },
-  "/v1/bidder/get_deposit": {
-    "get": {
-      "summary": "GetDeposit",
-      "description": "GetDeposit is called by the bidder to get its deposit specific to a provider in the bidder registry.",
-      "operationId": "Bidder_GetDeposit",
-      "responses": {
-        "200": {
-          "description": "A successful response.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/v1DepositResponse"
-              }
-            }
-          }
-        },
-        "default": {
-          "description": "An unexpected error response.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/googlerpcStatus"
-              }
-            }
-          }
-        }
-      },
-      "parameters": [
-        {
-          "name": "provider",
-          "description": "Provider Ethereum address.",
-          "in": "query",
-          "required": false,
-          "schema": {
-            "type": "string"
-          }
-        }
-      ]
-    }
-  },
-  "/v1/bidder/get_valid_providers": {
-    "get": {
-      "summary": "GetValidProviders",
-      "description": "GetValidProviders is called by the bidder node to get a list of all valid providers.\nEach provider returned by this RPC must:\n- Be \"registered\" in the provider registry\n- Have deposit >= minStake in provider registry\n- Have no pending withdrawal request with provider registry\n- Have at least one BLS key registered with provider registry",
-      "operationId": "Bidder_GetValidProviders",
-      "responses": {
-        "200": {
-          "description": "A successful response.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/v1GetValidProvidersResponse"
-              }
-            }
-          }
-        },
-        "default": {
-          "description": "An unexpected error response.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/googlerpcStatus"
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "/v1/bidder/request_withdrawals": {
-    "post": {
-      "summary": "RequestWithdrawals",
-      "description": "RequestWithdrawals is called by the bidder node to request withdrawals from provider(s)",
-      "operationId": "Bidder_RequestWithdrawals",
-      "responses": {
-        "200": {
-          "description": "A successful response.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/v1RequestWithdrawalsResponse"
-              }
-            }
-          }
-        },
-        "default": {
-          "description": "An unexpected error response.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/googlerpcStatus"
-              }
-            }
-          }
-        }
-      },
-      "requestBody": {
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/v1RequestWithdrawalsRequest"
-            }
-          }
-        },
-        "description": "Request withdrawals from provider(s).",
-        "required": true
-      }
-    }
-  },
-  "/v1/bidder/set_target_deposits": {
-    "post": {
-      "summary": "SetTargetDeposits",
-      "description": "SetTargetDeposits is called by the bidder node to set target deposits per provider\nwithin the deposit manager. During this call, the bidder node will also attempt to top-up\ndeposits for each new target deposit.",
-      "operationId": "Bidder_SetTargetDeposits",
-      "responses": {
-        "200": {
-          "description": "A successful response.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/v1SetTargetDepositsResponse"
-              }
-            }
-          }
-        },
-        "default": {
-          "description": "An unexpected error response.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/googlerpcStatus"
-              }
-            }
-          }
-        }
-      },
-      "requestBody": {
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/v1SetTargetDepositsRequest"
-            }
-          }
-        },
-        "description": "OverrideTargetDepositsRequest request.",
-        "required": true
-      }
-    }
-  },
-  "/v1/bidder/withdraw": {
-    "post": {
-      "summary": "Withdraw",
-      "description": "Withdraw is called by the bidder to withdraw their deposit to a provider.",
-      "operationId": "Bidder_Withdraw",
-      "responses": {
-        "200": {
-          "description": "A successful response.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/v1WithdrawResponse"
-              }
-            }
-          }
-        },
-        "default": {
-          "description": "An unexpected error response.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/googlerpcStatus"
-              }
-            }
-          }
-        }
-      },
-      "requestBody": {
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/v1WithdrawRequest"
-            }
-          }
-        },
-        "description": "Withdraw deposits from provider(s).",
-        "required": true
-      }
-    }
-  },
-  "components": null,
-  "schemas": {
-    "GetBidInfoResponseBidInfo": {
-      "type": "object",
-      "properties": {
-        "txnHashes": {
-          "type": "array",
-          "items": {
-            "type": "string",
-            "pattern": "[a-fA-F0-9]{64}"
-          },
-          "description": "Hex string encoding of the hashes of the transactions that the bidder wants to include in the block."
-        },
-        "revertableTxnHashes": {
-          "type": "array",
-          "items": {
-            "type": "string",
-            "pattern": "[a-fA-F0-9]{64}"
-          },
-          "description": "Optional array of tx hashes that are allowed to revert or be discarded."
-        },
-        "blockNumber": {
-          "type": "string",
-          "format": "int64",
-          "description": "Block number that the bidder wants to include the transaction in."
-        },
-        "bidAmount": {
-          "type": "string",
-          "description": "Amount of ETH that the bidder is willing to pay to the provider for including the transaction in the block.",
-          "pattern": "[0-9]+"
-        },
-        "decayStartTimestamp": {
-          "type": "string",
-          "format": "int64",
-          "description": "Timestamp at which the bid starts decaying."
-        },
-        "decayEndTimestamp": {
-          "type": "string",
-          "format": "int64",
-          "description": "Timestamp at which the bid ends decaying."
-        },
-        "bidDigest": {
-          "type": "string",
-          "description": "Hex string encoding of digest of the bid message signed by the bidder."
-        },
-        "slashAmount": {
-          "type": "string",
-          "description": "Amount of ETH that will be slashed from the provider if they fail to include the transaction. If zero, the decayed bid amount is used for slashing.",
-          "pattern": "[0-9]+"
-        },
-        "commitments": {
-          "type": "array",
-          "items": {
-            "$ref": "#/components/schemas/GetBidInfoResponseCommitmentWithStatus"
-          }
-        },
-        "bidOptions": {
-          "$ref": "#/components/schemas/bidderapiv1BidOptions"
-        }
-      },
-      "description": "Information about a bid including its commitments.",
-      "title": "Bid Info"
-    },
-    "GetBidInfoResponseBlockBidInfo": {
-      "type": "object",
-      "properties": {
-        "blockNumber": {
-          "type": "string",
-          "format": "int64",
-          "description": "Block number for which the bid info is requested."
-        },
-        "bids": {
-          "type": "array",
-          "items": {
-            "$ref": "#/components/schemas/GetBidInfoResponseBidInfo"
-          },
-          "description": "List of bids for the specified block number."
-        }
-      }
-    },
-    "GetBidInfoResponseCommitmentWithStatus": {
-      "type": "object",
-      "properties": {
-        "providerAddress": {
-          "type": "string",
-          "description": "Hex string encoding of the address of the provider that signed the commitment."
-        },
-        "dispatchTimestamp": {
-          "type": "string",
-          "format": "int64",
-          "description": "Timestamp at which the commitment is published."
-        },
-        "status": {
-          "type": "string",
-          "description": "Status of the commitment. Possible values: 'pending', 'stored', 'opened', 'settled', 'slashed', 'failed'."
-        },
-        "details": {
-          "type": "string",
-          "description": "Additional details about the commitment status."
-        },
-        "payment": {
-          "type": "string",
-          "description": "Payment amount in wei for the commitment."
-        },
-        "refund": {
-          "type": "string",
-          "description": "Refund amount in wei for the commitment, if applicable."
-        }
-      }
-    },
-    "bidderapiv1Bid": {
-      "type": "object",
-      "example": {
-        "amount": "1000000000000000000",
-        "block_number": 123456,
-        "decay_end_timestamp": 1630000000,
-        "decay_start_timestamp": 1630000000,
-        "reverting_tx_hashes": [
-          "fe4cb47db3630551beedfbd02a71ecc69fd59758e2ba699606e2d5c74284ffa7"
-        ],
-        "slash_amount": "500000000000000000",
-        "tx_hashes": [
-          "fe4cb47db3630551beedfbd02a71ecc69fd59758e2ba699606e2d5c74284ffa7",
-          "71c1348f2d7ff7e814f9c3617983703435ea7446de420aeac488bf1de35737e8"
-        ]
-      },
-      "properties": {
-        "txHashes": {
-          "type": "array",
-          "items": {
-            "type": "string",
-            "pattern": "[a-fA-F0-9]{64}"
-          },
-          "description": "Hex string encoding of the hashes of the transactions that the bidder wants to include in the block."
-        },
-        "amount": {
-          "type": "string",
-          "description": "Amount of ETH that the bidder is willing to pay to the provider for including the transaction in the block.",
-          "pattern": "[0-9]+"
-        },
-        "blockNumber": {
-          "type": "string",
-          "format": "int64",
-          "description": "Max block number that the bidder wants to include the transaction in."
-        },
-        "decayStartTimestamp": {
-          "type": "string",
-          "format": "int64",
-          "description": "Timestamp at which the bid starts decaying."
-        },
-        "decayEndTimestamp": {
-          "type": "string",
-          "format": "int64",
-          "description": "Timestamp at which the bid ends decaying."
-        },
-        "revertingTxHashes": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "description": "Optional array of tx hashes that are allowed to revert or be discarded."
-        },
-        "rawTransactions": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "description": "Optional array of RLP encoded raw signed transaction payloads that the bidder wants to include in the block."
-        },
-        "slashAmount": {
-          "type": "string",
-          "description": "Amount of ETH that will be slashed from the provider if they fail to include the transaction. If zero, the decayed bid amount is used for slashing.",
-          "pattern": "[0-9]+"
-        },
-        "bidOptions": {
-          "$ref": "#/components/schemas/bidderapiv1BidOptions"
-        }
-      },
-      "description": "Unsigned bid message from bidders to the bidder mev-commit node.",
-      "title": "Bid message",
-      "required": [
-        "amount",
-        "blockNumber",
-        "decayStartTimestamp",
-        "decayEndTimestamp"
-      ]
-    },
-    "bidderapiv1BidOption": {
-      "type": "object",
-      "properties": {
-        "positionConstraint": {
-          "$ref": "#/components/schemas/bidderapiv1PositionConstraint"
-        }
-      }
-    },
-    "bidderapiv1BidOptions": {
-      "type": "object",
-      "properties": {
-        "options": {
-          "type": "array",
-          "items": {
-            "$ref": "#/components/schemas/bidderapiv1BidOption"
-          },
-          "description": "List of bid options for the transaction."
-        }
-      }
-    },
-    "bidderapiv1Commitment": {
-      "type": "object",
-      "properties": {
-        "txHashes": {
-          "type": "array",
-          "items": {
-            "type": "string",
-            "pattern": "[a-fA-F0-9]{64}"
-          },
-          "description": "Hex string encoding of the hash of the transaction that the bidder wants to include in the block."
-        },
-        "bidAmount": {
-          "type": "string",
-          "description": "Amount of ETH that the bidder has agreed to pay to the provider for including the transaction in the block."
-        },
-        "blockNumber": {
-          "type": "string",
-          "format": "int64",
-          "description": "Max block number that the bidder wants to include the transaction in."
-        },
-        "receivedBidDigest": {
-          "type": "string",
-          "description": "Hex string encoding of digest of the bid message signed by the bidder."
-        },
-        "receivedBidSignature": {
-          "type": "string",
-          "description": "Hex string encoding of signature of the bidder that sent this bid."
-        },
-        "commitmentDigest": {
-          "type": "string",
-          "description": "Hex string encoding of digest of the commitment."
-        },
-        "commitmentSignature": {
-          "type": "string",
-          "description": "Hex string encoding of signature of the commitment signed by the provider confirming this transaction."
-        },
-        "providerAddress": {
-          "type": "string",
-          "description": "Hex string encoding of the address of the provider that signed the commitment signature."
-        },
-        "decayStartTimestamp": {
-          "type": "string",
-          "format": "int64",
-          "description": "Timestamp at which the bid starts decaying."
-        },
-        "decayEndTimestamp": {
-          "type": "string",
-          "format": "int64",
-          "description": "Timestamp at which the bid ends decaying."
-        },
-        "dispatchTimestamp": {
-          "type": "string",
-          "format": "int64",
-          "description": "Timestamp at which the commitment is published."
-        },
-        "revertingTxHashes": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "description": "Optional array of tx hashes that are allowed to revert or be discarded."
-        },
-        "slashAmount": {
-          "type": "string",
-          "description": "Amount of ETH that will be slashed from the provider if they fail to include the transaction."
-        },
-        "bidOptions": {
-          "$ref": "#/components/schemas/bidderapiv1BidOptions"
-        }
-      },
-      "description": "Commitment message from the provider to the bidder mev-commit node.",
-      "title": "Commitment message"
-    },
-    "bidderapiv1PositionConstraint": {
-      "type": "object",
-      "properties": {
-        "anchor": {
-          "$ref": "#/components/schemas/bidderapiv1PositionConstraintAnchor"
-        },
-        "basis": {
-          "$ref": "#/components/schemas/bidderapiv1PositionConstraintBasis"
-        },
-        "value": {
-          "type": "integer",
-          "format": "int32",
-          "description": "Value of the position constraint. If anchor is TOP, this is the position from the top of the block. If anchor is BOTTOM, this is the position from the bottom of the block."
-        }
-      },
-      "description": "Constraint on the position of the transaction in the block.",
-      "title": "Position Constraint"
-    },
-    "bidderapiv1PositionConstraintAnchor": {
-      "type": "string",
-      "enum": [
-        "ANCHOR_TOP",
-        "ANCHOR_BOTTOM"
-      ],
-      "title": "- ANCHOR_TOP: Position is at the top of the block\n - ANCHOR_BOTTOM: Position is at the bottom of the block"
-    },
-    "bidderapiv1PositionConstraintBasis": {
-      "type": "string",
-      "enum": [
-        "BASIS_PERCENTILE",
-        "BASIS_ABSOLUTE",
-        "BASIS_GAS_PERCENTILE"
-      ],
-      "title": "- BASIS_PERCENTILE: Position is a percentile of the block size\n - BASIS_ABSOLUTE: Position is an absolute position in the block\n - BASIS_GAS_PERCENTILE: Position is a percentile of the gas used in the block"
-    },
-    "googlerpcStatus": {
-      "type": "object",
-      "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "message": {
-          "type": "string"
-        },
-        "details": {
-          "type": "array",
-          "items": {
-            "$ref": "#/components/schemas/protobufAny"
-          }
-        }
-      }
-    },
-    "protobufAny": {
-      "type": "object",
-      "properties": {
-        "@type": {
-          "type": "string"
-        }
-      },
-      "additionalProperties": {}
-    },
-    "v1DepositEvenlyResponse": {
-      "type": "object",
-      "properties": {
-        "providers": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "amounts": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
-      },
-      "description": "Deposits some amount of ETH evenly across multiple providers.",
-      "title": "Deposit evenly response"
-    },
-    "v1DepositInfo": {
-      "type": "object",
-      "properties": {
-        "provider": {
-          "type": "string"
-        },
-        "amount": {
-          "type": "string"
-        }
-      }
-    },
-    "v1DepositManagerStatusResponse": {
-      "type": "object",
-      "properties": {
-        "enabled": {
-          "type": "boolean"
-        },
-        "targetDeposits": {
-          "type": "array",
-          "items": {
-            "$ref": "#/components/schemas/v1TargetDeposit"
-          }
-        }
-      },
-      "description": "DepositManagerStatus response.",
-      "title": "DepositManagerStatus response"
-    },
-    "v1DepositResponse": {
-      "type": "object",
-      "example": {
-        "amount": "1000000000000000000",
-        "provider": "0x0000000000000000000000000000000000000000"
-      },
-      "properties": {
-        "amount": {
-          "type": "string"
-        },
-        "provider": {
-          "type": "string"
-        }
-      },
-      "description": "Deposit for bidder in the bidder registry for a particular provider.",
-      "title": "Deposit response"
-    },
-    "v1DisableDepositManagerResponse": {
-      "type": "object",
-      "properties": {
-        "success": {
-          "type": "boolean"
-        }
-      },
-      "description": "DisableDepositManager response.",
-      "title": "DisableDepositManager response"
-    },
-    "v1EnableDepositManagerResponse": {
-      "type": "object",
-      "properties": {
-        "success": {
-          "type": "boolean"
-        }
-      },
-      "description": "EnableDepositManager response.",
-      "title": "EnableDepositManager response"
-    },
-    "v1GetAllDepositsResponse": {
-      "type": "object",
-      "properties": {
-        "deposits": {
-          "type": "array",
-          "items": {
-            "$ref": "#/components/schemas/v1DepositInfo"
-          }
-        },
-        "bidderBalance": {
-          "type": "string"
-        }
-      },
-      "description": "GetAllDeposits response.",
-      "title": "GetAllDeposits response"
-    },
-    "v1GetBidInfoResponse": {
-      "type": "object",
-      "properties": {
-        "blockBidInfo": {
-          "type": "array",
-          "items": {
-            "$ref": "#/components/schemas/GetBidInfoResponseBlockBidInfo"
-          },
-          "description": "List of block bid info containing bids and their commitments."
-        }
-      }
-    },
-    "v1GetValidProvidersResponse": {
-      "type": "object",
-      "properties": {
-        "validProviders": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
-      },
-      "description": "GetValidProviders response.",
-      "title": "GetValidProviders response"
-    },
-    "v1RequestWithdrawalsRequest": {
-      "type": "object",
-      "properties": {
-        "providers": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "description": "Provider Ethereum addresses."
-        }
-      },
-      "description": "Request withdrawals from provider(s).",
-      "title": "RequestWithdrawals request"
-    },
-    "v1RequestWithdrawalsResponse": {
-      "type": "object",
-      "example": {
-        "amounts": [
-          "1000000000000000000"
-        ],
-        "providers": [
-          "0x0000000000000000000000000000000000000000"
-        ]
-      },
-      "properties": {
-        "providers": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "amounts": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
-      },
-      "description": "Request withdrawals from provider(s).",
-      "title": "RequestWithdrawals response"
-    },
-    "v1SetTargetDepositsRequest": {
-      "type": "object",
-      "properties": {
-        "targetDeposits": {
-          "type": "array",
-          "items": {
-            "$ref": "#/components/schemas/v1TargetDeposit"
-          }
-        }
-      },
-      "description": "OverrideTargetDepositsRequest request.",
-      "title": "OverrideTargetDepositsRequest request"
-    },
-    "v1SetTargetDepositsResponse": {
-      "type": "object",
-      "properties": {
-        "successfullySetDeposits": {
-          "type": "array",
-          "items": {
-            "$ref": "#/components/schemas/v1TargetDeposit"
-          }
-        },
-        "successfullyToppedUpProviders": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
-      },
-      "description": "OverrideTargetDepositsResponse response.",
-      "title": "OverrideTargetDepositsResponse response"
-    },
-    "v1TargetDeposit": {
-      "type": "object",
-      "properties": {
-        "provider": {
-          "type": "string"
-        },
-        "targetDeposit": {
-          "type": "string"
-        }
-      }
-    },
-    "v1WithdrawRequest": {
-      "type": "object",
-      "properties": {
-        "providers": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "description": "Provider Ethereum addresses."
-        }
-      },
-      "description": "Withdraw deposits from provider(s).",
-      "title": "Withdraw request"
-    },
-    "v1WithdrawResponse": {
-      "type": "object",
-      "example": {
-        "amounts": [
-          "1000000000000000000"
-        ],
-        "providers": [
-          "0x0000000000000000000000000000000000000000"
-        ]
-      },
-      "properties": {
-        "amounts": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "providers": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
-      },
-      "description": "Withdrawn deposit from the bidder registry.",
-      "title": "Withdraw response"
-    }
-  }
 }
