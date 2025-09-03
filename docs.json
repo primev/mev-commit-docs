@@ -138,28 +138,28 @@
               {
                 "group": "Provider (auto)",
                 "openapi": {
-                  "source": "/openapi/v1.2.x/provider-openapi-spec.json",
+                  "source": "/v1.2.x/provider-openapi-spec.json",
                   "directory": "v1.2.x/api-reference/provider-auto"
                 }
               },
               {
                 "group": "Bidder (auto)",
                 "openapi": {
-                  "source": "/openapi/v1.2.x/bidder-openapi-spec.json",
+                  "source": "/v1.2.x/bidder-openapi-spec.json",
                   "directory": "v1.2.x/api-reference/bidder-auto"
                 }
               },
               {
                 "group": "Notifications (auto)",
                 "openapi": {
-                  "source": "/openapi/v1.2.x/notifications-openapi-spec.json",
+                  "source": "/v1.2.x/notifications-openapi-spec.json",
                   "directory": "v1.2.x/api-reference/notifications-auto"
                 }
               },
               {
                 "group": "Debug (auto)",
                 "openapi": {
-                  "source": "/openapi/v1.2.x/debug-openapi-spec.json",
+                  "source": "/v1.2.x/debug-openapi-spec.json",
                   "directory": "v1.2.x/api-reference/debug-auto"
                 }
               },
@@ -364,43 +364,37 @@
             "tab": "API Reference",
             "groups": [
               {
-                "group": "API Reference",
-                "pages": [
-                  "v1.1.0/api-reference/introduction"
-                ]
-              },
-              {
                 "group": "Provider (auto)",
                 "openapi": {
-                  "source": "/openapi/v1.2.x/provider-openapi-spec.json",
-                  "directory": "v1.2.x/api-reference/provider-auto"
+                  "source": "/v1.1.0/provider-openapi-spec.json",
+                  "directory": "v1.1.0/api-reference/provider-auto"
                 }
               },
               {
                 "group": "Bidder (auto)",
                 "openapi": {
-                  "source": "/openapi/v1.2.x/bidder-openapi-spec.json",
-                  "directory": "v1.2.x/api-reference/bidder-auto"
+                  "source": "/v1.1.0/bidder-openapi-spec.json",
+                  "directory": "v1.1.0/api-reference/bidder-auto"
                 }
               },
               {
                 "group": "Notifications (auto)",
                 "openapi": {
-                  "source": "/openapi/v1.2.x/notifications-openapi-spec.json",
-                  "directory": "v1.2.x/api-reference/notifications-auto"
+                  "source": "/v1.1.0/notifications-openapi-spec.json",
+                  "directory": "v1.1.0/api-reference/notifications-auto"
                 }
               },
               {
                 "group": "Debug (auto)",
                 "openapi": {
-                  "source": "/openapi/v1.2.x/debug-openapi-spec.json",
-                  "directory": "v1.2.x/api-reference/debug-auto"
+                  "source": "/v1.1.0/debug-openapi-spec.json",
+                  "directory": "v1.1.0/api-reference/debug-auto"
                 }
               },
               {
                 "group": "API Reference",
                 "pages": [
-                  "v1.2.x/api-reference/introduction"
+                  "v1.1.0/api-reference/introduction"
                 ]
               },
               {
