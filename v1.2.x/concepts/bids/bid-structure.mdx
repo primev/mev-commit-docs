@@ -77,7 +77,7 @@ Note that the deposit amount a bidder has set needs to be 10 times higher than t
 | revertingTxHashes | Array of transaction hashes as strings that can revert |
 | rawTransactions | Array of hexadecimal encoded raw signed transaction payloads |
 | slashAmount | Amount to be slashed from provider stake in case of a failed bid |
-| bidOptions | Position constraints or other available options for placement of transaction |
+| bidOptions | Position constraints or other available options |
 
 
 ### Details on Decay Parameters
@@ -121,7 +121,7 @@ message PositionConstraint {
 
 ```
 
-For eg
+For example,
 ```json
 {
     anchor: ANCHOR_TOP,
@@ -130,7 +130,7 @@ For eg
 }
 
 ```
-Would let the provider know that this transaction or bundle has to be in the top 10% of the block. If we get a commitment and the transaction is not in the top 10%, the provider will be slashed.
+would let the provider know that this transaction or bundle has to be in the top 10% of the block. If we get a commitment and the transaction is not in the top 10%, the provider will be slashed. Multiple constraints can be combined, in which case the transaction needs to satisfy all of them. In case of transaction bundles, a set of constraints is considered satisfied if each constraint is satisfied by at least one transaction in the bundle.
 
 ### Details on Encrypted Bid Structure
 The bid structure is encrypted using an AES key, which the bidder P2P node generates at the start, and is then sent to the provider.
