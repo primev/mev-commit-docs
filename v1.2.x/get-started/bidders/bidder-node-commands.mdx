@@ -5,29 +5,11 @@ sidebarTitle: Bidder Node Commands
 
 ## Interacting with the Bidder Node
 
-<Note>Ensure you have completed the [Quickstart](/v1.2.x/get-started/quickstart) step in a separate terminal. This will set up your environment and place your key in the `$HOME/.mev-commit` directory, along with running the required bidder node.</Note>
+<Note>Ensure you have completed the [Quickstart](/v1.2.x/get-started/quickstart) step in a separate terminal. This will set up your environment and spin up a bidder node.</Note>
 
-Now that you've made sure we have a bidder node running, we can interact with it using the following commands:
+## Getting deposits and bidder balance
 
-```shell ❯_ terminal
-cd $HOME/.mev-commit;
-export KEY=$(cat key);
-export ADDRESS=$(cast wallet address --private-key 0x$(cat key))
-```
-
-## Getting Deposit
-
-To get the currently deposited balance on-chain for a provider:
-
-```shell ❯_ terminal
-> curl -s "http://localhost:13523/v1/bidder/get_deposit?provider=0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC" | jq
-{
-"amount": "0",
-"provider": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC"
-}
-```
-
-Or to query all deposits and the bidder's EOA balance:
+To query all deposits and your bidder's balance on the mev-commit chain:
 
 ```shell ❯_ terminal
 > curl -s "http://localhost:13523/v1/bidder/get_all_deposits" | jq
@@ -39,6 +21,16 @@ Or to query all deposits and the bidder's EOA balance:
 	}
 ],
 "bidderBalance": "9996999791340641239011"
+}
+```
+
+Or to query a deposit specific to a single provider:
+
+```shell ❯_ terminal
+> curl -s "http://localhost:13523/v1/bidder/get_deposit?provider=0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC" | jq
+{
+"amount": "0",
+"provider": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC"
 }
 ```
 
@@ -166,35 +158,6 @@ curl -s -X POST http://localhost:13523/v1/bidder/withdraw \
 }
 ```
 
-## Checking the Balance of your Wallet
-
-### Mainnet
-This command will allow you to check your current wallet balance on mainnet mev-commit chain:
-
-```shell ❯_ terminal
-cast b $ADDRESS --rpc-url https://chainrpc.mev-commit.xyz
-```
-### Testnet
-This command will allow you to check your current wallet balance on testnet mev-commit chain:
-
-```shell ❯_ terminal
-cast b $ADDRESS --rpc-url https://chainrpc.testnet.mev-commit.xyz
-```
-
-## Check Total Value Locked in Contracts
-### Mainnet
-```shell ❯_ terminal
-python3 -c "print($(cast b 0xb772Add4718E5BD6Fe57Fb486A6f7f008E52167E \
---rpc-url https://chainrpc.mev-commit.xyz) + $(cast b 0xC973D09e51A20C9Ab0214c439e4B34Dbac52AD67 \
---rpc-url https://chainrpc.mev-commit.xyz))"
-```
-### Testnet
-```shell ❯_ terminal
-python3 -c "print($(cast b 0x401B3287364f95694c43ACA3252831cAc02e5C41 \
---rpc-url https://chainrpc.testnet.mev-commit.xyz) + $(cast b 0xf4F10e18244d836311508917A3B04694D88999Dd \
---rpc-url https://chainrpc.testnet.mev-commit.xyz))"
-```
-
 ## Health
 The health endpoint checks whether the bidder node is receiving events from mev-commit chain. This command is useful to determine whether the bidder node has become out of sync.
 ```shell ❯_ terminal
@@ -202,7 +165,8 @@ curl http://localhost:13523/health
 ```
 
 ## Topology
-The topology endpoint can be used to check which provider nodes the bidder node is connected to. 
+The topology endpoint can be used to check which provider nodes the bidder node is connected to. It'll also display your `Ethereum Address` and `Peer Type`.
+
 ```shell ❯_ terminal
 curl http://localhost:13523/v1/debug/topology
 ```
