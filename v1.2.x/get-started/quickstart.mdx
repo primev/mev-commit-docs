@@ -9,39 +9,53 @@ icon: "gear"
   <Step title="(Optional) Create an account">
     First you'll need to obtain or create a standard Ethereum account (secp256k1 keypair). We highly recommend storing your account in a password protected keystore file, rather than storing the private key unencrypted. If you plan to fund this account with a non-trivial amount of ETH, please independently verify any tools and/or procedures you adopt.
 
-    If you already have a secure Ethereum account, you're good to skip to the next step. Otherwise there are many available options to create a new one:
-    * Install foundry and create a keystore file using cast in a single command. The location of the generated file will be printed, otherwise you can specify a path argument according to [docs](https://getfoundry.sh/cast/reference/wallet/new/).
+    If you already have a secure Ethereum account, you're good to move on from this step.
+    
+    Otherwise the quickest way to generate a new keystore is to install foundry and create the file in a single command:
     ```shell
     curl -L https://foundry.paradigm.xyz | bash && foundryup && cast wallet new keystore
     ```
-    * Install foundry and import an existing private key using cast in a single command. Further docs [here](https://getfoundry.sh/cast/reference/wallet/import).
-    ```shell
-    curl -L https://foundry.paradigm.xyz | bash && foundryup && cast wallet import account-name --interactive
-    ```
-    * [geth's clef tool](https://geth.ethereum.org/docs/fundamentals/account-management#creating-accounts)
-    * Simply importing geth as a dependency in your golang project and programmatically creating a new keystore file. Read more [here](https://goethereumbook.org/keystore/).
-    ```go
-    package main
-    import (
-        "fmt"
-        "log"
-        "os"
-        "github.com/ethereum/go-ethereum/accounts/keystore"
-    )
-    func main() {
-        ks := keystore.NewKeyStore("./keystore", keystore.StandardScryptN, keystore.StandardScryptP)
-        password := os.Getenv("PASSWORD")
-        if password == "" {
-            log.Fatal("PASSWORD environment variable not set")
+
+    The location of the generated file will be printed, otherwise you can specify a path argument according to the [docs](https://getfoundry.sh/cast/reference/wallet/new/).
+
+    <Accordion title="Other ways to create a new keystore file">
+        
+        Install foundry and import an existing private key using cast in a single command. Further docs [here](https://getfoundry.sh/cast/reference/wallet/import).
+        ```shell
+        curl -L https://foundry.paradigm.xyz | bash && foundryup && cast wallet import account-name --interactive
+        ```
+
+        Use [geth's clef tool](https://geth.ethereum.org/docs/fundamentals/account-management#creating-accounts)
+        ```shell
+        clef newaccount --keystore ./keystore
+        ```
+        
+        Or import geth as a dependency in your golang project and programmatically create a new keystore file. Read more [here](https://goethereumbook.org/keystore/).
+
+        ```go
+        package main
+        import (
+            "fmt"
+            "log"
+            "os"
+            "github.com/ethereum/go-ethereum/accounts/keystore"
+        )
+        func main() {
+            ks := keystore.NewKeyStore("./keystore", keystore.StandardScryptN, keystore.StandardScryptP)
+            password := os.Getenv("PASSWORD")
+            if password == "" {
+                log.Fatal("PASSWORD environment variable not set")
+            }
+            account, err := ks.NewAccount(password)
+            if err != nil {
+                log.Fatal(err)
+            }
+            fmt.Println("New account address:", account.Address.Hex())
+            fmt.Println("Keystore file saved in ./keystore directory")
         }
-        account, err := ks.NewAccount(password)
-        if err != nil {
-            log.Fatal(err)
-        }
-        fmt.Println("New account address:", account.Address.Hex())
-        fmt.Println("Keystore file saved in ./keystore directory")
-    }
-    ```
+        ```
+
+    </Accordion>
   </Step>
 
   <Step title="Bridge to the mev-commit chain">
