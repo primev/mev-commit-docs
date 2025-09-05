@@ -45,7 +45,7 @@ icon: "gear"
 
             "github.com/ethereum/go-ethereum/accounts/keystore"
         )
-        
+
         func main() {
             home, err := os.UserHomeDir()
             if err != nil {
@@ -128,7 +128,7 @@ icon: "gear"
 
     ```bash ❯_ bidder
     ./mev-commit \
-        --keystore-path /Users/alice/keystore \
+        --keystore-path $HOME/keystore \
         --keystore-password <PASSWORD> \
         --enable-deposit-manager=true \
         --target-deposit-amount <WEI_AMOUNT> \
@@ -139,7 +139,7 @@ icon: "gear"
     ```bash ❯_ provider
     ./mev-commit \
         --peer-type provider \
-        --keystore-path /Users/bob/keystore \
+        --keystore-path $HOME/keystore \
         --keystore-password <PASSWORD> \
         --bootnodes /dnsaddr/bootnode.mev-commit.xyz \
         --settlement-ws-rpc-endpoint wss://chainrpc-wss.mev-commit.xyz
@@ -154,7 +154,7 @@ icon: "gear"
 
     ```bash ❯_ bidder
     ./mev-commit \
-        --keystore-path /Users/alice/keystore \
+        --keystore-path $HOME/keystore \
         --keystore-password <PASSWORD> \
         --enable-deposit-manager=true \
         --target-deposit-amount <WEI_AMOUNT> \
@@ -165,7 +165,7 @@ icon: "gear"
     ```bash ❯_ provider
     ./mev-commit \
         --peer-type provider \
-        --keystore-path /Users/bob/keystore
+        --keystore-path $HOME/keystore
         --keystore-password <PASSWORD> \
         --bootnodes /dnsaddr/bootnode.testnet.mev-commit.xyz \
         --settlement-ws-rpc-endpoint wss://chainrpc-wss.testnet.mev-commit.xyz
