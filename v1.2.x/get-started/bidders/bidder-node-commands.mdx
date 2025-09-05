@@ -44,7 +44,27 @@ The deposit manager is an on-chain contract that a bidder account can enable by 
 
 A target deposit is the desired amount of funds that a bidder wants to be deposited for a specific provider. Bidders should set this to the maximum cumulative amount of ETH they would ever bid to a provider with respect to a single L1 block.
 
-There are two ways to enable this feature...
+If you followed the [Quickstart](/v1.2.x/get-started/quickstart) exactly, your bidder node will already have the deposit manager enabled. To confirm:
+
+## Get Deposit Manager Status
+
+```shell ❯_ terminal
+curl -s http://localhost:13523/v1/bidder/deposit_manager_status | jq
+```
+
+```json
+{
+  "enabled": true,
+  "targetDeposits": [
+    {
+      "provider": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+      "targetDeposit": "3000000000000000000"
+    }
+  ]
+}
+```
+
+There are two ways to enable the deposit manager...
 
 ### On node boot up (recommended)
 
@@ -55,6 +75,8 @@ The easiest way to enable the deposit manager is by setting two flags/environmen
 ```
 
 Where the target deposit amount will be set for all valid providers that're currently a part of the network. Alternatively you can use the `MEV_COMMIT_ENABLE_DEPOSIT_MANAGER` and `MEV_COMMIT_TARGET_DEPOSIT_AMOUNT` environment variables.
+
+This is the method used by the [Quickstart](/v1.2.x/get-started/quickstart).
 
 ### Through API
 
@@ -84,23 +106,7 @@ Then to set target deposits customized to each provider:
 }
 ```
 
-## Get Deposit Manager Status
-
-```shell ❯_ terminal
-curl -s http://localhost:13523/v1/bidder/deposit_manager_status | jq
-```
-
-```json
-{
-  "enabled": true,
-  "targetDeposits": [
-    {
-      "provider": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
-      "targetDeposit": "3000000000000000000"
-    }
-  ]
-}
-```
+You should be able to overwrite target deposits for providers at any time using the `set_target_deposits` endpoint.
 
 ## Disable Deposit Manager
 
