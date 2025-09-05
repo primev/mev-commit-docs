@@ -111,7 +111,7 @@ icon: "gear"
 
     Run `cd $HOME` if you used the command above.
     
-    Now execute the node binary, selecting either a bidder or provider configuration based on your role in the network.
+    Now execute the node binary, selecting either a bidder or provider configuration based on your role in the network. Bidders must set a `target-deposit-amount` which will be deposited for each valid provider, in order to send bids.
 
     ### Mainnet
 
@@ -123,6 +123,8 @@ icon: "gear"
     ./mev-commit \
         --keystore-path /Users/alice/keystore \
         --keystore-password <PASSWORD> \
+        --enable-deposit-manager=true \
+        --target-deposit-amount <WEI_AMOUNT> \
         --bootnodes /dnsaddr/bootnode.mev-commit.xyz \
         --settlement-ws-rpc-endpoint wss://chainrpc-wss.mev-commit.xyz \
         --bidder-registry-contract "${BIDDER_REGISTRY_ADDR}" \
@@ -157,6 +159,8 @@ icon: "gear"
     ./mev-commit \
         --keystore-path /Users/alice/keystore \
         --keystore-password <PASSWORD> \
+        --enable-deposit-manager=true \
+        --target-deposit-amount <WEI_AMOUNT> \
         --bootnodes /dnsaddr/bootnode.testnet.mev-commit.xyz \
         --settlement-ws-rpc-endpoint wss://chainrpc-wss.testnet.mev-commit.xyz \
         --bidder-registry-contract 0xf960f272e6Cb64b2BDe29c2174ce6BEA998Aa067 \
