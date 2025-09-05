@@ -9,7 +9,7 @@ icon: "gear"
   <Step title="(Optional) Create an account">
     First you'll need to obtain or create a standard Ethereum account (secp256k1 keypair). We highly recommend storing your account in a password protected keystore file, rather than storing the private key unencrypted. If you plan to fund this account with a non-trivial amount of ETH, please independently verify any tools and/or procedures you adopt.
 
-    If you already have a secure Ethereum account, you're good to move on from this step.
+    If you already have a keystore generated, or want to use an existing L1 account's keystore, you're good to move on from this step.
     
     Otherwise the quickest way to generate a new keystore is to install foundry and create the file in a single command:
     ```shell
@@ -18,12 +18,14 @@ icon: "gear"
 
     The location of the generated file will be printed, otherwise you can specify a path argument according to the [docs](https://getfoundry.sh/cast/reference/wallet/new/).
 
-    <Accordion title="Other ways to create a new keystore file">
-        
+    <Accordion title="Convert an existing private key into a keystore file">
         Install foundry and import an existing private key using cast in a single command. Further docs [here](https://getfoundry.sh/cast/reference/wallet/import).
         ```shell
         curl -L https://foundry.paradigm.xyz | bash && foundryup && cast wallet import account-name --interactive
         ```
+    </Accordion>
+
+    <Accordion title="Other ways to create a new keystore file">
 
         Use [geth's clef tool](https://geth.ethereum.org/docs/fundamentals/account-management#creating-accounts)
         ```shell
@@ -54,33 +56,33 @@ icon: "gear"
             fmt.Println("Keystore file saved in ./keystore directory")
         }
         ```
-
     </Accordion>
+
   </Step>
 
   <Step title="Bridge to the mev-commit chain">
     In order to fund your account on the mev-commit chain, you'll need to bridge ETH from an L1 account. We suggest using our web interface:
 
-    1. Visit [mev-commit.xyz/bridge](https://www.mev-commit.xyz/bridge)
+    1. Visit [mev-commit.xyz/bridge](https://www.mev-commit.xyz/bridge) for mainnet. Testnet bridge frontend is coming soon.
     2. Connect your wallet (MetaMask or WalletConnect supported)
     3. Select Ethereum as the source chain and mev-commit as the destination
     4. Enter the amount of ETH you want to transfer
     5. Click "Bridge" and approve the transaction
 
-    Wait for the bridge transaction to complete. You can see detailed instructions in our [Bridge UI guide](/v1.2.x/get-started/bridge-ui).
+    Wait for the bridge transaction to complete. You can see detailed instructions in our [Bridge UI guide](/v1.2.x/get-started/bridge/bridge).
 
-    For automated or programmatic bridging, you can use our CLI tool by first confirming your operating system and architecture by running `uname -sm` then downloading the appropriate bridge user CLI binary from the [releases](https://github.com/primev/mev-commit/releases/latest) page. 
+    For automated or programmatic bridging, you can use our CLI tool by first confirming your operating system and architecture by running `uname -sm`, then downloading the appropriate bridge user CLI binary from the [releases](https://github.com/primev/mev-commit/releases/latest) page. 
 
-    Or download the bridge CLI from a specific release (example links provided are for `1.2.0-rc3`) directly from the links below:
+    Or download the bridge CLI from a specific release (example links are provided for `1.2.0-rc3`) directly below:
     * [Darwin ARM64](https://github.com/primev/mev-commit/releases/download/v1.2.0-rc3/mev-commit-bridge-user-cli_1.2.0-rc3_Darwin_arm64.tar.gz)
     * [Darwin x86_64](https://github.com/primev/mev-commit/releases/download/v1.2.0-rc3/mev-commit-bridge-user-cli_1.2.0-rc3_Darwin_x86_64.tar.gz)
     * [Linux ARM64](https://github.com/primev/mev-commit/releases/download/v1.2.0-rc3/mev-commit-bridge-user-cli_1.2.0-rc3_Linux_arm64.tar.gz)
     * [Linux x86_64](https://github.com/primev/mev-commit/releases/download/v1.2.0-rc3/mev-commit-bridge-user-cli_1.2.0-rc3_Linux_x86_64.tar.gz)
     * [Windows x86_64](https://github.com/primev/mev-commit/releases/download/v1.2.0-rc3/mev-commit-bridge-user-cli_1.2.0-rc3_Windows_x86_64.zip)
 
-    The CLI application provides two sub-commands to bridge to and from the settlement chain. For more details go the the [bridge documentation](/v1.2.x/get-started/bridge).
+    The CLI application provides two sub-commands to bridge to and from the settlement chain. For more details go the the [bridge CLI documentation](/v1.2.x/get-started/bridge/bridge-cli).
 
-    <Note> Make sure to specify the newly generated account address from the previous step as the destination address for the bridge command. </Note>
+    <Note> When using the bridge CLI, make sure to specify the newly generated account address from the previous step as the destination address for the bridge command. </Note>
 
     ```shell ❯_ example
     ./user-cli bridge-to-settlement --account-key <PRIVATE KEY of source account for funds> --dest-addr <Address to fund on mev-commit chain> --amount 1000000000000000000
