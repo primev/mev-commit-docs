@@ -166,12 +166,13 @@ icon: "gear"
     </CodeGroup>
 
     <Accordion title="❗🕵️‍♂️ Tips">
+        ❗ The `keystore-path` flag expects the directory path for your keystore, not the file path itself. Example: if your keystore file is at `/Users/bob/keystore/30d2db95-keystore.json` you would use `--keystore-path /Users/bob/keystore`.
+        
+        ❗ If you get an `could not decrypt key with given password` error, make sure there's no other keystore files in the relevant directory.
 
         ❗ If you really don't want to use a keystore, `priv-key-file` can replace the `keystore-path` and `keystore-password` flags.
 
         ❗ The `--peer-type` flag can be used to run a `provider` or `bidder` node.
-
-        ❗ The `keystore-path` flag expects the directory path for your keystore, not the file path itself. Example: if your keystore file is at `/Users/bob/keystore/30d2db95-keystore.json` you would use `--keystore-path /Users/bob/keystore`.
 
         ❗ In order to run a provider node, the machine needs to be publicly accessible. Also, the mev-commit node will have to be configured with the public IP of the node using the `nat-addr` parameter.
 
