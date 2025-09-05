@@ -36,6 +36,21 @@ user-cli bridge-to-l1 \
 
 </CodeGroup>
 
+<Accordion title="Testnet command">
+
+```bash ❯_ bridge to settlement chain from L1
+user-cli bridge-to-settlement \
+        --account-key $PRIVATE_KEY \
+        --dest-addr $DEST_ADDR \
+        --amount $AMOUNT_IN_WEI \
+        --l1-rpc-url https://0xrpc.io/hoodi \
+        --settlement-rpc-url https://chainrpc.testnet.mev-commit.xyz \
+        --l1-contract-addr 0x0b3b6Cf113959214E313d6Ad37Ad56831acb1776 \
+        --settlement-contract-addr 0xFaF6F0d4bbc7bC33a4b403b274aBb82d0E794202
+```
+
+</Accordion>
+
 A static fee is charged for bridging from the mev-commit chain to L1, to compensate the relayer for transaction inclusion. This fee is currently set to 0.005 ETH.
 
 <Note> Users can also use a keystore file instead of using the private key. </Note>
