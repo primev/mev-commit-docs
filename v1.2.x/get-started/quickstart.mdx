@@ -71,6 +71,12 @@ icon: "gear"
 
     Wait for the bridge transaction to complete. You can see detailed instructions in our [Bridge UI guide](/v1.2.x/get-started/bridge/bridge).
 
+    <Note>
+    Testnet currently requires using the bridge CLI.
+    </Note>
+
+    <Accordion title="Alternatively use the bridge CLI">
+
     For automated or programmatic bridging, you can use our CLI tool by first confirming your operating system and architecture by running `uname -sm`, then downloading the appropriate bridge user CLI binary from the [releases](https://github.com/primev/mev-commit/releases/latest) page. 
 
     Or download the bridge CLI from a specific release (example links are provided for `1.2.0-rc3`) directly below:
@@ -87,6 +93,8 @@ icon: "gear"
     ```shell ❯_ example
     ./user-cli bridge-to-settlement --account-key <PRIVATE KEY of source account for funds> --dest-addr <Address to fund on mev-commit chain> --amount 1000000000000000000
     ```
+    </Accordion>
+
   </Step>
 
   <Step title="Run a mev-commit node">
