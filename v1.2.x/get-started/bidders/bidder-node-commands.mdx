@@ -97,10 +97,6 @@ curl -s http://localhost:13523/v1/bidder/deposit_manager_status | jq
     {
       "provider": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
       "targetDeposit": "3000000000000000000"
-    },
-    {
-      "provider": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
-      "targetDeposit": "3000000000000000000"
     }
   ]
 }
@@ -111,7 +107,7 @@ curl -s http://localhost:13523/v1/bidder/deposit_manager_status | jq
 To disable the deposit manager call:
 
 ```shell ❯_ terminal
-curl -X POST http://localhost:13523/v1/bidder/disable_deposit_manager
+curl -X POST http://localhost:13523/v1/bidder/disable_deposit_manager | jq
 ```
 
 This will set the bidder EOA's code to zero address, effectively disabling the previous EIP-7702 delegation for the EOA.
