@@ -115,8 +115,6 @@ icon: "gear"
 
     ### Mainnet
 
-    Ensure the contract address values match those in [mainnet core contracts page](/v1.2.x/developers/networks/mainnet#core-contracts).
-
     <CodeGroup>
 
     ```bash ❯_ bidder
@@ -127,10 +125,6 @@ icon: "gear"
         --target-deposit-amount <WEI_AMOUNT> \
         --bootnodes /dnsaddr/bootnode.mev-commit.xyz \
         --settlement-ws-rpc-endpoint wss://chainrpc-wss.mev-commit.xyz \
-        --bidder-registry-contract "${BIDDER_REGISTRY_ADDR}" \
-        --provider-registry-contract "${PROVIDER_REGISTRY_ADDR}" \
-        --block-tracker-contract "${BLOCK_TRACKER_ADDR}" \
-        --preconf-contract "${PRECONF_ADDR}"
     ```
 
     ```bash ❯_ provider
@@ -140,18 +134,12 @@ icon: "gear"
         --keystore-password <PASSWORD> \
         --bootnodes /dnsaddr/bootnode.mev-commit.xyz \
         --settlement-ws-rpc-endpoint wss://chainrpc-wss.mev-commit.xyz \
-        --bidder-registry-contract "${BIDDER_REGISTRY_ADDR}" \
-        --provider-registry-contract "${PROVIDER_REGISTRY_ADDR}" \
-        --block-tracker-contract "${BLOCK_TRACKER_ADDR}" \
-        --preconf-contract "${PRECONF_ADDR}" \
         --nat-addr <PUBLIC_IP>
     ```
 
     </CodeGroup>
 
     ### Testnet
-
-    Ensure the contract address values match those in [testnet core contracts page](/v1.2.x/developers/networks/testnet#core-contract-addresses-mev-commit-chain).
 
     <CodeGroup>
 
@@ -163,10 +151,6 @@ icon: "gear"
         --target-deposit-amount <WEI_AMOUNT> \
         --bootnodes /dnsaddr/bootnode.testnet.mev-commit.xyz \
         --settlement-ws-rpc-endpoint wss://chainrpc-wss.testnet.mev-commit.xyz \
-        --bidder-registry-contract 0xf960f272e6Cb64b2BDe29c2174ce6BEA998Aa067 \
-        --provider-registry-contract 0xF62064943680487916558743c26D928Fb162cf5d \
-        --block-tracker-contract 0x535F5204cFc8A52297dFA3CBe572869b6294f88E \
-        --preconf-contract 0x911B08cb805E737DE3ea4E2326CD951E9EfCe39A
     ```
 
     ```bash ❯_ provider
@@ -176,10 +160,6 @@ icon: "gear"
         --keystore-password <PASSWORD> \
         --bootnodes /dnsaddr/bootnode.testnet.mev-commit.xyz \
         --settlement-ws-rpc-endpoint wss://chainrpc-wss.testnet.mev-commit.xyz \
-        --bidder-registry-contract 0xf960f272e6Cb64b2BDe29c2174ce6BEA998Aa067 \
-        --provider-registry-contract 0xF62064943680487916558743c26D928Fb162cf5d \
-        --block-tracker-contract 0x535F5204cFc8A52297dFA3CBe572869b6294f88E \
-        --preconf-contract 0x911B08cb805E737DE3ea4E2326CD951E9EfCe39A \
         --nat-addr <PUBLIC_IP>
     ```
 
