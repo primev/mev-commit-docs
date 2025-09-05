@@ -11,39 +11,48 @@ icon: "gear"
 
     If you already have a keystore generated, or want to use an existing L1 account's keystore, you're good to move on from this step.
     
-    Otherwise the quickest way to generate a new keystore is to install foundry and create the file in a single command:
-    ```shell
-    curl -L https://foundry.paradigm.xyz | bash && foundryup && cast wallet new keystore
+    Otherwise the quickest way to generate a new keystore is to install geth and create the file in a single command:
+
+    <CodeGroup>
+    ```shell ❯_ MacOS using brew
+    brew install geth && geth account new --keystore $HOME/keystore
     ```
 
-    The location of the generated file will be printed, otherwise you can specify a path argument according to the [docs](https://getfoundry.sh/cast/reference/wallet/new/).
+    ```shell ❯_ Ubuntu using apt
+    sudo add-apt-repository -y ppa:ethereum/ethereum && sudo apt-get update && sudo apt-get install -y geth && geth account new --keystore $HOME/keystore
 
-    <Accordion title="Convert an existing private key into a keystore file">
-        Install foundry and import an existing private key using cast in a single command. Further docs [here](https://getfoundry.sh/cast/reference/wallet/import).
-        ```shell
-        curl -L https://foundry.paradigm.xyz | bash && foundryup && cast wallet import account-name --interactive
+    ```
+    </CodeGroup>
+
+    <Accordion title="Convert an existing private key file into a keystore">
+        ```shell ❯_
+        brew install geth && geth account import --keystore "$HOME/keystore" private_key_file.txt
         ```
     </Accordion>
 
-    <Accordion title="Other ways to create a new keystore file">
+    <Accordion title="Create a new keystore file programmatically">
 
-        Use [geth's clef tool](https://geth.ethereum.org/docs/fundamentals/account-management#creating-accounts)
-        ```shell
-        clef newaccount --keystore ./keystore
-        ```
-        
-        Or import geth as a dependency in your golang project and programmatically create a new keystore file. Read more [here](https://goethereumbook.org/keystore/).
+        Import geth as a dependency in your golang project and programmatically create a new keystore file. Read more [here](https://goethereumbook.org/keystore/).
 
         ```go
         package main
+
         import (
             "fmt"
             "log"
             "os"
+            "path/filepath"
+
             "github.com/ethereum/go-ethereum/accounts/keystore"
         )
+        
         func main() {
-            ks := keystore.NewKeyStore("./keystore", keystore.StandardScryptN, keystore.StandardScryptP)
+            home, err := os.UserHomeDir()
+            if err != nil {
+                log.Fatal(err)
+            }
+            keystoreDir := filepath.Join(home, "keystore")
+            ks := keystore.NewKeyStore(keystoreDir, keystore.StandardScryptN, keystore.StandardScryptP)
             password := os.Getenv("PASSWORD")
             if password == "" {
                 log.Fatal("PASSWORD environment variable not set")
@@ -53,7 +62,7 @@ icon: "gear"
                 log.Fatal(err)
             }
             fmt.Println("New account address:", account.Address.Hex())
-            fmt.Println("Keystore file saved in ./keystore directory")
+            fmt.Println("Keystore file saved in:", keystoreDir)
         }
         ```
     </Accordion>
