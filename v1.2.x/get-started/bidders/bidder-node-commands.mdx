@@ -1,9 +1,8 @@
 ---
 title: "Bidder Node Commands"
+description: "This guide covers how to interact with your bidder node."
 sidebarTitle: Bidder Node Commands
 ---
-
-## Interacting with the Bidder Node
 
 <Note>Ensure you have completed the steps from the [quickstart guide](/v1.2.x/get-started/quickstart) in a separate terminal. This will set up your environment and spin up a bidder node.</Note>
 
@@ -42,7 +41,7 @@ curl -s "http://localhost:13523/v1/bidder/get_deposit?provider=0x3C44CdDdB6a900f
 
 <Tip>Deposit represents the funds in the bidder's account that can be used to submit bids on the mev-commit p2p-network and settled on-chain.</Tip>
 
-## Deposit Manager
+## Deposit manager
 
 It's recommended that bidders leverage the _deposit manager_ to deposit, and automate ongoing re-deposits to specific providers.
 
@@ -52,7 +51,7 @@ A target deposit is the desired amount of funds that a bidder wants to be deposi
 
 If you followed the [quickstart guide](/v1.2.x/get-started/quickstart) exactly, your bidder node will already have the deposit manager enabled. To confirm:
 
-### Get Deposit Manager Status
+### Get deposit manager status
 
 ```shell ❯_ terminal
 curl -s http://localhost:13523/v1/bidder/deposit_manager_status | jq
@@ -122,7 +121,7 @@ curl -s -X POST http://localhost:13523/v1/bidder/set_target_deposits -H 'Content
 
 You should be able to overwrite target deposits for providers at any time using the `set_target_deposits` endpoint.
 
-### Disable Deposit Manager
+### Disable deposit manager
 
 To disable the deposit manager call:
 
@@ -199,7 +198,7 @@ The topology endpoint can be used to check which provider nodes the bidder node 
 curl http://localhost:13523/v1/debug/topology
 ```
 
-## Querying for Proposers API
+## Querying for proposers API
 
 This API is enabled by default, the following environment variables could be set when launching a mev-commit client:
 
