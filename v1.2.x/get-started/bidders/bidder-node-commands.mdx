@@ -5,7 +5,7 @@ sidebarTitle: Bidder Node Commands
 
 ## Interacting with the Bidder Node
 
-<Note>Ensure you have completed the [Quickstart](/v1.2.x/get-started/quickstart) step in a separate terminal. This will set up your environment and spin up a bidder node.</Note>
+<Note>Ensure you have completed the steps from the [quickstart guide](/v1.2.x/get-started/quickstart) in a separate terminal. This will set up your environment and spin up a bidder node.</Note>
 
 ## Getting deposits and bidder balance
 
@@ -15,7 +15,7 @@ To query all deposits and your bidder's balance on the mev-commit chain:
 curl -s "http://localhost:13523/v1/bidder/get_all_deposits" | jq
 ```
 
-```json ❯_ Response
+```json ❯_ typical response
 {
 "deposits": [
 	{
@@ -33,7 +33,7 @@ Or to query a deposit specific to a single provider:
 curl -s "http://localhost:13523/v1/bidder/get_deposit?provider=0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC" | jq
 ```
 
-```json ❯_ Response
+```json ❯_ typical response
 {
 "amount": "0",
 "provider": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC"
@@ -58,7 +58,7 @@ If you followed the [quickstart guide](/v1.2.x/get-started/quickstart) exactly, 
 curl -s http://localhost:13523/v1/bidder/deposit_manager_status | jq
 ```
 
-```json
+```json ❯_ typical response
 {
   "enabled": true,
   "targetDeposits": [
@@ -76,8 +76,8 @@ There are two ways to enable the deposit manager...
 
 The easiest way to enable the deposit manager is by setting two flags/environment variables upon starting your bidder node:
 
-```shell
-> ./mev-commit --enable-deposit-manager=true --target-deposit-amount=<amount>
+```shell ❯_ terminal
+mev-commit --enable-deposit-manager=true --target-deposit-amount=<amount>
 ```
 
 Where the target deposit amount will be set for all valid providers that're currently a part of the network. Alternatively you can use the `MEV_COMMIT_ENABLE_DEPOSIT_MANAGER` and `MEV_COMMIT_TARGET_DEPOSIT_AMOUNT` environment variables.
@@ -88,8 +88,11 @@ This is the method used by the [quickstart guide](/v1.2.x/get-started/quickstart
 
 To enable the deposit manager through API, use the following command:
 
-```shell
-> curl -s -X POST http://localhost:13523/v1/bidder/enable_deposit_manager | jq
+```shell ❯_ terminal
+curl -s -X POST http://localhost:13523/v1/bidder/enable_deposit_manager | jq
+```
+
+```json ❯_ typical response
 {
   "success": true
 }
@@ -97,8 +100,11 @@ To enable the deposit manager through API, use the following command:
 
 Then to set target deposits customized to each provider:
 
-```shell
-> curl -s -X POST http://localhost:13523/v1/bidder/set_target_deposits -H 'Content-Type: application/json' -d '{"target_deposits":[{"provider":"0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC","target_deposit":"3000000000000000000"}]}' | jq
+```shell ❯_ terminal
+curl -s -X POST http://localhost:13523/v1/bidder/set_target_deposits -H 'Content-Type: application/json' -d '{"target_deposits":[{"provider":"0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC","target_deposit":"3000000000000000000"}]}' | jq
+```
+
+```json ❯_ typical response
 {
   "successfullySetDeposits": [
     {
@@ -122,20 +128,29 @@ To disable the deposit manager call:
 curl -X POST http://localhost:13523/v1/bidder/disable_deposit_manager | jq
 ```
 
+```json ❯_ typical response
+{
+  "success": true
+}
+```
+
 This will set the bidder EOA's code to zero address, effectively disabling the previous EIP-7702 delegation for the EOA.
 
 ## Withdraw Funds
 
 To withdraw funds from your deposit to a specific provider, use the following command:
 
-```shell
-> curl -s -X POST http://localhost:13523/v1/bidder/request_withdrawals \
+```shell ❯_ terminal
+curl -s -X POST http://localhost:13523/v1/bidder/request_withdrawals \
   -H 'Content-Type: application/json' \
   -d '{
     "providers": [
       "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC"
     ]
   }' | jq
+```
+
+```json ❯_ typical response
 {
   "providers": [
     "3c44cdddb6a900fa2b585dd299e03d12fa4293bc"
@@ -156,6 +171,9 @@ curl -s -X POST http://localhost:13523/v1/bidder/withdraw \
       "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC"
     ]
   }' | jq
+```
+
+```json ❯_ typical response
 {
   "providers": [
     "3c44cdddb6a900fa2b585dd299e03d12fa4293bc"
