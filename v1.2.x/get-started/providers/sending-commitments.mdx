@@ -44,23 +44,112 @@ message Bid {
       description: "Signed bid message from bidders to the provider."
       required: ["txHashes", "bidAmount", "blockNumber", "bidDigest"]
     }
-    example: "{"bidDigest": "9dJinwL+FZ6B1xsIQQo8t8B0ZXJubJwY86l/Yu7yAH159QrPHU0qj2P+YFj+llbuI1ZygdxGsX8+P3byMEA5ig==", "status": "STATUS_ACCEPTED"}"
+    example: "{\"txHashes\": [\"fe4cb47db3630551beedfbd02a71ecc69fd59758e2ba699606e2d5c74284ffa7\", \"71c1348f2d7ff7e814f9c3617983703435ea7446de420aeac488bf1de35737e8\"], \"amount\": \"1000000000000000000\", \"blockNumber\": 123456, \"bidDigest\": \"9dJinwL+FZ6B1xsIQQo8t8B0ZXJubJwY86l/Yu7yAH159QrPHU0qj2P+YFj+llbuI1ZygdxGsX8+P3byMEA5ig==\", \"decayStartTimestamp\":1725365301000, \"decayEndTimestamp\":1725365302000, \"revertingTxHashes\":[\"fe4cb47db3630551beedfbd02a71ecc69fd59758e2ba699606e2d5c74284ffa7\"]}"
   };
-  repeated string tx_hashes = 1;
-  string bid_amount = 2;
-  int64 block_number = 3;
-  bytes bid_digest = 4;
-  int64 decay_start_timestamp = 5;
-  int64 decay_end_timestamp = 6;
-  repeated string reverting_tx_hashes = 7;
-  repeated string raw_transactions = 8;
-  string slash_amount = 9;
+  repeated string tx_hashes = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description: "Hex string encoding of the hashes of the transactions that the bidder wants to include in the block."
+    pattern: "[a-fA-F0-9]{64}"
+  }, (buf.validate.field).cel = {
+      id: "tx_hashes",
+      message: "tx_hashes must be a valid array of transaction hashes.",
+      expression: "this.all(r, r.matches('^[a-fA-F0-9]{64}$'))"
+  }];
+  string bid_amount = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description: "Amount of ETH that the bidder is willing to pay to the provider for including the transaction in the block."
+    pattern: "[0-9]+"
+  }, (buf.validate.field).cel = {
+      id: "bid_amount",
+      message: "bid_amount must be a valid integer.",
+      expression: "this.matches('^[1-9][0-9]*$')"
+  }];
+  int64 block_number = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description: "Max block number that the bidder wants to include the transaction in."
+  }, (buf.validate.field).int64.gt = 0];
+  bytes bid_digest = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description: "Digest of the bid message signed by the bidder."
+  }, (buf.validate.field).bytes = {
+      min_len: 1,
+      max_len: 64
+  }];
+  int64 decay_start_timestamp = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description: "Timestamp at which the bid starts decaying."
+  }, (buf.validate.field).cel = {
+      id: "decay_start_timestamp",
+      message: "decay_start_timestamp must be a valid integer.",
+      expression: "uint(this) > 0"
+  }];
+  int64 decay_end_timestamp = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description: "Timestamp at which the bid ends decaying."
+  }, (buf.validate.field).cel = {
+      id: "decay_end_timestamp",
+      message: "decay_end_timestamp must be a valid integer.",
+      expression: "uint(this) > 0"
+  }];
+  repeated string reverting_tx_hashes = 7 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description: "Optional array of tx hashes that are allowed to revert or be discarded."
+  }, (buf.validate.field).cel = {
+      id: "reverting_tx_hashes",
+      message: "reverting_tx_hashes must be an array of valid transaction hashes.",
+      expression: "this.all(r, r.matches('^[a-fA-F0-9]{64}$'))"
+  }];
+  repeated string raw_transactions = 8 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description: "Optional array of RLP encoded raw signed transaction payloads that the bidder wants to include in the block."
+  }, (buf.validate.field).cel = {
+      id: "raw_transactions",
+      message: "raw_transactions must be an array of valid raw transactions.",
+      expression: "this.all(r, r.matches('^[a-fA-F0-9]+$'))"
+  }];
+  string slash_amount = 9 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description: "Amount of ETH that will be slashed from the provider if they fail to include the transaction. If zero, the decayed bid amount is used for slashing."
+    pattern: "[0-9]+"
+  }, (buf.validate.field).cel = {
+      id: "slash_amount",
+      message: "slash_amount must be a valid integer.",
+      expression: "this == '' || (this.matches('^[0-9]+$') && uint(this) >= 0)"
+  }];
+  BidOptions bid_options = 10 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description: "Optional bid options for the transaction."
+  }];
 };
 ```
 The raw transactions are optionally provided by the bidder. If provided the order of the transaction hashes in `txHashes` will be the same as the order or the corresponding `rawTransactions`.
 
 Below is an image of the flow through which bids would be received through the gRPC API
 ![gRPC Flow for Getting Bids](/v1.2.x/images/grpc-flow-getbids.png)
+
+The bid options are optionally used by bidders if they want additional constraints on the transaction. Currently, mev-commit supports positional constraints on the transactions w.r.t the block. The decision logic should take these into consideration before returning.
+
+```proto
+message PositionConstraint {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      title: "Position Constraint"
+      description: "Constraint on the position of the transaction in the block."
+    }
+  };
+  enum Anchor {
+    ANCHOR_UNSPECIFIED = 0;
+    ANCHOR_TOP = 1; // Position is at the top of the block
+    ANCHOR_BOTTOM = 2; // Position is at the bottom of the block
+  }
+  enum Basis {
+    BASIS_UNSPECIFIED = 0;
+    BASIS_PERCENTILE = 1; // Position is a percentile of the block size
+    BASIS_ABSOLUTE = 2; // Position is an absolute position in the block
+    BASIS_GAS_PERCENTILE = 3; // Position is a percentile of the gas used in the block
+  }
+  Anchor anchor = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description: "Anchor position of the transaction in the block."
+  }];
+  Basis basis = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description: "Basis for the position constraint."
+  }];
+  int32 value = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description: "Value of the position constraint. If anchor is TOP, this is the position from the top of the block. If anchor is BOTTOM, this is the position from the bottom of the block."
+  }];
+};
+```
+
 </Step>
 <Step title="Process Bids">
 
