@@ -62,7 +62,11 @@ Bidders will start receiving commitments instantly in most cases. If you're havi
 
 ## Bidder Depositing
 
-Bidders on mev-commit need to be funded with ETH which can be obtained via [bridging](/v1.2.x/get-started/bridge). Then a bidder must deposit toward one or more providers. To automate this process, the bidder can enable the deposit manager and set target deposits for each provider. Read more about the deposit manager [here](https://docs.primev.xyz/v1.2.x/get-started/bidders/bidder-node-commands#deposit-manager).
+Bidders must bridge ETH to the mev-commit chain, then deposit toward one or more providers. As bids are settled, the bidder must "top up" their deposits. To automate this process, the bidder can enable the deposit manager and set target deposits for each provider.
+
+A target deposit is the desired amount of funds that a bidder wants to be deposited for a specific provider. Once a target deposit is set, the relevant deposit will be automatically "topped up" to the target value during the settlement process. Bidders should set their target deposits to the maximum cumulative amount of ETH they would ever bid to a provider with respect to a single L1 block.
+
+Read more about the deposit manager [here](https://docs.primev.xyz/v1.2.x/get-started/bidders/bidder-node-commands#deposit-manager).
 
 {/* ## (Optional) Provider RPCs
 

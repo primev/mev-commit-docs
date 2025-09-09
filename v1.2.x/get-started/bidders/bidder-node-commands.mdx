@@ -47,7 +47,7 @@ It's recommended that bidders leverage the _deposit manager_ to deposit, and aut
 
 The deposit manager is an on-chain contract that a bidder account can enable by "setting their code" to the implementation using EIP-7702. After enabling the deposit manager, a bidder's deposits are automatically replenished from the bidder's EOA balance during the preconf settlement process, according to _target deposit_ amounts configured by the bidder.
 
-A target deposit is the desired amount of funds that a bidder wants to be deposited for a specific provider. Bidders should set this to the maximum cumulative amount of ETH they would ever bid to a provider with respect to a single L1 block.
+A target deposit is the desired amount of funds that a bidder wants to be deposited for a specific provider. Once a target deposit is set, the relevant deposit will be automatically "topped up" to the target value during the settlement process. Bidders should set their target deposits to the maximum cumulative amount of ETH they would ever bid to a provider with respect to a single L1 block.
 
 If you followed the [quickstart guide](/v1.2.x/get-started/quickstart) exactly, your bidder node will already have the deposit manager enabled. To confirm:
 
