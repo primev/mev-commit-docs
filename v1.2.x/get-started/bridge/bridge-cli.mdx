@@ -17,7 +17,7 @@ curl -Ls $(curl -s https://api.github.com/repos/primev/mev-commit/releases \
   | head -n1) | tar -xz -C ~
 ```
 
-On MacOS, a warning may appear about running untrusted software. Try using `xattr -d com.apple.quarantine ./user-cli` to disable this warning, or feel free to build/use the CLI from source [here](https://github.com/primev/mev-commit/tree/main/bridge/standard).
+The binary will then be available in your $HOME directory as `user-cli`.
 
 <Note>In order to bridge funds, users need to have an account which is funded with mainnet ETH. </Note>
 
