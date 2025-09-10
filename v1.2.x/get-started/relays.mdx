@@ -198,3 +198,13 @@ The mev-commit provider registry contract maintains the list of authorized provi
     ```
   </Accordion>
 </AccordionGroup>
+
+## Steps for v1.2 upgrade
+
+The v1.2 upgrade to the mev-commit protocol will launch on mainnet in September 2025. For relays to enable this upgrade, the following will be required:
+
+* Relays must change the provider registry address used to query provider registrations. The new address will be available soon, and will be available at [https://contracts.mev-commit.xyz/](https://contracts.mev-commit.xyz/) or the [mainnet docs page](/v1.2.x/developers/networks/mainnet#core-contracts).
+* Relays must be able to handle the mev-commit chain starting from genesis. That is, the new provider registry contract address should be re-queried from block zero.
+* Any code relying on chain ID or block number values returned by the mev-commit chain RPC url must be able to handle those values changing.
+
+Please feel free to reach out to us on telegram if you have any questions.
