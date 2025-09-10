@@ -112,11 +112,11 @@ icon: "gear"
 
     You can use the following command which automatically downloads and extracts the v1.2.0-rc3 mev-commit binary for your system into your $HOME directory:
     ```shell
-        curl -Ls $(curl -s https://api.github.com/repos/primev/mev-commit/releases/latest \
-          | grep browser_download_url \
-          | grep "mev-commit_[0-9].*$(uname -s)_$(uname -m).*\.tar\.gz" \
-          | cut -d '"' -f 4 \
-          | head -n1) | tar -xz -C ~
+    curl -Ls $(curl -s https://api.github.com/repos/primev/mev-commit/releases/latest \
+      | grep browser_download_url \
+      | grep "mev-commit_[0-9].*$(uname -s)_$(uname -m).*\.tar\.gz" \
+      | cut -d '"' -f 4 \
+      | head -n1) | tar -xz -C ~
     ```
 
     Run `cd $HOME` if you used the command above.
