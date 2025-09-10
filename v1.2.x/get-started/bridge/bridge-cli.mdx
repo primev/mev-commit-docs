@@ -5,14 +5,17 @@ sidebarTitle: Bridge CLI
 
 <p> The mev-commit chain uses native ETH that must be bridged from L1 using our lock and mint bridge. A user CLI application can be downloaded from the [releases page](https://github.com/primev/mev-commit/releases/latest). </p>
 
-Or download the 1.1.0 bridge CLI directly from the links below:
-* [Darwin ARM64](https://github.com/primev/mev-commit/releases/download/v1.2.x/mev-commit-bridge-user-cli_1.1.0_Darwin_arm64.tar.gz)
-* [Darwin x86_64](https://github.com/primev/mev-commit/releases/download/v1.2.x/mev-commit-bridge-user-cli_1.1.0_Darwin_x86_64.tar.gz)
-* [Linux ARM64](https://github.com/primev/mev-commit/releases/download/v1.2.x/mev-commit-bridge-user-cli_1.1.0_Linux_arm64.tar.gz)
-* [Linux x86_64](https://github.com/primev/mev-commit/releases/download/v1.2.x/mev-commit-bridge-user-cli_1.1.0_Linux_x86_64.tar.gz)
-* [Windows x86_64](https://github.com/primev/mev-commit/releases/download/v1.2.x/mev-commit-bridge-user-cli_1.1.0_Windows_x86_64.zip)
-
 You can confirm your operating system and architecture by running `uname -sm`.
+
+Or use the following command which automatically downloads and extracts the latest bridge user CLI binary for your system into your $HOME directory:
+
+```shell
+curl -Ls $(curl -s https://api.github.com/repos/primev/mev-commit/releases \
+  | grep browser_download_url \
+  | grep "mev-commit-bridge-user-cli_[0-9].*$(uname -s)_$(uname -m)\.tar\.gz" \
+  | cut -d '"' -f 4 \
+  | head -n1) | tar -xz -C ~
+```
 
 On MacOS, a warning may appear about running untrusted software. Try using `xattr -d com.apple.quarantine ./user-cli` to disable this warning, or feel free to build/use the CLI from source [here](https://github.com/primev/mev-commit/tree/main/bridge/standard).
 

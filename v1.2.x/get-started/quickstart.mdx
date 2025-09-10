@@ -88,12 +88,14 @@ icon: "gear"
 
     For automated or programmatic bridging, you can use our CLI tool by first confirming your operating system and architecture by running `uname -sm`, then downloading the appropriate bridge user CLI binary from the [releases](https://github.com/primev/mev-commit/releases/latest) page. 
 
-    Or download the bridge CLI from a specific release (example links are provided for `1.2.0-rc3`) directly below:
-    * [Darwin ARM64](https://github.com/primev/mev-commit/releases/download/v1.2.0-rc3/mev-commit-bridge-user-cli_1.2.0-rc3_Darwin_arm64.tar.gz)
-    * [Darwin x86_64](https://github.com/primev/mev-commit/releases/download/v1.2.0-rc3/mev-commit-bridge-user-cli_1.2.0-rc3_Darwin_x86_64.tar.gz)
-    * [Linux ARM64](https://github.com/primev/mev-commit/releases/download/v1.2.0-rc3/mev-commit-bridge-user-cli_1.2.0-rc3_Linux_arm64.tar.gz)
-    * [Linux x86_64](https://github.com/primev/mev-commit/releases/download/v1.2.0-rc3/mev-commit-bridge-user-cli_1.2.0-rc3_Linux_x86_64.tar.gz)
-    * [Windows x86_64](https://github.com/primev/mev-commit/releases/download/v1.2.0-rc3/mev-commit-bridge-user-cli_1.2.0-rc3_Windows_x86_64.zip)
+    Or use the following command which automatically downloads and extracts the latest bridge user CLI binary for your system into your $HOME directory:
+    ```shell
+    curl -Ls $(curl -s https://api.github.com/repos/primev/mev-commit/releases \
+      | grep browser_download_url \
+      | grep "mev-commit-bridge-user-cli_[0-9].*$(uname -s)_$(uname -m)\.tar\.gz" \
+      | cut -d '"' -f 4 \
+      | head -n1) | tar -xz -C ~
+    ```
 
     The CLI application provides two sub-commands to bridge to and from the settlement chain. For more details go the the [bridge CLI documentation](/v1.2.x/get-started/bridge/bridge-cli).
 
