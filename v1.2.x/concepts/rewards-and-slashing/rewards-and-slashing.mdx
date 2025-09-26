@@ -57,9 +57,10 @@ We discuss each case in more detail below.
 Upon successfully fulfilling a commitment, a provider will be rewarded the bid amount, minus a 2% fee (this fee accumulates in the mev-commit protocol treasury). This reward is paid by the mev-commit oracle to the provider’s account after the corresponding slot is settled by the oracle according to the block included in L1.
 
 ### Slashing for Broken Commitment
-Upon breaking a commitment, a provider will be slashed from their stake equal to the bid amount they committed to (taking into account the bid decay), including a 5% penalty fee. The principal slash amount will be transferred to the bidder for the broken commitment, and the penalty fee will be transferred to the mev-commit protocol treasury. 
-If the provider does not have enough stake left to cover the entirety of the slashing penalty and the bid amount, the maximal amount of the bid amount that can be slashed will be slashed and given to the bidder. Any remaining funds in the provider's stake will go towards maximally paying the 5% slashing penalty to the treasury. 
-The precedence means the bid amount slashing that goes to the bidder will be prioritized first, and only after that will the treasury be compensated for as much of the 5% slashing penalty as possible.
+
+Upon breaking a commitment, a provider's stake will be slashed exactly equal to the slash amount specified in the bid they committed to, in addition to a 5% penalty fee. Decay is **not** applied to the slash amount. The principal slash amount will be transferred to the bidder for the broken commitment, and the penalty fee will be transferred to the mev-commit protocol treasury.
+If the provider does not have enough stake left to cover the entirety of the slash amount and penalty fee, the maximal amount of the slash amount that can be slashed will be slashed and given to the bidder. Any remaining funds in the provider's stake will go towards maximally paying the 5% slashing penalty to the treasury. 
+The precedence means the slash amount that goes to the bidder will be prioritized first, and only after that will the treasury be compensated for as much of the 5% slashing penalty as possible.
 
 ### Neutral Outcome
 The protocol does not take action on commitments that are not opened by the provider or the bidder. This happens if the commitment provider is not the execution provider for the corresponding winning block, in which case there is no point in opening the commitment.
