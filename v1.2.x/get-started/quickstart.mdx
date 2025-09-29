@@ -127,8 +127,6 @@ icon: "gear"
     
     Now execute the node binary, selecting either a bidder or provider configuration based on your role in the network. Bidders must set a `target-deposit-amount` which will be deposited for each valid provider, in order to send bids.
 
-    ### Mainnet
-
     <CodeGroup>
 
     ```bash ❯_ bidder
@@ -153,7 +151,7 @@ icon: "gear"
 
     </CodeGroup>
 
-    ### Testnet
+    <Accordion title="Testnet Instructions">
 
     <CodeGroup>
 
@@ -178,6 +176,8 @@ icon: "gear"
     ```
 
     </CodeGroup>
+
+    </Accordion>
 
     <Accordion title="❗🕵️‍♂️ Tips">
         ❗ The `keystore-path` flag expects the directory path for your keystore, not the file path itself. Example: if your keystore file is at `/Users/bob/keystore/30d2db95-keystore.json` you would use `--keystore-path /Users/bob/keystore`.
