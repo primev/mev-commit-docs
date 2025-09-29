@@ -1,12 +1,13 @@
 ---
-title: "Quickstart for mev-commit node"
+title: "Quickstart your mev-commit node"
 description: "This guide covers everything you need to set up your mev-commit node."
 sidebarTitle: Quickstart
 icon: "gear"
 ---
 
-<Steps>
-  <Step title="Create an account (optional)">
+    ### Quickstart 1-2-3
+
+  <Accordion title="[Optional] Create an Ethereum account">
     First you'll need to obtain or create a standard Ethereum account (secp256k1 keypair). We highly recommend storing your account in a password protected keystore file, rather than storing the private key unencrypted. If you plan to fund this account with a non-trivial amount of ETH, please independently verify any tools and/or procedures you adopt.
 
     If you already have a keystore generated, or want to use an existing L1 account's keystore, you're good to move on from this step.
@@ -67,24 +68,15 @@ icon: "gear"
         ```
     </Accordion>
 
-  </Step>
+  </Accordion>
 
+<Steps>
   <Step title="Bridge to the mev-commit chain">
-    In order to fund your account on the mev-commit chain, you'll need to bridge ETH from an L1 account. We suggest using our web interface:
+    In order to fund your account on the mev-commit chain, you'll need to bridge ETH from an L1 account. We suggest using our web interface at [mev-commit.xyz/bridge](https://www.mev-commit.xyz/bridge).
+    
+    You can move forward while the bridge transaction completes in ~15m (detailed instructions in our [Bridge UI guide](/v1.2.x/get-started/bridge/bridge)). 
 
-    1. Visit [mev-commit.xyz/bridge](https://www.mev-commit.xyz/bridge) for mainnet. Testnet bridge frontend is coming soon.
-    2. Connect your wallet (MetaMask or WalletConnect supported)
-    3. Select Ethereum as the source chain and mev-commit as the destination
-    4. Enter the amount of ETH you want to transfer
-    5. Click "Bridge" and approve the transaction
-
-    Wait for the bridge transaction to complete. You can see detailed instructions in our [Bridge UI guide](/v1.2.x/get-started/bridge/bridge).
-
-    <Note>
-    Testnet currently requires using the bridge CLI.
-    </Note>
-
-    <Accordion title="Alternatively use the bridge CLI">
+    <Accordion title="CLI alternative for bridging (supports testnet)">
 
     For automated or programmatic bridging, you can use our CLI tool by first confirming your operating system and architecture by running `uname -sm`, then downloading the appropriate bridge user CLI binary from the [releases](https://github.com/primev/mev-commit/releases/latest) page. 
 
@@ -127,8 +119,6 @@ icon: "gear"
     
     Now execute the node binary, selecting either a bidder or provider configuration based on your role in the network. Bidders must set a `target-deposit-amount` which will be deposited for each valid provider, in order to send bids.
 
-    ### Mainnet
-
     <CodeGroup>
 
     ```bash ❯_ bidder
@@ -152,8 +142,23 @@ icon: "gear"
     ```
 
     </CodeGroup>
+    
+<Accordion title="❗🕵️‍♂️ Tips">
+        ❗ The `keystore-path` flag expects the directory path for your keystore, not the file path itself. Example: if your keystore file is at `/Users/bob/keystore/30d2db95-keystore.json` you would use `--keystore-path /Users/bob/keystore`.
+        
+        ❗ If you get an `could not decrypt key with given password` error, make sure there's no other keystore files in the relevant directory.
 
-    ### Testnet
+        ❗ If you really don't want to use a keystore, `priv-key-file` can replace the `keystore-path` and `keystore-password` flags.
+
+        ❗ The `--peer-type` flag can be used to run a `provider` or `bidder` node.
+
+        ❗ In order to run a provider node, the machine needs to be publicly accessible. Also, the mev-commit node will have to be configured with the public IP of the node using the `nat-addr` parameter.
+
+        See the CLI reference by running `./mev-commit --help`.
+
+    </Accordion>
+
+    <Accordion title="Testnet Instructions">
 
     <CodeGroup>
 
@@ -179,25 +184,14 @@ icon: "gear"
 
     </CodeGroup>
 
-    <Accordion title="❗🕵️‍♂️ Tips">
-        ❗ The `keystore-path` flag expects the directory path for your keystore, not the file path itself. Example: if your keystore file is at `/Users/bob/keystore/30d2db95-keystore.json` you would use `--keystore-path /Users/bob/keystore`.
-        
-        ❗ If you get an `could not decrypt key with given password` error, make sure there's no other keystore files in the relevant directory.
-
-        ❗ If you really don't want to use a keystore, `priv-key-file` can replace the `keystore-path` and `keystore-password` flags.
-
-        ❗ The `--peer-type` flag can be used to run a `provider` or `bidder` node.
-
-        ❗ In order to run a provider node, the machine needs to be publicly accessible. Also, the mev-commit node will have to be configured with the public IP of the node using the `nat-addr` parameter.
-
-        See the CLI reference by running `./mev-commit --help`.
-
     </Accordion>
+
+    Providers may continue to the [Registration steps](/v1.2.x/get-started/providers/registering-a-provider).
 
   </Step>
 
   <Step title="If bidder, send a bid">
-    If you've started a bidder node, open a new terminal window to send a bid and receive commitments from providers. Run the following command:
+    If you've started a bidder node, open a new terminal window to send a bid and receive commitments from providers by running the following command:
 
     ```shell ❯_ example
     curl -X POST http://localhost:13523/v1/bidder/bid \
