@@ -6,7 +6,7 @@ icon: "gear"
 ---
 
 <Steps>
-  <Step title="Create an account (optional)">
+  <Accordion title="[Optional] Create an Ethereum account">
     First you'll need to obtain or create a standard Ethereum account (secp256k1 keypair). We highly recommend storing your account in a password protected keystore file, rather than storing the private key unencrypted. If you plan to fund this account with a non-trivial amount of ETH, please independently verify any tools and/or procedures you adopt.
 
     If you already have a keystore generated, or want to use an existing L1 account's keystore, you're good to move on from this step.
@@ -67,7 +67,7 @@ icon: "gear"
         ```
     </Accordion>
 
-  </Step>
+  </Accordion>
 
   <Step title="Bridge to the mev-commit chain">
     In order to fund your account on the mev-commit chain, you'll need to bridge ETH from an L1 account. We suggest using our web interface:
