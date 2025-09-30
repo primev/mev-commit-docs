@@ -1,0 +1,59 @@
+# Lido V2 Guide
+
+This guide explains how to interact with the **Lido V2 integration for mev-commit**.
+---
+
+## Why use this method?
+
+Opting-in validators through the Lido Registry is ideal for validators that already exist through Lido and want to earn additional rewards.
+
+## Overview
+
+⚠️ **Important Notes:**
+- This contract is only deployed on **Hoodi** testnet at the moment. Mainnet and frontend integration coming soon!
+- Operators must be **whitelisted by our team** before registering.
+
+---
+
+## Contract
+
+You can interact directly with the Hoodi contract on Etherscan:
+
+[Lido v2 Hoodi Contract on Etherscan](https://hoodi.etherscan.io/address/0x736fcbDc59b633d8c7DD7fE4F097520A202199cf#code)
+
+---
+
+## Registering as an Operator
+
+### Step 1: Get Whitelisted
+To register, you must first be whitelisted as an operator. Please reach out to our team to request whitelisting.
+
+### Step 2: Call `addStake`
+Once whitelisted, you can register by calling:
+
+```solidity
+addStake(bytes[] blsKeys)
+```
+
+- **blsKeys**: Provide a list of your validator public keys.
+- You must also provide the required ETH collateral when calling.
+
+💡 **Formatting Note for Etherscan:** When providing `bytes[]` input on Etherscan, use the format:
+```
+0xkey1,0xkey2,0xkey3,...
+```
+(No brackets, no quotes)
+
+### Stake Requirement
+The parameter `VanillaRegistry.minStake` determines how much ETH must be staked per validator pubkey to opt-in to mev-commit:
+- **Mainnet**: 1 ETH (not live yet)
+- **Hoodi**: 0.0001 ETH
+
+---
+
+## Withdrawing
+
+If you need to deregister and withdraw:
+1. Call `unstake(bytes[] blsKeys)` to start the process. Validators are considered opted out during this time.
+2. Wait **96 blocks** on Hoodi (the unstaking period).
+3. Call `withdraw(bytes[] blsKeys)` to receive your ETH back.
