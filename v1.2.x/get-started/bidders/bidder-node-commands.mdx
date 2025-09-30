@@ -185,6 +185,22 @@ curl -s -X POST http://localhost:13523/v1/bidder/withdraw \
 }
 ```
 
+## Querying valid providers
+
+The valid providers endpoint can be used to get a list of all staked and fully registered providers.
+
+```shell ❯_ terminal
+curl -s http://localhost:13523/v1/bidder/get_valid_providers | jq
+```
+
+```json ❯_ typical response
+{
+  "validProviders": [
+    "0x88f231bcAa0384936121c31F3972D47F078784Ef"
+  ]
+}
+```
+
 ## Health
 The health endpoint checks whether the bidder node is receiving events from mev-commit chain. This command is useful to determine whether the bidder node has become out of sync.
 ```shell ❯_ terminal
