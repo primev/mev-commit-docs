@@ -38,7 +38,8 @@
                       "v1.2.x/get-started/validators/eigenlayer",
                       "v1.2.x/get-started/validators/symbiotic",
                       "v1.2.x/get-started/validators/vanilla",
-                      "v1.2.x/get-started/validators/lido"
+                      "v1.2.x/get-started/validators/lido",
+                      "v1.2.x/get-started/validators/rocketpool"
                     ]
                   },
                   "v1.2.x/get-started/relays",
@@ -215,8 +216,7 @@
                       "v1.1.0/get-started/validators/validator-guide",
                       "v1.1.0/get-started/validators/eigenlayer",
                       "v1.1.0/get-started/validators/symbiotic",
-                      "v1.1.0/get-started/validators/vanilla",
-                      "v1.1.0/get-started/validators/lido"
+                      "v1.1.0/get-started/validators/vanilla"
                     ]
                   },
                   "v1.1.0/get-started/relays",
