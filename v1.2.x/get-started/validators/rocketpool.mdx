@@ -4,11 +4,17 @@ sidebarTitle: Rocketpool Opt-in
 description: 'Opt into mev-commit using Validators registered through Rocket Minipools.'
 ---
 
-This guide explains how to register Rocket Pool validators with the **Rocketpool Minipool Registry** for mev-commit, how freezing works, and how to deregister.
+This guide explains how to register Rocket Pool validators with the **Rocketpool Minipool Registry** for mev-commit, how freezing works, and how to deregister. This Registry is only available on Hoodi testnet at the moment, with mainnet deployment coming soon.
 
 ---
 
-## How it ties to a minipool
+## Why use this method?
+
+Opting-in validators through the RocketMinipool Registry is ideal for validators that already exist through Rocketpool and want to earn additional rewards.
+
+---
+
+## How the Registry integrates with Rocketpool
 
 The registry relies on Rocketpool’s contracts to check for each validator’s associated minipool, confirm whether the minipool is **active (Staking)**, and determine the **authorized operators** (the node operator and the withdrawal address). The registry itself does not remap keys to minipools and operators; Rocketpool contract data is checked at the time of the relevant call.
 
