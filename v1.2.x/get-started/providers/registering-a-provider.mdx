@@ -61,10 +61,7 @@ You can use the provider API to stake and check your stake balance.
     Here's an example request:
     ```shell
     # Replace with your actual values from the previous step
-    > curl localhost:13523/v1/provider/stake \
-      -X POST \
-      -H "Content-Type: application/json" \
-      -d '{"amount":"1000000000000000000","bls_public_keys":["0x8e7884b3c4961550c13c87c0d0d30bdf8f3c9f3b5e0fb6259b2d1dc8c93432fac8f55d8c0f9e4f2a0f7d0a7b9b9f5d1"],"bls_signatures":["0xa1b2c3..."]}' | jq
+    > curl -sS -X POST "http://localhost:13523/v1/provider/stake/{AMOUNT}?bls_public_keys=${PK1}&bls_public_keys=${PK2}&bls_signatures=${SG1}&bls_signatures=${SG2}" | jq
     ```
   </Step>
   <Step title="Verify Registration">
