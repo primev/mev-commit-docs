@@ -1,8 +1,8 @@
-﻿{
+{
   "openapi": "3.0.0",
   "info": {
     "title": "Provider API",
-    "version": "1.2.0-oas3",
+    "version": "1.2.2-oas3",
     "license": {
       "name": "Business Source License 1.1",
       "url": "https://github.com/primev/mev-commit/blob/main/LICENSE"
@@ -508,16 +508,16 @@
           },
           "bidOptions": {
             "$ref": "#/components/schemas/providerapiv1BidOptions"
+          },
+          "bidderAddress": {
+            "type": "string",
+            "description": "Hex string encoding of the bidder's address recovered from the bid signature.",
+            "pattern": "^[a-fA-F0-9]{40}$"
           }
         },
         "description": "Signed bid message from bidders to the provider.",
         "title": "Bid message",
-        "required": [
-          "txHashes",
-          "bidAmount",
-          "blockNumber",
-          "bidDigest"
-        ]
+        "required": ["txHashes", "bidAmount", "blockNumber", "bidDigest"]
       },
       "providerapiv1BidOption": {
         "type": "object",
@@ -564,19 +564,12 @@
       },
       "providerapiv1PositionConstraintAnchor": {
         "type": "string",
-        "enum": [
-          "ANCHOR_TOP",
-          "ANCHOR_BOTTOM"
-        ],
+        "enum": ["ANCHOR_TOP", "ANCHOR_BOTTOM"],
         "title": "- ANCHOR_TOP: Position is at the top of the block\n - ANCHOR_BOTTOM: Position is at the bottom of the block"
       },
       "providerapiv1PositionConstraintBasis": {
         "type": "string",
-        "enum": [
-          "BASIS_PERCENTILE",
-          "BASIS_ABSOLUTE",
-          "BASIS_GAS_PERCENTILE"
-        ],
+        "enum": ["BASIS_PERCENTILE", "BASIS_ABSOLUTE", "BASIS_GAS_PERCENTILE"],
         "title": "- BASIS_PERCENTILE: Position is a percentile of the block size\n - BASIS_ABSOLUTE: Position is an absolute position in the block\n - BASIS_GAS_PERCENTILE: Position is a percentile of the gas used in the block"
       },
       "v1BidResponse": {
@@ -603,18 +596,11 @@
         },
         "description": "Response sent by the provider with the decision on the bid received.",
         "title": "Bid response",
-        "required": [
-          "bidDigest",
-          "status",
-          "decayDispatchTimestamp"
-        ]
+        "required": ["bidDigest", "status", "decayDispatchTimestamp"]
       },
       "v1BidResponseStatus": {
         "type": "string",
-        "enum": [
-          "STATUS_ACCEPTED",
-          "STATUS_REJECTED"
-        ]
+        "enum": ["STATUS_ACCEPTED", "STATUS_REJECTED"]
       },
       "v1CommitmentInfoResponse": {
         "type": "object",
@@ -629,9 +615,7 @@
         },
         "description": "Response containing the commitment information.",
         "title": "Commitment info response",
-        "required": [
-          "commitments"
-        ]
+        "required": ["commitments"]
       },
       "v1CommitmentInfoResponseCommitment": {
         "type": "object",
