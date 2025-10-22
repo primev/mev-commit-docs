@@ -28,10 +28,26 @@ The vanilla registry strictly accepts BLS public keys as the validator opt-in id
 Accounts must only register pubkeys for which they control or otherwise manage. If an account registers a pubkey for which they do not own/manage (think “griefing”), their relevant stake amount may be slashed.
 </Warning>
 
+
+## How staking works during registration
+
+When registering validators, ETH must be sent as collateral **with the registration transaction**. That stake is **evenly distributed across all validators** included in that registration.
+
 The `VanillaRegistry.minStake` parameter represents how much ETH must be staked per validator pubkey to define that validator as opted-in to mev-commit. On mainnet, `minStake` is 1 ETH, while on Hoodi it's 0.0001 ETH.
 
+> **Clarification:** Over collateralizing a registration does not pre-fund future registrations. If more ETH than `minstake * n keys` is sent during a registration, that extra ETH is simply spread across the validators registered in that tx (this can be used as a slash buffer).
+
+
 For large groups of validators, it is recommended to stake in batches of 10-20 public keys at a time to ensure transaction success without hitting gas limits. This process can be tested on Hoodi.
+
     
 ### Staking validator keys
 
 To vanilla stake validator pubkeys, navigate to the [mainnet](https://validators.mev-commit.xyz/) or [hoodi](https://hoodi.validators.mev-commit.xyz/dashboard) validator dashboard. Choose "Opt-in", confirm the relevant validator's relays have been correctly configured as specified in the [Validator Guide](/v1.2.x/get-started/validators/validator-guide#requirements), then choose the "Simple" staking route.
+
+
+## Reputational VanillaRegistry
+
+In addition to the canonical `VanillaRegistry`, we also operate a **reputational VanillaRegistry** instance.
+
+The reputational registry is a separate contract instance. The functionality of this contract is the same, but has different `minStake` and slash settings.
