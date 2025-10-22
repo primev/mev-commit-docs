@@ -115,7 +115,11 @@ import {
   MevCommitMiddlewareProxyAddress,
   MevCommitMiddlewareImplementationAddress,
   ValidatorOptInRouterProxyAddress,
-  ValidatorOptInRouterImplementationAddress
+  ValidatorOptInRouterImplementationAddress,
+  VanillaReputationalProxyAddress,
+  VanillaReputationalImplementationAddress,
+  ValidatorOptInHubProxyAddress,
+  ValidatorOptInHubImplementationAddress
 } from '/snippets/mainnet-addresses.mdx';
 
 <table>
@@ -179,6 +183,23 @@ import {
       </td>
     </tr>
     <tr>
+      <td rowspan="2">Reputational VanillaRegistry</td>
+      <td style={{ textAlign: 'center' }}>Proxy</td>
+      <td>
+        <a href={`https://etherscan.io/address/${VanillaReputationalProxyAddress}`} target="_blank" rel="noopener noreferrer">
+          {ValidatorOptInHubProxyAddress}
+        </a>
+      </td>
+    </tr>
+    <tr>
+      <td style={{ textAlign: 'center' }}>Implementation</td>
+      <td>
+        <a href={`https://etherscan.io/address/${VanillaReputationalImplementationAddress}`} target="_blank" rel="noopener noreferrer">
+          {VanillaReputationalImplementationAddress}
+        </a>
+      </td>
+    </tr>
+    <tr>
       <td rowspan="2">ValidatorOptInRouter</td>
       <td style={{ textAlign: 'center' }}>Proxy</td>
       <td>
@@ -195,8 +216,26 @@ import {
         </a>
       </td>
     </tr>
+    <tr>
+      <td rowspan="2">ValidatorOptInHub</td>
+      <td style={{ textAlign: 'center' }}>Proxy</td>
+      <td>
+        <a href={`https://etherscan.io/address/${ValidatorOptInHubProxyAddress}`} target="_blank" rel="noopener noreferrer">
+          {ValidatorOptInHubProxyAddress}
+        </a>
+      </td>
+    </tr>
+    <tr>
+      <td style={{ textAlign: 'center' }}>Implementation</td>
+      <td>
+        <a href={`https://etherscan.io/address/${ValidatorOptInHubImplementationAddress}`} target="_blank" rel="noopener noreferrer">
+          {ValidatorOptInHubImplementationAddress}
+        </a>
+      </td>
+    </tr>
   </tbody>
 </table> 
+
 
 All contract calls should be made through the proxy contracts. Implementations are listed for transparency, where verified contract code can be viewed.
 
