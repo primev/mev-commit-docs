@@ -31,7 +31,12 @@ import { HoodiLidoRegistryAddress } from '/snippets/testnet-addresses.mdx';
 
 ### Step 1: Get Whitelisted
 To register, you must first be whitelisted as an operator. To request whitelisting, please fill out [this short google form](https://docs.google.com/forms/d/e/1FAIpQLSfIYZs1l7wqd6jkHHFZA8FQ6vg3T6KF6R_XBZsSGGbzN7q4Hg/viewform) with your operator info, or reach out to our team through [telegram](https://t.me/+-aiQNWqjZRQ1OWJh).
-### Step 2: Call `stake`
+
+### Step 2: Only use our opted-in relays
+
+Ensure your mev-boost client only connects to [mev-commit opted-in relays](/v1.2.x/get-started/validators/validator-guide#supporting-relays).
+
+### Step 3: Call `stake`
 Once whitelisted, you can register by calling:
 
 ```solidity
