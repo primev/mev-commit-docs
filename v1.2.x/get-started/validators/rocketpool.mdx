@@ -24,7 +24,9 @@ import { HoodiRocketMinipoolRegistryAddress } from '/snippets/testnet-addresses.
 
 ## Registering validators
 
-Registration can currently be done on Hoodi etherscan using the "Write as Proxy" tab on the [RocketMinipoolRegistry contract](https://hoodi.etherscan.io/address/0x30d478b02918c4b11731efc4868d848d551e79b2#writeProxyContract) (address {HoodiRocketMinipoolRegistryAddress}). Mainnet deployment is planned in the near future.
+### Registering using a withdrawal address </u>
+
+Registration can currently be done on Hoodi etherscan using the "Write as Proxy" tab on the [RocketMinipoolRegistry contract](https://hoodi.etherscan.io/address/0xbe5a803a7b68f442eff1953c672a3499779680b0#writeProxyContract) (address {HoodiRocketMinipoolRegistryAddress}). Mainnet deployment is planned in the near future.
 
 
 Call:
@@ -35,15 +37,7 @@ registerValidators(bytes[] valPubKeys)
 Requirements per key:
 - The pubkey must be associated with an **active Rocket Pool minipool**.
 - The validator must not already be registered.
-- The caller must be the **node operator** or the **withdrawal address** for that minipool.
-
-
-> **⚠️ Caution: Do not use your node address in a web browser**
->
-> For node security, it is best practice to avoid putting <strong>node address keys</strong> into web browsers.
-> When registering via a browser, use your <strong>withdrawal address</strong> instead, or perform the action locally via so keys never touch a website.
-
-
+- The caller must be the **withdrawal address** for that minipool.
 
 **Etherscan input tip (bytes[]):**
 ```
@@ -52,6 +46,16 @@ Requirements per key:
 No brackets, no quotes.
 
 ---
+
+### Registering using a signature from your node address
+
+Users can alternatively register by authorizing an executor to register using a signature from their node address, signed through Smart Node. Frontend integration for signature generation is coming soon.
+
+> **⚠️ Caution: Do not use your node address in a web browser**
+>
+> For node security, it is best practice to avoid putting <strong>node address keys</strong> into web browsers.
+> When registering via a browser, use your <strong>withdrawal address</strong> instead, or perform the action locally via so keys never touch a website.
+
 
 ## Freezing & unfreezing
 
