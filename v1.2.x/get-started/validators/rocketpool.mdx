@@ -4,6 +4,8 @@ sidebarTitle: Rocket Pool Opt-in
 description: 'Opt into mev-commit using Validators registered through Rocket Minipools.'
 ---
 
+import { HoodiRocketMinipoolRegistryAddress } from '/snippets/testnet-addresses.mdx';
+
 This guide explains how to register Rocket Pool validators with the **Rocket Pool Minipool Registry** for mev-commit, how freezing works, and how to deregister. This Registry is only available on Hoodi testnet at the moment, with mainnet deployment coming soon.
 
 ---
@@ -16,15 +18,13 @@ Opting-in validators through the RocketMinipool Registry is ideal for validators
 
 ## How the Registry integrates with Rocket Pool
 
-The registry relies on Rocket Pool’s contracts to check for each validator’s associated minipool, confirm whether the minipool is **active (Staking)**, and determine the **authorized operators** (the node operator and the withdrawal address). The registry itself does not remap keys to minipools and operators; Rocket Pool contract data is checked at the time of the relevant call.
+The registry relies on Rocket Pool's contracts to check for each validator's associated minipool and determine the **authorized operators**. The registry itself does not remap keys to minipools and operators; Rocket Pool contract data is checked at the time of the relevant call.
 
 ---
 
-import { HoodiRocketMinipoolRegistryAddress } from '/snippets/testnet-addresses.mdx';
-
 ## Registering validators
 
-### Registering using a withdrawal address </u>
+### Registering using a withdrawal address
 
 Registration can currently be done on Hoodi etherscan using the "Write as Proxy" tab on the [RocketMinipoolRegistry contract](https://hoodi.etherscan.io/address/0xbe5a803a7b68f442eff1953c672a3499779680b0#writeProxyContract) (address {HoodiRocketMinipoolRegistryAddress}). Mainnet deployment is planned in the near future.
 
