@@ -26,7 +26,7 @@ The registry relies on Rocket Pool's contracts to check for each validator's ass
 
 ### Registering using a withdrawal address
 
-Registration can currently be done on Hoodi etherscan using the "Write as Proxy" tab on the [RocketMinipoolRegistry contract](https://hoodi.etherscan.io/address/0xbe5a803a7b68f442eff1953c672a3499779680b0#writeProxyContract) (address {HoodiRocketMinipoolRegistryAddress}). Mainnet deployment is planned in the near future.
+Simple registration can currently be executed on Hoodi etherscan from a Rocket Pool <strong>withdrawal address</strong> using the "Write as Proxy" tab on the [RocketMinipoolRegistry contract](https://hoodi.etherscan.io/address/0xbe5a803a7b68f442eff1953c672a3499779680b0#writeProxyContract) (address {HoodiRocketMinipoolRegistryAddress}). Mainnet deployment is planned in the near future.
 
 
 Call:
@@ -49,7 +49,7 @@ No brackets, no quotes.
 
 ### Registering using a signature from your node address
 
-Users can alternatively register by authorizing an executor to register using a signature from their node address, signed through Smart Node. Frontend integration for signature generation is coming soon.
+Users can also register by authorizing an executor with a signature from their node address, signed locally via Smart Node. Full front-end support for generating these signatures will be available soon.
 
 > **⚠️ Caution: Do not use your node address in a web browser**
 >
