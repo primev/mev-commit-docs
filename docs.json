@@ -68,6 +68,7 @@
               {
                 "group": "Concepts",
                 "pages": [
+                  "v1.2.x/concepts/fast-protocol",
                   "v1.2.x/concepts/what-is-mev-commit",
                   "v1.2.x/concepts/actors",
                   "v1.2.x/concepts/network-overview",
