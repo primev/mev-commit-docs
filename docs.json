@@ -67,7 +67,7 @@
               {
                 "group": "Concepts",
                 "pages": [
-                  "v1.2.x/concepts/fast-protocol4",
+                  "v1.2.x/concepts/fast-protocol",
                   {
                     "group": "mev-commit-intro",
                     "pages": [
