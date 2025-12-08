@@ -67,14 +67,14 @@
               {
                 "group": "Concepts",
                 "pages": [
-                  "v1.2.x/concepts/fast-protocol",
+                  "v1.2.x/concepts/Fast-Protocol",
                   {
                     "group": "Mev-commit Intro",
                     "pages": [
-                      "v1.2.x/concepts/what-is-mev-commit",
-                      "v1.2.x/concepts/actors",
-                      "v1.2.x/concepts/network-overview",
-                      "v1.2.x/concepts/oracle"
+                      "v1.2.x/concepts/Mev-commit-Intro/what-is-mev-commit",
+                      "v1.2.x/concepts/Mev-commit-Intro/actors",
+                      "v1.2.x/concepts/Mev-commit-Intro/network-overview",
+                      "v1.2.x/concepts/Mev-commit-Intro/oracle"
                     ]
                   },
                   "v1.2.x/concepts/commitments",
@@ -101,7 +101,7 @@
                     "pages": [
                       "v1.2.x/concepts/rewards-and-slashing/rewards-and-slashing",
                       "v1.2.x/concepts/rewards-and-slashing/points",
-                      "v1.2.x/concepts/builder-attribution"
+                      "v1.2.x/concepts/rewards-and-slashing/builder-attribution"
                     ]
                   },
                   "v1.2.x/concepts/validator-considerations"
