@@ -11,6 +11,20 @@ To counteract these privacy issues mev-commit provides end-to-end privacy for al
 
 ARUBE is used to efficiently disseminate bids from bidders to providers of their choice in a privacy-preserving manner, DPCOM is used to securely commit to those bids and later allow for the opening of such commitments, and a ZK proof is used to ensure that commitments can be opened by providers and bidders. Below we expand on the specific security and privacy notions achieved for the bidders and the providers along with a short description of the corresponding cryptographic primitive used for each.
 
+### Signature Schemes
+
+We implement ECDSA (Elliptic Curve Digital Signature Algorithm) keys for our signature process.
+Additionally, our messages are formatted using EIP-712 standards, enhancing human readability and structured data representation.
+The ECDSA framework enables the recovery of both the public key and the signer's address through the ECRecover function, which are native to Geth.
+
+### Hashing
+
+Our system employs keccak256 (SHA-3) for hashing, aligning with EVM standards for optimal interoperability.
+This is useful for interoperability with the EVM, as it natively supports keccak256 through pre-compiles,
+both on L1 Ethereum and our mev-commit chain.
+
+
+
 ## Posting Bids
 Each bidder can choose a group of providers who will have access to their bids. The bids are then encrypted and sent to this specific group of providers. Other bidders and providers remain unaware of the details of a bid and its designated receivers. The cryptographic primitve that mev-commit leverages to achieve this privacy notion in an efficient way is called ARUBE. 
 

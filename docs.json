@@ -59,7 +59,6 @@
                       "v1.2.x/get-started/providers/registering-a-provider",
                       "v1.2.x/get-started/providers/consuming-bids",
                       "v1.2.x/get-started/providers/sending-commitments",
-                      "v1.2.x/get-started/providers/Querying-for-proposers",
                       "v1.2.x/get-started/providers/withdraw"
                     ]
                   }
@@ -68,13 +67,17 @@
               {
                 "group": "Concepts",
                 "pages": [
-                  "v1.2.x/concepts/what-is-mev-commit",
-                  "v1.2.x/concepts/actors",
-                  "v1.2.x/concepts/network-overview",
-                  "v1.2.x/concepts/privacy",
+                  "v1.2.x/concepts/fast-protocol",
+                  {
+                    "group": "mev-commit-intro",
+                    "pages": [
+                      "v1.2.x/concepts/mev-commit-intro/what-is-mev-commit",
+                      "v1.2.x/concepts/mev-commit-intro/actors",
+                      "v1.2.x/concepts/mev-commit-intro/network-overview",
+                      "v1.2.x/concepts/mev-commit-intro/oracle"
+                    ]
+                  },
                   "v1.2.x/concepts/commitments",
-                  "v1.2.x/concepts/solvers",
-                  "v1.2.x/concepts/builder-attribution",
                   {
                     "group": "Bids",
                     "pages": [
@@ -92,14 +95,15 @@
                       "v1.2.x/concepts/mev-commit-chain/bridging-details"
                     ]
                   },
+                  "v1.2.x/concepts/privacy",
                   {
                     "group": "Rewards and Slashing",
                     "pages": [
                       "v1.2.x/concepts/rewards-and-slashing/rewards-and-slashing",
-                      "v1.2.x/concepts/rewards-and-slashing/points"
+                      "v1.2.x/concepts/rewards-and-slashing/points",
+                      "v1.2.x/concepts/rewards-and-slashing/builder-attribution"
                     ]
                   },
-                  "v1.2.x/concepts/oracle",
                   "v1.2.x/concepts/validator-considerations"
                 ]
               },
@@ -110,7 +114,6 @@
                     "group": "Networks",
                     "pages": [
                       "v1.2.x/developers/networks/mainnet",
-                      "v1.2.x/developers/networks/hyperliquid",
                       "v1.2.x/developers/networks/testnet"
                     ]
                   },
