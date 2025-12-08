@@ -67,14 +67,14 @@
               {
                 "group": "Concepts",
                 "pages": [
-                  "v1.2.x/concepts/Fast-Protocol",
+                  "v1.2.x/concepts/fast-protocol",
                   {
-                    "group": "Mev-commit Intro",
+                    "group": "Mev-commit-intro",
                     "pages": [
-                      "v1.2.x/concepts/Mev-commit-Intro/what-is-mev-commit",
-                      "v1.2.x/concepts/Mev-commit-Intro/actors",
-                      "v1.2.x/concepts/Mev-commit-Intro/network-overview",
-                      "v1.2.x/concepts/Mev-commit-Intro/oracle"
+                      "v1.2.x/concepts/Mev-commit-intro/what-is-mev-commit",
+                      "v1.2.x/concepts/Mev-commit-intro/actors",
+                      "v1.2.x/concepts/Mev-commit-intro/network-overview",
+                      "v1.2.x/concepts/Mev-commit-intro/oracle"
                     ]
                   },
                   "v1.2.x/concepts/commitments",
