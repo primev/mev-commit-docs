@@ -96,7 +96,7 @@ $$
 
 ---
 
-# MEV Redistribution Model
+# Mev Redistribution Model
 
 Redistributed mev accumulates into a pool $T$ composed of:
 
@@ -142,11 +142,22 @@ System objectives:
 - Maintain $\gamma \ge 0.9$ under normal conditions  
 - Allow $\gamma > 1$ in mev-rich phases (treasury surplus)
 
-We ensure:
+---
+# Adaptive Parameter Logic
 
-- Users always receive ≥90%  
-- Protocol always receives ≥5%  
-- Treasury surpluses enhance both sides proportionally  
+The protocol continuously adjusts how much mev goes to users versus the protocol treasury based on how abundant mev is in a given period. The core idea is simple:
+
+When mev is scarce, the system maintains minimum income for the protocol. Users still receive a high refund, but the actual percentage may fall slightly below the target level if necessary to keep the system sustainable.
+
+When mev is plentiful, users always receive at least 90% of the mev their transactions generate, and any surplus above that baseline is shared between users in a weighted manner. During these periods, user refunds can exceed 100% when treasury conditions are strong.
+
+This adaptive split prevents underpayment during low-mev periods while still allowing users to capture extremely high refunds when mev spikes. The mechanism ensures that both sides; the users seeking maximum refunds and the protocol ensuring long-term sustainability remain incentive-aligned across all market conditions.
+
+In effect:
+
+- During normal or high-mev conditions, users receive ≥90%
+- The protocol always receives ≥5% for sustainability
+- Surpluses above these thresholds enhance user refunds proportionally 
 
 ---
 
