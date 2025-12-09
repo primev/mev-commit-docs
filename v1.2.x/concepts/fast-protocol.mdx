@@ -143,19 +143,85 @@ System objectives:
 ---
 # Adaptive Parameter Logic
 
-The protocol continuously adjusts how much mev goes to users versus the protocol treasury based on how abundant mev is in a given period. The core idea is simple:
+The protocol continuously adjusts how much mev goes to users versus the protocol treasury based on how abundant mev is in a given period. Let:
 
-When mev is scarce, the system maintains minimum income for the protocol. Users still receive a high refund, but the actual percentage may fall slightly below the target level if necessary to keep the system sustainable.
+$$
+r = \frac{M_{rpc}}{T}
+$$
 
-When mev is plentiful, users always receive at least 90% of the mev their transactions generate, and any surplus above that baseline is shared between users in a weighted manner. During these periods, user refunds can exceed 100% when treasury conditions are strong.
+The protocol adapts how value is split between users and stakers based on mev abundance, summarized by the parameter $r$.
 
-This adaptive split prevents underpayment during low-mev periods while still allowing users to capture extremely high refunds when mev spikes. The mechanism ensures that both sides; the users seeking maximum refunds and the protocol ensuring long-term sustainability remain incentive-aligned across all market conditions.
+---
 
-In effect:
+## Case 1 — Scarce mev
 
-- During normal or high-mev conditions, users receive ≥90%
-- The protocol always receives ≥5% for sustainability
-- Surpluses above these thresholds enhance user refunds proportionally 
+When mev relative to the redistribution pool is scarce (high $r$), the system caps what it can give back while preserving protocol sustainability.
+
+We can express the scarce regime as:
+
+$$
+r > r_{\text{crit}}
+$$
+
+for some critical $r_{\text{crit}}$ corresponding numerically to:
+
+- approximately $\dfrac{0.95}{0.9}$ in the original parameterization.
+
+In this regime:
+
+$$
+\tau_{rpc} = \tau_{\text{max}}
+$$
+
+$$
+\tau_{fast} = 1 - \tau_{\text{max}}
+$$
+
+with $\tau_{\text{max}}$ set so that users get as much as the system can afford (slightly under 90% refunds in the most constrained conditions).
+
+---
+
+## Case 2 — Mev Rich
+
+When mev is abundant relative to the pool, i.e.
+
+$$
+r \le r_{\text{crit}},
+$$
+
+the protocol:
+
+- Preserves at least a 90% user refund on average
+- Allocates the surplus between users based on the share of mev they generate
+- Keeps a minimum fraction of value for FAST stakers and the protocol
+
+We can express $\tau_{rpc}$ generically as:
+
+$$
+\tau_{rpc} = a \cdot r + b \cdot (1 - r)
+$$
+
+for suitable constants $a$ and $b$ chosen so that:
+
+- Users always receive at least 90% of their generated mev on average
+- FAST stakers and the protocol receive at least 5% in total
+
+Then:
+
+$$
+\tau_{fast} = 1 - \tau_{rpc}
+$$
+
+In practice, parameter choices are tuned so that:
+
+- For typical orderflow conditions, $\gamma$ is around or above $0.9$
+- In MEV-rich conditions, $\gamma$ can exceed $1$, sharing surplus with users while still rewarding stakers
+
+This ensures:
+
+- Users always receive ≥90%
+- Protocol always receives ≥5%
+- Treasury surpluses enhance both sides proportionally
 
 ---
 
