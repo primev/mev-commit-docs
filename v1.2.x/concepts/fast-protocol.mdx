@@ -57,13 +57,13 @@ FAST Protocol uses two fees:
 - **Mev fee on bundles:**
 
   $$
-  	ext{mev\_fee} = f_{mev} \cdot M_{bundle}
+  \text{mev\_fee} = f_{mev} \cdot M_{bundle}
   $$
 
 - **Validator fee (opted-in only):**
 
   $$
-  	ext{val\_fee} = f_{val} \cdot M_{block}
+  \text{val\_fee} = f_{val} \cdot M_{block}
   $$
 
 Typical values:
@@ -83,7 +83,7 @@ Typical values:
 For each transaction $tx$:
 
 $$
-m(tx) = 	ext{estimated backrun profit}
+m(tx) = \text{estimated backrun profit}
 $$
 
 Total mev driven by FAST RPC in a given slot:
@@ -115,7 +115,7 @@ $$
 Their payout is:
 
 $$
-P_u = T \cdot 	au_{rpc} \cdot w_u
+P_u = T \cdot \tau_{rpc} \cdot w_u
 $$
 
 Payout may be delivered in points or tokens depending on availability.
