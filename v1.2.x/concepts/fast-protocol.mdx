@@ -7,6 +7,17 @@ This document explains how **FAST RPC**, **mev-commit**, and the **Fast Protocol
 
 ---
 
+# Summary
+
+Fast Protocol transforms mev into a transparent, shared, incentive-aligned mechanism:
+
+- **Users** receive top-of-market mev refunds (≥90%, even >100%)  
+- **Validators** earn strictly more when opting in, and materially more than in other OFA systems  
+- **Builders** maintain sustainable margins while delivering transactions  
+- **The protocol** becomes more valuable as usage increases, creating a positive feedback loop  
+
+No competing OFA can sustainably provide higher user mev refunds than Fast Protocol. The design is mathematically constrained, incentive-compatible, and self-stabilizing under normal market conditions.
+
 ## Overview of Fast Protocol
 
 FAST RPC adds an **order flow auction (OFA)** on top of **mev-commit**. When users send transactions through FAST RPC:
@@ -149,7 +160,7 @@ $$
 r = \frac{M_{rpc}}{T}
 $$
 
-The protocol adapts how value is split between users and stakers based on mev abundance, summarized by the parameter $r$.
+The protocol adapts how value is split between users and treasury based on mev abundance, summarized by the parameter $r$.
 
 ---
 
@@ -193,7 +204,7 @@ the protocol:
 
 - Preserves at least a 90% user refund on average
 - Allocates the surplus between users based on the share of mev they generate
-- Keeps a minimum fraction of value for FAST stakers and the protocol
+- Keeps a minimum fraction of value for the protocol
 
 We can express $\tau_{rpc}$ generically as:
 
@@ -204,7 +215,7 @@ $$
 for suitable constants $a$ and $b$ chosen so that:
 
 - Users always receive at least 90% of their generated mev on average
-- FAST stakers and the protocol receive at least 5% in total
+- The protocol receives at least 5% in total
 
 Then:
 
@@ -215,7 +226,7 @@ $$
 In practice, parameter choices are tuned so that:
 
 - For typical orderflow conditions, $\gamma$ is around or above $0.9$
-- In MEV-rich conditions, $\gamma$ can exceed $1$, sharing surplus with users while still rewarding stakers
+- In MEV-rich conditions, $\gamma$ can exceed $1$, sharing surplus with users while still realizing value for protocol treasury
 
 This ensures:
 
@@ -261,9 +272,9 @@ $$
 
 Meaning:
 
-**If FAST RPC generates more than ~5.6% of block mev, opting in and even paying a 5% fee is profitable.**
+**If Fast Protocol generates more than ~5.6% of block mev, opting in and even paying a 5% fee is profitable.**
 
-In practice, FAST RPC exceeds this threshold comfortably.
+In practice, Fast Protocol exceeds this threshold comfortably.
 
 ---
 
@@ -284,19 +295,8 @@ The equilibrium analysis shows:
 
 - If FAST RPC offered **less** than 90% user refunds, users would defect to other options  
 - If an OFA tried offering **more**, its builders or validators would become unprofitable  
-- FAST RPC optimally balances incentives so validators, builders, stakers, and users all remain profitable  
+- FAST RPC optimally balances incentives so validators, builders, the protocol, and users all remain profitable  
 
-Thus, no competing OFA can sustainably provide higher user mev refunds than FAST RPC.
+Thus, no competing OFA can sustainably provide higher user mev refunds than Fast Protocol.
 
 ---
-
-# Summary
-
-Fast Protocol transforms mev into a transparent, shared, incentive-aligned mechanism:
-
-- **Users** receive top-of-market mev refunds (≥90%, often >100%)  
-- **Validators** earn strictly more when opting in, and materially more than in other OFA systems  
-- **Builders** maintain sustainable margins while delivering transactions  
-- **The protocol** becomes more valuable as usage increases, creating a positive feedback loop  
-
-The design is mathematically constrained, incentive-compatible, and self-stabilizing under normal market conditions.
