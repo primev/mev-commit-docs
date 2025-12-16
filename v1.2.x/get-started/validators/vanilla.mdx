@@ -33,12 +33,12 @@ Accounts must only register pubkeys for which they control or otherwise manage. 
 
 When registering validators, ETH must be sent as collateral **with the registration transaction**. That stake is **evenly distributed across all validators** included in that registration.
 
-The `VanillaRegistry.minStake` parameter represents how much ETH must be staked per validator pubkey to define that validator as opted-in to mev-commit. On mainnet, `minStake` is 1 ETH, while on Hoodi it's 0.0001 ETH.
+The `VanillaRegistry.minStake` parameter represents how much ETH must be staked per validator pubkey to define that validator as opted-in to mev-commit. The `minStake` is .0001 ETH on both mainnet and Hoodi.
 
 > **Clarification:** Over collateralizing a registration does not pre-fund future registrations. If more ETH than `minstake * n keys` is sent during a registration, that extra ETH is simply spread across the validators registered in that tx (this can be used as a slash buffer).
 
 
-For large groups of validators, it is recommended to stake in batches of 10-20 public keys at a time to ensure transaction success without hitting gas limits. This process can be tested on Hoodi.
+For large groups of validators, it is recommended to stake in batches of 40-60 public keys at a time to ensure transaction success without hitting gas limits. This process can be tested on Hoodi.
 
     
 ### Staking validator keys
