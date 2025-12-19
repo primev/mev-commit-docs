@@ -4,24 +4,20 @@ This guide outlines the best practices for bidders to optimize their interaction
 
 ## Understanding Commitments
 
-In the mev-commit network, commitments are essential to the bidding process. You receive two types of commitments: **Credible** and **General**.
+In the mev-commit network, you receive two types of commitments during the bidding process: **Credible** and **General**.
 
-### Credible Commitments
-* **Definition:** Guarantees made by network participants who have direct control over fulfilling your bid.
-* **Assurance:** These offer the highest level of assurance because the proposer has opted in to mev-commit.
-* **Automation:** Querying for Proposers is available by default and will notify you when commitments become credible.
+* **Credible**: Guarantees with direct proposer opt-in.
 
-### General Commitments
-* **Definition:** Promises made by network participants with a lower level of assurance.
-* **Reliability:** These can approach the reliability of credible commitments when aggregated across multiple providers (e.g., block builders for a mev-boost-enabled validator).
-* **Mechanism:** The proposer hasn't opted in yet, but a committing block builder may still win the auction and deliver the commitment.
-* **Resources:** View the [list of all registered providers](https://link-para-provedores).
+* **General**: Promises with a lower level of assurance.
+
+
+Registered providers are described in the [Providers Registry list](https://providers-list).
 
 ---
 
 ## Submitting Bundles
 
-To include transaction bundles, submit them in the exact atomic sequence they appear. You can submit bundles using two methods:
+To include transaction bundles, submit them in the exact atomic sequence they appear. You can **submit bundles** using two methods:
 
 1. **Transaction Payloads (Recommended):** More efficient as it eliminates payload lookups, allowing providers to return commitments faster.
 2. **Transaction Hashes:** Useful if providers already have the transactions via RPC or mempool. *Note: Not all providers support this.*
@@ -40,7 +36,7 @@ curl -X POST http://localhost:13523/v1/bidder/bid \
     "revertingTxHashes": ["7ca1..."]
 }'
 ```
-## Option 2: Transaction Hash ##
+### Option 2: Transaction Hash ##
 Use this for transactions already available in the public mempool.
 ```bashcurl -X POST http://localhost:13523/v1/bidder/bid \
 -d '{
@@ -52,14 +48,14 @@ Use this for transactions already available in the public mempool.
     "revertingTxHashes": ["2214..."]
 }'
 ```
-## Bid Parameters ##
+### **Bid Parameters** ##
 **Bid Amount**: Set this to the total amount you are willing to pay for the bundle. 
 The gas used does not affect the final amount paid.
 
 **Bid Decay**: Use `decayStartTimestamp` and `decayEndTimestamp` to control 
-the price sensitivity of the preconfirmation. [Learn more here](https://docs.primev.xyz/v1.2.x/concepts/bids/bid-structure#details-on-decay-parameters).
+the price sensitivity of the preconfirmation. [Learn how to control](https://docs.primev.xyz/v1.2.x/concepts/bids/bid-structure#details-on-decay-parameters).
 
-**Bid Options**: Set positional constraints on transactions within the block. [View options here](https://github.com/andesign31/mev-commit-docs/blob/main/v1.2.x/concepts/bids/bid-structure#details-on-bidOptions).
+**Bid Options**: Set positional constraints on transactions within the block. [Positional constraints options ](https://github.com/andesign31/mev-commit-docs/blob/main/v1.2.x/concepts/bids/bid-structure#details-on-bidOptions).
 
 ---- 
 
