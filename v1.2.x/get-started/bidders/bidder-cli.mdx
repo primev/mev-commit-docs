@@ -3,11 +3,13 @@ title: "Bidder CLI application"
 sidebarTitle: "Bidder CLI"
 ---
 
-The `bidder-cli` aims to provide a better UX for users to send raw transactions or bids on existing transactions, to the mev-commit network. The tool can be downloaded from the [releases](https://github.com/primev/mev-commit/releases/latest) page.
+
+The `bidder-cli`  sends raw transactions or bids on existing transactions to the mev-commit network. 
+Download [releases](https://github.com/primev/mev-commit/releases/latest) page.
 
 ```
 NAME:
-   bidder-cli - A CLI tool for interacting with a gRPC bidder server
+   bidder-cli - A CLI tool interacts with a gRPC bidder server
 
 USAGE:
    bidder-cli [global options] command [command options]
@@ -16,16 +18,17 @@ VERSION:
    1.1.0
 
 COMMANDS:
-   send-tx-hash  Send a bid to the gRPC bidder server
-   send-tx       Send a transaction to the gRPC bidder server
+   send-tx-hash  Sends a bid to the gRPC bidder server
+   send-tx       Sends a transaction to the gRPC bidder server
    help, h       Shows a list of commands or help for one command
 
 GLOBAL OPTIONS:
    --help, -h     show help
    --version, -v  print the version
 ```
+The `send-tx` command creates new transactions on the L1 chain and sends to the mev-commit network.
 
-The `send-tx` command is used to send raw transaction payloads. Here users can create a new transaction on the L1 chain and send it directly to the mev-commit network. Users need to provide the account to be used as source of the funds and to sign the transaction. Currently this allows users to send simple transfer transactions.
+User account is needed to sign the transaction.
 
 ```
 NAME:
@@ -47,15 +50,20 @@ OPTIONS:
    --help, -h              show help
 ```
 
-The `rpc-url` is the URL for the gRPC server running on the bidder node. This is by default running on port 13524. So if you run the node locally, this would typically be `localhost:13524`.
+The `rpc-url` is the URL for the gRPC server running on the bidder node. This is by
+default running on port 13524. So if you run the node locally, this would typically be `localhost:13524`.
 
 If `block-number` is not specified, the next block number is used for the bid.
 
-Similarly, the default `decay-duration` is 10 minutes. Which means the bid amount will decay starting from current time to 10 minutes from now.
+Similarly, the default `decay-duration` is 10 minutes. Which means the bid amount
+will decay starting from current time to 10 minutes from now.
 
-`value` is the amount of ETH to be sent in the L1 transaction and `bid-amount` is the amount the bidder is willing to give to the providers for preconfirming the transaction. All the other flags have sane defaults.
+`value` is the amount of ETH to be sent in the L1 transaction and `bid-amount` is the 
+amount the bidder is willing to give to the providers for preconfirming the transaction. 
+All the other flags have sane defaults.
 
-<Note> The CLI uses the `l1-rpc-url` to get the nonce for the account. Users can point it to a different RPC URL if they are sending transactions to a custom RPC.</Note>
+The CLI uses the `l1-rpc-url` to get the nonce for the account. Users can 
+point it to a different RPC URL if they are sending transactions to a custom RPC.
 
 ```shell ❯_ example
 ./bidder-cli send-tx \
