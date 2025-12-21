@@ -63,12 +63,15 @@ Use this command to bid on transactions that are already in the public mempool o
 
 Important Considerations
 
-**Gossip Latency**: There is a possibility that a transaction is not gossiped to the provider's infrastructure in time. 
+* **Gossip Latency**: There is a possibility that a transaction is not gossiped to the provider's infrastructure in time. 
 For better results, consider using the [Provider's RPC](/v1.2.x/get-started/bidders/best-practices#option-1-transaction-payload) for submitting transactions.
 
-**Reverting Hashes**: You can specify transactions that should be considered "reverting" using the --reverting-tx-hashes flag.
+* **Reverting Hashes**: You can specify transactions that should be considered "reverting" using the `--reverting-tx-hashes` flag.
+
 ---
+
 ## Troubleshooting
+
 If you're having trouble receiving commitments:
 
 1. **Check Connectivity**: Ensure you are connected to providers via the topology endpoint.
