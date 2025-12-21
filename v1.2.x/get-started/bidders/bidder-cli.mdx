@@ -7,8 +7,8 @@ sidebarTitle: "Bidder CLI"
 
 The `bidder-cli` is a tool designed to provide a better User Experience (UX) for users sending raw transactions or bids on existing transactions to the mev-commit network.
 
-<>
-You can download the latest version of the tool from the [official releases page](https://github.com/primev/mev-commit/releases/latest).
+<Note>
+You can download the latest version of the tool from the [official releases page](https://github.com/primev/mev-commit/releases/latest).</Note>
 
 
 ## General Usage
@@ -18,17 +18,17 @@ The basic structure for interacting with the gRPC bidder server is:
 ```bash
 bidder-cli [global options] command [command options]
 ``` 
-## Global Commands
-* `send-tx`: Used to create and sign a new L1 transaction and send it to the network.
+## Commands
+* `send-tx`: Send a transaction to the gRPC bidder server.
 
-* `send-tx-hash`: Used to send bids for transactions already present in the mempool.
+* `send-tx-hash`: Send a bid to the gRPC bidder server for existing transactions.
 
 * `help`: Shows the full list of commands and options.
 ---
 ## Sending Transactions (`send-tx`)
 This command allows you to create a simple transfer transaction on the L1 chain and submit it directly to mev-commit.
 
-**Security**: You must provide the private key of the account to sign the transaction. Never share this key or include it in public scripts.
+<Warning>**Security**: You must provide the private key of the account to sign the transaction. Never share this key or include it in public enviroments.</Warning>
 
 **Example Usage**
 ```` 
@@ -38,7 +38,7 @@ This command allows you to create a simple transfer transaction on the L1 chain 
   --value <AMOUNT_IN_WEI> \
   --bid-amount <BID_IN_WEI> \
   --rpc-url localhost:13524
-  ```` 
+````
   **Key Options**
 
 * `--rpc-url`: The URL for the gRPC server (default is `localhost:13524`).
@@ -59,9 +59,20 @@ Use this command to bid on transactions that are already in the public mempool o
   --bid-amount <AMOUNT> \
   --rpc-url localhost:13524
 ````
-Users can provide multiple --`tx-hashes` flags to bid on several transactions simultaneously. 
+<Tip>Users can provide multiple --`tx-hashes` flags to bid on several transactions simultaneously.</Tip> 
 
 Important Considerations
-Gossip Latency: There is a possibility that a transaction is not gossiped to the provider's infrastructure in time. For better results, consider using the Provider's RPC for submission.
 
-Reverting Hashes: You can specify transactions that should be considered "reverting" using the --reverting-tx-hashes flag.
+**Gossip Latency**: There is a possibility that a transaction is not gossiped to the provider's infrastructure in time. 
+For better results, consider using the [Provider's RPC](/v1.2.x/get-started/bidders/best-practices#option-1-transaction-payload) for submitting transactions.
+
+**Reverting Hashes**: You can specify transactions that should be considered "reverting" using the --reverting-tx-hashes flag.
+---
+## Troubleshooting
+If you're having trouble receiving commitments:
+
+1. **Check Connectivity**: Ensure you are connected to providers via the topology endpoint.
+
+2. **Port Configuration**: By default, the gRPC server runs on port `13524`.
+
+3. **Verbose Logging**: Use the `--verbose` flag to enable detailed logging for debugging.
