@@ -1,0 +1,52 @@
+---
+title: Rewards
+sidebarTitle: Rewards
+description: 'Understand how to set your recipient and claim rewards from the RewardDistributor.'
+---
+
+# Reward Distributor — Operator Guide
+
+The `RewardDistributor` contract is used to **receive, track, and distribute additional ETH or token rewards** earned by operators with active validators.
+
+When operators earn extra rewards (for example, from mev-commit participation or other incentive programs), those rewards are **granted to this contract** and then **claimed by operators to their specified fee recipients**.
+
+> Rewards are granted on-chain to the `RewardDistributor`, tracked per operator and recipient, and later claimed by operators (or their delegates) to the correct payout addresses.
+
+## Contract Details
+
+*   **Network**: Hoodi (Testnet)
+*   **Address**: [0x69f286fc7869c30809a9695462fa79a0fd99c5bc](https://hoodi.etherscan.io/address/0x69f286fc7869c30809a9695462fa79a0fd99c5bc#writeContract)
+
+## Interacting with the Contract
+
+The Rewards Distributor is currently live on the [Hoodi testnet](https://hoodi.etherscan.io/address/0x69f286fc7869c30809a9695462fa79a0fd99c5bc#writeContract). A Mainnet deployment and a dedicated claiming UI will be available in the future.
+
+For now, you can manage and claim rewards programmatically or by interacting directly with the contract on Etherscan.
+
+## Claiming rewards
+
+Rewards do not stream automatically to your wallet; you must explicitly claim them from the contract.
+
+### Claim as the operator
+
+To transfer all pending rewards to your recipients:
+
+1.  Find the `claimRewards` function.
+2.  **recipients**: Enter your recipient address(es) in bracket format.
+    *   Example: `[0xYourRecipientAddress]`
+3.  **tokenID**: Enter the ID of the token to claim.
+    *   For **ETH**: `0`
+    *   For **Tokens**: `1`
+4.  Click **Write** and confirm the transaction.
+
+## Setting reward recipients
+
+By default, if a recipient is not set, rewards earned by a validator are granted to the validator's operator address.
+
+### Set a global default recipient
+
+To ensure all rewards go to a specific address (e.g. a cold wallet or a splitter contract), you should set a global operator override. This applies to all your validator keys unless specifically overridden for a key. Individual key recipient overrides can also be set.
+
+1.  Find the `setOperatorGlobalOverride` function.
+2.  **recipient**: Enter the address you want to receive the rewards.
+3.  Click **Write** and confirm the transaction.
