@@ -39,7 +39,8 @@
                       "v1.2.x/get-started/validators/symbiotic",
                       "v1.2.x/get-started/validators/vanilla",
                       "v1.2.x/get-started/validators/lido",
-                      "v1.2.x/get-started/validators/rocketpool"
+                      "v1.2.x/get-started/validators/rocketpool",
+                      "v1.2.x/get-started/validators/rewards"
                     ]
                   },
                   "v1.2.x/get-started/relays",
