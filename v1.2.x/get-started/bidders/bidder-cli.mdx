@@ -3,96 +3,79 @@ title: "Bidder CLI application"
 sidebarTitle: "Bidder CLI"
 ---
 
-The `bidder-cli` aims to provide a better UX for users to send raw transactions or bids on existing transactions, to the mev-commit network. The tool can be downloaded from the [releases](https://github.com/primev/mev-commit/releases/latest) page.
+# Bidder CLI
 
-```
-NAME:
-   bidder-cli - A CLI tool for interacting with a gRPC bidder server
+The `bidder-cli` is a tool designed to provide a better User Experience (UX) for users sending raw transactions or bids on existing transactions to the mev-commit network.
 
-USAGE:
-   bidder-cli [global options] command [command options]
+<Note>
+You can download the latest version of the tool from the [official releases page](https://github.com/primev/mev-commit/releases/latest).</Note>
 
-VERSION:
-   1.1.0
 
-COMMANDS:
-   send-tx-hash  Send a bid to the gRPC bidder server
-   send-tx       Send a transaction to the gRPC bidder server
-   help, h       Shows a list of commands or help for one command
+## General Usage
 
-GLOBAL OPTIONS:
-   --help, -h     show help
-   --version, -v  print the version
-```
+The basic structure for interacting with the gRPC bidder server is:
 
-The `send-tx` command is used to send raw transaction payloads. Here users can create a new transaction on the L1 chain and send it directly to the mev-commit network. Users need to provide the account to be used as source of the funds and to sign the transaction. Currently this allows users to send simple transfer transactions.
+```bash
+bidder-cli [global options] command [command options]
+``` 
+## Commands
+* `send-tx`: Send a transaction to the gRPC bidder server.
 
-```
-NAME:
-   bidder-cli send-tx - Send a transaction to the gRPC bidder server
+* `send-tx-hash`: Send a bid to the gRPC bidder server for existing transactions.
 
-USAGE:
-   bidder-cli send-tx [command options]
+* `help`: Shows the full list of commands and options.
+---
+## Sending Transactions (`send-tx`)
+This command allows you to create a simple transfer transaction on the L1 chain and submit it directly to mev-commit.
 
-OPTIONS:
-   --rpc-url value         URL of the gRPC server [$BIDDER_CLI_RPC_URL]
-   --l1-rpc-url value      URL of the L1 RPC (default: "https://ethereum-hoodi-rpc.publicnode.com") [$BIDDER_CLI_L1_RPC_URL]
-   --verbose               enable verbose logging (default: false) [$BIDDER_CLI_VERBOSE]
-   --from value            private key of the account sending the transaction
-   --to value              to address
-   --value value           amount of the transaction
-   --block-number value    block number (default: 0)
-   --decay-duration value  decay duration (default: "10m")
-   --bid-amount value      bid amount
-   --help, -h              show help
-```
+<Warning>**Security**: You must provide the private key of the account to sign the transaction. Never share this key or include it in public enviroments.</Warning>
 
-The `rpc-url` is the URL for the gRPC server running on the bidder node. This is by default running on port 13524. So if you run the node locally, this would typically be `localhost:13524`.
-
-If `block-number` is not specified, the next block number is used for the bid.
-
-Similarly, the default `decay-duration` is 10 minutes. Which means the bid amount will decay starting from current time to 10 minutes from now.
-
-`value` is the amount of ETH to be sent in the L1 transaction and `bid-amount` is the amount the bidder is willing to give to the providers for preconfirming the transaction. All the other flags have sane defaults.
-
-<Note> The CLI uses the `l1-rpc-url` to get the nonce for the account. Users can point it to a different RPC URL if they are sending transactions to a custom RPC.</Note>
-
-```shell ❯_ example
+**Example Usage**
+```` 
 ./bidder-cli send-tx \
-  --from <PRIVATE KEY of source account> \
-  --to <DESTINATION on L1 chain> \
-  --value <Amount of ETH to be sent in wei> \
-  --bid-amount <Amount to be sent to provider node> \
+  --from <PRIVATE_KEY> \
+  --to <DESTINATION_ADDRESS> \
+  --value <AMOUNT_IN_WEI> \
+  --bid-amount <BID_IN_WEI> \
   --rpc-url localhost:13524
-```
+````
+  **Key Options**
 
-The `send-tx-hash` is used to send bids for transactions that were already submitted to the mempool of the block-builders or to the public mempool. There is a possibility that the transaction is not gossiped to the provider's block building infrastructure in time, so it is better to use the Provider's RPC for submitting transactions.
+* `--rpc-url`: The URL for the gRPC server (default is `localhost:13524`).
 
-```
-NAME:
-   bidder-cli send-tx-hash - Send a bid to the gRPC bidder server
+* `--block-number`: Target block for the bid. If omitted, the next block is used.
 
-USAGE:
-   bidder-cli send-tx-hash [command options]
+* `--decay-duration`: The time window for the bid amount to decay (default: 10m).
+* `--l1-rpc-url`: Used to fetch the account nonce. Default: `https://ethereum-hoodi-rpc.publicnode.com`.
+---
+## Bidding by Transaction Hash (`send-tx-hash`)
+Use this command to bid on transactions that are already in the public mempool or block-builder mempools.
 
-OPTIONS:
-   --rpc-url value                                              URL of the gRPC server [$BIDDER_CLI_RPC_URL]
-   --l1-rpc-url value                                           URL of the L1 RPC (default: "https://ethereum-hoodi-rpc.publicnode.com") [$BIDDER_CLI_L1_RPC_URL]
-   --verbose                                                    enable verbose logging (default: false) [$BIDDER_CLI_VERBOSE]
-   --tx-hashes value [ --tx-hashes value ]                      transaction hashes
-   --bid-amount value                                           bid amount
-   --block-number value                                         block number (default: 0)
-   --decay-duration value                                       decay duration (default: "10m")
-   --reverting-tx-hashes value [ --reverting-tx-hashes value ]  reverting transaction hashes
-   --help, -h                                                   show help
-```
-
-Users can provider multiple transaction hashes to bid on. Rest of the flags have similar use cases as above.
-
-```shell ❯_ example
+**Example Usage**
+````
 ./bidder-cli send-tx-hash \
-  --tx-hashes <HASH 1> \
-  --tx-hashes <HASH 2> \
-  --bid-amount <Amount to be sent to provider node> \
+  --tx-hashes <HASH_1> \
+  --tx-hashes <HASH_2> \
+  --bid-amount <AMOUNT> \
   --rpc-url localhost:13524
-```
+````
+<Tip>Users can provide multiple --`tx-hashes` flags to bid on several transactions simultaneously.</Tip> 
+
+Important Considerations
+
+* **Gossip Latency**: There is a possibility that a transaction is not gossiped to the provider's infrastructure in time. 
+For better results, consider using the [Provider's RPC](/v1.2.x/get-started/bidders/best-practices#option-1-transaction-payload) for submitting transactions.
+
+* **Reverting Hashes**: You can specify transactions that should be considered "reverting" using the `--reverting-tx-hashes` flag.
+
+---
+
+## Troubleshooting
+
+If you're having trouble receiving commitments:
+
+1. **Check Connectivity**: Ensure you are connected to providers via the topology endpoint.
+
+2. **Port Configuration**: By default, the gRPC server runs on port `13524`.
+
+3. **Verbose Logging**: Use the `--verbose` flag to enable detailed logging for debugging.
