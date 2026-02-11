@@ -320,3 +320,35 @@ The equilibrium analysis shows:
 - FAST RPC optimally balances incentives so validators, builders, the protocol, and users all remain profitable
 
 Thus, no competing OFA can sustainably provide higher user mev refunds than Fast Protocol.
+
+---
+
+# FastSwaps
+
+FastSwaps enables token swaps on Ethereum through the [FAST RPC](/v1.2.x/get-started/fastrpc). Swaps are backed by mev-commit preconfirmations, and users earn **Fast Miles** based on the MEV their swaps generate.
+
+<Card title="Launch FastSwaps" icon="bolt" href="https://fastprotocolapp-git-lightning-swaps-primev-da84fd63.vercel.app/" horizontal>
+  Start swapping and earning miles.
+</Card>
+
+---
+
+### How It Works
+
+The swap flow follows a familiar DEX experience — select an input token, an output token, and an amount. Execution depends on the input token:
+
+| Input Token | Execution |
+| ----------- | --------- |
+| **ERC-20** (e.g. USDC, DAI) | The user signs an off-chain intent. The swap is executed on their behalf — **no gas required**. |
+| **ETH** | The user submits the transaction directly from their wallet. |
+
+#### Permit2
+
+ERC-20 swaps require a one-time [Permit2](https://docs.uniswap.org/contracts/permit2/overview) approval per input token. Once a token is approved, subsequent swaps with that token only require a signature. If Permit2 has already been approved for a given token on another application (such as Uniswap), no additional approval is needed.
+
+---
+
+### Fast Miles
+
+Users earn Fast Miles proportional to the MEV their swaps generate through Fast Protocol. Miles are planned to be tokenized in the near future. Early users can also earn bonus miles through one-time tasks and referrals available in the app.
+
