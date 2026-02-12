@@ -1,0 +1,85 @@
+---
+title: Other Networks
+sidebarTitle: Other Networks
+---
+
+mev-commit is designed to be network-agnostic. While it currently operates on Ethereum mainnet and testnet, the protocol can be extended to support preconfirmations on any network where execution service providers — whether validators, miners, sequencers, or other block producers — are willing to issue commitments against future block space.
+
+## How It Works
+
+When mev-commit is deployed for a new network, Primev spins up a **dedicated mev-commit network instance** for that ecosystem. This includes:
+
+- **Custom bootnode** — A dedicated bootnode endpoint is provisioned for the target network, allowing providers and bidders to discover peers within the correct mev-commit network instance.
+- **Provider registration** — The network's execution service providers (validators, sequencers, etc.) register as mev-commit providers and run provider nodes connected to the custom bootnode.
+- **Bidder access** — Bidders who want preconfirmations on the target network connect their bidder nodes to the same custom bootnode.
+- **Oracle and settlement** — A network-specific oracle is configured to verify commitment fulfillment against the target network's block production.
+- **FastRPC endpoint** — A [FastRPC](/v1.2.x/get-started/fastrpc) instance can be stood up for the network, giving users a single RPC endpoint that automatically wraps transactions with preconfirmation bids.
+
+Each network instance operates independently, so providers and bidders should run separate mev-commit nodes per network they participate in.
+
+## Architecture
+
+```
+┌─────────────────────────────────────────────────┐
+│              Target Network                      │
+│   (validators / sequencers / block producers)    │
+└──────────────────────┬──────────────────────────┘
+                       │ run provider nodes
+                       ▼
+┌─────────────────────────────────────────────────┐
+│         Dedicated mev-commit Instance            │
+│                                                  │
+│   ┌──────────┐  ┌──────────┐  ┌──────────────┐  │
+│   │ Bootnode │  │  Oracle  │  │   Contracts  │  │
+│   └──────────┘  └──────────┘  └──────────────┘  │
+│                                                  │
+│   ┌──────────────────┐  ┌─────────────────────┐  │
+│   │ Provider Nodes   │  │   Bidder Nodes      │  │
+│   └──────────────────┘  └─────────────────────┘  │
+└─────────────────────────────────────────────────┘
+                       │
+                       ▼
+┌─────────────────────────────────────────────────┐
+│         Optional: FastRPC Endpoint               │
+│   (single RPC wrapping txns with preconf bids)   │
+└─────────────────────────────────────────────────┘
+```
+
+## For Execution Service Providers
+
+If you are a validator, sequencer, miner, or other block producer on a network and want to bring mev-commit preconfirmations to your ecosystem:
+
+1. **Reach out to the Primev team** — Contact us to discuss your network's architecture and requirements. We will work with you to configure a custom mev-commit instance.
+2. **Run a provider node** — Once the instance is provisioned, you will run a mev-commit provider node alongside your existing infrastructure, pointed at the custom bootnode for your network.
+3. **Register as a provider** — Stake and register on the provider registry so bidders can discover and interact with you.
+4. **Process bids and issue commitments** — Receive bids from bidders in your network's mev-commit instance and issue cryptographic commitments for execution.
+
+## For Bidders
+
+If you want preconfirmations on a supported network:
+
+1. **Deploy a bidder node** — Run a mev-commit bidder node configured with the custom bootnode endpoint for the target network.
+2. **Fund your bidder account** — Deposit funds into the bidder registry to back your bids.
+3. **Submit bids** — Send bids specifying the transactions you want preconfirmed. Providers on the target network will issue commitments.
+
+We recommend running a **separate bidder node** for each network you participate in.
+
+## What Primev Provisions
+
+When onboarding a new network, the Primev team sets up:
+
+| Component | Description |
+| --------- | ----------- |
+| Bootnode | Dedicated peer discovery endpoint for the network |
+| Oracle | Configured to read and verify block production on the target chain |
+| Contract deployment | Core mev-commit contracts (BidderRegistry, ProviderRegistry, PreconfManager) |
+| FastRPC (optional) | RPC endpoint that wraps transactions with preconfirmation bids |
+| Monitoring | Observability and alerting for the network instance |
+
+## Get Started
+
+To bring mev-commit and preconfirmations to your network, reach out to the Primev team:
+
+- **Twitter**: [@primev_xyz](https://twitter.com/primev_xyz)
+- **GitHub**: [github.com/primev](https://github.com/primev)
+- **Telegram**: Contact us on Twitter to join our integration channel

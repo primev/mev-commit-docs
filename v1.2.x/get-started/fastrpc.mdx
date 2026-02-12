@@ -71,30 +71,36 @@ The RPC only issues preconfs via `eth_getTransactionReceipt` if the next block p
 
 ## Usage for Wallets
 
-You can easily add the FAST RPC to your wallet by following the steps on the [FAST RPC website](https://www.mev-commit.xyz/fastrpc).
+<Info>
+**No deposit required — for a limited time, the FAST RPC sponsors your transactions.** Simply add the RPC to your wallet, set your priority fee to `0`, and transact as normal. The RPC will cover your preconfirmation fees, preconfirm your transactions, and rebalance any MEV generated back to your address.
+</Info>
+
+You can add the FAST RPC to your wallet automatically via the [FAST RPC website](https://www.mev-commit.xyz/fastrpc), or configure it manually below.
 
 <Frame>
   <img src="/v1.2.x/images/fastrpcsite.png" />
 </Frame>
 
-If you instead want to configure your wallet manually, you can do that as follows:
+### Manual Setup
 
 <Steps>
-  <Step title={`Go to your wallet's "Add Custom RPC" screen and add the following details:`}>
-    **Network Name:** Ethereum Mainnet
-    **Default RPC URL:** `https://fastrpc.mev-commit.xyz`
-    **Chain ID:** 1
-    **Currency Symbol:** ETH
-    **Block explorer URL:** etherscan.io
-    
+  <Step title="Add the FAST RPC to your wallet">
+    Open your wallet's **Add Custom RPC** or **Add Network** screen and enter:
+
+    | Field | Value |
+    | ----- | ----- |
+    | Network Name | Ethereum Mainnet |
+    | RPC URL | `https://fastrpc.mev-commit.xyz` |
+    | Chain ID | `1` |
+    | Currency Symbol | ETH |
+    | Block Explorer | `https://etherscan.io` |
+
     This replaces your standard Ethereum RPC URL (e.g., from Infura or Alchemy) with the FAST RPC.
   </Step>
-  <Step title="Deposit funds in the gas tank">
-    Send some ETH to `0x24AFFA7b16A0771848f6CD49c2aa36506Bfc2ACf` to top up your bid balance.
+  <Step title="Set priority fee to 0">
+    When sending transactions, set your priority fee to `0`. The FAST RPC handles preconfirmation fees on your behalf — you do not need to pay any extra tip.
   </Step>
-  <Step title="Make a transaction!">
-    Send some ETH, Use a dApp, Mint an NFT on mainnet with blazing speed
+  <Step title="Transact with preconfirmations">
+    Send ETH, use a dApp, or mint an NFT on mainnet with blazing speed. Your transactions are preconfirmed by mev-commit's decentralized network of block builders.
   </Step>
 </Steps>
-
-You're all set. Happy FAST Ethereum!

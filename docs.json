@@ -115,7 +115,8 @@
                     "group": "Networks",
                     "pages": [
                       "v1.2.x/developers/networks/mainnet",
-                      "v1.2.x/developers/networks/testnet"
+                      "v1.2.x/developers/networks/testnet",
+                      "v1.2.x/developers/networks/other-networks"
                     ]
                   },
                   "v1.2.x/developers/system-requirements",
