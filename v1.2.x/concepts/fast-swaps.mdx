@@ -1,23 +1,22 @@
 ---
-title: "FastSwaps"
-sidebarTitle: "FastSwaps"
-description: "How FastSwaps enables token swaps on Ethereum with MEV reward redistribution"
-icon: "arrows-rotate"
+title: "Fast Swaps"
+sidebarTitle: "Fast Swaps"
+description: "How Fast Swaps enables token swaps on Ethereum with MEV reward redistribution"
 ---
 
-FastSwaps is a swap interface built on top of [Fast Protocol](/v1.2.x/concepts/fast-protocol) that lets users trade tokens on Ethereum mainnet while earning MEV rewards. Unlike traditional DEX frontends where MEV is extracted from traders, FastSwaps routes swaps through the [FAST RPC](/v1.2.x/get-started/fastrpc) and settles them via the **FastSettlement** smart contracts, redistributing captured MEV back to users as **Fast Miles**.
+Fast Swaps is a swap interface built on top of [Fast Protocol](/v1.2.x/concepts/fast-protocol) that lets users trade tokens on Ethereum mainnet while earning MEV rewards. Unlike traditional DEX frontends where MEV is extracted from traders, Fast Swaps routes swaps through the [FAST RPC](/v1.2.x/get-started/fastrpc) and settles them via the **FastSettlement** smart contracts, redistributing captured MEV back to users as **Fast Miles**.
 
-<Card title="Launch FastSwaps" icon="bolt" href="https://fastprotocol.io" horizontal>
+<Card title="Launch Fast Swaps" icon="bolt" href="https://fastprotocol.io" horizontal>
   Start swapping at fastprotocol.io
 </Card>
 
 ---
 
-# How FastSwaps Works
+# How Fast Swaps Works
 
 ## Overview
 
-When a user initiates a swap on FastSwaps, the following happens:
+When a user initiates a swap on Fast Swaps, the following happens:
 
 1. The app queries **Uniswap V3 Quoter V2** across multiple fee tiers to find the best price
 2. The user signs an **EIP-712 intent** (for ERC-20 tokens) or submits a direct transaction (for ETH)
@@ -25,13 +24,13 @@ When a user initiates a swap on FastSwaps, the following happens:
 4. The FastSettlement contract routes the swap through the best available liquidity (currently Uniswap V3 pools)
 5. MEV generated from the swap is captured by Fast Protocol and redistributed to the user as Fast Miles
 
-The swap flow is designed to feel like any familiar DEX — select tokens, enter an amount, review the quote, confirm. The key difference is the settlement layer: instead of the user submitting a swap transaction directly to a DEX router, FastSwaps uses an intent-based architecture where a relayer executes the trade on the user's behalf.
+The swap flow is designed to feel like any familiar DEX — select tokens, enter an amount, review the quote, confirm. The key difference is the settlement layer: instead of the user submitting a swap transaction directly to a DEX router, Fast Swaps uses an intent-based architecture where a relayer executes the trade on the user's behalf.
 
 ---
 
 ## Execution Paths
 
-FastSwaps supports two execution paths depending on the input token:
+Fast Swaps supports two execution paths depending on the input token:
 
 | Input Token | Path | User Action | Gas |
 | ----------- | ---- | ----------- | --- |
@@ -40,7 +39,7 @@ FastSwaps supports two execution paths depending on the input token:
 
 ### ERC-20 Path (Permit2)
 
-For ERC-20 token swaps, FastSwaps uses [Uniswap's Permit2](https://docs.uniswap.org/contracts/permit2/overview) contract to enable gasless, signature-based token transfers.
+For ERC-20 token swaps, Fast Swaps uses [Uniswap's Permit2](https://docs.uniswap.org/contracts/permit2/overview) contract to enable gasless, signature-based token transfers.
 
 <Steps>
   <Step title="One-time Permit2 approval">
@@ -84,9 +83,9 @@ In both paths, the relayer or user transaction is routed through the FAST RPC, w
 
 ## Pricing & Quoting
 
-FastSwaps fetches real-time quotes from the **Uniswap V3 Quoter V2** contract on Ethereum mainnet. For each swap request, the system:
+Fast Swaps fetches real-time quotes from the **Uniswap V3 Quoter V2** contract on Ethereum mainnet. For each swap request, the system:
 
-1. **Queries multiple fee tiers in parallel** — Uniswap V3 pools exist at 0.05%, 0.30%, and 1.00% fee tiers. FastSwaps queries all three simultaneously and selects the tier that returns the best output amount.
+1. **Queries multiple fee tiers in parallel** — Uniswap V3 pools exist at 0.05%, 0.30%, and 1.00% fee tiers. Fast Swaps queries all three simultaneously and selects the tier that returns the best output amount.
 
 2. **Estimates gas costs** — Each quote includes a gas estimate so the user can see the total cost of the swap.
 
@@ -116,7 +115,7 @@ Each swap intent includes a deadline timestamp. If the relayer does not execute 
 
 ## Smart Contracts
 
-FastSwaps is powered by smart contracts deployed on **Ethereum L1** (Chain ID: 1).
+Fast Swaps is powered by smart contracts deployed on **Ethereum L1** (Chain ID: 1).
 
 ### FastSettlement V3
 
@@ -184,7 +183,7 @@ struct SwapCall {
 
 ### Permit2
 
-FastSwaps uses Uniswap's canonical [Permit2](https://docs.uniswap.org/contracts/permit2/overview) contract for gasless ERC-20 approvals.
+Fast Swaps uses Uniswap's canonical [Permit2](https://docs.uniswap.org/contracts/permit2/overview) contract for gasless ERC-20 approvals.
 
 | Property | Value |
 | -------- | ----- |
@@ -210,7 +209,7 @@ Used for real-time price quotes. This is a read-only contract — it simulates s
 
 ## EIP-712 Signing
 
-For ERC-20 swaps, FastSwaps constructs an EIP-712 typed data message that combines a Permit2 transfer with a swap intent witness. The signing domain is:
+For ERC-20 swaps, Fast Swaps constructs an EIP-712 typed data message that combines a Permit2 transfer with a swap intent witness. The signing domain is:
 
 ```json
 {
@@ -232,7 +231,7 @@ This design ensures the relayer can only execute the exact swap the user intende
 
 ## Supported Tokens
 
-FastSwaps supports over **2,400 ERC-20 tokens** on Ethereum mainnet. Any token with liquidity on Uniswap V3 can be traded. The token list includes:
+Fast Swaps supports over **2,400 ERC-20 tokens** on Ethereum mainnet. Any token with liquidity on Uniswap V3 can be traded. The token list includes:
 
 - **Major tokens**: ETH, WETH, USDC, USDT, DAI, WBTC
 - **DeFi tokens**: UNI, AAVE, LINK, MKR, SNX, COMP
@@ -240,7 +239,7 @@ FastSwaps supports over **2,400 ERC-20 tokens** on Ethereum mainnet. Any token w
 - **Custom tokens**: Users can add any ERC-20 token by entering its contract address
 
 <Warning>
-Always verify the contract address when adding custom tokens. FastSwaps does not verify the legitimacy of user-added tokens.
+Always verify the contract address when adding custom tokens. Fast Swaps does not verify the legitimacy of user-added tokens.
 </Warning>
 
 ---
@@ -251,7 +250,7 @@ Users earn **Fast Miles** proportional to the MEV their swaps generate through F
 
 Key points:
 - Users receive **at least 90%** of the MEV their transactions generate under normal conditions
-- Fast Miles are tracked in the FastSwaps dashboard and leaderboard
+- Fast Miles are tracked in the Fast Swaps dashboard and leaderboard
 - Miles are planned to be tokenized — early users accumulate before the official points system launches
 - Bonus miles are available through referrals and one-time tasks in the app
 
@@ -261,10 +260,10 @@ For a full explanation of MEV distribution, fee parameters, and the adaptive par
 
 ## Architecture Diagram
 
-The following shows how a swap flows through the FastSwaps system:
+The following shows how a swap flows through the Fast Swaps system:
 
 ```
-User                    FastSwaps App              FAST RPC / Relayer        Ethereum L1
+User                    Fast Swaps App              FAST RPC / Relayer        Ethereum L1
  │                          │                            │                       │
  │  1. Select tokens &      │                            │                       │
  │     enter amount         │                            │                       │
@@ -301,7 +300,7 @@ User                    FastSwaps App              FAST RPC / Relayer        Eth
 
 ## Comparison with Traditional DEX Frontends
 
-| Feature | Traditional DEX (e.g., Uniswap App) | FastSwaps |
+| Feature | Traditional DEX (e.g., Uniswap App) | Fast Swaps |
 | ------- | ----------------------------------- | --------- |
 | **Token selection** | User selects tokens | User selects tokens |
 | **Pricing** | Uniswap V3 Quoter | Uniswap V3 Quoter (same pools) |
@@ -310,7 +309,7 @@ User                    FastSwaps App              FAST RPC / Relayer        Eth
 | **MEV rewards** | None | User earns Fast Miles proportional to MEV generated |
 | **Gas for ERC-20 swaps** | User pays gas | Relayer pays gas (gasless for user) |
 | **Settlement** | Direct DEX router call | FastSettlement contract with surplus capture |
-| **Preconfirmations** | None | Transaction preconfirmed via mev-commit network |
+| **Preconfirmations** | None | Transaction preconfirmed by Ethereum block builders on the mev-commit network |
 
 ---
 

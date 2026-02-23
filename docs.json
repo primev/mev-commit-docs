@@ -69,8 +69,13 @@
               {
                 "group": "Concepts",
                 "pages": [
-                  "v1.2.x/concepts/fast-protocol",
-                  "v1.2.x/concepts/fast-swaps",
+                  {
+                    "group": "Fast Protocol",
+                    "pages": [
+                      "v1.2.x/concepts/fast-protocol",
+                      "v1.2.x/concepts/fast-swaps"
+                    ]
+                  },
                   {
                     "group": "mev-commit-intro",
                     "pages": [
