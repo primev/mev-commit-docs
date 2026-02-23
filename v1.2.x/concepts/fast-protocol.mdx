@@ -325,11 +325,16 @@ Thus, no competing OFA can sustainably provide higher user mev refunds than Fast
 
 # FastSwaps
 
-FastSwaps enables token swaps on Ethereum through the [FAST RPC](/v1.2.x/get-started/fastrpc). Swaps are backed by mev-commit preconfirmations, and users earn **Fast Miles** based on the MEV their swaps generate.
+FastSwaps is a swap interface built on top of Fast Protocol that lets users trade tokens on Ethereum mainnet while earning MEV rewards. Swaps are backed by mev-commit preconfirmations, routed through the [FAST RPC](/v1.2.x/get-started/fastrpc), and settled via the **FastSettlement** smart contracts on L1.
 
-<Card title="Launch FastSwaps" icon="bolt" href="https://fastprotocolapp-git-lightning-swaps-primev-da84fd63.vercel.app/" horizontal>
-  Start swapping and earning miles.
-</Card>
+<CardGroup cols={2}>
+  <Card title="Launch FastSwaps" icon="bolt" href="https://fastprotocol.io" horizontal>
+    Start swapping and earning miles.
+  </Card>
+  <Card title="FastSwaps Docs" icon="book" href="/v1.2.x/concepts/fast-swaps" horizontal>
+    Technical deep-dive: architecture, contracts, and EIP-712 signing.
+  </Card>
+</CardGroup>
 
 ---
 
@@ -339,12 +344,14 @@ The swap flow follows a familiar DEX experience — select an input token, an ou
 
 | Input Token | Execution |
 | ----------- | --------- |
-| **ERC-20** (e.g. USDC, DAI) | The user signs an off-chain intent. The swap is executed on their behalf — **no gas required**. |
-| **ETH** | The user submits the transaction directly from their wallet. |
+| **ERC-20** (e.g. USDC, DAI) | The user signs an off-chain EIP-712 intent. A relayer executes the swap via the FastSettlement contract — **no gas required from the user**. |
+| **ETH** | The user submits the transaction directly from their wallet via `executeWithETH`. |
 
 #### Permit2
 
 ERC-20 swaps require a one-time [Permit2](https://docs.uniswap.org/contracts/permit2/overview) approval per input token. Once a token is approved, subsequent swaps with that token only require a signature. If Permit2 has already been approved for a given token on another application (such as Uniswap), no additional approval is needed.
+
+For a full explanation of the swap architecture, smart contracts, pricing mechanism, and security model, see the dedicated [FastSwaps](/v1.2.x/concepts/fast-swaps) page.
 
 ---
 

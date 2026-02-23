@@ -21,6 +21,7 @@
                 "pages": [
                   "v1.2.x/get-started/welcome-to-primev",
                   "v1.2.x/get-started/quickstart",
+                  "v1.2.x/get-started/fast-swaps",
                   "v1.2.x/get-started/fastrpc",
                   {
                     "group": "Bridge",
@@ -69,6 +70,7 @@
                 "group": "Concepts",
                 "pages": [
                   "v1.2.x/concepts/fast-protocol",
+                  "v1.2.x/concepts/fast-swaps",
                   {
                     "group": "mev-commit-intro",
                     "pages": [

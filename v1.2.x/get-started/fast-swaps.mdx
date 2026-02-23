@@ -1,0 +1,315 @@
+---
+title: "FastSwaps"
+sidebarTitle: "FastSwaps"
+description: "Your first token swap on FastSwaps — a step-by-step visual guide"
+icon: "bolt"
+---
+
+This guide walks you through performing your first token swap on [FastSwaps](https://fastprotocol.io). By the end, you will have swapped tokens on Ethereum and started earning MEV rewards (Fast Miles).
+
+<Info>
+**What you need before starting:**
+- A web browser (Chrome, Firefox, or Brave recommended)
+- A wallet extension installed ([MetaMask](https://metamask.io), [Rabby](https://rabby.io), or [Coinbase Wallet](https://www.coinbase.com/wallet))
+- ETH in your wallet (for gas fees if swapping ETH, or for the one-time token approval)
+- The tokens you want to swap
+</Info>
+
+---
+
+## Step 1: Go to FastSwaps
+
+Open your browser and navigate to **[fastprotocol.io](https://fastprotocol.io)**.
+
+You will see the FastSwaps landing page with the swap interface.
+
+<Frame>
+  {/* TODO: Screenshot of the FastSwaps landing page at fastprotocol.io showing the swap interface */}
+  <img src="/v1.2.x/images/fastswaps-landing.png" alt="FastSwaps landing page showing the swap interface with Sell and Buy fields" />
+</Frame>
+
+---
+
+## Step 2: Connect Your Wallet
+
+Click the **Connect Wallet** button in the top-right corner of the page.
+
+<Frame>
+  {/* TODO: Screenshot highlighting the Connect Wallet button */}
+  <img src="/v1.2.x/images/fastswaps-connect-button.png" alt="Connect Wallet button highlighted in the FastSwaps header" />
+</Frame>
+
+A wallet selection modal will appear. Choose your wallet provider:
+
+- **MetaMask**
+- **Rabby**
+- **Coinbase Wallet**
+- **WalletConnect** (for mobile wallets or other providers)
+
+<Frame>
+  {/* TODO: Screenshot of the wallet selection modal showing available wallet options */}
+  <img src="/v1.2.x/images/fastswaps-wallet-modal.png" alt="Wallet connection modal showing MetaMask, Rabby, Coinbase Wallet, and WalletConnect options" />
+</Frame>
+
+Your wallet extension will prompt you to approve the connection. Confirm the connection in your wallet.
+
+<Tip>
+Make sure your wallet is set to **Ethereum Mainnet**. FastSwaps operates on Ethereum L1.
+</Tip>
+
+---
+
+## Step 3: Select the Token You Want to Sell
+
+The swap interface has two sections: **Sell** (top) and **Buy** (bottom).
+
+Click the token selector button in the **Sell** section. By default, it may show ETH.
+
+<Frame>
+  {/* TODO: Screenshot of the swap interface with the Sell token selector highlighted */}
+  <img src="/v1.2.x/images/fastswaps-sell-selector.png" alt="Swap interface with the Sell token selector button highlighted" />
+</Frame>
+
+A token selector modal opens where you can:
+
+- **Search** by token name or symbol (e.g., "USDC" or "Uniswap")
+- **Browse popular tokens** in the top carousel (ETH, USDC, USDT, DAI, WBTC)
+- **Paste a contract address** to add any ERC-20 token not in the default list
+
+<Frame>
+  {/* TODO: Screenshot of the token selector modal showing the search bar, popular tokens carousel, and token list */}
+  <img src="/v1.2.x/images/fastswaps-token-selector.png" alt="Token selector modal with search bar, popular tokens, and scrollable token list" />
+</Frame>
+
+Select the token you want to sell. For this guide, we will use **ETH**.
+
+---
+
+## Step 4: Select the Token You Want to Buy
+
+Click the token selector button in the **Buy** section and choose your desired output token. For this guide, we will select **USDC**.
+
+<Frame>
+  {/* TODO: Screenshot showing ETH selected in Sell and USDC selected in Buy */}
+  <img src="/v1.2.x/images/fastswaps-pair-selected.png" alt="Swap interface showing ETH as Sell token and USDC as Buy token" />
+</Frame>
+
+<Tip>
+You can click the **switch button** (↕) between the Sell and Buy sections to reverse the swap direction at any time.
+</Tip>
+
+---
+
+## Step 5: Enter the Swap Amount
+
+Click the amount field in the **Sell** section and type the amount you want to swap. For example, enter `0.1` to swap 0.1 ETH.
+
+<Frame>
+  {/* TODO: Screenshot showing 0.1 ETH entered in the Sell field with the live quote appearing in the Buy field */}
+  <img src="/v1.2.x/images/fastswaps-amount-entered.png" alt="Swap interface showing 0.1 ETH entered with the equivalent USDC amount displayed below" />
+</Frame>
+
+As you type, FastSwaps automatically:
+
+- **Fetches a real-time quote** from Uniswap V3 liquidity pools
+- **Displays the output amount** in the Buy section
+- **Shows the exchange rate** (e.g., "1 ETH = 2,450.32 USDC")
+- **Shows price impact** — the effect your trade has on the market price
+
+The quote refreshes every **15 seconds**. A countdown timer next to the exchange rate shows when the next refresh will occur.
+
+---
+
+## Step 6: Review Swap Details
+
+Before confirming, review the swap details displayed below the Buy section:
+
+<Frame>
+  {/* TODO: Screenshot showing the exchange rate, price impact indicator, and any slippage/gas info */}
+  <img src="/v1.2.x/images/fastswaps-review-details.png" alt="Swap details showing exchange rate with countdown timer, price impact badge, and estimated gas cost" />
+</Frame>
+
+| Detail | What It Means |
+| ------ | ------------- |
+| **Exchange Rate** | How much of the output token you get per unit of input token (e.g., 1 ETH = 2,450 USDC) |
+| **Price Impact** | How much your swap moves the market price. Green is negligible, yellow is moderate, red means you may want to reduce your swap size |
+| **Minimum Received** | The worst-case amount you will receive after slippage tolerance is applied |
+
+### Adjust Slippage (Optional)
+
+Click the **settings gear icon** to open transaction settings. Here you can adjust:
+
+- **Slippage tolerance** — The maximum price movement you are willing to accept. Default is "Auto," which sets an appropriate value based on the token pair. You can set a custom percentage (e.g., 0.5%, 1%).
+- **Transaction deadline** — How long the swap remains valid before it expires.
+
+<Frame>
+  {/* TODO: Screenshot of the transaction settings panel showing slippage and deadline options */}
+  <img src="/v1.2.x/images/fastswaps-settings.png" alt="Transaction settings showing slippage tolerance (Auto or custom) and transaction deadline options" />
+</Frame>
+
+<Warning>
+Setting slippage too low may cause the swap to fail if the price moves. Setting it too high may result in a worse exchange rate. The "Auto" setting is recommended for most users.
+</Warning>
+
+---
+
+## Step 7: Approve the Token (First Time Only)
+
+<Info>
+**This step only applies to ERC-20 token swaps** (e.g., USDC → ETH). If you are swapping **ETH as the input token**, skip to [Step 8](#step-8-confirm-the-swap).
+</Info>
+
+If this is your first time swapping a particular ERC-20 token on FastSwaps, you need to approve the **Permit2** contract to access that token. This is a one-time on-chain transaction per token.
+
+Click the **Approve** button. Your wallet will prompt you to confirm the approval transaction.
+
+<Frame>
+  {/* TODO: Screenshot showing the Approve button for Permit2 token approval */}
+  <img src="/v1.2.x/images/fastswaps-approve.png" alt="FastSwaps showing the Approve button for first-time Permit2 token approval" />
+</Frame>
+
+<Tip>
+If you have previously approved this token for Permit2 on another app (like Uniswap), you will not need to approve it again.
+</Tip>
+
+Once the approval transaction confirms, the button changes to **Swap**.
+
+---
+
+## Step 8: Confirm the Swap
+
+Click the **Swap** button to initiate the swap.
+
+A confirmation modal appears showing the full details of your swap:
+
+<Frame>
+  {/* TODO: Screenshot of the swap confirmation modal showing token amounts, exchange rate, price impact, minimum received, and Confirm button */}
+  <img src="/v1.2.x/images/fastswaps-confirmation-modal.png" alt="Swap confirmation modal showing ETH to USDC swap details with token icons, amounts, exchange rate, price impact, and Confirm Swap button" />
+</Frame>
+
+The confirmation modal displays:
+- **Input and output token amounts** with token icons
+- **Exchange rate** at time of execution
+- **Price impact**
+- **Minimum received** after slippage
+- **Estimated gas cost** (in ETH and USD)
+
+Review the details and click **Confirm Swap**.
+
+---
+
+## Step 9: Sign in Your Wallet
+
+Your wallet will prompt you to sign the transaction:
+
+- **For ERC-20 input tokens**: You will sign an **EIP-712 message** (a signature, not a transaction). This is gasless — you do not pay gas at this step.
+- **For ETH input**: You will sign and submit an **on-chain transaction**. This requires gas.
+
+<Frame>
+  {/* TODO: Screenshot of the wallet signature prompt (MetaMask or Rabby) showing the EIP-712 signing request */}
+  <img src="/v1.2.x/images/fastswaps-wallet-sign.png" alt="Wallet extension showing the EIP-712 signature request for the FastSwaps swap intent" />
+</Frame>
+
+Confirm the signature or transaction in your wallet.
+
+---
+
+## Step 10: Wait for Confirmation
+
+After signing, a confirmation toast appears in the bottom of the screen showing your swap status:
+
+<Frame>
+  {/* TODO: Screenshot or GIF of the swap confirmation toast showing the pending → pre-confirmed → confirmed progression */}
+  <img src="/v1.2.x/images/fastswaps-toast-confirming.png" alt="Swap confirmation toast showing pending status with token pair and amounts" />
+</Frame>
+
+The swap progresses through these stages:
+
+| Status | What It Means |
+| ------ | ------------- |
+| **Pending** | Your swap intent has been submitted to the relayer |
+| **Pre-confirmed** | The swap has been preconfirmed by mev-commit block builders — it will be included in an upcoming block |
+| **Confirmed** | The swap has been included in an Ethereum block. Your output tokens are in your wallet |
+
+<Info>
+**Pre-confirmation** is unique to FastSwaps. Through the [mev-commit](/v1.2.x/concepts/mev-commit-intro/what-is-mev-commit) network, block builders commit to including your transaction before the block is produced. This gives you near-instant confidence that your swap will settle.
+</Info>
+
+---
+
+## Step 11: Swap Complete
+
+Once confirmed, the toast updates to show the completed swap with a link to the transaction on Etherscan.
+
+<Frame>
+  {/* TODO: Screenshot of the completed swap toast showing success status, final amounts, and Etherscan link */}
+  <img src="/v1.2.x/images/fastswaps-complete.png" alt="Completed swap toast showing confirmed status with ETH and USDC amounts and a View on Etherscan link" />
+</Frame>
+
+Your output tokens are now in your wallet. The swap form resets, ready for your next trade.
+
+**You have earned Fast Miles for this swap.** Check your dashboard to see your accumulated miles and leaderboard ranking.
+
+---
+
+## Earn Fast Miles
+
+Every swap you make on FastSwaps earns **Fast Miles** — MEV rewards proportional to the value your swaps generate through [Fast Protocol](/v1.2.x/concepts/fast-protocol). The more you swap, the more miles you earn.
+
+<CardGroup cols={2}>
+  <Card title="View Dashboard" icon="chart-line" href="https://fastprotocol.io/dashboard">
+    Check your Fast Miles balance, swap history, and leaderboard position.
+  </Card>
+  <Card title="Leaderboard" icon="trophy" href="https://fastprotocol.io/leaderboard">
+    See how you rank against other FastSwaps users.
+  </Card>
+</CardGroup>
+
+---
+
+## Tips & Troubleshooting
+
+<Accordion title="My swap is taking a long time">
+  Ethereum block times are approximately 12 seconds. Most swaps confirm within 1-2 blocks (12-24 seconds). If a swap takes longer:
+  - Check your wallet for any pending transactions
+  - The swap may be waiting for a mev-commit opted-in proposer — see [FAST RPC](/v1.2.x/get-started/fastrpc) for details
+  - If the swap times out (exceeds your deadline), it will automatically cancel and your tokens will remain in your wallet
+</Accordion>
+
+<Accordion title="My swap failed — what happened?">
+  Common reasons for swap failure:
+  - **Slippage exceeded** — The price moved more than your slippage tolerance between quote and execution. Try increasing your slippage setting.
+  - **Insufficient balance** — Make sure you have enough of the input token plus ETH for gas (if swapping ETH).
+  - **Deadline expired** — The swap was not executed before the deadline. Try again with a fresh quote.
+  - **Price impact too high** — For large swaps, try splitting into smaller amounts.
+</Accordion>
+
+<Accordion title="I approved a token but still see the Approve button">
+  The Permit2 approval may still be confirming on-chain. Wait for the approval transaction to be mined (check your wallet's activity tab), then refresh the page.
+</Accordion>
+
+<Accordion title="Can I swap any token?">
+  FastSwaps supports any ERC-20 token that has liquidity on Uniswap V3. If a token does not appear in the default list, you can add it by pasting its contract address in the token selector search bar. Always verify the contract address from a trusted source like [Etherscan](https://etherscan.io) or [CoinGecko](https://coingecko.com).
+</Accordion>
+
+<Accordion title="Do I need ETH for gas?">
+  - **Swapping ERC-20 tokens** (e.g., USDC → ETH): After the initial one-time Permit2 approval, subsequent swaps are **gasless** — you only sign a message.
+  - **Swapping ETH** (e.g., ETH → USDC): You submit an on-chain transaction and pay standard Ethereum gas fees.
+  - **First-time token approval**: The one-time Permit2 approval requires a small amount of ETH for gas.
+</Accordion>
+
+---
+
+## What's Next?
+
+<CardGroup cols={3}>
+  <Card title="How FastSwaps Works" icon="gears" href="/v1.2.x/concepts/fast-swaps">
+    Learn about the technical architecture, smart contracts, and MEV reward mechanics behind FastSwaps.
+  </Card>
+  <Card title="Fast Protocol Economics" icon="coins" href="/v1.2.x/concepts/fast-protocol">
+    Understand how MEV is captured, distributed, and why users receive at least 90% of the MEV their transactions generate.
+  </Card>
+  <Card title="FAST RPC" icon="forward-fast" href="/v1.2.x/get-started/fastrpc">
+    Learn about the FAST RPC that powers preconfirmations and MEV capture for FastSwaps.
+  </Card>
+</CardGroup>
