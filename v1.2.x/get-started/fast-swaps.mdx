@@ -5,7 +5,7 @@ description: "Your first token swap on Fast Swaps — a step-by-step visual guid
 icon: "bolt"
 ---
 
-This guide walks you through performing your first token swap on [Fast Swaps](https://fastprotocol.io). By the end, you will have swapped tokens on Ethereum and started earning MEV rewards (Fast Miles).
+This guide walks you through performing your first token swap on [Fast Swaps](https://fastprotocol.io). By the end, you will have swapped tokens on Ethereum and started earning mev rewards (Fast Miles).
 
 <Info>
 **What you need before starting:**
@@ -52,7 +52,7 @@ This guide walks you through performing your first token swap on [Fast Swaps](ht
     Your wallet extension will prompt you to approve the connection. Confirm the connection in your wallet.
 
     <Tip>
-    Make sure your wallet is set to **Ethereum Mainnet**. For the best experience, set your Ethereum RPC to [FAST RPC](/v1.2.x/get-started/fastrpc) (`https://fastrpc.mev-commit.xyz`). This enables preconfirmations and MEV rewards on all your Ethereum transactions — not just Fast Swaps. See the [FAST RPC setup guide](/v1.2.x/get-started/fastrpc#usage-for-wallets) for instructions.
+    Make sure your wallet is set to **Ethereum Mainnet**. For the best experience, set your Ethereum RPC to [FAST RPC](/v1.2.x/get-started/fastrpc) (`https://fastrpc.mev-commit.xyz`). This enables preconfirmations and mev rewards on all your Ethereum transactions — not just Fast Swaps. See the [FAST RPC setup guide](/v1.2.x/get-started/fastrpc#usage-for-wallets) for instructions.
     </Tip>
   </Step>
 
@@ -103,7 +103,7 @@ This guide walks you through performing your first token swap on [Fast Swaps](ht
 
     As you type, Fast Swaps automatically:
 
-    - **Fetches a real-time quote** from Uniswap V3 liquidity pools
+    - **Fetches a real-time quote** via a competitive solver auction
     - **Displays the output amount** in the Buy section
     - **Shows the exchange rate** (e.g., "1 ETH = 2,450.32 USDC")
     - **Shows price impact** — the effect your trade has on the market price
@@ -214,7 +214,7 @@ This guide walks you through performing your first token swap on [Fast Swaps](ht
 
       | Status | What It Means |
       | ------ | ------------- |
-      | **Pending** | Your swap intent has been submitted to the relayer |
+      | **Pending** | Your swap intent has been submitted to FAST RPC |
       | **Preconfirmed** | Ethereum block builders on mev-commit have committed to including your transaction — your swap is effectively done |
       | **Confirmed** | The swap has been included in a finalized Ethereum block. Your output tokens are fully settled on-chain |
     </Accordion>
@@ -238,7 +238,7 @@ This guide walks you through performing your first token swap on [Fast Swaps](ht
 
 ## Earn Fast Miles
 
-Every swap you make on Fast Swaps earns **Fast Miles** — MEV rewards proportional to the value your swaps generate through [Fast Protocol](/v1.2.x/concepts/fast-protocol). The more you swap, the more miles you earn.
+Every swap you make on Fast Swaps earns **Fast Miles** — mev rewards proportional to the value your swaps generate through [Fast Protocol](/v1.2.x/concepts/fast-protocol). The more you swap, the more miles you earn.
 
 <CardGroup cols={2}>
   <Card title="View Dashboard" icon="chart-line" href="https://fastprotocol.io/dashboard">
@@ -273,7 +273,7 @@ Every swap you make on Fast Swaps earns **Fast Miles** — MEV rewards proportio
 </Accordion>
 
 <Accordion title="Can I swap any token?">
-  Fast Swaps supports any ERC-20 token that has liquidity on Uniswap V3. If a token does not appear in the default list, you can add it by pasting its contract address in the token selector search bar. Always verify the contract address from a trusted source like [Etherscan](https://etherscan.io) or [CoinGecko](https://coingecko.com).
+  Fast Swaps supports any ERC-20 token with on-chain liquidity on Ethereum. If a token does not appear in the default list, you can add it by pasting its contract address in the token selector search bar. Always verify the contract address from a trusted source like [Etherscan](https://etherscan.io) or [CoinGecko](https://coingecko.com).
 </Accordion>
 
 <Accordion title="Do I need ETH for gas?">
@@ -288,12 +288,12 @@ Every swap you make on Fast Swaps earns **Fast Miles** — MEV rewards proportio
 
 <CardGroup cols={3}>
   <Card title="How Fast Swaps Works" icon="gears" href="/v1.2.x/concepts/fast-swaps">
-    Learn about the technical architecture, smart contracts, and MEV reward mechanics behind Fast Swaps.
+    Learn about the technical architecture, smart contracts, and mev reward mechanics behind Fast Swaps.
   </Card>
   <Card title="Fast Protocol Economics" icon="coins" href="/v1.2.x/concepts/fast-protocol">
-    Understand how MEV is captured, distributed, and why users receive at least 90% of the MEV their transactions generate.
+    Understand how mev is captured, distributed, and why users receive at least 90% of the mev their transactions generate.
   </Card>
   <Card title="FAST RPC" icon="forward-fast" href="/v1.2.x/get-started/fastrpc">
-    Learn about the FAST RPC that powers preconfirmations and MEV capture for Fast Swaps.
+    Learn about the FAST RPC that powers preconfirmations and mev capture for Fast Swaps.
   </Card>
 </CardGroup>

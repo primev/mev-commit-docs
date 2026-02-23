@@ -1,10 +1,10 @@
 ---
 title: "Fast Swaps"
 sidebarTitle: "Fast Swaps"
-description: "How Fast Swaps enables token swaps on Ethereum with MEV reward redistribution"
+description: "How Fast Swaps enables token swaps on Ethereum with mev reward redistribution"
 ---
 
-Fast Swaps is a swap interface built on top of [Fast Protocol](/v1.2.x/concepts/fast-protocol) that lets users trade tokens on Ethereum mainnet while earning MEV rewards. Unlike traditional DEX frontends where MEV is extracted from traders, Fast Swaps routes swaps through the [FAST RPC](/v1.2.x/get-started/fastrpc) and settles them via the **FastSettlement** smart contracts, redistributing captured MEV back to users as **Fast Miles**.
+Fast Swaps is a swap interface built on top of [Fast Protocol](/v1.2.x/concepts/fast-protocol) that lets users trade tokens on Ethereum mainnet while earning mev rewards. Unlike traditional DEX frontends where mev is extracted from traders, Fast Swaps routes swaps through the [FAST RPC](/v1.2.x/get-started/fastrpc) and settles them via the **FastSettlement** smart contracts, redistributing captured mev back to users as **Fast Miles**.
 
 <Card title="Launch Fast Swaps" icon="bolt" href="https://fastprotocol.io" horizontal>
   Start swapping at fastprotocol.io
@@ -18,13 +18,13 @@ Fast Swaps is a swap interface built on top of [Fast Protocol](/v1.2.x/concepts/
 
 When a user initiates a swap on Fast Swaps, the following happens:
 
-1. The app queries **Uniswap V3 Quoter V2** across multiple fee tiers to find the best price
+1. The user selects tokens and enters an amount — a **solver auction** runs to find the best available price across liquidity sources
 2. The user signs an **EIP-712 intent** (for ERC-20 tokens) or submits a direct transaction (for ETH)
-3. A relayer picks up the signed intent and executes it through the **FastSettlement** contract on Ethereum
-4. The FastSettlement contract routes the swap through the best available liquidity (currently Uniswap V3 pools)
-5. MEV generated from the swap is captured by Fast Protocol and redistributed to the user as Fast Miles
+3. [FAST RPC](/v1.2.x/get-started/fastrpc) picks up the signed intent and executes it through the **FastSettlement** contract on Ethereum
+4. The winning solver routes the swap through the best available liquidity and the FastSettlement contract settles it on-chain
+5. mev generated from the swap is captured by Fast Protocol and redistributed to the user as Fast Miles
 
-The swap flow is designed to feel like any familiar DEX — select tokens, enter an amount, review the quote, confirm. The key difference is the settlement layer: instead of the user submitting a swap transaction directly to a DEX router, Fast Swaps uses an intent-based architecture where a relayer executes the trade on the user's behalf.
+The swap flow is designed to feel like any familiar DEX — select tokens, enter an amount, review the quote, confirm. The key difference is the settlement layer: instead of the user submitting a swap transaction directly to a DEX router, Fast Swaps uses an intent-based architecture where FAST RPC executes the trade on the user's behalf via a competitive solver auction.
 
 ---
 
@@ -47,18 +47,18 @@ For ERC-20 token swaps, Fast Swaps uses [Uniswap's Permit2](https://docs.uniswap
   </Step>
   <Step title="Sign the swap intent">
     For each swap, you sign an off-chain EIP-712 typed data message. This message encodes a `PermitWitnessTransferFrom` that includes:
-    - The **token permission** (which token and how much the relayer can transfer)
+    - The **token permission** (which token and how much FAST RPC can transfer)
     - A **witness** containing your `Intent` struct (input/output tokens, amounts, recipient, deadline, nonce)
 
     No gas is required for this step — it is only a signature.
   </Step>
-  <Step title="Relayer executes the swap">
-    The relayer receives your signed intent and calls `executeWithPermit` on the FastSettlement contract. The contract:
+  <Step title="FAST RPC executes the swap">
+    FAST RPC receives your signed intent and calls `executeWithPermit` on the FastSettlement contract. The contract:
     1. Verifies your Permit2 signature
     2. Transfers your input tokens via Permit2
-    3. Executes the swap through the best available DEX route
+    3. Routes the swap through the solver's chosen liquidity path
     4. Sends the output tokens to your wallet
-    5. Returns any surplus to the protocol for MEV redistribution
+    5. Returns any surplus to the protocol for mev redistribution
   </Step>
 </Steps>
 
@@ -76,16 +76,16 @@ When swapping ETH as the input token, the user submits a transaction directly:
 </Steps>
 
 <Info>
-In both paths, the relayer or user transaction is routed through the FAST RPC, which enables mev-commit preconfirmations and MEV capture.
+In both paths, the transaction is routed through FAST RPC, which enables mev-commit preconfirmations and mev capture.
 </Info>
 
 ---
 
 ## Pricing & Quoting
 
-Fast Swaps fetches real-time quotes from the **Uniswap V3 Quoter V2** contract on Ethereum mainnet. For each swap request, the system:
+Fast Swaps uses a **solver auction** to find the best price for each swap. When a user enters a swap amount, the system:
 
-1. **Queries multiple fee tiers in parallel** — Uniswap V3 pools exist at 0.05%, 0.30%, and 1.00% fee tiers. Fast Swaps queries all three simultaneously and selects the tier that returns the best output amount.
+1. **Runs a competitive solver auction** — Multiple solvers compete to offer the best execution price across available liquidity sources. The winning solver's quote is presented to the user.
 
 2. **Estimates gas costs** — Each quote includes a gas estimate so the user can see the total cost of the swap.
 
@@ -109,7 +109,7 @@ The slippage tolerance is encoded into the `userAmtOut` (minimum output amount) 
 
 ### Transaction Deadline
 
-Each swap intent includes a deadline timestamp. If the relayer does not execute the swap before this deadline, the intent expires and cannot be executed. Users can configure the deadline from 5 minutes to 24 hours.
+Each swap intent includes a deadline timestamp. If FAST RPC does not execute the swap before this deadline, the intent expires and cannot be executed. Users can configure the deadline from 5 minutes to 24 hours.
 
 ---
 
@@ -144,7 +144,7 @@ function executeWithETH(
 
 **`executeWithPermit(intent, signature, swapData)`**
 
-Executes a swap where an ERC-20 token is the input. The relayer provides the user's Permit2 signature.
+Executes a swap where an ERC-20 token is the input. FAST RPC provides the user's Permit2 signature.
 
 ```solidity
 function executeWithPermit(
@@ -194,17 +194,6 @@ Fast Swaps uses Uniswap's canonical [Permit2](https://docs.uniswap.org/contracts
 
 Permit2 allows users to approve a token once and then sign off-chain messages (EIP-712) for subsequent transfers. This eliminates the need for per-swap on-chain approval transactions.
 
-### Uniswap V3 Quoter V2
-
-Used for real-time price quotes. This is a read-only contract — it simulates swaps without executing them.
-
-| Property | Value |
-| -------- | ----- |
-| **Contract** | QuoterV2 |
-| **Network** | Ethereum Mainnet |
-| **Address** | `0x61fFE014bA17989E743c5F6cB21bF9697530B21` |
-| **Source** | [GitHub](https://github.com/Uniswap/v3-periphery) |
-
 ---
 
 ## EIP-712 Signing
@@ -222,16 +211,16 @@ For ERC-20 swaps, Fast Swaps constructs an EIP-712 typed data message that combi
 The typed data includes:
 
 - **PermitWitnessTransferFrom** — Standard Permit2 transfer with an additional witness field
-- **TokenPermissions** — Specifies which token and amount the relayer can transfer
+- **TokenPermissions** — Specifies which token and amount FAST RPC can transfer
 - **Intent** (witness) — The full swap parameters that the FastSettlement contract will verify on-chain
 
-This design ensures the relayer can only execute the exact swap the user intended. The signature covers both the token transfer authorization and the swap parameters, preventing any modification of the swap terms after signing.
+This design ensures FAST RPC can only execute the exact swap the user intended. The signature covers both the token transfer authorization and the swap parameters, preventing any modification of the swap terms after signing.
 
 ---
 
 ## Supported Tokens
 
-Fast Swaps supports over **2,400 ERC-20 tokens** on Ethereum mainnet. Any token with liquidity on Uniswap V3 can be traded. The token list includes:
+Fast Swaps supports over **2,400 ERC-20 tokens** on Ethereum mainnet. Any token with on-chain liquidity can be traded. The token list includes:
 
 - **Major tokens**: ETH, WETH, USDC, USDT, DAI, WBTC
 - **DeFi tokens**: UNI, AAVE, LINK, MKR, SNX, COMP
@@ -246,15 +235,15 @@ Always verify the contract address when adding custom tokens. Fast Swaps does no
 
 ## Fast Miles
 
-Users earn **Fast Miles** proportional to the MEV their swaps generate through Fast Protocol. The MEV distribution model is detailed in the [Fast Protocol Economics](/v1.2.x/concepts/fast-protocol) page.
+Users earn **Fast Miles** proportional to the mev their swaps generate through Fast Protocol. The mev distribution model is detailed in the [Fast Protocol Economics](/v1.2.x/concepts/fast-protocol) page.
 
 Key points:
-- Users receive **at least 90%** of the MEV their transactions generate under normal conditions
+- Users receive **at least 90%** of the mev their transactions generate under normal conditions
 - Fast Miles are tracked in the Fast Swaps dashboard and leaderboard
 - Miles are planned to be tokenized — early users accumulate before the official points system launches
 - Bonus miles are available through referrals and one-time tasks in the app
 
-For a full explanation of MEV distribution, fee parameters, and the adaptive parameter model, see [Fast Protocol](/v1.2.x/concepts/fast-protocol).
+For a full explanation of mev distribution, fee parameters, and the adaptive parameter model, see [Fast Protocol](/v1.2.x/concepts/fast-protocol).
 
 ---
 
@@ -263,16 +252,16 @@ For a full explanation of MEV distribution, fee parameters, and the adaptive par
 The following shows how a swap flows through the Fast Swaps system:
 
 ```
-User                    Fast Swaps App              FAST RPC / Relayer        Ethereum L1
+User                    Fast Swaps App              FAST RPC                  Ethereum L1
  │                          │                            │                       │
  │  1. Select tokens &      │                            │                       │
  │     enter amount         │                            │                       │
  │ ─────────────────────>   │                            │                       │
- │                          │  2. Query Uniswap V3       │                       │
- │                          │     Quoter (3 fee tiers)   │                       │
- │                          │ ───────────────────────────────────────────────>    │
+ │                          │  2. Solver auction runs,    │                       │
+ │                          │     best price returned     │                       │
+ │                          │ <────────────────────────── │                       │
  │                          │                            │                       │
- │  3. Review quote &       │  <── Best quote returned ──────────────────────    │
+ │  3. Review quote &       │                            │                       │
  │     confirm              │                            │                       │
  │ ─────────────────────>   │                            │                       │
  │                          │                            │                       │
@@ -288,10 +277,10 @@ User                    Fast Swaps App              FAST RPC / Relayer        Et
  │                          │                            │  7. Swap settles,      │
  │                          │                            │     output tokens to   │
  │                          │                            │     user, surplus      │
- │                          │                            │     captured for MEV   │
+ │                          │                            │     captured for mev   │
  │                          │                            │ <────────────────────  │
  │                          │                            │                       │
- │  8. Confirmation         │  <── Tx confirmed ──────── │                       │
+ │  8. Preconfirmation      │  <── Tx preconfirmed ───── │                       │
  │     + Fast Miles earned  │                            │                       │
  │ <─────────────────────   │                            │                       │
 ```
@@ -303,11 +292,11 @@ User                    Fast Swaps App              FAST RPC / Relayer        Et
 | Feature | Traditional DEX (e.g., Uniswap App) | Fast Swaps |
 | ------- | ----------------------------------- | --------- |
 | **Token selection** | User selects tokens | User selects tokens |
-| **Pricing** | Uniswap V3 Quoter | Uniswap V3 Quoter (same pools) |
-| **Transaction submission** | User submits directly to public mempool | Intent signed off-chain, relayer executes via FAST RPC |
-| **MEV exposure** | User's swap is visible in mempool; bots can front-run/sandwich | Swap routed through FAST RPC; MEV is captured and redistributed |
-| **MEV rewards** | None | User earns Fast Miles proportional to MEV generated |
-| **Gas for ERC-20 swaps** | User pays gas | Relayer pays gas (gasless for user) |
+| **Pricing** | DEX router quote | Solver auction across liquidity sources |
+| **Transaction submission** | User submits directly to public mempool | Intent signed off-chain, FAST RPC executes |
+| **mev exposure** | User's swap is visible in mempool; bots can front-run/sandwich | Swap routed through FAST RPC; mev is captured and redistributed |
+| **mev rewards** | None | User earns Fast Miles proportional to mev generated |
+| **Gas for ERC-20 swaps** | User pays gas | FAST RPC pays gas (gasless for user) |
 | **Settlement** | Direct DEX router call | FastSettlement contract with surplus capture |
 | **Preconfirmations** | None | Transaction preconfirmed by Ethereum block builders on the mev-commit network |
 
@@ -315,7 +304,7 @@ User                    Fast Swaps App              FAST RPC / Relayer        Et
 
 ## Security Considerations
 
-- **Intent signing is non-custodial.** The user's wallet signs an EIP-712 message authorizing a specific swap with specific parameters. The relayer cannot modify the intent (tokens, amounts, recipient, deadline) after signing.
+- **Intent signing is non-custodial.** The user's wallet signs an EIP-712 message authorizing a specific swap with specific parameters. FAST RPC cannot modify the intent (tokens, amounts, recipient, deadline) after signing.
 - **Permit2 nonces prevent replay.** Each signed intent uses a unique nonce from the Permit2 nonce bitmap. A used nonce cannot be reused.
 - **Deadline enforcement.** Intents expire after the user-specified deadline. Stale intents cannot be executed.
 - **Minimum output protection.** The `userAmtOut` field ensures the user receives at least the expected amount minus slippage tolerance. If the swap would produce less, the transaction reverts.

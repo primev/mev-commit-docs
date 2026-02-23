@@ -139,6 +139,7 @@
                     ]
                   },
                   "v1.2.x/developers/contracts",
+                  "v1.2.x/developers/fastx402",
                   "v1.2.x/developers/debugging",
                   "v1.2.x/developers/run-mev-commit-chain-node"
                 ]

@@ -325,7 +325,7 @@ Thus, no competing OFA can sustainably provide higher user mev refunds than Fast
 
 # Fast Swaps
 
-Fast Swaps is a swap interface built on top of Fast Protocol that lets users trade tokens on Ethereum mainnet while earning MEV rewards. Swaps are backed by mev-commit preconfirmations, routed through the [FAST RPC](/v1.2.x/get-started/fastrpc), and settled via the **FastSettlement** smart contracts on L1.
+Fast Swaps is a swap interface built on top of Fast Protocol that lets users trade tokens on Ethereum mainnet while earning mev rewards. Swaps are backed by mev-commit preconfirmations, routed through the [FAST RPC](/v1.2.x/get-started/fastrpc), and settled via the **FastSettlement** smart contracts on L1.
 
 <CardGroup cols={2}>
   <Card title="Launch Fast Swaps" icon="bolt" href="https://fastprotocol.io" horizontal>
@@ -344,7 +344,7 @@ The swap flow follows a familiar DEX experience — select an input token, an ou
 
 | Input Token | Execution |
 | ----------- | --------- |
-| **ERC-20** (e.g. USDC, DAI) | The user signs an off-chain EIP-712 intent. A relayer executes the swap via the FastSettlement contract — **no gas required from the user**. |
+| **ERC-20** (e.g. USDC, DAI) | The user signs an off-chain EIP-712 intent. FAST RPC executes the swap via the FastSettlement contract — **no gas required from the user**. |
 | **ETH** | The user submits the transaction directly from their wallet via `executeWithETH`. |
 
 #### Permit2
@@ -357,5 +357,5 @@ For a full explanation of the swap architecture, smart contracts, pricing mechan
 
 ### Fast Miles
 
-Users earn Fast Miles proportional to the MEV their swaps generate through Fast Protocol. Miles are planned to be tokenized in the near future. Early users can also earn bonus miles through one-time tasks and referrals available in the app.
+Users earn Fast Miles proportional to the mev their swaps generate through Fast Protocol. Miles are planned to be tokenized in the near future. Early users can also earn bonus miles through one-time tasks and referrals available in the app.
 
