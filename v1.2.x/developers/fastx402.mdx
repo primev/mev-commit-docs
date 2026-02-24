@@ -1,0 +1,228 @@
+---
+title: "Fastx402"
+sidebarTitle: "Fastx402"
+description: "x402 payment facilitator on Ethereum mainnet powered by FAST RPC preconfirmations"
+---
+
+Fastx402 is an [x402](https://www.x402.org/) payment facilitator that enables AI agents and applications to pay for resources on Ethereum mainnet using USDC. It achieves sub-second settlement through FAST RPC preconfirmations, solving the slow finality problem that has left agents unable to access Ethereum's stablecoin liquidity for real-time payments.
+
+| Property | Value |
+| -------- | ----- |
+| **Endpoint** | `https://facilitator.primev.xyz` |
+| **Network** | Ethereum Mainnet (Chain ID: 1) |
+| **Asset** | USDC (`0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48`) |
+| **Settlement** | FAST RPC (~100-200ms preconfirmation) |
+| **Fees** | 0% |
+| **Source** | [GitHub](https://github.com/primev/mainnet-x402-facilitator) |
+
+---
+
+## Why Fastx402
+
+Traditional Ethereum payments require 12+ seconds for finality, making them unsuitable for real-time API access. Existing x402 facilitators only work on Base and Solana. Fastx402 changes this:
+
+- **Sub-second settlement** — ~1.2s end-to-end via [FAST RPC](/v1.2.x/get-started/fastrpc) preconfirmations (vs 12+ seconds)
+- **Zero gas for agents** — Agents only need USDC, no ETH required. Gas is fully sponsored via the relay wallet
+- **Mainnet liquidity** — Access Ethereum's largest stablecoin issuance and DeFi ecosystem
+- **x402 compatible** — Drop-in replacement for any x402 facilitator
+- **Gasless signatures** — Uses EIP-3009 `transferWithAuthorization` so agents never submit transactions
+
+---
+
+## How It Works
+
+Fastx402 uses USDC's native [EIP-3009](https://eips.ethereum.org/EIPS/eip-3009) `transferWithAuthorization` function for gasless, signature-based payments. The flow:
+
+1. An agent encounters a `402 Payment Required` response from a resource server
+2. The agent signs an EIP-712 `TransferWithAuthorization` message authorizing a USDC transfer
+3. The resource server forwards the signed payment to Fastx402's `/settle` endpoint
+4. Fastx402 verifies the signature, checks balances and nonces, then submits the transaction via FAST RPC
+5. FAST RPC preconfirms the transaction in ~100-200ms
+6. The resource server receives confirmation and grants access
+
+```
+Agent                     Resource Server              Fastx402                  FAST RPC / L1
+ │                              │                          │                          │
+ │  GET /resource               │                          │                          │
+ │ ──────────────────────────>  │                          │                          │
+ │                              │                          │                          │
+ │  <── 402 Payment Required    │                          │                          │
+ │      (paymentRequirements)   │                          │                          │
+ │                              │                          │                          │
+ │  (sign EIP-3009 authorization locally)                  │                          │
+ │                              │                          │                          │
+ │  GET /resource + signature   │                          │                          │
+ │ ──────────────────────────>  │                          │                          │
+ │                              │  POST /settle            │                          │
+ │                              │ ──────────────────────>  │                          │
+ │                              │                          │  transferWithAuthorization│
+ │                              │                          │ ──────────────────────>   │
+ │                              │                          │  <── preconfirmed         │
+ │                              │  <── { success: true }   │                          │
+ │                              │                          │                          │
+ │  <── 200 OK + resource       │                          │                          │
+```
+
+---
+
+## API Reference
+
+### POST /settle
+
+Verify a payment signature and settle it on-chain via FAST RPC.
+
+**Request body:**
+
+```json
+{
+  "paymentPayload": {
+    "x402Version": 2,
+    "scheme": "exact",
+    "network": "eip155:1",
+    "payload": {
+      "signature": "0x...",
+      "authorization": {
+        "from": "0x...",
+        "to": "0x...",
+        "value": "1000000",
+        "validAfter": "0",
+        "validBefore": "1718000000",
+        "nonce": "0x..."
+      }
+    }
+  },
+  "paymentRequirements": {
+    "scheme": "exact",
+    "network": "eip155:1",
+    "amount": "1000000",
+    "asset": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+    "payTo": "0x...",
+    "maxTimeoutSeconds": 60
+  }
+}
+```
+
+**Response (success):**
+
+```json
+{
+  "success": true,
+  "payer": "0x...",
+  "transaction": "0x...",
+  "network": "eip155:1"
+}
+```
+
+**Response (failure):**
+
+```json
+{
+  "success": false,
+  "error": "insufficient_funds",
+  "payer": "0x..."
+}
+```
+
+### POST /verify
+
+Validate a payment signature without settling (dry run). Same request body as `/settle`.
+
+```json
+{
+  "isValid": true,
+  "payer": "0x..."
+}
+```
+
+### GET /supported
+
+Discover facilitator capabilities.
+
+```json
+{
+  "kinds": [
+    {
+      "x402Version": 2,
+      "scheme": "exact",
+      "network": "eip155:1"
+    }
+  ],
+  "extensions": ["bazaar"],
+  "signers": {
+    "eip155:*": ["0x488d87a9A88a6A878B3E7cf0bEece8984af9518D"]
+  }
+}
+```
+
+### GET /health
+
+Health check endpoint.
+
+---
+
+## EIP-3009 Signing
+
+Agents sign a `TransferWithAuthorization` typed data message using USDC's EIP-712 domain:
+
+```typescript
+const signature = await walletClient.signTypedData({
+  domain: {
+    name: 'USD Coin',
+    version: '2',
+    chainId: 1,
+    verifyingContract: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
+  },
+  types: {
+    TransferWithAuthorization: [
+      { name: 'from', type: 'address' },
+      { name: 'to', type: 'address' },
+      { name: 'value', type: 'uint256' },
+      { name: 'validAfter', type: 'uint256' },
+      { name: 'validBefore', type: 'uint256' },
+      { name: 'nonce', type: 'bytes32' },
+    ],
+  },
+  primaryType: 'TransferWithAuthorization',
+  message: {
+    from: agentAddress,
+    to: merchantAddress,
+    value: BigInt(1_000_000), // 1 USDC (6 decimals)
+    validAfter: 0n,
+    validBefore: BigInt(Math.floor(Date.now() / 1000) + 900),
+    nonce: `0x${randomBytes(32).toString('hex')}`,
+  },
+});
+```
+
+The relay wallet (`0x488d87a9A88a6A878B3E7cf0bEece8984af9518D`) submits the `transferWithAuthorization` call on-chain. The agent never needs ETH — only USDC.
+
+---
+
+## Error Codes
+
+| Code | Description |
+| ---- | ----------- |
+| `unsupported_scheme` | Scheme is not "exact" |
+| `unsupported_network` | Network is not "eip155:1" |
+| `unsupported_asset` | Asset is not USDC |
+| `invalid_from_address` | Invalid sender address |
+| `recipient_mismatch` | `authorization.to` does not match `paymentRequirements.payTo` |
+| `insufficient_payment` | Authorization value < required amount |
+| `authorization_expired` | Current time + 60s >= `validBefore` |
+| `authorization_not_yet_valid` | Current time < `validAfter` |
+| `invalid_signature` | EIP-712 signature verification failed |
+| `insufficient_funds` | Payer USDC balance < authorization value |
+| `nonce_already_used` | Nonce already consumed (replay protection) |
+
+---
+
+## ERC-8004 Agent Identity
+
+Fastx402 is registered as an on-chain agent via [ERC-8004](https://eips.ethereum.org/EIPS/eip-8004):
+
+| Property | Value |
+| -------- | ----- |
+| **Agent ID** | 23175 |
+| **Identity Registry** | `0x8004A169FB4a3325136EB29fA0ceB6D2e539a432` |
+| **Reputation Registry** | `0x8004BAa17C55a88189AE136b182e5fdA19dE9b63` |
+| **Metadata URI** | `/agent.json` |

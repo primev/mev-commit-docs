@@ -22,6 +22,7 @@
                   "v1.2.x/get-started/welcome-to-primev",
                   "v1.2.x/get-started/quickstart",
                   "v1.2.x/get-started/fastrpc",
+                  "v1.2.x/get-started/explorer",
                   {
                     "group": "Bridge",
                     "icon": "bridge",
@@ -68,7 +69,12 @@
               {
                 "group": "Concepts",
                 "pages": [
-                  "v1.2.x/concepts/fast-protocol",
+                  {
+                    "group": "Fast Protocol",
+                    "pages": [
+                      "v1.2.x/concepts/fast-protocol"
+                    ]
+                  },
                   {
                     "group": "mev-commit-intro",
                     "pages": [
@@ -132,6 +138,7 @@
                     ]
                   },
                   "v1.2.x/developers/contracts",
+                  "v1.2.x/developers/fastx402",
                   "v1.2.x/developers/debugging",
                   "v1.2.x/developers/run-mev-commit-chain-node"
                 ]
