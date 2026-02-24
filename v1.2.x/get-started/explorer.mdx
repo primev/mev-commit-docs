@@ -1,0 +1,62 @@
+---
+title: "Explorer"
+sidebarTitle: "Explorer"
+icon: "magnifying-glass"
+---
+
+The [mev-commit Explorer](https://mev-commit.xyz) is a blockchain explorer for the mev-commit settlement chain (Chain ID: 57173). It provides decoded transaction data, real-time block and transaction feeds, and address lookup for the mev-commit network.
+
+## Features
+
+<CardGroup cols={2}>
+  <Card title="Decoded Transactions" icon="code">
+    Every transaction to a known settlement contract is decoded into human-readable function calls with parameter names, types, and values.
+  </Card>
+  <Card title="Revert Reasons" icon="triangle-exclamation">
+    Failed transactions show the decoded revert reason instead of just a generic failure status.
+  </Card>
+  <Card title="Contract Badges" icon="badge-check">
+    Known settlement contracts display as verified badges with their contract name instead of raw hex addresses.
+  </Card>
+  <Card title="Cross-Reference Links" icon="link">
+    Commitment indices link to storing transactions. L1 block numbers and tx hashes link to Etherscan.
+  </Card>
+</CardGroup>
+
+## Settlement Contracts
+
+The explorer decodes interactions with these core protocol contracts:
+
+| Contract | Purpose |
+|----------|---------|
+| **PreconfManager** | Manages preconfirmation commitments between bidders and providers |
+| **BidderRegistry** | Tracks bidder registrations and deposits |
+| **ProviderRegistry** | Tracks provider registrations and stakes |
+| **Oracle** | Settles commitments based on L1 block outcomes |
+| **BlockTracker** | Records L1 block numbers for settlement reference |
+| **SettlementGateway** | Handles cross-chain settlement operations |
+
+## Using the Explorer
+
+### Look up an address
+
+Navigate to `https://mev-commit.xyz/address/<address>` to view:
+- Current ETH balance on the mev-commit chain
+- All transactions involving the address (both sent and received)
+- IN/OUT labels showing transaction direction
+
+### Inspect a transaction
+
+Click any transaction hash to see:
+- Decoded input data (function name and parameters)
+- Revert reason for failed transactions
+- Gas usage and block information
+- From/to addresses with contract name badges
+
+### Browse blocks
+
+The home page shows a real-time feed of blocks and transactions. Click any block number to see all transactions in that block.
+
+<Card title="Open the Explorer" icon="arrow-up-right-from-square" href="https://mev-commit.xyz">
+  Explore transactions, blocks, and addresses on the mev-commit settlement chain.
+</Card>
