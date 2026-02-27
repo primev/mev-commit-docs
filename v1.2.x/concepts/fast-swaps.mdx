@@ -98,18 +98,13 @@ Fast Swaps uses a **solver auction** to find the best price for each swap. When 
 
 ### Slippage Protection
 
-Users can configure slippage tolerance to protect against price movement between quoting and execution:
+Users can configure max slippage to protect against price movement between quoting and execution. The default is 0.5%, and users can set a custom percentage via the settings gear icon.
 
-| Setting | Description |
-| ------- | ----------- |
-| **Auto** | The system calculates an appropriate slippage based on the token pair and current market conditions |
-| **Custom** | The user sets a specific percentage (e.g., 0.5%, 1%, 3%) |
+The max slippage is encoded into the `userAmtOut` (minimum output amount) field of the swap intent. If the swap would result in less than this minimum, the transaction reverts.
 
-The slippage tolerance is encoded into the `userAmtOut` (minimum output amount) field of the swap intent. If the swap would result in less than this minimum, the transaction reverts.
+### Swap Deadline
 
-### Transaction Deadline
-
-Each swap intent includes a deadline timestamp. If FAST RPC does not execute the swap before this deadline, the intent expires and cannot be executed. Users can configure the deadline from 5 minutes to 24 hours.
+Each swap intent includes a deadline timestamp. If FAST RPC does not execute the swap before this deadline, the intent expires and cannot be executed. The default deadline is 30 minutes.
 
 ---
 

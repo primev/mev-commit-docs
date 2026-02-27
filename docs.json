@@ -21,6 +21,7 @@
                 "pages": [
                   "v1.2.x/get-started/welcome-to-primev",
                   "v1.2.x/get-started/quickstart",
+                  "v1.2.x/get-started/fast-swaps",
                   "v1.2.x/get-started/fastrpc",
                   "v1.2.x/get-started/explorer",
                   {
@@ -72,7 +73,8 @@
                   {
                     "group": "Fast Protocol",
                     "pages": [
-                      "v1.2.x/concepts/fast-protocol"
+                      "v1.2.x/concepts/fast-protocol",
+                      "v1.2.x/concepts/fast-swaps"
                     ]
                   },
                   {
