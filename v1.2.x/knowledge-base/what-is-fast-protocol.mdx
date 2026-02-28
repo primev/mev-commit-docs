@@ -1,0 +1,36 @@
+---
+title: "What is Fast Protocol?"
+sidebarTitle: "What is Fast Protocol?"
+description: "An overview of Fast Protocol, the incentive-aligned mev distribution system built on mev-commit."
+---
+
+Fast Protocol is an order flow auction (OFA) system built on top of [mev-commit](/v1.2.x/concepts/mev-commit-intro/what-is-mev-commit) that captures, routes, and redistributes mev across all participants in a transparent and incentive-aligned way.
+
+## How It Works
+
+When users send transactions through [FAST RPC](/v1.2.x/get-started/fastrpc), the system:
+
+1. **Auctions and simulates backruns** for each transaction
+2. **Realizes mev** through backrun bundles
+3. **Secures commitments** from builders via mev-commit
+4. **Distributes value** — validators receive a share based on opt-in status, and the remainder flows into mev distribution contracts that fund user rewards
+
+## Who Benefits
+
+- **Users** receive top-of-market mev refunds — at least 90% of the mev their transactions generate, and in mev-rich periods even more than 100%
+- **Validators** earn strictly more when opting in, and materially more than in other OFA systems
+- **Builders** maintain sustainable margins while delivering transactions
+- **The protocol** becomes more valuable as usage increases, creating a positive feedback loop
+
+## Why It's Unique
+
+The system is designed so that no competing OFA can sustainably provide higher user mev refunds. If Fast Protocol offered less than 90% user refunds, users would switch to alternatives. If a competitor tried offering more, its builders or validators would become unprofitable. Fast Protocol optimally balances incentives so that all participants remain profitable.
+
+<CardGroup cols={2}>
+  <Card title="Fast Protocol Economics" icon="chart-line" href="/v1.2.x/concepts/fast-protocol" horizontal>
+    Full economic model, fee parameters, and equilibrium analysis.
+  </Card>
+  <Card title="What are Fast Swaps?" icon="arrows-rotate" href="/v1.2.x/knowledge-base/what-are-fast-swaps" horizontal>
+    The swap interface built on Fast Protocol.
+  </Card>
+</CardGroup>

@@ -1,0 +1,34 @@
+---
+title: "Why Should Validators Opt In to Fast Protocol?"
+sidebarTitle: "Why Opt In?"
+description: "Understanding why opting in to Fast Protocol is rational and profitable for validators."
+---
+
+Fast Protocol is designed so that **opting in is rational and strictly profitable** for validators. This page explains the incentive model and what validators gain.
+
+## What Opted-In Validators Earn
+
+| Validator Type | Approx. mev Capture | Reason |
+| -------------- | ------------------- | ------ |
+| **Opted-In** | ~95% of FAST RPC mev | Full backrun mev + residual |
+| **Not Opted-In** | ~5% of FAST RPC mev | Similar to mev Blocker |
+
+Opted-in validators enjoy approximately **20x higher mev capture** on FAST RPC flows compared to non-opted-in validators.
+
+## Where the Value Comes From
+
+Opted-in validators gain from three sources:
+
+1. **Backrun-captured mev** from FAST RPC bundles routed to their blocks
+2. **Their share of traditional builder-to-validator mev** (unaffected by opting in)
+3. **Competitive advantage** in attracting order flow — searchers and builders prefer blocks where their bundles will be honored
+
+## When Is Opting In Profitable?
+
+Opting in is profitable whenever Fast Protocol generates more than approximately **5.6% of total block mev**. In practice, Fast Protocol exceeds this threshold comfortably.
+
+The validator pays a small 5% fee on total block mev when opted in, but the mev capture from FAST RPC bundles far exceeds this cost.
+
+## How to Opt In
+
+Validators can opt in through the mev-commit protocol. See the [Validator Guide](/v1.2.x/get-started/validators/validator-guide) for setup instructions, or register via [EigenLayer](/v1.2.x/get-started/validators/eigenlayer) or [Symbiotic](/v1.2.x/get-started/validators/symbiotic) for restaking-based opt-in.
