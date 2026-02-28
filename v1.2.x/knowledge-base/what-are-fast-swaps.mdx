@@ -1,0 +1,37 @@
+---
+title: "What are Fast Swaps?"
+sidebarTitle: "What are Fast Swaps?"
+description: "How Fast Swaps lets you trade tokens on Ethereum while earning mev rewards."
+---
+
+Fast Swaps is a swap interface built on top of [Fast Protocol](/v1.2.x/knowledge-base/what-is-fast-protocol) that lets users trade tokens on Ethereum mainnet while earning mev rewards. Swaps are backed by mev-commit preconfirmations, routed through the [FAST RPC](/v1.2.x/get-started/fastrpc), and settled via the **FastSettlement** smart contracts on L1.
+
+<Frame>
+  <img src="/v1.2.x/images/fastswaps-landing.png" alt="Fast Swaps landing page" />
+</Frame>
+
+## How Swaps Work
+
+The swap experience follows a familiar DEX flow — select an input token, an output token, and an amount. What happens next depends on the input token:
+
+| Input Token | Execution |
+| ----------- | --------- |
+| **ERC-20** (e.g. USDC, DAI) | You sign an off-chain EIP-712 intent. FAST RPC executes the swap via the FastSettlement contract — **no gas required from you**. |
+| **ETH** | You submit the transaction directly from your wallet. |
+
+### Permit2
+
+ERC-20 swaps require a one-time [Permit2](https://docs.uniswap.org/contracts/permit2/overview) approval per input token. Once a token is approved, subsequent swaps with that token only require a signature. If Permit2 has already been approved for a given token on another application (such as Uniswap), no additional approval is needed.
+
+## Fast Miles
+
+Users earn Fast Miles proportional to the mev their swaps generate through Fast Protocol. Miles are planned to be tokenized in the near future. Early users can also earn bonus miles through one-time tasks and referrals available in the app.
+
+<CardGroup cols={2}>
+  <Card title="Launch Fast Swaps" icon="bolt" href="https://fastprotocol.io" horizontal>
+    Start swapping and earning miles.
+  </Card>
+  <Card title="Fast Swaps Deep Dive" icon="book" href="/v1.2.x/concepts/fast-swaps" horizontal>
+    Architecture, contracts, and EIP-712 signing details.
+  </Card>
+</CardGroup>
