@@ -184,19 +184,47 @@
             "tab": "Knowledge Base",
             "groups": [
               {
-                "group": "Knowledge Base",
+                "group": "Overview",
                 "pages": [
-                  "v1.2.x/knowledge-base/introduction",
+                  "v1.2.x/knowledge-base/introduction"
+                ]
+              },
+              {
+                "group": "Fast Protocol",
+                "pages": [
+                  "v1.2.x/knowledge-base/what-is-fast-protocol",
+                  "v1.2.x/knowledge-base/what-are-fast-swaps",
+                  "v1.2.x/knowledge-base/why-should-validators-opt-in"
+                ]
+              },
+              {
+                "group": "Preconfirmations",
+                "pages": [
+                  "v1.2.x/knowledge-base/what-is-execution-preconfirmations",
+                  "v1.2.x/knowledge-base/what-happens-during-an-execution-preconf",
+                  "v1.2.x/knowledge-base/how-do-preconfs-work"
+                ]
+              },
+              {
+                "group": "Bidding",
+                "pages": [
                   "v1.2.x/knowledge-base/what-is-deposit-amount",
-                  "v1.2.x/knowledge-base/how-do-i-fix-the-error-failed-to-read-msg-stream-reset",
+                  "v1.2.x/knowledge-base/how-to-price-a-bid",
+                  "v1.2.x/knowledge-base/why-do-i-receive-the-same-commitment-when-resending-a-bid"
+                ]
+              },
+              {
+                "group": "Tooling & Setup",
+                "pages": [
                   "v1.2.x/knowledge-base/what-is-foundry",
                   "v1.2.x/knowledge-base/why-is-cast-necessary-for-mev-commit-chain-interactions",
-                  "v1.2.x/knowledge-base/why-do-i-receive-the-same-commitment-when-resending-a-bid",
-                  "v1.2.x/knowledge-base/what-is-execution-preconfirmations",
-                  "v1.2.x/knowledge-base/how-to-price-a-bid",
-                  "v1.2.x/knowledge-base/what-happens-during-an-execution-preconf",
-                  "v1.2.x/knowledge-base/how-do-preconfs-work",
                   "v1.2.x/knowledge-base/eigenlayer-operator-registration"
+                ]
+              },
+              {
+                "group": "Troubleshooting",
+                "pages": [
+                  "v1.2.x/knowledge-base/how-do-i-fix-the-error-failed-to-read-msg-stream-reset"
                 ]
               }
             ]
