@@ -1,0 +1,43 @@
+---
+title: "What is Fastx402?"
+sidebarTitle: "What is Fastx402?"
+description: "An x402 payment facilitator for AI agents — sub-second USDC settlement on Ethereum mainnet."
+---
+
+Fastx402 is an [x402](https://www.x402.org/) payment facilitator that lets AI agents and applications pay for resources on Ethereum mainnet using USDC. It achieves sub-second settlement through [FAST RPC](/v1.2.x/knowledge-base/what-is-fast-rpc) preconfirmations.
+
+## The Problem
+
+Ethereum's 12+ second finality makes it unsuitable for real-time agent payments. An AI agent that needs to pay for an API call can't wait 12 seconds for confirmation — it needs a response in milliseconds. Existing x402 facilitators solve this by operating on Base or Solana, but that means agents can't access Ethereum's deep USDC liquidity.
+
+## How It Works
+
+Fastx402 uses USDC's native EIP-3009 `transferWithAuthorization` function for gasless, signature-based payments:
+
+1. An agent encounters a `402 Payment Required` response from a resource server.
+2. The agent signs an EIP-712 authorization message — no on-chain transaction needed.
+3. The resource server forwards the signed payment to Fastx402's `/settle` endpoint.
+4. Fastx402 verifies the signature and submits the transaction via FAST RPC.
+5. FAST RPC preconfirms the transaction in ~100-200ms.
+6. The resource server receives confirmation and grants access.
+
+## Key Features
+
+- **Sub-second settlement** — ~1.2 seconds end-to-end via FAST RPC preconfirmations (vs 12+ seconds on standard Ethereum).
+- **Zero gas for agents** — Agents only need USDC. A relay wallet submits the on-chain transaction and covers gas.
+- **Zero fees** — No facilitator fee during the promotional period.
+- **Mainnet liquidity** — Access Ethereum's largest stablecoin issuance and DeFi ecosystem directly.
+- **x402 compatible** — Drop-in replacement for any x402 facilitator. Works with the standard x402 flow.
+
+---
+
+## Learn More
+
+<CardGroup cols={2}>
+  <Card title="Fastx402 Developer Docs" icon="code" href="/v1.2.x/developers/fastx402">
+    Full API reference, EIP-3009 signing guide, and error codes.
+  </Card>
+  <Card title="What is FAST RPC?" icon="circle-question" href="/v1.2.x/knowledge-base/what-is-fast-rpc">
+    The preconfirmation RPC that powers Fastx402 settlement.
+  </Card>
+</CardGroup>

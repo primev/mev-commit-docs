@@ -82,7 +82,7 @@ The final bid structure includes a hash and signature that is auto-constructed b
 The `decayStartTimestamp` and `decayEndTimestamp` parameters allow bidders to control the range over which their bid decays.
 
 Due to inherent network delays, preconfirmation times can range between 50 to 250 milliseconds even if providers commit immediately after seeing the bid. To account for this, you might want to set your `decayStartTimestamp` approximately 300 milliseconds in the future. However, setting this delay is not mandatory and should be adjusted based on your strategic preferences for bid timing and pricing.
-For more detailed information about the decay mechanism, refer to the [Bid Decay Page](https://docs.primev.xyz/v1.2.x/concepts/bids/bid-decay-mechanism).
+For more detailed information about the decay mechanism, refer to the [Bid Decay Page](/v1.2.x/concepts/bids/bid-decay-mechanism).
 
 ### Details on BidOptions
 The `bidOptions` provides a way to put certain constraints on the transaction with respect to the block. Currently we have the position constraint option. This option allows users to configure the location of the transaction in the block. This could be an absolute index or percentile or gas percentile index of the block.

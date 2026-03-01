@@ -15,7 +15,7 @@ To include bundles of transactions, submit them in the exact atomic sequence the
 * An array of transaction hashes.
 * An array of transaction payloads.
 
-Submitting raw transaction payloads is more efficient for providers, as it eliminates the extra step of looking up the payload based on a transaction hash when matching transactions with preconfirmation bids. This allows providers to be able to send preconfirmation commitments back to the bidder faster as well. You can learn more about bid structure [here](https://docs.primev.xyz/v1.2.x/concepts/bids/bid-structure).
+Submitting raw transaction payloads is more efficient for providers, as it eliminates the extra step of looking up the payload based on a transaction hash when matching transactions with preconfirmation bids. This allows providers to be able to send preconfirmation commitments back to the bidder faster as well. You can learn more about bid structure [here](/v1.2.x/concepts/bids/bid-structure).
 
 ### Transaction Payload
 Include the raw transaction payloads in your bid in the atomic sequence in which they need to be placed in the block.
@@ -52,13 +52,13 @@ You can change the values in the fields `txHashes`, `amount`, `blockNumber`, `de
 Note the bid `amount` should be set to the total amount the bidder is willing to pay for the bundle. Gas used by the transactions in the bundle does **not** affect the final amount paid.
 
 ### Bid Decay
-The `decayStartTimestamp` and `decayEndTimestamp` are important components for how sensitive the [price of a preconfirmation](https://docs.primev.xyz/v1.2.x/knowledge-base/how-to-price-a-bid) will be. More details can be found about it [here](https://docs.primev.xyz/v1.2.x/concepts/bids/bid-structure#details-on-decay-parameters).
+The `decayStartTimestamp` and `decayEndTimestamp` are important components for how sensitive the [price of a preconfirmation](/v1.2.x/knowledge-base/how-to-price-a-bid) will be. More details can be found about it [here](/v1.2.x/concepts/bids/bid-structure#details-on-decay-parameters).
 
 ### Bid Options
 The `bidOptions` can be used to set positional constraints on the transactions or bundles in the block. Learn more about the different [options here](/v1.2.x/concepts/bids/bid-structure#details-on-bidOptions).
 
 ## Troubleshooting
-Bidders will start receiving commitments instantly in most cases. If you're having trouble receiving commitments, check your bid parameters and ensure your bid is high enough for the commitment you're requesting. Additionally check that you are connected to providers (via the [topology endpoint](https://docs.primev.xyz/v1.2.x/get-started/bidders/bidder-node-commands#topology)) and that you are receiving mev-commit events (via the [health endpoint](https://docs.primev.xyz/v1.2.x/get-started/bidders/bidder-node-commands#health)).
+Bidders will start receiving commitments instantly in most cases. If you're having trouble receiving commitments, check your bid parameters and ensure your bid is high enough for the commitment you're requesting. Additionally check that you are connected to providers (via the [topology endpoint](/v1.2.x/get-started/bidders/bidder-node-commands#topology)) and that you are receiving mev-commit events (via the [health endpoint](/v1.2.x/get-started/bidders/bidder-node-commands#health)).
 
 ## Bidder Depositing
 
@@ -66,7 +66,7 @@ Bidders must bridge ETH to the mev-commit chain, then deposit toward one or more
 
 A target deposit is the desired amount of funds that a bidder wants to be deposited for a specific provider. Once a target deposit is set, the relevant deposit will be automatically "topped up" to the target value during the settlement process. Bidders should set their target deposits to the maximum cumulative amount of ETH they would ever bid to a provider with respect to a single L1 block.
 
-Read more about the deposit manager [here](https://docs.primev.xyz/v1.2.x/get-started/bidders/bidder-node-commands#deposit-manager).
+Read more about the deposit manager [here](/v1.2.x/get-started/bidders/bidder-node-commands#deposit-manager).
 
 {/* ## (Optional) Provider RPCs
 

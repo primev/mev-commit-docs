@@ -8,7 +8,7 @@ Opting into the mev-commit protocol signals from a validator that they:
 
 * Trust correctness of execution from the mev-commit chain. See [mev-commit chain](/v1.2.x/concepts/mev-commit-chain/chain-details) for more information.
 * Trust correctness of slashing transactions residing from the Primev operated [mev-commit-oracle](https://github.com/primev/mev-commit/tree/main/oracle) service.
-* Trust at least one mev-commit opted in relay. [View the list of supported relays here](https://docs.primev.xyz/v1.2.x/get-started/validators/validator-guide#supporting-relays).
+* Trust at least one mev-commit opted in relay. [View the list of supported relays here](/v1.2.x/get-started/validators/validator-guide#supporting-relays).
 * Attest they will follow the rules of the protocol given the above trust assumptions. This currently entails *only* proposing blocks that come from a mev-commit opted in relay. 
 
 ### Risks
@@ -20,3 +20,11 @@ While mev-commit is generally not set up to slash validators, validators opting 
 ### Future plans
 
 While mev-commit AVS is passive and doesn't require operators to run any software today, Primev is researching means to decentralize centralized components of the mev-commit stack. Stay tuned for more updates on this.
+
+---
+
+### More Resources
+
+<Card title="Why Should Validators Opt In?" icon="circle-question" href="/v1.2.x/knowledge-base/why-should-validators-opt-in" horizontal>
+  FAQ on validator incentives, earnings, and the opt-in rationale.
+</Card>

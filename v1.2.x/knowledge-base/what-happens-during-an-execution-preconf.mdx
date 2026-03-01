@@ -25,13 +25,13 @@ As a result of these factors:
 
 ## Using an Execution Preconfirmation
 
-<img height="200" src="/v0.6.3/images/preconf-process.svg" />
+<img height="200" src="/v1.2.x/images/preconf-process.svg" />
 
 Instead of blindly sending your transaction, you can use an execution preconf. Here's how:
 <Steps>
 <Step title="Setting up your mev-commit bidder node">
 
-   - Follow the [Quickstart guide](/v0.6.3/get-started/quickstart) to set up your mev-commit bidder node and fund your account.
+   - Follow the [Quickstart guide](/v1.2.x/get-started/quickstart) to set up your mev-commit bidder node and fund your account.
 </Step>
 <Step title="Prepare your transaction">
 
@@ -39,7 +39,7 @@ Instead of blindly sending your transaction, you can use an execution preconf. H
 </Step>
 <Step title="Submit a preconf bid">
 
-   - Create and submit a bid for the transaction from your mev-commit bidder node (following the [bid structure here](/v0.6.3/concepts/bids/bid-structure)), supplying the hash of the transaction you just sent.
+   - Create and submit a bid for the transaction from your mev-commit bidder node (following the [bid structure here](/v1.2.x/concepts/bids/bid-structure)), supplying the hash of the transaction you just sent.
    - When you submit a bid, it goes to multiple providers by default.
    - If a provider accepts your bid, it will generate a cryptographic commitment to execute your transaction. These are typically sent in milliseconds.
    - Your bidder node automatically verifies each commitment it receives.

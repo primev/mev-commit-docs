@@ -1,0 +1,46 @@
+---
+title: "What is FAST RPC?"
+sidebarTitle: "What is FAST RPC?"
+description: "A drop-in Ethereum RPC that enables preconfirmations for any wallet or dapp."
+---
+
+FAST RPC is a drop-in replacement for standard Ethereum RPC endpoints that enables preconfirmations. It works like a normal Ethereum node — you send transactions via `eth_sendRawTransaction` and check receipts via `eth_getTransactionReceipt` — but under the hood it coordinates with mev-commit's decentralized network of block builders to preconfirm your transactions.
+
+## How It Works
+
+1. You configure your wallet or dapp to point at `https://fastrpc.mev-commit.xyz` instead of a standard RPC like Infura or Alchemy.
+2. When you send a transaction, the RPC encrypts it and sends bids to block builders in the mev-commit network.
+3. Once all registered builders issue a commitment and the next block proposer is opted in, the transaction is preconfirmed.
+4. `eth_getTransactionReceipt` returns a receipt immediately — no waiting 12+ seconds for the next block.
+
+## Who Is It For?
+
+- **Wallets** — Add the RPC as a custom network and get instant transaction confirmation UX. No deposit needed during the promotional period — gas is fully sponsored.
+- **dApps** — Integrate preconfirmations with minimal code changes. Deposit ETH into a gas tank, then use standard RPC methods as usual.
+- **Developers** — Access additional methods like `mevcommit_getTransactionCommitments` and `mevcommit_optedInBlock` for advanced preconfirmation logic.
+
+## Key Benefits
+
+- **Sub-second confirmation UX** — Transactions are preconfirmed in ~100-200ms, compared to 12+ seconds on standard Ethereum.
+- **Drop-in compatibility** — Works with existing wallets and tools. No protocol changes or special SDKs required.
+- **Gasless for wallets** — During the promotional period, the RPC sponsors transaction fees for wallet users.
+- **mev redistribution** — Value captured through preconfirmations flows back to users and validators, not extractors.
+
+---
+
+## Learn More
+
+<CardGroup cols={2}>
+  <Card title="FAST RPC Setup Guide" icon="book-open" href="/v1.2.x/get-started/fastrpc">
+    Step-by-step instructions for wallets and dapps.
+  </Card>
+  <Card title="FAST RPC API Reference" icon="code" href="/v1.2.x/developers/fast-rpc-api">
+    Full documentation of all supported RPC methods.
+  </Card>
+  <Card title="What is Fast Protocol?" icon="circle-question" href="/v1.2.x/knowledge-base/what-is-fast-protocol">
+    How FAST RPC fits into the broader Fast Protocol ecosystem.
+  </Card>
+  <Card title="What are Fast Swaps?" icon="circle-question" href="/v1.2.x/knowledge-base/what-are-fast-swaps">
+    The consumer-facing product built on FAST RPC.
+  </Card>
+</CardGroup>

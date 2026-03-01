@@ -194,6 +194,8 @@
                 "pages": [
                   "v1.2.x/knowledge-base/what-is-fast-protocol",
                   "v1.2.x/knowledge-base/what-are-fast-swaps",
+                  "v1.2.x/knowledge-base/what-is-fast-rpc",
+                  "v1.2.x/knowledge-base/what-is-fastx402",
                   "v1.2.x/knowledge-base/why-should-validators-opt-in"
                 ]
               },
@@ -206,11 +208,12 @@
                 ]
               },
               {
-                "group": "Bidding",
+                "group": "Bidding & Economics",
                 "pages": [
                   "v1.2.x/knowledge-base/what-is-deposit-amount",
                   "v1.2.x/knowledge-base/how-to-price-a-bid",
-                  "v1.2.x/knowledge-base/why-do-i-receive-the-same-commitment-when-resending-a-bid"
+                  "v1.2.x/knowledge-base/why-do-i-receive-the-same-commitment-when-resending-a-bid",
+                  "v1.2.x/knowledge-base/how-do-rewards-and-slashing-work"
                 ]
               },
               {

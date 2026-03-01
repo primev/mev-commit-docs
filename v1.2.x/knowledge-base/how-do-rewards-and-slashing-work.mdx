@@ -1,0 +1,58 @@
+---
+title: "How Do Rewards and Slashing Work?"
+sidebarTitle: "Rewards & Slashing"
+description: "A simplified overview of how mev-commit incentivizes honest behavior through rewards and slashing."
+---
+
+mev-commit uses a reward and slashing system to ensure providers and validators act honestly. Both must stake tokens to participate — honest behavior is rewarded, dishonest behavior is penalized.
+
+## Validator Rewards
+
+Validators earn more by opting in to mev-commit:
+
+- **Higher block value** — Preconfirmation bids increase the total value of blocks proposed through mev-boost. Validators passively earn this extra value just by proposing blocks from mev-commit providers.
+- **Points** — Opted-in validators earn [points](/v1.2.x/concepts/rewards-and-slashing/points) for each block proposed while opted in.
+
+The more validators opt in, the more credible preconfirmations become, which increases their value — creating a positive feedback loop.
+
+## Validator Slashing
+
+The risk of slashing is very low for validators acting in good faith:
+
+- **Missed blocks** — Not slashed. Network issues and chain reorgs are outside the validator's control.
+- **Self-built blocks** — Not slashed. Rare edge case when relay value is too low.
+- **Block from unsupported relay** — Slashed 1 ETH. This indicates misconfiguration or intentional misbehavior.
+
+<Tip>An [independent report by Chaos Labs](https://governance.ether.fi/t/primev-symbiotic-risk-analysis/) confirms the risk/reward profile is favorable for validators.</Tip>
+
+## Provider Rewards
+
+Providers (block builders) earn from fulfilling commitments:
+
+- **Fulfilled commitment** — Provider receives the bid amount minus a 2% protocol fee.
+- **Neutral outcome** — If the provider didn't win the block, no action is taken. No reward, no penalty.
+
+## Provider Slashing
+
+Providers are penalized for breaking commitments they issued:
+
+- **Broken commitment** — Provider is slashed the bid's specified slash amount, plus a 5% penalty fee. The slash amount goes to the bidder; the penalty goes to the protocol treasury.
+- **Insufficient stake** — If the provider can't cover the full slash, the bidder is paid first, then the treasury receives whatever remains.
+
+Decay is **not** applied to slash amounts — providers are slashed the full specified amount regardless of timing.
+
+---
+
+## Learn More
+
+<CardGroup cols={2}>
+  <Card title="Full Rewards & Slashing Details" icon="book-open" href="/v1.2.x/concepts/rewards-and-slashing/rewards-and-slashing">
+    Complete technical documentation with diagrams.
+  </Card>
+  <Card title="Why Should Validators Opt In?" icon="circle-question" href="/v1.2.x/knowledge-base/why-should-validators-opt-in">
+    The incentive case for validator participation.
+  </Card>
+  <Card title="Validator Guide" icon="shield-check" href="/v1.2.x/get-started/validators/validator-guide">
+    Step-by-step opt-in instructions.
+  </Card>
+</CardGroup>

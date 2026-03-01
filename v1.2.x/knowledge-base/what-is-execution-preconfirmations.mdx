@@ -8,5 +8,16 @@ This means that transactions must be executed successfully to ensure providers a
 We allow users to specify which transactions are critical and must succeed, and which can revert.
 
 This is important because providers, in most cases, can provide inclusion guarantees with little cost. 
-For example, if a block builder has gas left in the block, they can trivially include any preconfirmed transaction at the bottom of the block. 
+For example, if a block builder has gas left in the block, they can trivially include any preconfirmed transaction at the bottom of the block.
+
+## Related
+
+<CardGroup cols={2}>
+  <Card title="What Happens During a Preconf?" icon="arrow-right" href="/v1.2.x/knowledge-base/what-happens-during-an-execution-preconf">
+    Step-by-step walkthrough from a searcher's perspective.
+  </Card>
+  <Card title="How Do Preconfs Work?" icon="gears" href="/v1.2.x/knowledge-base/how-do-preconfs-work">
+    The provider side of preconfirmations.
+  </Card>
+</CardGroup>
 
