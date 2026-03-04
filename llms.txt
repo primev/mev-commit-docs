@@ -1,0 +1,131 @@
+# Primev Documentation
+
+> Complete technical documentation for mev-commit, Fast Protocol, FAST RPC, and Fastx402 — Ethereum infrastructure for preconfirmations, instant swaps, and agentic payments.
+
+Primev builds core infrastructure for Ethereum's mev supply chain. The mev-commit protocol enables peer-to-peer preconfirmation commitments between bidders and block builders, providing sub-second transaction guarantees on Ethereum mainnet.
+
+## Products
+
+- [FAST RPC](https://docs.primev.xyz/v1.2.x/developers/fast-rpc-api): Drop-in Ethereum JSON-RPC replacement at `https://fastrpc.mev-commit.xyz`. Transactions sent through FAST RPC receive binding preconfirmation commitments from block builders. Supports all standard `eth_` methods plus custom `mevcommit_` methods.
+- [Fast Protocol](https://docs.primev.xyz/v1.2.x/concepts/fast-protocol): Order flow auction (OFA) on top of mev-commit. Users receive at least 90% of mev their transactions generate. Redistributed as Fast Miles (tokenizable points).
+- [Fast Swaps](https://docs.primev.xyz/v1.2.x/concepts/fast-swaps): Token swap interface on Ethereum mainnet. Gasless ERC-20 swaps via EIP-712 signed intents through Permit2. Supports 2,400+ tokens. Settlement via FastSettlement V3 contract on L1.
+- [Fastx402](https://docs.primev.xyz/v1.2.x/developers/fastx402): x402 payment facilitator for AI agents. USDC payments via EIP-3009 `transferWithAuthorization`. Sub-second settlement through FAST RPC. Zero fees. Endpoint: `https://facilitator.primev.xyz`.
+
+## FAST RPC API
+
+Endpoint: `https://fastrpc.mev-commit.xyz`
+
+Standard Ethereum JSON-RPC methods are supported. Key overridden methods:
+
+- `eth_sendRawTransaction` — Sources preconfirmations on mev-commit chain. Transaction is enqueued privately (not sent to public mempool). Returns transaction hash.
+- `eth_getTransactionReceipt` — Returns receipt early if enough preconfirmations obtained for mev-commit opted-in slots. Block hash set to tx hash for preconfirmed transactions.
+- `eth_getTransactionCount` — Returns mempool count + queued transactions in private pool.
+- `eth_maxPriorityFeePerGas` — Always returns 0 (priority fee should be 0 for FAST RPC users).
+- `eth_getBlockByHash` — For preconfirmed tx hashes, returns a fictitious block containing only that transaction.
+
+Additional FAST RPC methods:
+
+- `mevcommit_getTransactionCommitments` — Takes tx hash, returns array of commitments received on mev-commit network (provider addresses, signatures, decay timestamps).
+- `mevcommit_getBalance` — Takes account address, returns available deposit balance for that address.
+- `mevcommit_optInBlock` — Returns time in seconds until the next block with a mev-commit opted-in validator.
+- `mevcommit_cancelTransaction` — Takes tx hash, cancels commitment attempts. No cost.
+- `mevcommit_estimateDeposit` — Returns estimated deposit cost and EOA wallet address for funding.
+- `mevcommit_estimateBridge` — Returns estimated bridging cost and destination address for instant L1-to-mev-commit-chain bridging.
+
+## Fastx402 API
+
+Endpoint: `https://facilitator.primev.xyz`
+
+- `GET /supported` — Returns supported payment kinds, extensions, and signer addresses. Response: `{"kinds":[{"x402Version":2,"scheme":"exact","network":"eip155:1"}],"extensions":["bazaar"],"signers":{"eip155:*":["0x488d87a9A88a6A878B3E7cf0bEece8984af9518D"]}}`
+- `POST /settle` — Verify and settle a USDC payment on-chain via FAST RPC. Body: `{"paymentPayload":{"x402Version":2,"scheme":"exact","network":"eip155:1","payload":{"signature":"0x...","authorization":{"from":"0x...","to":"0x...","value":"1000000","validAfter":"0","validBefore":"...","nonce":"0x..."}}},"paymentRequirements":{"scheme":"exact","network":"eip155:1","amount":"1000000","asset":"0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48","payTo":"0x...","maxTimeoutSeconds":60}}`
+- `POST /verify` — Validate a payment signature without settling (dry run). Same body as /settle.
+- `GET /health` — Health check.
+
+USDC contract: `0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48` (Ethereum mainnet, 6 decimals).
+Relay wallet: `0x488d87a9A88a6A878B3E7cf0bEece8984af9518D` (submits transferWithAuthorization on-chain).
+ERC-8004 Agent ID: 23175.
+
+## Fast Swaps Contracts
+
+- FastSettlement V3 Proxy: `0x084C0EC7f5C0585195c1c713ED9f06272F48cB45` (Ethereum L1)
+- Permit2: `0x000000000022D473030F116dDEE9F6B43aC78BA3` (Uniswap canonical)
+
+ERC-20 swap flow: User signs EIP-712 `PermitWitnessTransferFrom` with Intent witness (user, inputToken, outputToken, inputAmt, userAmtOut, recipient, deadline, nonce). FAST RPC calls `executeWithPermit` on FastSettlement. ETH swap flow: User calls `executeWithETH` directly.
+
+EIP-712 signing domain: `{"name":"Permit2","chainId":1,"verifyingContract":"0x000000000022D473030F116dDEE9F6B43aC78BA3"}`
+
+## mev-commit Protocol
+
+### Concepts
+
+- **Preconfirmation**: A binding commitment from a block builder to include a transaction. Providers stake ETH and are slashed if they break commitments.
+- **Bidders**: Submit bids for transaction inclusion with a specified bid amount and block number.
+- **Providers**: Block builders who stake ETH and issue commitments on bids. Rewarded for honoring commitments, slashed for breaking them.
+- **Oracle**: Resolves commitments by checking on-chain inclusion after blocks are built.
+- **mev-commit chain**: Dedicated PoA chain (Chain ID: 57173) for bid/commitment settlement. RPC: `https://chainrpc.mev-commit.xyz`.
+
+### Network Details
+
+- mev-commit chain RPC: `https://chainrpc.mev-commit.xyz` (Chain ID: 57173)
+- mev-commit chain WebSocket: `wss://chainrpc-wss.mev-commit.xyz`
+- Bootnode: `https://bootnode.mev-commit.xyz`
+- Block explorer: `https://mev-commit.xyz`
+- Testnet chain RPC: `https://chainrpc.testnet.mev-commit.xyz` (Chain ID: 17864)
+
+### Validator Opt-In
+
+Validators can opt in via three methods:
+1. **EigenLayer restaking** — Native restaking through MevCommitAVS contract
+2. **Symbiotic restaking** — ERC20 vault staking through MevCommitMiddleware contract
+3. **Vanilla staking** — Direct ETH staking through VanillaRegistry contract
+
+Opted-in validators earn ~20x higher mev capture on FAST RPC flows vs non-opted-in.
+
+## AI Agent Integration
+
+Install the Claude Code plugin: `claude plugin add primev/claude-plugin`
+
+This provides:
+- **3 skills**: mev-commit (preconfirmed transactions), fast-protocol (gasless swaps), x402 (USDC payments)
+- **9 MCP tools**: eth_blockNumber, eth_getBalance, eth_gasPrice, eth_getTransactionReceipt, eth_sendRawTransaction, eth_call, eth_chainId, x402_supported, x402_verify
+
+No API keys required. All endpoints are public.
+
+## Source Code
+
+- [mev-commit](https://github.com/primev/mev-commit): Core protocol, oracle, bridge, contracts
+- [mev-commit-docs](https://github.com/primev/mev-commit-docs): This documentation
+- [claude-plugin](https://github.com/primev/claude-plugin): Claude Code plugin with skills and MCP server
+- [mainnet-x402-facilitator](https://github.com/primev/mainnet-x402-facilitator): Fastx402 facilitator source
+- [fastprotocolapp](https://github.com/primev/fastprotocolapp): Fast Swaps web app
+
+## Documentation Sections
+
+- [Welcome](https://docs.primev.xyz/v1.2.x/get-started/welcome-to-primev): Overview of Primev and mev-commit
+- [Quickstart](https://docs.primev.xyz/v1.2.x/get-started/quickstart): Getting started guide
+- [FAST RPC Guide](https://docs.primev.xyz/v1.2.x/get-started/fastrpc): How to use FAST RPC
+- [Fast Swaps Guide](https://docs.primev.xyz/v1.2.x/get-started/fast-swaps): How to perform swaps
+- [FAST RPC API](https://docs.primev.xyz/v1.2.x/developers/fast-rpc-api): Full API reference for FAST RPC methods
+- [Fastx402](https://docs.primev.xyz/v1.2.x/developers/fastx402): x402 facilitator documentation
+- [Contracts](https://docs.primev.xyz/v1.2.x/developers/contracts): Contract architecture and addresses
+- [Networks - Mainnet](https://docs.primev.xyz/v1.2.x/developers/networks/mainnet): Mainnet service links and contract addresses
+- [Networks - Testnet](https://docs.primev.xyz/v1.2.x/developers/networks/testnet): Testnet details
+- [Fast Protocol Economics](https://docs.primev.xyz/v1.2.x/concepts/fast-protocol): mev distribution model and fee parameters
+- [Fast Swaps Architecture](https://docs.primev.xyz/v1.2.x/concepts/fast-swaps): Smart contracts, EIP-712 signing, execution paths
+- [What is mev-commit](https://docs.primev.xyz/v1.2.x/concepts/mev-commit-intro/what-is-mev-commit): Protocol overview
+- [Actors](https://docs.primev.xyz/v1.2.x/concepts/mev-commit-intro/actors): Bidders, providers, validators
+- [Commitments](https://docs.primev.xyz/v1.2.x/concepts/commitments): How commitments work
+- [Bid Structure](https://docs.primev.xyz/v1.2.x/concepts/bids/bid-structure): Bid format and parameters
+- [Rewards and Slashing](https://docs.primev.xyz/v1.2.x/concepts/rewards-and-slashing/rewards-and-slashing): Incentive mechanisms
+- [Validator Guide](https://docs.primev.xyz/v1.2.x/get-started/validators/validator-guide): How to opt in as a validator
+- [Provider Guide](https://docs.primev.xyz/v1.2.x/get-started/providers/registering-a-provider): How to register as a provider
+- [Bidder Best Practices](https://docs.primev.xyz/v1.2.x/get-started/bidders/best-practices): Bidding tips
+- [Knowledge Base](https://docs.primev.xyz/v1.2.x/knowledge-base/introduction): FAQs on Fast Protocol, preconfirmations, bidding, and troubleshooting
+
+## Optional
+
+- [AI Integration Page](https://primev.xyz/ai): Skills, MCP tools, and quickstart guides
+- [primev.xyz llms.txt](https://primev.xyz/llms.txt): High-level product overview for LLMs
+- [Research Publications](https://mirror.xyz/preconf.eth): Academic papers on mev and preconfirmations
+- [mev-commit Xplorer](https://observer.mev-commit.xyz): Live network explorer
+- [Fast Swaps App](https://fastprotocol.io): Swap interface
