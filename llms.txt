@@ -87,7 +87,8 @@ Install the Claude Code plugin: `claude plugin add primev/claude-plugin`
 
 This provides:
 - **3 skills**: mev-commit (preconfirmed transactions), fast-protocol (gasless swaps), x402 (USDC payments)
-- **9 MCP tools**: eth_blockNumber, eth_getBalance, eth_gasPrice, eth_getTransactionReceipt, eth_sendRawTransaction, eth_call, eth_chainId, x402_supported, x402_verify
+- **2 MCP servers**: primev-fastrpc (11 tools) + primev-docs (docs search)
+- **12 MCP tools**: eth_blockNumber, eth_getBalance, eth_gasPrice, eth_getTransactionReceipt, eth_sendRawTransaction, eth_call, eth_chainId, x402_supported, x402_verify, mevcommit_getTransactionCommitments, mevcommit_optInBlock, search_docs
 
 No API keys required. All endpoints are public.
 
