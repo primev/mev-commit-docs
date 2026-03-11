@@ -28,6 +28,10 @@ This method is used by clients to query the receipt of the transaction correspon
 
 For regular block hashes, this method returns the usual block information. For block hashes corresponding to preconfirmed transactions, it returns a fictitious block containing only this transaction.
 
+### eth_sendRawTransactionSync
+
+EIP-7966 compatible JSON-RPC method that sends raw transactions and synchronously returns the complete/pre-confirmed transaction receipt once its available.
+
 ## Additional FAST RPC Methods
 
 ### mevcommit_getTransactionCommitments
