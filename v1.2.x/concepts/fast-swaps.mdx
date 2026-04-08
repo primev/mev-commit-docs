@@ -295,32 +295,37 @@ The user should construct a transaction from this response, sign it, and broadca
 
 ### Integration Flow
 
+**ERC-20 path** — gasless, executor-submitted:
+
 ```mermaid
 sequenceDiagram
     participant App as Your App
     participant RPC as FAST RPC
     participant L1 as Ethereum L1
 
-    rect rgb(40, 40, 60)
-    Note over App,L1: ERC-20 Path (Gasless)
-    App->>App: User signs EIP-712 Permit2 intent
-    App->>RPC: POST /fastswap (intent + signature)
-    RPC->>RPC: Solver auction for best price
-    RPC->>L1: Executor submits tx via FastSettlement
-    L1-->>L1: Swap settles, output tokens to recipient
+    App->>RPC: POST /fastswap (intent + Permit2 signature)
+    RPC->>L1: Executor submits tx (preconfirmed)
     RPC-->>App: txHash + outputAmount
-    end
+    L1-->>App: Output tokens sent to recipient
+```
 
-    rect rgb(40, 60, 40)
-    Note over App,L1: ETH Path (User-Submitted)
+**ETH path** — user-submitted:
+
+```mermaid
+sequenceDiagram
+    participant App as Your App
+    participant RPC as FAST RPC
+    participant L1 as Ethereum L1
+
     App->>RPC: POST /fastswap/eth (swap params)
     RPC-->>App: Unsigned tx data (to, data, value, gasLimit)
-    App->>L1: User signs & broadcasts transaction
-    L1-->>L1: ETH wrapped, swap settles, output tokens to user
-    end
-
-    Note over App,L1: User earns Fast Miles from mev redistribution
+    App->>L1: User signs & submits tx
+    L1-->>App: Output tokens sent to user
 ```
+
+<Info>
+For the ETH path, the user submits the transaction themselves. To get a preconfirmation, the signed transaction should be submitted through FAST RPC via `eth_sendRawTransaction` rather than a standard Ethereum RPC. See [FAST RPC Usage](/v1.2.x/get-started/fastrpc) for setup details.
+</Info>
 
 ### Error Handling
 
