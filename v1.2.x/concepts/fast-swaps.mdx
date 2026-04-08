@@ -213,6 +213,133 @@ This design ensures FAST RPC can only execute the exact swap the user intended. 
 
 ---
 
+## Third-Party Integration
+
+Wallets and dApps can integrate Fast Swaps directly via the FAST RPC HTTP API. Instead of building a full swap UI, you call two endpoints to get quotes and execute swaps on behalf of your users — with mev redistribution, preconfirmations, and gasless ERC-20 swaps included out of the box.
+
+**Base URL:** `https://fastrpc.mev-commit.xyz`
+
+### ERC-20 Swaps (Gasless)
+
+For ERC-20 token swaps, users sign an off-chain EIP-712 Permit2 message and the FAST RPC executor submits the transaction on their behalf. The user pays no gas.
+
+**Prerequisites:**
+1. The user must have approved the [Permit2](https://docs.uniswap.org/contracts/permit2/overview) contract (`0x000000000022D473030F116dDEE9F6B43aC78BA3`) to spend the input token (one-time per token)
+2. Your app must construct and have the user sign an EIP-712 `PermitWitnessTransferFrom` message that includes the swap `Intent` as a witness (see [EIP-712 Signing](#eip-712-signing) above for the full typed data structure)
+
+#### `POST /fastswap`
+
+**Request:**
+
+```json
+{
+  "user": "0x...",          // User's wallet address
+  "inputToken": "0x...",    // ERC-20 token being sold
+  "outputToken": "0x...",   // Token being bought
+  "inputAmt": "1000000",   // Amount in wei (string)
+  "userAmtOut": "950000",   // Minimum output amount — slippage protection (string)
+  "recipient": "0x...",     // Address to receive output tokens
+  "deadline": "1700000000", // Unix timestamp — intent expires after this (string)
+  "nonce": "0",             // Permit2 nonce (string)
+  "signature": "0x...",     // EIP-712 Permit2 signature (hex)
+  "slippage": "0.5"         // Optional: slippage % (default 0.5%)
+}
+```
+
+**Response:**
+
+```json
+{
+  "txHash": "0x...",         // Transaction hash
+  "outputAmount": "955000",  // Expected output amount
+  "gasLimit": 350000,        // Gas limit used
+  "status": "success",       // "success" or "error"
+  "error": ""                // Error details if status is "error"
+}
+```
+
+### ETH Swaps (User-Submitted)
+
+For native ETH swaps, the API returns unsigned transaction data that the user signs and submits themselves. The user pays gas.
+
+#### `POST /fastswap/eth`
+
+**Request:**
+
+```json
+{
+  "outputToken": "0x...",             // ERC-20 token to receive
+  "inputAmt": "1000000000000000000", // ETH amount in wei (string)
+  "userAmtOut": "950000",            // Minimum output amount (string)
+  "sender": "0x...",                 // User's wallet address
+  "deadline": "1700000000",          // Unix timestamp (string)
+  "slippage": "0.5"                  // Optional: slippage % (default 0.5%)
+}
+```
+
+**Response:**
+
+```json
+{
+  "to": "0x084C0EC7f5C0585195c1c713ED9f06272F48cB45", // FastSettlement contract
+  "data": "0x...",            // Hex-encoded calldata
+  "value": "1000000000000000000", // ETH to send (matches inputAmt)
+  "chainId": 1,               // Ethereum mainnet
+  "gasLimit": 400000,          // Estimated gas limit
+  "status": "success",
+  "error": ""
+}
+```
+
+The user should construct a transaction from this response, sign it, and broadcast it to the network.
+
+### Integration Flow
+
+**ERC-20 path** — gasless, executor-submitted:
+
+```mermaid
+sequenceDiagram
+    participant App as Your App
+    participant RPC as FAST RPC
+    participant L1 as Ethereum L1
+
+    App->>RPC: POST /fastswap (intent + Permit2 signature)
+    RPC->>L1: Executor submits tx (preconfirmed)
+    RPC-->>App: txHash + outputAmount
+    L1-->>App: Output tokens sent to recipient
+```
+
+**ETH path** — user-submitted:
+
+```mermaid
+sequenceDiagram
+    participant App as Your App
+    participant RPC as FAST RPC
+    participant L1 as Ethereum L1
+
+    App->>RPC: POST /fastswap/eth (swap params)
+    RPC-->>App: Unsigned tx data (to, data, value, gasLimit)
+    App->>L1: User signs & submits tx
+    L1-->>App: Output tokens sent to user
+```
+
+<Info>
+For the ETH path, the user submits the transaction themselves. To get a preconfirmation, the signed transaction should be submitted through FAST RPC via `eth_sendRawTransaction` rather than a standard Ethereum RPC. See [FAST RPC Usage](/v1.2.x/get-started/fastrpc) for setup details.
+</Info>
+
+### Error Handling
+
+Both endpoints return structured errors:
+- **HTTP 400** — Invalid request (missing fields, malformed addresses, invalid amounts)
+- **HTTP 405** — Wrong HTTP method (only POST is accepted)
+- **HTTP 500** — Internal error (Barter API failure, transaction building failure)
+
+When `status` is `"error"`, the `error` field contains a description of what went wrong. Common errors include:
+- `"barter minReturn (...) < user required (...)"` — The best available price doesn't meet the user's minimum output. Suggest the user increase slippage or reduce the swap amount.
+- `"executor dependencies not configured"` — Path 1 (ERC-20) is not enabled on this RPC instance.
+
+---
+
 ## Supported Tokens
 
 Fast Swaps supports over **2,400 ERC-20 tokens** on Ethereum mainnet. Any token with on-chain liquidity can be traded. The token list includes:
@@ -246,38 +373,23 @@ For a full explanation of mev distribution, fee parameters, and the adaptive par
 
 The following shows how a swap flows through the Fast Swaps system:
 
-```
-User                    Fast Swaps App              FAST RPC                  Ethereum L1
- │                          │                            │                       │
- │  1. Select tokens &      │                            │                       │
- │     enter amount         │                            │                       │
- │ ─────────────────────>   │                            │                       │
- │                          │  2. Solver auction runs,    │                       │
- │                          │     best price returned     │                       │
- │                          │ <────────────────────────── │                       │
- │                          │                            │                       │
- │  3. Review quote &       │                            │                       │
- │     confirm              │                            │                       │
- │ ─────────────────────>   │                            │                       │
- │                          │                            │                       │
- │  4. Sign EIP-712         │                            │                       │
- │     intent (wallet)      │                            │                       │
- │ ─────────────────────>   │                            │                       │
- │                          │  5. Submit signed intent    │                       │
- │                          │ ──────────────────────────> │                       │
- │                          │                            │  6. Execute via        │
- │                          │                            │     FastSettlement     │
- │                          │                            │ ────────────────────>  │
- │                          │                            │                       │
- │                          │                            │  7. Swap settles,      │
- │                          │                            │     output tokens to   │
- │                          │                            │     user, surplus      │
- │                          │                            │     captured for mev   │
- │                          │                            │ <────────────────────  │
- │                          │                            │                       │
- │  8. Preconfirmation      │  <── Tx preconfirmed ───── │                       │
- │     + Fast Miles earned  │                            │                       │
- │ <─────────────────────   │                            │                       │
+```mermaid
+sequenceDiagram
+    participant User
+    participant App as Fast Swaps App
+    participant RPC as FAST RPC
+    participant L1 as Ethereum L1
+
+    User->>App: 1. Select tokens & enter amount
+    App->>RPC: 2. Request quote
+    RPC-->>App: Solver auction runs, best price returned
+    User->>App: 3. Review quote & confirm
+    User->>App: 4. Sign EIP-712 intent (wallet)
+    App->>RPC: 5. Submit signed intent
+    RPC->>L1: 6. Execute via FastSettlement
+    L1-->>RPC: 7. Swap settles, output tokens to user, surplus captured for mev
+    RPC-->>App: Tx preconfirmed
+    App-->>User: 8. Preconfirmation + Fast Miles earned
 ```
 
 ---
