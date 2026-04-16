@@ -45,6 +45,8 @@ message Bid {
   repeated string reverting_tx_hashes = 7;
   repeated string raw_transactions = 8;
   string slash_amount = 9;
+  BidOptions bid_options = 10;
+  string bidder_address = 11;
 };
 
 message BidResponse {
