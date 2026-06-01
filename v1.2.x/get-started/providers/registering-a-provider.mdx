@@ -7,6 +7,12 @@ To register on the mev-commit network, providers need to stake ETH in the provid
 
 <Warning>Providers must adhere to some rules and satisfy some criteria described [here](/v1.2.x/concepts/actors#rules-for-providers).</Warning>
 
+<Note>
+**Validator opt-in status and proposal eligibility.** Registered providers are eligible to win blocks for **any** validator slot — there is no longer a relay-side filter restricting opted-in proposers to registered builders. Your builder competes for every slot on its merits.
+
+**Forthcoming: rewards contract.** A future protocol upgrade will introduce a rewards contract that providers winning blocks for opted-in proposers must route through as the block's `fee_recipient`. The contract takes a protocol fee from the producer reward and forwards the remainder to the validator's registered fee recipient. The fee is dynamic, bounded so opting in remains net-positive for validators. Specifications and activation timing will be published before this is enabled.
+</Note>
+
 Once a provider is registered on the network, other nodes will connect to it, and the provider node will receive bids.
 
 You can use the provider API to stake and check your stake balance.
@@ -103,3 +109,47 @@ Be sure to view [Querying for Proposers API](/v1.2.x/get-started/bidders/bidder-
   ```
 
 We recommend reading the [consuming bids](/v1.2.x/get-started/providers/consuming-bids) section next to consume bids effectively.
+
+## Querying the Provider Registry
+
+Bidders, relays, and other observers may want to enumerate currently registered providers and their BLS keys — for example, to identify which providers can issue credible commitments. The Provider Registry contract on the mev-commit chain is the source of truth.
+
+**Contract address (mainnet):** see [Contracts](/v1.2.x/developers/contracts).
+
+<Accordion title="Example: list all registered providers with their BLS keys">
+```javascript
+const ethers = require("ethers");
+
+const provider = new ethers.JsonRpcProvider("https://chainrpc.mev-commit.xyz/");
+const providerRegistryAddress = "0xb772Add4718E5BD6Fe57Fb486A6f7f008E52167E"; // mainnet
+
+const abi = [
+    "event ProviderRegistered(address indexed provider, uint256 stakedAmount)",
+    "function isProviderValid(address provider) public view",
+    "function getBLSKeys(address provider) external view returns (bytes[])"
+];
+
+const contract = new ethers.Contract(providerRegistryAddress, abi, provider);
+
+async function getRegisteredProviders() {
+    const events = await contract.queryFilter(contract.filters.ProviderRegistered());
+    const providerMap = {};
+    for (const event of events) {
+        const addr = event.args.provider;
+        try {
+            await contract.isProviderValid(addr);
+            const blsKeys = await contract.getBLSKeys(addr);
+            providerMap[addr] = blsKeys.map(k => ethers.hexlify(k));
+        } catch { /* skip invalid */ }
+    }
+    return providerMap;
+}
+
+getRegisteredProviders().then(map => {
+    for (const [addr, keys] of Object.entries(map)) {
+        console.log(`Provider: ${addr}`);
+        keys.forEach((k, i) => console.log(`  Key ${i + 1}: ${k}`));
+    }
+});
+```
+</Accordion>

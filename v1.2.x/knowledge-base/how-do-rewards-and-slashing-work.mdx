@@ -21,7 +21,7 @@ The risk of slashing is very low for validators acting in good faith:
 
 - **Missed blocks** — Not slashed. Network issues and chain reorgs are outside the validator's control.
 - **Self-built blocks** — Not slashed. Rare edge case when relay value is too low.
-- **Block from unsupported relay** — Slashed 1 ETH. This indicates misconfiguration or intentional misbehavior.
+- **Blocks from any builder or relay** — Not slashed. mev-commit no longer enforces a registered-provider-only block selection rule at the relay layer. Commitment accountability is enforced on the provider (builder) side; validators are not penalized for the builder their relay happened to select.
 
 <Tip>An [independent report by Chaos Labs](https://governance.ether.fi/t/primev-symbiotic-risk-analysis/) confirms the risk/reward profile is favorable for validators.</Tip>
 
