@@ -24,29 +24,9 @@ By opting in to mev-commit as a validator **in one of the three forms described*
 **Forthcoming protocol fee.** A future protocol upgrade will introduce a small dynamic fee on the producer reward of opt-in blocks, taken at the rewards contract layer. The fee is bounded so it never exceeds the additional value an opted-in validator receives from mev-commit — opting in remains net-positive by design. No fee is taken today; details and activation timing will be published before the mechanism goes live.
 </Note>
 
-### Supporting Relays
-
-#### Mainnet
-
-| Relay | Docs |
-|-------|------|
-| Titan | [docs.titanrelay.xyz](https://docs.titanrelay.xyz/) |
-| Aestus | [mainnet.aestus.live](https://mainnet.aestus.live/) |
-| Bloxroute Max Profit | [https://bloxroute.max-profit.blxrbdn.com/](https://0x8b5d2e73e2a3a55c6c87b8b6eb92e0149a125c852751db1422fa951e42a09b82c142c3ea98d0d9930b056a3bc9896b8f@bloxroute.max-profit.blxrbdn.com) |
-| Bloxroute Regulated | [https://bloxroute.regulated.blxrbdn.com/](https://0xb0b07cd0abef743db4260b0ed50619cf6ad4d82064cb4fbec9d3ec530f7c5e6793d9f286c4e082c0244ffb9f2658fe88@bloxroute.regulated.blxrbdn.com) |
-
-<Accordion title="Hoodi">
-
-| Relay | Docs |
-|-------|------|
-| Titan | [hoodi.titanrelay.xyz](https://0xaa58208899c6105603b74396734a6263cc7d947f444f396a90f7b7d3e65d102aec7e5e5291b27e08d02c50a050825c2f@hoodi.titanrelay.xyz) |
-| Aestus | [hoodi-helix.aestus.live](https://0x98f0ef62f00780cf8eb06701a7d22725b9437d4768bb19b363e882ae87129945ec206ec2dc16933f31d983f8225772b6@hoodi-helix.aestus.live) |
-| Bloxroute | [bloxroute.hoodi.blxrbdn.com](https://0x821f2a65afb70e7f2e820a925a9b4c80a159620582c1766b1b09729fec178b11ea22abb3a51f07b288be815a1a2ff516@bloxroute.hoodi.blxrbdn.com) |
-| Ultrasound | [relay-hoodi.ultrasound.money](https://0xb1559beef7b5ba3127485bbbb090362d9f497ba64e177ee2c8e7db74746306efad687f2cf8574e38d70067d40ef136dc@relay-hoodi.ultrasound.money) |
-
-</Accordion>
-
-If you are a relay looking to join the mev-commit network, please reach out to the Primev team on Telegram. mev-commit-supporting relays no longer require builder-side filtering — integration is primarily about exposing `proposer_payload_delivered` data so the mev-commit oracle can attribute commitments correctly.
+<Note>
+**Use any relay.** In preparation for ePBS, we've updated the mev-commit relay design. Opted-in validators can run any mev-boost relay set — there is no longer a curated list of "supporting relays," and no relay-side filtering of builder bids. Your existing mev-boost configuration works as-is.
+</Note>
 
 Proposers who fallback to local block production, from either a fault in the mev-boost software or a lack of economically viable block bids, **will not be slashed**. See [flashbots docs](https://docs.flashbots.net/flashbots-mev-boost/architecture-overview/risks#liveness-and-local-fallback) for more on this scenario. The protocol may in the future slash for abuse of this local fallback mechanism.
 

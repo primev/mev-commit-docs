@@ -8,13 +8,13 @@ Opting into the mev-commit protocol signals from a validator that they:
 
 * Trust correctness of execution from the mev-commit chain. See [mev-commit chain](/v1.2.x/concepts/mev-commit-chain/chain-details) for more information.
 * Trust correctness of slashing transactions residing from the Primev operated [mev-commit-oracle](https://github.com/primev/mev-commit/tree/main/oracle) service.
-* Trust at least one mev-commit-integrated relay for commitment attribution. [View the list of supported relays here](/v1.2.x/get-started/validators/validator-guide#supporting-relays). Validators may continue running their existing mev-boost relay set unchanged — mev-commit no longer requires opted-in proposers to receive blocks only from registered providers.
+* Trust the mev-boost relay set they run for commitment attribution. mev-commit no longer maintains a curated "supporting relays" list — opted-in validators can use any relay, and mev-commit's oracle attributes commitments via standard `proposer_payload_delivered` data.
 
 ### Risks
 
 While mev-commit is generally not set up to slash validators, validators opting into the mev-commit protocol should be aware of the following risks:
 
-* **Trusted Relay block delivery:** Relays could break your trust and communicate blocks that do not abide by existing commitments. This would lead to slashing of the validator.
+* **Trusted Relay block delivery:** Relays could break their trust and communicate blocks that do not abide by existing commitments. Commitment accountability sits on the provider side — providers that fail to honor commitments are slashed regardless of which relay delivered the block.
 
 ### Future plans
 
