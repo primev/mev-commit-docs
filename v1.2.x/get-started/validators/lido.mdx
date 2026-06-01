@@ -32,11 +32,7 @@ import { HoodiLidoRegistryAddress } from '/snippets/testnet-addresses.mdx';
 ### Step 1: Get Whitelisted
 To register, you must first be whitelisted as an operator. To request whitelisting, please fill out [this short google form](https://docs.google.com/forms/d/e/1FAIpQLSfIYZs1l7wqd6jkHHFZA8FQ6vg3T6KF6R_XBZsSGGbzN7q4Hg/viewform) with your operator info, or reach out to our team through [telegram](https://t.me/+-aiQNWqjZRQ1OWJh).
 
-### Step 2: Only use our opted-in relays
-
-Ensure your mev-boost client only connects to [mev-commit opted-in relays](/v1.2.x/get-started/validators/validator-guide#supporting-relays).
-
-### Step 3: Call `stake`
+### Step 2: Call `stake`
 Once whitelisted, you can register by calling:
 
 ```solidity
@@ -69,8 +65,3 @@ If you need to deregister and withdraw:
 1. Call `unstake(bytes[] blsKeys)` to start the process. Validators are considered opted out during this time.
 2. Wait **96 blocks** on Hoodi (the unstaking period).
 3. Call `withdraw(bytes[] blsKeys)` to receive your ETH back.
-
-
-## Relay Filtering
-
-Opting in on **mainnet** [requires agreement to only use opted-in relays](https://docs.primev.xyz/v1.1.0/get-started/validators/validator-guide#requirements), but these requirements do not exist on Hoodi at this time.

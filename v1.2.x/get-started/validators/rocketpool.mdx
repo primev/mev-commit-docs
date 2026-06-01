@@ -71,7 +71,3 @@ Deregistration is a two-step process:
 - After `deregistrationPeriod` has passed, call `deregisterValidators(bytes[] valPubKeys)` to complete it. Validators must not be frozen.
 
 Helper: `getEligibleTimeForDeregistration(bytes pubkey)` returns the timestamp when a validator can be deregistered. A value of 0 indicates that no deregistration request has been made for the key.
-
-## Relay Filtering
-
-Opting in on **mainnet** [requires agreement to only use opted-in relays](https://docs.primev.xyz/v1.1.0/get-started/validators/validator-guide#requirements), but these requirements do not exist on Hoodi at this time.
