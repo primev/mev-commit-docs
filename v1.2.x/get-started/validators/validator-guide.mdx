@@ -25,7 +25,7 @@ By opting in to mev-commit as a validator **in one of the three forms described*
 </Note>
 
 <Note>
-**Use any relay.** In preparation for ePBS, we've updated the mev-commit relay design. Opted-in validators can run any mev-boost relay set — there is no longer a curated list of "supporting relays," and no relay-side filtering of builder bids. Your existing mev-boost configuration works as-is.
+**Use any relay.** In preparation for ePBS, we've updated the mev-commit relay design. Opted-in validators can run any mev-boost relay set — there is no longer a curated list of "supporting relays" and no relay-side filtering of builder bids. Your existing mev-boost configuration works as-is.
 </Note>
 
 Proposers who fallback to local block production, from either a fault in the mev-boost software or a lack of economically viable block bids, **will not be slashed**. See [flashbots docs](https://docs.flashbots.net/flashbots-mev-boost/architecture-overview/risks#liveness-and-local-fallback) for more on this scenario. The protocol may in the future slash for abuse of this local fallback mechanism.
