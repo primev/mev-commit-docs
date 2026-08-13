@@ -69,7 +69,7 @@ EIP-712 signing domain: `{"name":"Permit2","chainId":1,"verifyingContract":"0x00
 - mev-commit chain RPC: `https://chainrpc.mev-commit.xyz` (Chain ID: 57173)
 - mev-commit chain WebSocket: `wss://chainrpc-wss.mev-commit.xyz`
 - Bootnode: `https://bootnode.mev-commit.xyz`
-- Block explorer: `https://mev-commit.xyz`
+- Validator opt-in: `https://primev.xyz/ai` (skill: mev-commit-opt-in). Explorer at mev-commit.xyz is decommissioned.
 - Testnet chain RPC: `https://chainrpc.testnet.mev-commit.xyz` (Chain ID: 17864)
 
 ### Validator Opt-In
@@ -83,14 +83,18 @@ Opted-in validators earn ~20x higher mev capture on FAST RPC flows vs non-opted-
 
 ## AI Agent Integration
 
-Install the Claude Code plugin: `claude plugin add primev/claude-plugin`
+Install: `claude plugin marketplace add primev/claude-plugin && claude plugin install primev`
 
-This provides:
-- **3 skills**: mev-commit (preconfirmed transactions), fast-protocol (gasless swaps), x402 (USDC payments)
-- **2 MCP servers**: primev-fastrpc (11 tools) + primev-docs (docs search)
-- **12 MCP tools**: eth_blockNumber, eth_getBalance, eth_gasPrice, eth_getTransactionReceipt, eth_sendRawTransaction, eth_call, eth_chainId, x402_supported, x402_verify, mevcommit_getTransactionCommitments, mevcommit_optInBlock, search_docs
+Grok: `grok plugin marketplace add primev/claude-plugin && grok plugin install primev --trust`
 
-No API keys required. All endpoints are public.
+ChatGPT: https://primev.xyz/skills/mev-commit-opt-in.md
+
+- **Skill**: mev-commit-opt-in (vanilla / EigenLayer / Symbiotic register, Hub verify, on-chain ETH stake, opt out)
+- **MCP**: primev-docs (search_docs) + primev-fastrpc read/status (`mevcommit_optInBlock` is time until the next opted-in proposer, not registration)
+- **Page**: https://primev.xyz/ai
+- **Docs**: https://docs.primev.xyz/v1.2.x/get-started/validators/agentic-opt-in
+
+The old validator dashboard is deprecated. Fast Protocol remains a product at https://fastprotocol.io.
 
 ## Source Code
 
@@ -102,6 +106,7 @@ No API keys required. All endpoints are public.
 
 ## Documentation Sections
 
+- [Agentic Opt-In](https://docs.primev.xyz/v1.2.x/get-started/validators/agentic-opt-in): Validator opt-in skill
 - [Welcome](https://docs.primev.xyz/v1.2.x/get-started/welcome-to-primev): Overview of Primev and mev-commit
 - [Quickstart](https://docs.primev.xyz/v1.2.x/get-started/quickstart): Getting started guide
 - [FAST RPC Guide](https://docs.primev.xyz/v1.2.x/get-started/fastrpc): How to use FAST RPC

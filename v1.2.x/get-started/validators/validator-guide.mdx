@@ -30,9 +30,15 @@ By opting in to mev-commit as a validator **in one of the three forms described*
 
 Proposers who fallback to local block production, from either a fault in the mev-boost software or a lack of economically viable block bids, **will not be slashed**. See [flashbots docs](https://docs.flashbots.net/flashbots-mev-boost/architecture-overview/risks#liveness-and-local-fallback) for more on this scenario. The protocol may in the future slash for abuse of this local fallback mechanism.
 
+## How to opt in
+
+<Info>
+The validator dashboard is deprecated. Use the [mev-commit-opt-in skill](/v1.2.x/get-started/validators/agentic-opt-in) from [primev.xyz/ai](https://primev.xyz/ai). Any mev-boost relay set is fine. There is no relay configuration step.
+</Info>
+
 ## Choose Your Opt-In Method
 
-Note each validator pubkey should only opt-in using one of the three methods described below.
+Note each validator pubkey should only opt-in using one of the three methods described below. Prefer the [agentic skill](/v1.2.x/get-started/validators/agentic-opt-in). The cards below are the contract-level detail pages.
 
 <CardGroup cols={3}>
   <Card title="Eigenlayer Restaking" icon="coins">

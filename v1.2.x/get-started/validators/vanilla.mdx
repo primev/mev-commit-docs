@@ -45,4 +45,8 @@ For large groups of validators, it is recommended to stake in batches of 40-60 p
 
 *Whitelisting is now required on Hoodi, and will soon be added to mainnet. If registering on Hoodi, please reach out to our team with your operator address to enable registration!
 
-To vanilla stake validator pubkeys, navigate to the [mainnet](https://validators.mev-commit.xyz/) or [hoodi](https://hoodi.validators.mev-commit.xyz/dashboard) validator dashboard. Choose "Opt-in", confirm the relevant validator's relays have been correctly configured as specified in the [Validator Guide](/v1.2.x/get-started/validators/validator-guide#requirements), then choose the "Simple" staking route.
+<Info>
+The validator dashboard is deprecated. Vanilla opt-in is done with the [mev-commit-opt-in skill](/v1.2.x/get-started/validators/agentic-opt-in). Any mev-boost relay set is fine.
+</Info>
+
+To vanilla stake validator pubkeys, install the skill from [primev.xyz/ai](https://primev.xyz/ai) and ask it to opt in via simple staking. It calls `VanillaRegistry.stake(bytes[])` on your RPC, then verifies `ValidatorOptInHub`. You can still send the same function yourself with `cast` if you prefer.
