@@ -1,7 +1,7 @@
 ---
 title: Welcome to Primev
 sidebarTitle: Welcome to Primev
-description: "We build [mev-commit](/v1.2.x/concepts/mev-commit-intro/what-is-mev-commit), the preconfirmation protocol that makes Ethereum fast. mev-commit gives transactions near-instant finality by letting block builders commit to including them before a block is produced."
+description: "Opt Ethereum validators into mev-commit with the mev-commit-opt-in skill. Fast Protocol products sit on top of that network."
 mode: "wide"
 icon: "sailboat"
 ---
@@ -14,79 +14,84 @@ import {
   QuickStartCardFooter,
 } from "/snippets/quick-start-card.mdx";
 
-On top of mev-commit we've built **Fast Protocol**: a suite of products that put preconfirmations to work for users, developers, and AI agents:
+The first thing most operators do here is **opt validator keys into mev-commit**. That is agentic now: Claude, ChatGPT, or Grok, from [primev.xyz/ai](https://primev.xyz/ai). The old dashboard is deprecated. Any mev-boost relay set is fine.
 
-### The Fast Protocol Ecosystem
+<CardGroup cols={2}>
+  <Card title="Quickstart: opt in" icon="bolt" href="/v1.2.x/get-started/quickstart">
+    Install the skill, paste your keys, and register on-chain.
+  </Card>
+  <Card title="Agentic opt-in guide" icon="book-open" href="/v1.2.x/get-started/validators/agentic-opt-in">
+    Vanilla, EigenLayer, and Symbiotic methods, Hub verify, opt out.
+  </Card>
+</CardGroup>
 
-| Product | What It Does | Link |
-| ------- | ------------ | ---- |
-| **Fast Swaps** | Token swaps on Ethereum with mev rewards and preconfirmed execution | [Launch](https://fastprotocol.io) |
-| **FAST RPC** | Drop-in Ethereum RPC that enables preconfirmations for any wallet or dapp | [Setup Guide](/v1.2.x/get-started/fastrpc) |
-| **Fastx402** | x402 payment facilitator for AI agents — sub-second USDC settlement on mainnet | [Developer Docs](/v1.2.x/developers/fastx402) |
-| **mev-commit** | The preconfirmation protocol powering the ecosystem — bidders, providers, and validators | [Learn More](/v1.2.x/concepts/mev-commit-intro/what-is-mev-commit) |
+Primev also builds **Fast Protocol** on top of mev-commit: preconfirmed swaps, a drop-in Ethereum RPC, and agent payments.
 
-### mev-commit Network Roles
+### Products
 
-mev-commit is powered by a network of bidders, providers, and validators. If you operate infrastructure on Ethereum and want to participate, visit the [quickstart guide](/v1.2.x/get-started/quickstart) or explore the resources below for your role:
+| Product | What it does | Link |
+| --- | --- | --- |
+| **mev-commit** | Validator opt-in and the preconfirmation protocol | [primev.xyz/ai](https://primev.xyz/ai) |
+| **Fast Swaps** | Token swaps on Ethereum with mev rewards | [Launch](https://fastprotocol.io) |
+| **FAST RPC** | Drop-in Ethereum RPC with preconfirmations | [Setup](/v1.2.x/get-started/fastrpc) |
+| **Fastx402** | x402 facilitator for AI agents, USDC on mainnet | [Docs](/v1.2.x/developers/fastx402) |
+
+### Network roles
 
 <CardGroup cols={3}>
 
-    <QuickStartCard title="Bidders" icon="user-bounty-hunter" >
+    <QuickStartCard title="Validators" icon="ethereum">
         <CardDescription>
-            Searchers, Solvers, Market Makers, Blob submitters, AA Bundlers
+            L1 Ethereum validators
         </CardDescription>
 
         <Separator />
 
         <CardContent>
-            Bidders seek to optimize their transaction execution strategies. Explore the resources below to efficiently identify and capture valuable transactions.
+            Opt keys in with the skill. No sidecar. Keep your existing relay set.
         </CardContent>
 
         <QuickStartCardFooter>
-            <p>• [Quickstart Your Node](/v1.2.x/get-started/quickstart)</p>
-            <p>• [Send Transactions](/v1.2.x/get-started/bidders/best-practices#provider-rpcs)</p>
-            <p>• [Node Commands](/v1.2.x/get-started/bidders/bidder-node-commands)</p>
-            <p>• [Bid Structure](/v1.2.x/concepts/bids/bid-structure)</p>
-            <p>• [Bidder Deposit](/v1.2.x/concepts/bids/bidder-deposit)</p>
-            <p>• [Bid Decay](/v1.2.x/concepts/bids/bid-decay-mechanism)</p>
+            <p>• [Quickstart](/v1.2.x/get-started/quickstart)</p>
+            <p>• [Agentic opt-in](/v1.2.x/get-started/validators/agentic-opt-in)</p>
+            <p>• [Why opt in](/v1.2.x/knowledge-base/why-should-validators-opt-in)</p>
+            <p>• [Validator guide](/v1.2.x/get-started/validators/validator-guide)</p>
+        </QuickStartCardFooter>
+    </QuickStartCard>
+
+    <QuickStartCard title="Bidders" icon="user-bounty-hunter" >
+        <CardDescription>
+            Searchers, solvers, market makers
+        </CardDescription>
+
+        <Separator />
+
+        <CardContent>
+            Run a bidder node on the mev-commit p2p network and send bids.
+        </CardContent>
+
+        <QuickStartCardFooter>
+            <p>• [Best practices](/v1.2.x/get-started/bidders/best-practices)</p>
+            <p>• [Node commands](/v1.2.x/get-started/bidders/bidder-node-commands)</p>
+            <p>• [Bid structure](/v1.2.x/concepts/bids/bid-structure)</p>
         </QuickStartCardFooter>
     </QuickStartCard>
 
     <QuickStartCard title="Providers" icon="network-wired">
         <CardDescription>
-            Block Builders, Relays, Rollup Sequencers
+            Block builders, relays, sequencers
         </CardDescription>
 
         <Separator />
 
         <CardContent>
-            Providers form the backbone of the Primev ecosystem. Learn how to optimize your block production and validation processes with the resources below.
+            Register as a provider and issue commitments on the p2p network.
         </CardContent>
 
         <QuickStartCardFooter>
-            <p>• [Registering as a Provider](/v1.2.x/get-started/providers/registering-a-provider)</p>
-            <p>• [Consuming Bids](/v1.2.x/get-started/providers/consuming-bids)</p>
-            <p>• [Sending Commitments](/v1.2.x/get-started/providers/sending-commitments)</p>
-            <p>• [Commitments Structure](/v1.2.x/concepts/commitments)</p>
-        </QuickStartCardFooter>
-    </QuickStartCard>
-
-    <QuickStartCard title="Validators" icon="ethereum">
-        <CardDescription>
-            L1 Ethereum Validators
-        </CardDescription>
-
-        <Separator />
-
-        <CardContent>
-            Validators add ultimate credibility to commitments for the mev-commit network. Start here to passively opt-in to mev-commit as a Validator through staking or restaking.
-        </CardContent>
-
-        <QuickStartCardFooter>
-            <p>• [Opting-in as a Validator](/v1.2.x/get-started/validators)</p>
-            <p>• [Eigenlayer Operators](/v1.2.x/knowledge-base/eigenlayer-operator-registration)</p>
-            <p>• [Validator Rewards](/v1.2.x/concepts/rewards-and-slashing#validators-proposers)</p>
-            <p>• [Validator Considerations](/v1.2.x/concepts/validator-considerations)</p>
+            <p>• [Register](/v1.2.x/get-started/providers/registering-a-provider)</p>
+            <p>• [Consuming bids](/v1.2.x/get-started/providers/consuming-bids)</p>
+            <p>• [Sending commitments](/v1.2.x/get-started/providers/sending-commitments)</p>
         </QuickStartCardFooter>
     </QuickStartCard>
 
@@ -94,35 +99,17 @@ mev-commit is powered by a network of bidders, providers, and validators. If you
 
 ---
 
-### Featured: Fast Swaps
-
-Swap tokens on Ethereum mainnet and earn mev rewards. Fast Swaps routes your trades through a competitive solver auction backed by mev-commit preconfirmations — your swap feels instant, and you keep at least 90% of the mev your transactions generate.
+### Frequently asked
 
 <CardGroup cols={3}>
-  <Card title="Start Swapping" icon="bolt" href="https://fastprotocol.io">
-    Launch Fast Swaps at fastprotocol.io
-  </Card>
-  <Card title="Fast Swaps Guide" icon="book-open" href="/v1.2.x/get-started/fast-swaps">
-    Step-by-step guide to your first swap
-  </Card>
-  <Card title="Fast Protocol Economics" icon="coins" href="/v1.2.x/concepts/fast-protocol">
-    How mev is captured and redistributed
-  </Card>
-</CardGroup>
-
----
-
-### Frequently Asked Questions
-
-<CardGroup cols={3}>
-  <Card title="What is Fast Protocol?" icon="circle-question" href="/v1.2.x/knowledge-base/what-is-fast-protocol">
-    Quick overview for newcomers
-  </Card>
-  <Card title="What are Fast Swaps?" icon="circle-question" href="/v1.2.x/knowledge-base/what-are-fast-swaps">
-    FAQ-style intro to Fast Swaps
-  </Card>
-  <Card title="Why Should Validators Opt In?" icon="circle-question" href="/v1.2.x/knowledge-base/why-should-validators-opt-in">
+  <Card title="Why should validators opt in?" icon="circle-question" href="/v1.2.x/knowledge-base/why-should-validators-opt-in">
     Incentive model for validators
+  </Card>
+  <Card title="What is Fast Protocol?" icon="circle-question" href="/v1.2.x/knowledge-base/what-is-fast-protocol">
+    Swaps, FAST RPC, and agent payments
+  </Card>
+  <Card title="What is mev-commit?" icon="circle-question" href="/v1.2.x/concepts/mev-commit-intro/what-is-mev-commit">
+    The preconfirmation protocol
   </Card>
 </CardGroup>
 
@@ -132,12 +119,8 @@ Swap tokens on Ethereum mainnet and earn mev rewards. Fast Swaps routes your tra
 
 Our mission at Primev is to solve coordination inefficiencies in decentralized domains additively to mev, driving network welfare and increase transparency and decentralization of the mev pipeline.
 
-### Engage with Us
+### Engage with us
 
-Connect with us on various platforms to stay updated and get involved:
-
-- **X**: Follow us for real-time updates and announcements [here](https://x.com/primev_xyz).
-- **Github**: Track our progress, contribute to our open-source projects, and explore our repositories [here](https://github.com/primev).
-- **Mirror**: Stay informed with our latest articles and research papers [here](https://mirror.xyz/preconf.eth).
-
-Our work is open-source, and we welcome contributions from the community to enhance and expand our ecosystem.
+- **X**: [primev_xyz](https://x.com/primev_xyz)
+- **Github**: [github.com/primev](https://github.com/primev)
+- **Mirror**: [mirror.xyz/preconf.eth](https://mirror.xyz/preconf.eth)
