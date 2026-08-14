@@ -133,5 +133,5 @@ The old validator dashboard is deprecated. Fast Protocol remains a product at ht
 - [AI Integration Page](https://primev.xyz/ai): Skills, MCP tools, and quickstart guides
 - [primev.xyz llms.txt](https://primev.xyz/llms.txt): High-level product overview for LLMs
 - [Research Publications](https://mirror.xyz/preconf.eth): Academic papers on mev and preconfirmations
-- [mev-commit Xplorer](https://observer.mev-commit.xyz): Live network explorer
+- [Settlement explorer](https://docs.primev.xyz/v1.2.x/get-started/explorer): Decommissioned. Apex redirects to primev.xyz/ai. App archived in primev/mev-commit-ui.
 - [Fast Swaps App](https://fastprotocol.io): Swap interface

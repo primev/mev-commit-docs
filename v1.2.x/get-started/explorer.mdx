@@ -1,62 +1,27 @@
 ---
-title: "Explorer"
+title: "Settlement explorer"
 sidebarTitle: "Explorer"
 icon: "magnifying-glass"
+description: "The public mev-commit explorer is decommissioned. Apex now redirects to the validator opt-in page."
 ---
 
-The [mev-commit Explorer](https://mev-commit.xyz) is a blockchain explorer for the mev-commit settlement chain (Chain ID: 57173). It provides decoded transaction data, real-time block and transaction feeds, and address lookup for the mev-commit network.
+<Info>
+  The public explorer at [mev-commit.xyz](https://mev-commit.xyz) is decommissioned. That host now redirects to [primev.xyz/ai](https://primev.xyz/ai), the validator opt-in homepage. The app is archived in [primev/mev-commit-ui](https://github.com/primev/mev-commit-ui) (`apps/xplorer`) and can be restored from there.
+</Info>
 
-## Features
+It was a settlement-chain explorer for the mev-commit chain (Chain ID 57173): decoded contract calls, block and transaction feeds, and address lookup. Those routes are not served on a public host anymore.
 
-<CardGroup cols={2}>
-  <Card title="Decoded Transactions" icon="code">
-    Every transaction to a known settlement contract is decoded into human-readable function calls with parameter names, types, and values.
-  </Card>
-  <Card title="Revert Reasons" icon="triangle-exclamation">
-    Failed transactions show the decoded revert reason instead of just a generic failure status.
-  </Card>
-  <Card title="Contract Badges" icon="badge-check">
-    Known settlement contracts display as verified badges with their contract name instead of raw hex addresses.
-  </Card>
-  <Card title="Cross-Reference Links" icon="link">
-    Commitment indices link to storing transactions. L1 block numbers and tx hashes link to Etherscan.
-  </Card>
-</CardGroup>
-
-## Settlement Contracts
-
-The explorer decodes interactions with these core protocol contracts:
+## What it used to show
 
 | Contract | Purpose |
-|----------|---------|
-| **PreconfManager** | Manages preconfirmation commitments between bidders and providers |
-| **BidderRegistry** | Tracks bidder registrations and deposits |
-| **ProviderRegistry** | Tracks provider registrations and stakes |
-| **Oracle** | Settles commitments based on L1 block outcomes |
-| **BlockTracker** | Records L1 block numbers for settlement reference |
-| **SettlementGateway** | Handles cross-chain settlement operations |
+| --- | --- |
+| **PreconfManager** | Preconfirmation commitments between bidders and providers |
+| **BidderRegistry** | Bidder registrations and deposits |
+| **ProviderRegistry** | Provider registrations and stakes |
+| **Oracle** | Settles commitments from L1 block outcomes |
+| **BlockTracker** | L1 block numbers for settlement |
+| **SettlementGateway** | Cross-chain settlement |
 
-## Using the Explorer
+Query the chain directly if you need the same data: RPC `https://chainrpc.mev-commit.xyz`, Chain ID `57173`. See [chain details](/v1.2.x/concepts/mev-commit-chain/chain-details).
 
-### Look up an address
-
-Navigate to `https://mev-commit.xyz/address/<address>` to view:
-- Current ETH balance on the mev-commit chain
-- All transactions involving the address (both sent and received)
-- IN/OUT labels showing transaction direction
-
-### Inspect a transaction
-
-Click any transaction hash to see:
-- Decoded input data (function name and parameters)
-- Revert reason for failed transactions
-- Gas usage and block information
-- From/to addresses with contract name badges
-
-### Browse blocks
-
-The home page shows a real-time feed of blocks and transactions. Click any block number to see all transactions in that block.
-
-<Card title="Open the Explorer" icon="arrow-up-right-from-square" href="https://mev-commit.xyz">
-  Explore transactions, blocks, and addresses on the mev-commit settlement chain.
-</Card>
+For validator opt-in use [primev.xyz/ai](https://primev.xyz/ai) or the [agentic opt-in guide](/v1.2.x/get-started/validators/agentic-opt-in).
