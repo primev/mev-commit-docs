@@ -1,0 +1,87 @@
+---
+title: Agentic Opt-In
+sidebarTitle: Agentic Opt-In
+description: Opt into mev-commit with the mev-commit-opt-in skill. The old validator dashboard is deprecated.
+---
+
+<Info>
+The validator dashboard at validators.mev-commit.xyz is deprecated. Every opt-in path (vanilla, EigenLayer, Symbiotic) lives in the **mev-commit-opt-in** skill. Manual contract calls on the path pages remain valid if you want them.
+</Info>
+
+Opt L1 validator BLS pubkeys into mev-commit from Claude, ChatGPT, or Grok. The skill uses your RPC and wallet, verifies on the ValidatorOptInHub, computes real on-chain ETH stake, and can opt out.
+
+Homepage: [primev.xyz/ai](https://primev.xyz/ai) (also [mev-commit.xyz](https://mev-commit.xyz), which redirects here).
+
+Any mev-boost relay set is fine. There is no relay configuration step.
+
+## Install the skill
+
+<Tabs>
+  <Tab title="Claude">
+    ```bash
+    claude plugin marketplace add primev/claude-plugin
+    claude plugin install primev
+    ```
+  </Tab>
+  <Tab title="Grok">
+    ```bash
+    grok plugin marketplace add primev/claude-plugin
+    grok plugin install primev --trust
+    ```
+  </Tab>
+  <Tab title="ChatGPT">
+    Open [https://primev.xyz/skills/mev-commit-opt-in.md](https://primev.xyz/skills/mev-commit-opt-in.md) and add it as a skill in ChatGPT or Codex.
+  </Tab>
+</Tabs>
+
+Source: [github.com/primev/claude-plugin](https://github.com/primev/claude-plugin)
+
+## What to say
+
+After install:
+
+- "Opt these validator pubkeys into mev-commit with simple staking."
+- "Register these keys on the EigenLayer AVS as this pod owner."
+- "Check whether these pubkeys are opted in, and sum my on-chain ETH stake."
+- "Unstake these vanilla keys and withdraw when the period is done."
+
+Upload a `.txt` or `.csv` of BLS pubkeys (`0x` + 96 hex, comma or newline separated). Batch 40 to 60 keys per transaction.
+
+## How it works
+
+The skill follows the same registry calls the old dashboard used after a wallet was connected.
+
+1. Choose a method: [vanilla](/v1.2.x/get-started/validators/vanilla), [EigenLayer](/v1.2.x/get-started/validators/eigenlayer), or [Symbiotic](/v1.2.x/get-started/validators/symbiotic).
+2. Parse your key file.
+3. Simulate, then send on **your** Ethereum RPC and wallet (Foundry keystore, hardware, or `PRIVATE_KEY` in the environment).
+4. Wait for the receipt, then verify `ValidatorOptInHub.areValidatorsOptedIn`.
+
+Mainnet Hub: `0x1059155bD5854224bF58e43CD3EEC6B07b4F30Ad`
+
+| Method | Contract | Function |
+| --- | --- | --- |
+| Vanilla | VanillaRegistry `0x47afdcB2B089C16CEe354811EA1Bbe0DB7c335E9` | `stake(bytes[])` payable |
+| EigenLayer | MevCommitAVS `0xBc77233855e3274E1903771675Eb71E602D9DC2e` | `registerValidatorsByPodOwners(bytes[][], address[])` |
+| Symbiotic | MevCommitMiddleware `0x21fD239311B050bbeE7F32850d99ADc224761382` | `registerValidators(bytes[][], address[])` |
+
+Read `minStake()` on-chain before vanilla staking. Extra ETH in that tx is a slash buffer, not prepaid capacity. Hoodi vanilla is whitelisted (mainnet whitelist coming).
+
+Prerequisites that are not the skill's job (vault registration, AVS operator registration, EigenLayer delegation) stay on the path pages. If a revert says the vault or operator is missing, the skill names that step so you can ping Primev with the exact address.
+
+## Opt out
+
+- Vanilla: `unstake`, wait `unstakePeriodBlocks`, then `withdraw`
+- EigenLayer: `requestValidatorsDeregistration`, wait, then `deregisterValidators`
+- Symbiotic: `requestValDeregistrations`, wait, then `deregisterValidators`
+
+## On-chain stake
+
+Ask the skill for your total ETH stake. It sums beacon effective balances (beacon node or beaconcha.in; a `BEACONCHAIN_API_KEY` is fine) plus VanillaRegistry `getStakedAmount` and real EigenLayer / Symbiotic collateral. It will not use `32 ETH × key count`.
+
+## Manual calls
+
+Path pages still document `cast` / Foundry for operators who do not want an agent:
+
+- [Vanilla](/v1.2.x/get-started/validators/vanilla)
+- [EigenLayer](/v1.2.x/get-started/validators/eigenlayer)
+- [Symbiotic](/v1.2.x/get-started/validators/symbiotic)

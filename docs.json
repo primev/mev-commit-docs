@@ -37,6 +37,7 @@
                     "icon": "list-check",
                     "pages": [
                       "v1.2.x/get-started/validators/validator-guide",
+                      "v1.2.x/get-started/validators/agentic-opt-in",
                       "v1.2.x/get-started/validators/eigenlayer",
                       "v1.2.x/get-started/validators/symbiotic",
                       "v1.2.x/get-started/validators/vanilla",

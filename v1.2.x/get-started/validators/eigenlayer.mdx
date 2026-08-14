@@ -32,6 +32,10 @@ If an Operator is registering pubkeys on behalf of validators, it's expected tha
 
 Following operator delegation, each validator pubkey must be *registered* with the mev-commit AVS from the delegated operator's account, or from the pod owner account. This action confirms a validator's attestation to follow the relay selection rule mentioned in the [Validator Guide](/v1.2.x/get-started/validators/validator-guide#requirements).
 
-Pubkey registration is facilitated through the [mainnet](https://validators.mev-commit.xyz/dashboard) or [hoodi](https://hoodi.validators.mev-commit.xyz/dashboard) validator dashboard interface to the `MevCommitAVS.registerValidatorsByPodOwners` function.
+<Info>
+The validator dashboard is deprecated. Pubkey registration is done with the [mev-commit-opt-in skill](/v1.2.x/get-started/validators/agentic-opt-in), which calls `MevCommitAVS.registerValidatorsByPodOwners`.
+</Info>
+
+Pubkey registration is facilitated through the [agentic skill](/v1.2.x/get-started/validators/agentic-opt-in) (or a direct `cast send` to the same function).
 
 The connected metamask account (who is invoking the pubkey registration transaction) must be the delegated operator, or pod owner, of the validator pubkeys that are being registered.
