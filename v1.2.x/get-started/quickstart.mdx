@@ -43,12 +43,20 @@ Full method detail lives on the [agentic opt-in](/v1.2.x/get-started/validators/
 
     The agent uses **your** Ethereum RPC and wallet. It simulates, sends, waits for the receipt, then checks `ValidatorOptInHub`.
 
+    Then finish the steps in [Complete the registry](/v1.2.x/get-started/validators/agentic-opt-in#complete-the-registry). Do not stop after the send.
+  </Step>
+
+  <Step title="Confirm the registry">
+    After the receipt, the agent must call Hub `areValidatorsOptedIn` on the full set.
+
+    Success is every key `true`, plus a report of method, key count, tx hash, and an Etherscan or Hoodi link. If any key is `false`, treat the job as unfinished.
+
     Then ask: `Are these pubkeys opted in, and what is my total on-chain ETH stake?`
   </Step>
 </Steps>
 
 <Check>
-  Hub `true` on each key means you are opted in. Keep your existing relay set.
+  Hub `true` on each key means registration succeeded. Keep your existing relay set.
 </Check>
 
 Path pages if you want `cast` instead of an agent: [vanilla](/v1.2.x/get-started/validators/vanilla), [EigenLayer](/v1.2.x/get-started/validators/eigenlayer), [Symbiotic](/v1.2.x/get-started/validators/symbiotic).

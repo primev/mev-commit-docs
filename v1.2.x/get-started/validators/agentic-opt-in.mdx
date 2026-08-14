@@ -36,6 +36,23 @@ Any mev-boost relay set is fine. There is no relay configuration step.
 
 Source: [github.com/primev/claude-plugin](https://github.com/primev/claude-plugin)
 
+## Complete the registry
+
+Skill install is not registration. Walk this list to a Hub-true result. Agents should execute it in order and ask before every write.
+
+1. **Pick one method.** Vanilla, EigenLayer, or Symbiotic. One pubkey, one method. Do not double-register.
+2. **Parse keys.** Accept `.txt`, `.csv`, paste, commas, or newlines. Normalize to `0x` + 96 hex. Confirm count and first/last pubkey with the operator.
+3. **Confirm signer and RPC.** Use their `ETH_RPC_URL` (mainnet chain id 1, or Hoodi 560048). Wallet is Foundry keystore, hardware, or `PRIVATE_KEY` only if they insist. Never print a private key.
+4. **Prerequisites.**
+   - Vanilla: read `minStake()`. `msg.value` is split evenly. Extra ETH is a slash buffer. Hoodi vanilla is whitelisted. Mainnet whitelist is coming.
+   - EigenLayer: caller is the pod owner or the delegated AVS operator. Function name is plural: `registerValidatorsByPodOwners`.
+   - Symbiotic: vault and operator must already be registered. If not, stop and name the gap.
+5. **Simulate, then send.** Batch 40 to 60 keys. Wait for the receipt. A receipt is not opted in.
+6. **Verify on the Hub.** `ValidatorOptInHub.areValidatorsOptedIn(bytes[])` at `0x1059155bD5854224bF58e43CD3EEC6B07b4F30Ad`. Every key must be `true`.
+7. **Report.** Method, key count, tx hash, Etherscan or Hoodi link, Hub booleans, next step. For stake, sum real on-chain balances. Never `32 ETH × key count`.
+
+If a write reverts, name the contract, function, revert, and the address or pubkey that failed. If the vault or operator is missing, tell them to ping Primev with that address.
+
 ## What to say
 
 After install:
