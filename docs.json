@@ -23,15 +23,6 @@
                   "v1.2.x/get-started/quickstart",
                   "v1.2.x/get-started/fast-swaps",
                   "v1.2.x/get-started/fastrpc",
-                  "v1.2.x/get-started/explorer",
-                  {
-                    "group": "Bridge",
-                    "icon": "bridge",
-                    "pages": [
-                      "v1.2.x/get-started/bridge/bridge",
-                      "v1.2.x/get-started/bridge/bridge-cli"
-                    ]
-                  },
                   {
                     "group": "Validators",
                     "icon": "list-check",
@@ -45,25 +36,6 @@
                       "v1.2.x/get-started/validators/rocketpool",
                       "v1.2.x/get-started/validators/rewards"
                     ]
-                  },
-                  {
-                    "group": "Bidders",
-                    "icon": "user-bounty-hunter",
-                    "pages": [
-                      "v1.2.x/get-started/bidders/best-practices",
-                      "v1.2.x/get-started/bidders/bidder-node-commands",
-                      "v1.2.x/get-started/bidders/bidder-cli"
-                    ]
-                  },
-                  {
-                    "group": "Providers",
-                    "icon": "network-wired",
-                    "pages": [
-                      "v1.2.x/get-started/providers/registering-a-provider",
-                      "v1.2.x/get-started/providers/consuming-bids",
-                      "v1.2.x/get-started/providers/sending-commitments",
-                      "v1.2.x/get-started/providers/withdraw"
-                    ]
                   }
                 ]
               },
@@ -71,10 +43,51 @@
                 "group": "Concepts",
                 "pages": [
                   {
-                    "group": "Fast Protocol",
+                    "group": "Products",
                     "pages": [
-                      "v1.2.x/concepts/fast-protocol",
-                      "v1.2.x/concepts/fast-swaps"
+                      {
+                        "group": "Fast Protocol",
+                        "pages": [
+                          "v1.2.x/concepts/fast-protocol",
+                          "v1.2.x/concepts/fast-swaps"
+                        ]
+                      },
+                      {
+                        "group": "mev-commit chain and p2p",
+                        "pages": [
+                          "v1.2.x/get-started/explorer",
+                          "v1.2.x/concepts/mev-commit-chain/chain-details",
+                          "v1.2.x/concepts/mev-commit-chain/differences-between-ethereum-and-mev-commit-chain",
+                          "v1.2.x/concepts/mev-commit-chain/bridging-details",
+                          {
+                            "group": "Bridge",
+                            "icon": "bridge",
+                            "pages": [
+                              "v1.2.x/get-started/bridge/bridge",
+                              "v1.2.x/get-started/bridge/bridge-cli"
+                            ]
+                          },
+                          {
+                            "group": "Bidders",
+                            "icon": "user-bounty-hunter",
+                            "pages": [
+                              "v1.2.x/get-started/bidders/best-practices",
+                              "v1.2.x/get-started/bidders/bidder-node-commands",
+                              "v1.2.x/get-started/bidders/bidder-cli"
+                            ]
+                          },
+                          {
+                            "group": "Providers",
+                            "icon": "network-wired",
+                            "pages": [
+                              "v1.2.x/get-started/providers/registering-a-provider",
+                              "v1.2.x/get-started/providers/consuming-bids",
+                              "v1.2.x/get-started/providers/sending-commitments",
+                              "v1.2.x/get-started/providers/withdraw"
+                            ]
+                          }
+                        ]
+                      }
                     ]
                   },
                   {
@@ -94,14 +107,6 @@
                       "v1.2.x/concepts/bids/reverting-txns",
                       "v1.2.x/concepts/bids/bidder-deposit",
                       "v1.2.x/concepts/bids/bid-decay-mechanism"
-                    ]
-                  },
-                  {
-                    "group": "Mev-commit Chain",
-                    "pages": [
-                      "v1.2.x/concepts/mev-commit-chain/chain-details",
-                      "v1.2.x/concepts/mev-commit-chain/differences-between-ethereum-and-mev-commit-chain",
-                      "v1.2.x/concepts/mev-commit-chain/bridging-details"
                     ]
                   },
                   "v1.2.x/concepts/privacy",
