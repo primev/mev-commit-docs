@@ -1,126 +1,43 @@
 ---
-title: Welcome to Primev
+title: mev-commit validator registry
 sidebarTitle: Welcome to Primev
-description: "Opt Ethereum validators into mev-commit with the mev-commit-opt-in skill. Fast Protocol products sit on top of that network."
+description: "Register Ethereum validator keys into the mev-commit validator registry with the mev-commit-opt-in skill."
 mode: "wide"
 icon: "sailboat"
 ---
 
-import {
-  QuickStartCard,
-  CardDescription,
-  Separator,
-  CardContent,
-  QuickStartCardFooter,
-} from "/snippets/quick-start-card.mdx";
-
-The first thing most operators do here is **opt validator keys into mev-commit**. That is agentic now: Claude, ChatGPT, or Grok, from [primev.xyz/ai](https://primev.xyz/ai). The old dashboard is deprecated. Any mev-boost relay set is fine.
+This is the **mev-commit validator registry**. Operators register L1 BLS pubkeys so their slots participate in mev-commit. Registration is agentic: Claude, ChatGPT, or Grok, from [primev.xyz/ai](https://primev.xyz/ai). The old dashboard is deprecated. Any mev-boost relay set is fine.
 
 <CardGroup cols={2}>
-  <Card title="Quickstart: opt in" icon="bolt" href="/v1.2.x/get-started/quickstart">
-    Install the skill, paste your keys, and register on-chain.
+  <Card title="Quickstart" icon="bolt" href="/v1.2.x/get-started/quickstart">
+    Install the skill, then finish registration until Hub returns true.
   </Card>
-  <Card title="Agentic opt-in guide" icon="book-open" href="/v1.2.x/get-started/validators/agentic-opt-in">
-    Vanilla, EigenLayer, and Symbiotic methods, Hub verify, opt out.
+  <Card title="Agentic opt-in" icon="book-open" href="/v1.2.x/get-started/validators/agentic-opt-in">
+    Vanilla, EigenLayer, and Symbiotic. What to say after install.
   </Card>
 </CardGroup>
 
-Primev also builds **Fast Protocol** on top of mev-commit: preconfirmed swaps, a drop-in Ethereum RPC, and agent payments.
+### For agents
 
-### Products
+If you are an agent reading this page, your job is to register the operator's keys on one registry, then prove it on the Hub. Do not stop at skill install.
 
-| Product | What it does | Link |
+1. Load [mev-commit-opt-in](https://primev.xyz/skills/mev-commit-opt-in.md) or the Primev plugin.
+2. Take their pubkey file, RPC, and wallet.
+3. Follow [Complete the registry](/v1.2.x/get-started/validators/agentic-opt-in#complete-the-registry) until every key is Hub `true`.
+4. Report method, key count, tx hash, explorer link, and Hub booleans.
+
+One pubkey, one method. Never `32 ETH × key count` for stake.
+
+### Registries
+
+| Method | Contract | Function |
 | --- | --- | --- |
-| **mev-commit** | Validator opt-in and the preconfirmation protocol | [primev.xyz/ai](https://primev.xyz/ai) |
-| **Fast Swaps** | Token swaps on Ethereum with mev rewards | [Launch](https://fastprotocol.io) |
-| **FAST RPC** | Drop-in Ethereum RPC with preconfirmations | [Setup](/v1.2.x/get-started/fastrpc) |
-| **Fastx402** | x402 facilitator for AI agents, USDC on mainnet | [Docs](/v1.2.x/developers/fastx402) |
+| Vanilla | VanillaRegistry `0x47afdcB2B089C16CEe354811EA1Bbe0DB7c335E9` | `stake(bytes[])` payable |
+| EigenLayer | MevCommitAVS `0xBc77233855e3274E1903771675Eb71E602D9DC2e` | `registerValidatorsByPodOwners(bytes[][], address[])` |
+| Symbiotic | MevCommitMiddleware `0x21fD239311B050bbeE7F32850d99ADc224761382` | `registerValidators(bytes[][], address[])` |
 
-### Network roles
+Hub (source of opted-in): ValidatorOptInHub `0x1059155bD5854224bF58e43CD3EEC6B07b4F30Ad`
 
-<CardGroup cols={3}>
+Contract-level pages: [vanilla](/v1.2.x/get-started/validators/vanilla), [EigenLayer](/v1.2.x/get-started/validators/eigenlayer), [Symbiotic](/v1.2.x/get-started/validators/symbiotic). Requirements: [validator guide](/v1.2.x/get-started/validators/validator-guide). Why: [why opt in](/v1.2.x/knowledge-base/why-should-validators-opt-in).
 
-    <QuickStartCard title="Validators" icon="ethereum">
-        <CardDescription>
-            L1 Ethereum validators
-        </CardDescription>
-
-        <Separator />
-
-        <CardContent>
-            Opt keys in with the skill. No sidecar. Keep your existing relay set.
-        </CardContent>
-
-        <QuickStartCardFooter>
-            <p>• [Quickstart](/v1.2.x/get-started/quickstart)</p>
-            <p>• [Agentic opt-in](/v1.2.x/get-started/validators/agentic-opt-in)</p>
-            <p>• [Why opt in](/v1.2.x/knowledge-base/why-should-validators-opt-in)</p>
-            <p>• [Validator guide](/v1.2.x/get-started/validators/validator-guide)</p>
-        </QuickStartCardFooter>
-    </QuickStartCard>
-
-    <QuickStartCard title="Bidders" icon="user-bounty-hunter" >
-        <CardDescription>
-            Searchers, solvers, market makers
-        </CardDescription>
-
-        <Separator />
-
-        <CardContent>
-            Run a bidder node on the mev-commit p2p network and send bids.
-        </CardContent>
-
-        <QuickStartCardFooter>
-            <p>• [Best practices](/v1.2.x/get-started/bidders/best-practices)</p>
-            <p>• [Node commands](/v1.2.x/get-started/bidders/bidder-node-commands)</p>
-            <p>• [Bid structure](/v1.2.x/concepts/bids/bid-structure)</p>
-        </QuickStartCardFooter>
-    </QuickStartCard>
-
-    <QuickStartCard title="Providers" icon="network-wired">
-        <CardDescription>
-            Block builders, relays, sequencers
-        </CardDescription>
-
-        <Separator />
-
-        <CardContent>
-            Register as a provider and issue commitments on the p2p network.
-        </CardContent>
-
-        <QuickStartCardFooter>
-            <p>• [Register](/v1.2.x/get-started/providers/registering-a-provider)</p>
-            <p>• [Consuming bids](/v1.2.x/get-started/providers/consuming-bids)</p>
-            <p>• [Sending commitments](/v1.2.x/get-started/providers/sending-commitments)</p>
-        </QuickStartCardFooter>
-    </QuickStartCard>
-
-</CardGroup>
-
----
-
-### Frequently asked
-
-<CardGroup cols={3}>
-  <Card title="Why should validators opt in?" icon="circle-question" href="/v1.2.x/knowledge-base/why-should-validators-opt-in">
-    Incentive model for validators
-  </Card>
-  <Card title="What is Fast Protocol?" icon="circle-question" href="/v1.2.x/knowledge-base/what-is-fast-protocol">
-    Swaps, FAST RPC, and agent payments
-  </Card>
-  <Card title="What is mev-commit?" icon="circle-question" href="/v1.2.x/concepts/mev-commit-intro/what-is-mev-commit">
-    The preconfirmation protocol
-  </Card>
-</CardGroup>
-
----
-
-## About Primev
-
-Our mission at Primev is to solve coordination inefficiencies in decentralized domains additively to mev, driving network welfare and increase transparency and decentralization of the mev pipeline.
-
-### Engage with us
-
-- **X**: [primev_xyz](https://x.com/primev_xyz)
-- **Github**: [github.com/primev](https://github.com/primev)
-- **Mirror**: [mirror.xyz/preconf.eth](https://mirror.xyz/preconf.eth)
+Fast Protocol (swaps, FAST RPC, x402) is documented under [Concepts > Products](/v1.2.x/concepts/fast-protocol). Bidder and provider nodes are under [mev-commit chain and p2p](/v1.2.x/get-started/bidders/best-practices).

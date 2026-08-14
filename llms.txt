@@ -107,8 +107,8 @@ The old validator dashboard is deprecated. Fast Protocol remains a product at ht
 ## Documentation Sections
 
 - [Agentic Opt-In](https://docs.primev.xyz/v1.2.x/get-started/validators/agentic-opt-in): Validator opt-in skill
-- [Welcome](https://docs.primev.xyz/v1.2.x/get-started/welcome-to-primev): Validator opt-in first, then Fast Protocol products
-- [Quickstart](https://docs.primev.xyz/v1.2.x/get-started/quickstart): Install the mev-commit-opt-in skill and register keys
+- [Welcome](https://docs.primev.xyz/v1.2.x/get-started/welcome-to-primev): mev-commit validator registry for agents
+- [Quickstart](https://docs.primev.xyz/v1.2.x/get-started/quickstart): Install the skill, then finish Hub verification
 - [FAST RPC Guide](https://docs.primev.xyz/v1.2.x/get-started/fastrpc): How to use FAST RPC
 - [Fast Swaps Guide](https://docs.primev.xyz/v1.2.x/get-started/fast-swaps): How to perform swaps
 - [FAST RPC API](https://docs.primev.xyz/v1.2.x/developers/fast-rpc-api): Full API reference for FAST RPC methods
