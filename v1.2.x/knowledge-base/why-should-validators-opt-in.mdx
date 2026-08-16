@@ -1,34 +1,35 @@
 ---
-title: "Why Should Validators Opt In to Fast Protocol?"
+title: "Why Should Validators Opt In?"
 sidebarTitle: "Why Opt In?"
-description: "Understanding why opting in to Fast Protocol is rational and profitable for validators."
+description: "Opt-in is coalition membership: one signal across many keys, policy work, and a later fee that funds Ethereum AI research."
 ---
 
-Fast Protocol is designed so that **opting in is rational and strictly profitable** for validators. This page explains the incentive model and what validators gain.
+Opt-in adds your L1 BLS keys to the **mev-commit validator coalition**. That is the reason to join. It is not extra block revenue from a live commitment market.
 
-## What Opted-In Validators Earn
+## What you join
 
-| Validator Type | Approx. mev Capture | Reason |
-| -------------- | ------------------- | ------ |
-| **Opted-In** | ~95% of FAST RPC mev | Full backrun mev + residual |
-| **Not Opted-In** | ~5% of FAST RPC mev | Similar to mev Blocker |
+The coalition is a validator union that is mev-forward and innovation-forward. Hub-true keys produce **one signal** for a large number of validators. That roster is what the coalition uses when it:
 
-Opted-in validators enjoy approximately **20x higher mev capture** on FAST RPC flows compared to non-opted-in validators.
+- Frames policy with the Ethereum Foundation and Ethereum working groups, aimed at validator interest and durable yield
+- Reviews and greenlights innovation as the protocol evolves
+- Speaks as a set of keys, not as one operator
 
-## Where the Value Comes From
+Keep your existing mev-boost relay set. There is no sidecar and no relay configuration step.
 
-Opted-in validators gain from three sources:
+## What you do not get today
 
-1. **Backrun-captured mev** from FAST RPC bundles routed to their blocks
-2. **Their share of traditional builder-to-validator mev** (unaffected by opting in)
-3. **Competitive advantage** in attracting order flow — searchers and builders prefer blocks where their bundles will be honored
+You do not earn extra producer rewards from mev-commit bids today. Do not treat Hub-true as a claim on a running preconf network. The [RewardDistributor](/v1.2.x/get-started/validators/rewards) on Hoodi is test plumbing, not mainnet yield.
 
-## When Is Opting In Profitable?
+## Fees and AI research (not enabled)
 
-Opting in is designed to be strictly profitable for validators. In future protocol versions, opted-in validators may pay a dynamic fee taken from the producer reward of their opt-in blocks. This fee is bounded so that it never exceeds the additional value an opted-in validator receives from mev-commit — opting in remains net-positive by design.
+**No fees are enabled at this stage.** There is no fee switch without your approval. Members must actively approve any coalition fee before it starts.
 
-No fee is taken today.
+When a fee is approved and enabled, it funds **AI research** on Ethereum clients, validators, staking, and yield policy. That work can fund researchers directly, join funding rounds, and run R&D in house. The intended path is a small share of Ethereum validator yield (about 1%).
 
-## How to Opt In
+The entity can be a **nonprofit**.
 
-Validators can opt in with the [mev-commit-opt-in skill](/v1.2.x/get-started/validators/agentic-opt-in) from [primev.xyz/ai](https://primev.xyz/ai). See the [Validator Guide](/v1.2.x/get-started/validators/validator-guide) for requirements, or the [EigenLayer](/v1.2.x/get-started/validators/eigenlayer), [Symbiotic](/v1.2.x/get-started/validators/symbiotic), and [vanilla](/v1.2.x/get-started/validators/vanilla) pages for contract details. The old validator dashboard is deprecated.
+**Founding members** are granted tokens in proportion to their contributions, sized so token value matches or exceeds fees they contribute. The token is the right to **create proposals** for holders to accept. Token grants are not live.
+
+## How to opt in
+
+Use the [mev-commit-opt-in skill](/v1.2.x/get-started/validators/agentic-opt-in) from [primev.xyz/ai](https://primev.xyz/ai). See the [Validator Guide](/v1.2.x/get-started/validators/validator-guide) for requirements, or the [EigenLayer](/v1.2.x/get-started/validators/eigenlayer), [Symbiotic](/v1.2.x/get-started/validators/symbiotic), and [vanilla](/v1.2.x/get-started/validators/vanilla) pages for contract details. The old validator dashboard is deprecated.

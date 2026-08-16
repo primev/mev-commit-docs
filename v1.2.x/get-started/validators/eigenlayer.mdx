@@ -26,11 +26,11 @@ The [Primev Operator](https://app.eigenlayer.xyz/operator/0xEde6F5F1Bf064a7Ee002
 
 Operators serve the purpose of (optionally) being able to register natively restaked validator pubkeys with the mev-commit AVS. Only the operator that a validator specifically delegates to, and a validator's pod owner, are given validator pubkey registration permissions.
 
-If an Operator is registering pubkeys on behalf of validators, it's expected that the Operator manages those validators itself, or represents the validators to an extent that the Operator can realistically attest to the validator following the rules of mev-commit (staking-as-a-service providers for example). This trustful relationship between validators and their delegated Operator piggybacks off already agreed upon trust assumptions with eigenlayer delegation.
+If an Operator is registering pubkeys on behalf of validators, it should manage those validators itself, or represent them well enough to register them into the coalition (staking-as-a-service providers for example). This trustful relationship between validators and their delegated Operator piggybacks off already agreed upon trust assumptions with eigenlayer delegation.
 
 ## Pubkey Registration
 
-Following operator delegation, each validator pubkey must be *registered* with the mev-commit AVS from the delegated operator's account, or from the pod owner account. This action confirms a validator's attestation to follow the relay selection rule mentioned in the [Validator Guide](/v1.2.x/get-started/validators/validator-guide#requirements).
+Following operator delegation, each validator pubkey must be *registered* with the mev-commit AVS from the delegated operator's account, or from the pod owner account. This action adds those pubkeys to the [mev-commit validator coalition](/v1.2.x/knowledge-base/why-should-validators-opt-in). Any mev-boost relay set is fine.
 
 <Info>
 The validator dashboard is deprecated. Pubkey registration is done with the [mev-commit-opt-in skill](/v1.2.x/get-started/validators/agentic-opt-in), which calls `MevCommitAVS.registerValidatorsByPodOwners`.
