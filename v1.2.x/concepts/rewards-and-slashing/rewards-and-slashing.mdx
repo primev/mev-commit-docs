@@ -3,27 +3,25 @@ title: "Rewards and Slashing"
 sidebarTitle: Rewards and Slashing
 ---
 
-The providers and validators that opt-in to the mev-commit protocol are incentivized to act honestly and follow the protocol. This honest behavior is enforced by a reward and slashing mechanism. Both the providers and the validators are required to stake or restake a certain amount of tokens to participate in the mev-commit protocol. The mechanism is designed to reward providers for fulfilling their commitments and to penalize them for breaking them. It also disincentivizes providers from issuing commitments that they cannot fulfill.
+Validator opt-in is membership in the [mev-commit validator coalition](/v1.2.x/knowledge-base/why-should-validators-opt-in). Stake or restake is collateral for that roster, not a ticket to extra block revenue today.
 
-Validators have three methods to opt-in to mev-commit, as described in the [validators section](/v1.2.x/get-started/validators). Staking (or restaking) signals validator participation in the mev-commit commitment market and aligns incentives with honest behavior. The primary slashing surface in mev-commit is on the provider (block builder) side — providers are penalized for breaking commitments they issued. Validators are not penalized for the builder their relay happens to select. Next, we discuss the rewards and slashing mechanisms for validators and providers in more detail.
+Historical bidder and provider pages still describe a commitment market on the mev-commit chain. That is not why L1 validators opt in now, and it is not a live extra yield stream for proposers.
+
+The sections below keep provider slashing notes for that older path, and the validator slashing notes (validators are not slashed for relay choice). Validator "rewards" are coalition membership, later fees, and founding-member tokens. See [Why should validators opt in](/v1.2.x/knowledge-base/why-should-validators-opt-in).
 
 <Tip>The risk of getting slashed is very low for validators, unless they intentionally behave dishonestly. This has been confirmed by an [independent report on the risk/reward profile of mev-commit by Chaos Labs](https://governance.ether.fi/t/primev-symbiotic-risk-analysis/).</Tip>
 
 ## Validators/Proposers
-A validator that opts into mev-commit signals participation in the mev-commit commitment market. Opted-in validators receive higher-value blocks whenever mev-commit bids are present in their slot. There is no requirement to restrict block selection to registered providers — validators may continue using their existing relay set unchanged.
+A validator that opts into mev-commit adds keys to the coalition roster (Hub-true). Keep your existing relay set. Opt-in does not pay extra producer rewards from mev-commit bids today.
 
-### Rewards
-There are two categories of rewards for validators opting in to mev-commit:
-1. Increased yield
-2. [Points](/v1.2.x/concepts/rewards-and-slashing/points)
+### What membership is
+1. One signal across many keys, used for policy and innovation review
+2. Later coalition fees (a step toward about 1% of validator yield) that fund Ethereum AI research
+3. Founding-member tokens, sized to match or exceed fees contributed, used to create proposals for holders to accept
 
-The main reward for proposers opting in to mev-commit is increased yield by proposing a more valuable block, paid through the mev-boost auction. Upon proposing a block while opted-in to mev-commit, a proposer will receive all bid related value in the mev-commit network that is surfaced by the mev-boost auction embedded in the block they propose. In other words, proposers passively receive rewards from mev-commit by proposing more valuable blocks that include increased value from mev-commit bids. A proposer will almost always propose a more valuable block using mev-commit than without while mev-commit bids are present for its slot.
+Fees and token grants are not live. An older [points](/v1.2.x/concepts/rewards-and-slashing/points) writeup exists; do not treat it as extra bid yield.
 
-Using an example of a block worth 1 ETH and mev-commit bids worth 0.1 ETH, the diagram below depicts Validator Rewards with and without mev-commit:
-
-![Validator Rewards](/v1.2.x/images/validator-rewards.png)
-
-<Note>An important observation here is that proposers opting in increases the credibility of the preconfs and consequently their value. Due to the increased preconf values, the providers have additional value to bid in the mev-boost auction, thus driving up the total revenue a proposer will get.</Note>
+<Note>Do not use the old "higher-value blocks from mev-commit bids" story when talking to operators. That is not the current reason to opt in.</Note>
 
 ### Slashing
 Validators are **not expected to be slashed** on mev-commit. Providers (block builders) are the primary decision makers liable for slashing — they are accountable for honoring the commitments they issued. Validators are not penalized for missed blocks, self-built blocks, or for the builder their relay happened to select.

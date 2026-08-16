@@ -1,12 +1,14 @@
 ---
 title: Validator Guide
 sidebarTitle: Validator Guide
-description: 'Opt into mev-commit with ease. This guide covers everything you need to passively opt-in to mev-commit as an L1 validator.'
+description: 'Join the mev-commit validator coalition. This guide covers what you need to opt in as an L1 validator.'
 ---
 
 ## Why Participate?
 
-Participation of L1 validators in the mev-commit protocol increases the credibility of preconfs made through mev-commit and consequently their value. Due to increased preconf values, providers have additional value to bid in the mev-boost auction, thus driving up the total revenue a proposer will get.
+Opt-in adds your L1 keys to the **mev-commit validator coalition**. The coalition is a single signal across a large key set: mev-forward, innovation-forward, and active in Ethereum policy (EF and related groups) on clients, staking, validators, and yield.
+
+It is not a live payout from a commitment market. You keep your existing relay set. Future coalition fees, including a step toward directing about 1% of validator yield, fund AI research on Ethereum. Founding members are granted tokens in proportion to their contributions. Details: [Why should validators opt in](/v1.2.x/knowledge-base/why-should-validators-opt-in).
 
 ## Requirements
 
@@ -18,10 +20,10 @@ Participation of L1 validators in the mev-commit protocol increases the credibil
 As an opted-in validator, you can keep your existing mev-boost relay set unchanged. mev-commit no longer requires opted-in proposers to receive blocks only from registered providers — relays forward bids from any builder.
 </Note>
 
-By opting in to mev-commit as a validator **in one of the three forms described**, you participate in the mev-commit commitment market. Registered providers (block builders) are accountable for honoring the preconfirmations they issue and can be slashed for breaking them. Opted-in validators receive higher-value blocks whenever mev-commit bids are present in their slot, with no change required to their existing relay configuration.
+By opting in **in one of the three forms described**, you add keys to the coalition roster (Hub-true). Keep your existing relay configuration. Historical bidder and provider node docs are under [mev-commit chain and p2p](/v1.2.x/get-started/bidders/best-practices) and are not the reason to opt in.
 
 <Note>
-**Forthcoming protocol fee.** A future protocol upgrade will introduce a small dynamic fee on the producer reward of opt-in blocks, taken at the rewards contract layer. The fee is bounded so it never exceeds the additional value an opted-in validator receives from mev-commit — opting in remains net-positive by design. No fee is taken today; details and activation timing will be published before the mechanism goes live.
+**Forthcoming coalition fee.** A later upgrade may take a small fee from opted-in validator yield (a step toward about 1%) and send it to coalition work: AI research on Ethereum clients, validators, staking, and yield policy. Founding members are granted tokens sized to match or exceed fees they contribute. The token is the right to create proposals for holders to accept. No fee is taken today. Timing will be published before anything goes live.
 </Note>
 
 <Note>
@@ -67,5 +69,5 @@ To query the on-chain parameters of any registry (on mainnet or Hoodi), run an e
 ## Learn More
 
 <Card title="Why Should Validators Opt In?" icon="circle-question" href="/v1.2.x/knowledge-base/why-should-validators-opt-in" horizontal>
-  FAQ on the incentive model and what validators earn by opting in.
+  Coalition, policy, future fees, AI research, and founding-member tokens.
 </Card>

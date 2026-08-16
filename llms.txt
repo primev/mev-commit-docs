@@ -1,8 +1,8 @@
 # Primev Documentation
 
-> Complete technical documentation for mev-commit, Fast Protocol, FAST RPC, and Fastx402 — Ethereum infrastructure for preconfirmations, instant swaps, and agentic payments.
+> Technical documentation for the mev-commit validator coalition, Fast Protocol, FAST RPC, and Fastx402.
 
-Primev builds core infrastructure for Ethereum's mev supply chain. The mev-commit protocol enables peer-to-peer preconfirmation commitments between bidders and block builders, providing sub-second transaction guarantees on Ethereum mainnet.
+Validator opt-in is coalition membership: one on-chain signal across many L1 keys. It is not extra block revenue from a live commitment market. Fast Protocol, FAST RPC, and Fastx402 stay product docs under Concepts > Products.
 
 ## Products
 
@@ -69,17 +69,18 @@ EIP-712 signing domain: `{"name":"Permit2","chainId":1,"verifyingContract":"0x00
 - mev-commit chain RPC: `https://chainrpc.mev-commit.xyz` (Chain ID: 57173)
 - mev-commit chain WebSocket: `wss://chainrpc-wss.mev-commit.xyz`
 - Bootnode: `https://bootnode.mev-commit.xyz`
-- Validator opt-in: `https://primev.xyz/ai` (skill: mev-commit-opt-in). Explorer at mev-commit.xyz is decommissioned.
+- Validator coalition opt-in: `https://primev.xyz/ai` (skill: mev-commit-opt-in). Explorer at mev-commit.xyz is decommissioned.
 - Testnet chain RPC: `https://chainrpc.testnet.mev-commit.xyz` (Chain ID: 17864)
 
 ### Validator Opt-In
 
-Validators can opt in via three methods:
-1. **EigenLayer restaking** — Native restaking through MevCommitAVS contract
-2. **Symbiotic restaking** — ERC20 vault staking through MevCommitMiddleware contract
-3. **Vanilla staking** — Direct ETH staking through VanillaRegistry contract
+Validators opt in via three methods. Hub-true keys are the coalition roster (one signal). This is not extra yield from FAST RPC or a live bid market.
+1. **EigenLayer restaking**: native restaking through MevCommitAVS
+2. **Symbiotic restaking**: ERC20 vault staking through MevCommitMiddleware
+3. **Vanilla staking**: direct ETH staking through VanillaRegistry
 
-Opted-in validators earn ~20x higher mev capture on FAST RPC flows vs non-opted-in.
+Why: https://docs.primev.xyz/v1.2.x/knowledge-base/why-should-validators-opt-in
+Later: coalition fees (a step toward about 1% of validator yield) fund Ethereum AI research. Founding members get tokens sized to match or exceed fees contributed. Token is proposal rights for holders. Fees and grants are not live.
 
 ## AI Agent Integration
 
@@ -107,7 +108,7 @@ The old validator dashboard is deprecated. Fast Protocol remains a product at ht
 ## Documentation Sections
 
 - [Agentic Opt-In](https://docs.primev.xyz/v1.2.x/get-started/validators/agentic-opt-in): Validator opt-in skill
-- [Welcome](https://docs.primev.xyz/v1.2.x/get-started/welcome-to-primev): mev-commit validator registry for agents
+- [Welcome](https://docs.primev.xyz/v1.2.x/get-started/welcome-to-primev): mev-commit validator coalition for agents
 - [Quickstart](https://docs.primev.xyz/v1.2.x/get-started/quickstart): Install the skill, then finish Hub verification
 - [FAST RPC Guide](https://docs.primev.xyz/v1.2.x/get-started/fastrpc): How to use FAST RPC
 - [Fast Swaps Guide](https://docs.primev.xyz/v1.2.x/get-started/fast-swaps): How to perform swaps

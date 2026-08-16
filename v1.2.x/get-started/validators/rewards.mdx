@@ -4,11 +4,11 @@ sidebarTitle: Rewards
 description: 'RewardDistributor Operator Guide'
 ---
 
-The `RewardDistributor` contract is used to **receive, track, and distribute additional ETH or token rewards** earned by operators with active validators.
+The `RewardDistributor` contract is **Hoodi test plumbing** for later coalition fees and token grants. It is not a mainnet payout for extra block revenue.
 
-When operators earn extra rewards (for example, from mev-commit participation or other incentive programs), those rewards are **granted to this contract** and then **claimed by operators to their specified fee recipients**.
+When a later fee or grant is sent on-chain, this contract can **track it per operator and recipient** so operators (or their delegates) can claim to the right addresses.
 
-> Rewards are granted on-chain to the `RewardDistributor`, tracked per operator and recipient, and later claimed by operators (or their delegates) to the correct payout addresses.
+Opt-in today is coalition membership. See [Why should validators opt in](/v1.2.x/knowledge-base/why-should-validators-opt-in). No mainnet fee is taken today.
 
 ## Contract Details
 
