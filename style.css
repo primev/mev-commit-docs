@@ -38,3 +38,12 @@ div.min-w-full > pre.language-shell {
 .inline-card-header > a > div {
   color: blue;
 } */
+
+/* Welcome: drop the large band between the subtitle and the first heading */
+#content.mdx-content[data-page-title="Welcome to Primev"] {
+  margin-top: 0.75rem;
+}
+
+#content.mdx-content[data-page-title="Welcome to Primev"] > h3:first-child {
+  margin-top: 0;
+}
