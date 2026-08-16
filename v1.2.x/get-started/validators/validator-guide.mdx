@@ -17,7 +17,7 @@ It is not a live payout from a commitment market. You keep your existing relay s
 3. 3 ETH worth of stake or restake per validator, or 1,000 ETH worth per operator entity.
 
 <Note>
-As an opted-in validator, you can keep your existing mev-boost relay set unchanged. mev-commit no longer requires opted-in proposers to receive blocks only from registered providers — relays forward bids from any builder.
+As an opted-in validator, you can keep your existing mev-boost relay set unchanged. There is no requirement to take blocks only from a registered provider set.
 </Note>
 
 By opting in **in one of the three forms described**, you add keys to the coalition roster (Hub-true). Keep your existing relay configuration. Historical bidder and provider node docs are under [mev-commit chain and p2p](/v1.2.x/get-started/bidders/best-practices) and are not the reason to opt in.
@@ -27,10 +27,10 @@ By opting in **in one of the three forms described**, you add keys to the coalit
 </Note>
 
 <Note>
-**Use any relay.** In preparation for ePBS, we've updated the mev-commit relay design. Opted-in validators can run any mev-boost relay set — there is no longer a curated list of "supporting relays" and no relay-side filtering of builder bids. Your existing mev-boost configuration works as-is.
+**Use any relay.** Opted-in validators can run any mev-boost relay set. There is no curated list of supporting relays. Your existing mev-boost configuration works as-is.
 </Note>
 
-Proposers who fallback to local block production, from either a fault in the mev-boost software or a lack of economically viable block bids, **will not be slashed**. See [flashbots docs](https://docs.flashbots.net/flashbots-mev-boost/architecture-overview/risks#liveness-and-local-fallback) for more on this scenario. The protocol may in the future slash for abuse of this local fallback mechanism.
+Proposers who fall back to local block production are **not slashed** for that. See [flashbots docs](https://docs.flashbots.net/flashbots-mev-boost/architecture-overview/risks#liveness-and-local-fallback).
 
 ## How to opt in
 
