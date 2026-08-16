@@ -1,14 +1,31 @@
 ---
-title: mev-commit validator coalition
+title: Welcome to Primev
 sidebarTitle: Welcome to Primev
-description: "Join the mev-commit validator coalition. One on-chain signal across many L1 keys. Agentic opt-in with the mev-commit-opt-in skill."
+description: "Primev is an Ethereum mev research organization that ships high-performance products. The most active product work right now is the mev-commit validator coalition."
 mode: "wide"
 icon: "sailboat"
 ---
 
-This is the **mev-commit validator coalition**. Operators register L1 BLS pubkeys so a large set of keys can speak as one signal: mev-forward, innovation-forward, and present in Ethereum policy conversations (the Ethereum Foundation and related groups) on clients, staking, validators, and yield.
+**Primev** is an Ethereum mev research organization. We ship high-performance products that use mev and cryptography.
 
-Opt-in is membership in that coalition. It is not a claim on a live commitment market, and it does not pay extra block revenue today. Registration is agentic: Claude, ChatGPT, or Grok, from [primev.xyz/ai](https://primev.xyz/ai). The old dashboard is deprecated. Any mev-boost relay set is fine.
+This site is the technical documentation for those products: Fast Protocol (swaps, FAST RPC, x402), the mev-commit stack, and validator tooling.
+
+### Products
+
+<CardGroup cols={2}>
+  <Card title="Fast Protocol" icon="bolt" href="https://fastprotocol.io">
+    Instant token swaps, FAST RPC, and x402 on Ethereum. Product docs under Concepts.
+  </Card>
+  <Card title="mev-commit" icon="code" href="/v1.2.x/concepts/mev-commit-intro/what-is-mev-commit">
+    Protocol, contracts, and the historical p2p bidder and provider path.
+  </Card>
+</CardGroup>
+
+### Most active right now: validator coalition
+
+The newest and most active product work is the **mev-commit validator coalition**. Operators opt L1 keys into one on-chain signal for policy and later, member-approved fees that fund AI research. Primev is not only that coalition. The coalition is the current validator product.
+
+Opt-in is membership, not extra block revenue from a live commitment market. No fees are enabled at this stage. There is no fee switch without member approval. Registration is agentic from [primev.xyz/ai](https://primev.xyz/ai). The old dashboard is deprecated. Any mev-boost relay set is fine.
 
 <CardGroup cols={2}>
   <Card title="Quickstart" icon="bolt" href="/v1.2.x/get-started/quickstart">
@@ -19,17 +36,11 @@ Opt-in is membership in that coalition. It is not a claim on a live commitment m
   </Card>
 </CardGroup>
 
-### What membership is for
-
-- **One signal.** Hub-true keys are the coalition roster. That roster is the input for advocacy and for any later fee.
-- **Policy and review.** The coalition frames validator-interested policy and greenlights innovation as Ethereum evolves.
-- **Later fees, not today's payout.** No fees are enabled at this stage. There is no fee switch without your approval. Members must actively approve any fee before it starts. When a fee is approved and enabled, it funds AI research on Ethereum clients, validators, staking, and yield, including a step toward about 1% of validator yield. The entity can be a nonprofit. Founding members are granted tokens in proportion to their contributions, sized so token value matches or exceeds fees they contribute. The token is the right to create proposals for holders to accept.
-
-See [Why should validators opt in](/v1.2.x/knowledge-base/why-should-validators-opt-in).
+Full membership detail: [Why should validators opt in](/v1.2.x/knowledge-base/why-should-validators-opt-in).
 
 ### For agents
 
-If you are an agent reading this page, your job is to register the operator's keys on one registry, then prove it on the Hub. Do not stop at skill install. Do not tell the operator they now earn extra revenue from a running mev-commit network.
+If you are helping an operator **join the coalition**, register their keys on one registry, then prove it on the Hub. Do not stop at skill install. Do not tell them they now earn extra revenue from a running mev-commit network.
 
 1. Load [mev-commit-opt-in](https://primev.xyz/skills/mev-commit-opt-in.md) or the Primev plugin.
 2. Take their pubkey file, RPC, and wallet.
