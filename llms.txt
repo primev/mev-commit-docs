@@ -80,7 +80,7 @@ Validators opt in via three methods. Hub-true keys are the coalition roster (one
 3. **Vanilla staking**: direct ETH staking through VanillaRegistry
 
 Why: https://docs.primev.xyz/v1.2.x/knowledge-base/why-should-validators-opt-in
-Later: coalition fees (a step toward about 1% of validator yield) fund Ethereum AI research. Founding members get tokens sized to match or exceed fees contributed. Token is proposal rights for holders. Fees and grants are not live.
+No fees are enabled at this stage. There is no fee switch without member approval. When a fee is approved and enabled, it funds Ethereum AI research (a step toward about 1% of validator yield). Founding members get tokens sized to match or exceed fees contributed. Token is proposal rights for holders.
 
 ## AI Agent Integration
 
