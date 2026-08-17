@@ -44,7 +44,7 @@ Skill install is not registration. Walk this list to a Hub-true result. Agents s
 
 1. **Pick one method.** Vanilla, EigenLayer, or Symbiotic. One pubkey, one method. Do not double-register.
 2. **Parse keys.** Accept `.txt`, `.csv`, paste, commas, or newlines. Normalize to `0x` + 96 hex. Confirm count and first/last pubkey with the operator.
-3. **Confirm signer and RPC.** Use their `ETH_RPC_URL` (mainnet chain id 1, or Hoodi 560048). Wallet is Foundry keystore, hardware, or `PRIVATE_KEY` only if they insist. Never print a private key.
+3. **Confirm signer and RPC.** Use their `ETH_RPC_URL` (mainnet chain id 1, or Hoodi 560048). Wallet is Foundry keystore, hardware, or `PRIVATE_KEY` only if they insist. Never print a private key. If the signer is a **Safe / multi-sig**, do not send from an owner key. Follow [Safe / multi-sig](#safe--multi-sig).
 4. **Prerequisites.**
    - Vanilla: read `minStake()`. `msg.value` is split evenly. Extra ETH is a slash buffer. Hoodi vanilla is whitelisted. Mainnet whitelist is coming.
    - EigenLayer: caller is the pod owner or the delegated AVS operator. Function name is plural: `registerValidatorsByPodOwners`.
@@ -63,6 +63,7 @@ After install:
 - "Register these keys on the EigenLayer AVS as this pod owner."
 - "Check whether these pubkeys are opted in, and sum my on-chain ETH stake."
 - "Unstake these vanilla keys and withdraw when the period is done."
+- "These keys should be opted in from our Gnosis Safe, not from an owner wallet."
 
 Upload a `.txt` or `.csv` of BLS pubkeys (`0x` + 96 hex, comma or newline separated). Batch 40 to 60 keys per transaction.
 
@@ -72,8 +73,8 @@ The skill follows the same registry calls the old dashboard used after a wallet 
 
 1. Choose a method: [vanilla](/v1.2.x/get-started/validators/vanilla), [EigenLayer](/v1.2.x/get-started/validators/eigenlayer), or [Symbiotic](/v1.2.x/get-started/validators/symbiotic).
 2. Parse your key file.
-3. Simulate, then send on **your** Ethereum RPC and wallet (Foundry keystore, hardware, or `PRIVATE_KEY` in the environment).
-4. Wait for the receipt, then verify `ValidatorOptInHub.areValidatorsOptedIn`.
+3. Simulate, then send on **your** Ethereum RPC and wallet (Foundry keystore, hardware, or `PRIVATE_KEY` in the environment). If the signer is a Safe, encode the call and propose it in Safe instead. See [Safe / multi-sig](#safe--multi-sig).
+4. Wait for the receipt (EOA) or Safe execution, then verify `ValidatorOptInHub.areValidatorsOptedIn`. Hub `true` is done. A receipt or Safe "Success" is not.
 
 Mainnet Hub: `0x1059155bD5854224bF58e43CD3EEC6B07b4F30Ad`
 
@@ -86,6 +87,22 @@ Mainnet Hub: `0x1059155bD5854224bF58e43CD3EEC6B07b4F30Ad`
 Read `minStake()` on-chain before vanilla staking. Extra ETH in that tx is a slash buffer, not prepaid capacity. Hoodi vanilla is whitelisted (mainnet whitelist coming).
 
 Prerequisites that are not the skill's job (vault registration, AVS operator registration, EigenLayer delegation) stay on the path pages. If a revert says the vault or operator is missing, the skill names that step so you can ping Primev with the exact address.
+
+## Safe / multi-sig
+
+A Gnosis Safe cannot sign with `cast send`. The registry records `msg.sender`. That must be the **Safe**, not one owner.
+
+The skill hand-holds this:
+
+1. Simulate the call `--from` the Safe. If it reverts, stop.
+2. Encode calldata (`cast calldata`).
+3. You open [app.safe.global](https://app.safe.global) on that Safe → New transaction → Transaction Builder. Paste **To** (registry), **Value** (vanilla ETH only), **Data** (the calldata). Operation is Call.
+4. Propose. Owners sign to threshold. Execute.
+5. Paste the L1 hash back, or say it executed.
+
+**How the agent knows it is complete:** it reads **ValidatorOptInHub** (`areValidatorsOptedIn` on your exact keys). That is the source of truth. If you give an L1 hash it also checks the receipt, then still checks the Hub. Safe UI "Success" or a receipt alone is not opted in.
+
+Never give the agent every owner key.
 
 ## Opt out
 
