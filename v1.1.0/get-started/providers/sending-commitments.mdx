@@ -3,7 +3,7 @@ title: Sending Commitments
 sidebarTitle: Sending Commitments
 ---
 
-To send your first commitment, you will need to connect to the mev-commit Testnet. This will allow you to consume bids incoming to the network and submit commitments. To do this, you'll want to run an emulator to simulate accepting and rejecting bids. 
+To send your first commitment, you will need to connect to the mev-commit network. This will allow you to consume bids incoming to the network and submit commitments. To do this, you'll want to run an emulator to simulate accepting and rejecting bids. 
 
 
 <Tip>You will want to connect to a decisioning system that will accept and reject bids based on custom criteria. You can read more about the API to open a gRPC stream [here](/v1.1.0/api-reference/provider/sendprocessedbids).</Tip>
@@ -154,3 +154,7 @@ func ...() {
 </Step>
 </Steps>
 This should help you integrate bid processing into your system, allowing you to receive bid information and send back processed bids as commitments.
+
+## Querying for Proposers
+
+For advanced decision making, it may be relevant whether the next proposer is opted into mev-commit or not. Information on the opted in validators can be obtained via the [Querying for Proposers API](/v1.1.0/get-started/bidders/bidder-node-commands#querying-for-proposers-api).
